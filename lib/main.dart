@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nodocs/widgets/navigation_box.dart';
+import 'package:nodocs/widgets/navigation_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    const bool darkMode = false;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -28,10 +31,38 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: darkMode ? const ColorScheme(
+          brightness: Brightness.dark,
+          primary: Color(0xFF111122),
+          onPrimary: Colors.white,
+          secondary: Color(0xFF061A40),
+          onSecondary: Colors.white,
+          tertiary: Color(0xFF006DAA),
+          onTertiary: Colors.white,
+          error: Colors.red,
+          onError: Colors.white,
+          surface: Color(0xFF111122),
+          onSurface: Colors.white,
+        ) : const ColorScheme(
+          brightness: Brightness.light,
+          primary: Color(0xFFB9D6F2),
+          onPrimary: Colors.black,
+          secondary: Color(0xFF0353A4),
+          onSecondary: Colors.white,
+          tertiary: Colors.white,
+          onTertiary: Colors.black,
+          error: Colors.red,
+          onError: Colors.white,
+          surface: Color(0xFFB9D6F2),
+          onSurface: Colors.black,
+        ),
+        buttonTheme: const ButtonThemeData(
+          height: 32,
+          minWidth: 64,
+        ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'NoDocs'),
     );
   }
 }
@@ -55,21 +86,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -81,10 +101,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: theme.colorScheme.primary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(widget.title, style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 17)),
+        centerTitle: true,
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -103,23 +124,17 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            NavigationBox(buttons: [
+                NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () {}),
+                NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
+                NavigationButton(buttonText: 'Settings', buttonIcon: Icons.settings_outlined, onPressed: () {}),
+              ]
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
