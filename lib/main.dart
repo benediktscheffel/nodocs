@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nodocs/widgets/collection_container.dart';
+import 'package:nodocs/widgets/collection_tile.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 
@@ -126,6 +128,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
+            CollectionContainer(collectionItems: [
+                CollectionTile(buttonIcon: Icons.folder_outlined, title: 'Folder 1', onPressed: () {}, onLongPress: () {},),
+                CollectionTile(buttonIcon: Icons.folder_outlined, title: 'Folder 2', onPressed: () {}, onLongPress: () {},),
+                CollectionTile(buttonIcon: Icons.picture_as_pdf_outlined, title: 'File 1', onPressed: () {}, onLongPress: () {},),
+                CollectionTile(buttonIcon: Icons.picture_as_pdf_outlined, title: 'File 2', onPressed: () {}, onLongPress: () {},),
+              ]
+            ),
             NavigationBox(buttons: [
                 NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () {}),
                 NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
