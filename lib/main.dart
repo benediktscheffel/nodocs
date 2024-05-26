@@ -130,10 +130,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             CollectionContainer(collectionItems: [
-                FolderCollectionTile(title: 'Folder 1', onPressed: () {}, onLongPress: () {},),
-                FolderCollectionTile(title: 'Folder 2', onPressed: () {}, onLongPress: () {},),
-                FileCollectionTile(title: 'File 1', onPressed: () {}, onLongPress: () {},),
-                FileCollectionTile(title: 'File 2', onPressed: () {}, onLongPress: () {},),
+                FolderCollectionTile(title: 'Folder 1', onPressed: () {}),
+                FolderCollectionTile(title: 'Folder 2', onPressed: () {}),
+                FileCollectionTile(title: 'File 1', onPressed: () {}),
+                FileCollectionTile(title: 'File 2', onPressed: () {}),
               ]
             ),
             const SearchBox(),
