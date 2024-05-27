@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
 import 'package:nodocs/widgets/collection_container.dart';
 import 'package:nodocs/widgets/collection_tile.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primary: Color(0xFF111122),
           onPrimary: Colors.white,
+          onPrimaryContainer: Color(0xFF0353A4),
           secondary: Color(0xFF061A40),
           onSecondary: Colors.white,
           tertiary: Color(0xFF006DAA),
@@ -50,6 +52,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primary: Color(0xFFB9D6F2),
           onPrimary: Colors.black,
+          onPrimaryContainer: Color(0xFF0353A4),
           secondary: Color(0xFF0353A4),
           onSecondary: Colors.white,
           tertiary: Colors.white,
@@ -138,11 +141,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SearchBox(),
             NavigationBox(buttons: [
+              NavigationButton(buttonText: 'Edit Tags', buttonIcon: Icons.edit_outlined, onPressed: () => showDialog<String>(context: context, builder: (BuildContext context) => const TagDialog())),
+              NavigationButton(buttonText: 'Home', buttonIcon: Icons.home_outlined, onPressed: () {}),
+              NavigationButton(buttonText: 'Search', buttonIcon: Icons.search_outlined, onPressed: () {}),
+            ])
+            /*NavigationBox(buttons: [
                 NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () {}),
                 NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
                 NavigationButton(buttonText: 'Settings', buttonIcon: Icons.settings_outlined, onPressed: () {}),
               ]
-            )
+            )*/
           ],
         ),
       ),
