@@ -14,9 +14,9 @@ class CollectionContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
+    // Center horizontally
+    return Container(
+            margin: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: theme.colorScheme.secondary,
               borderRadius: BorderRadius.circular(10),
@@ -24,11 +24,11 @@ class CollectionContainer extends StatelessWidget {
             child: Scrollbar(
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: collectionItems,
                 ),
               )
             ),
-          )
     );
   }
 }

@@ -13,8 +13,8 @@ class SearchBox extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: theme.colorScheme.secondary, // Change this to your desired color
-              width: 2.0, // Change this to your desired width
+              color: theme.colorScheme.secondary,
+              width: 2.0,
             ),
             borderRadius: BorderRadius.circular(33.0), // Optional
           ),
@@ -41,6 +41,12 @@ class SearchBox extends StatelessWidget {
                     ),
                   )
                 ],
+                hintText: 'Documents, Tags or Collections',
+                hintStyle: WidgetStateProperty.all<TextStyle>(
+                  const TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
               );
             },
             suggestionsBuilder:
@@ -59,4 +65,5 @@ class SearchBox extends StatelessWidget {
         ),
       ),
     );
-  }}
+  }
+}

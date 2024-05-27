@@ -51,7 +51,6 @@ class FolderCollectionTile extends CollectionTile {
           onPressed: () {},
         ));
   }
-
 }
 
 class FileCollectionTile extends CollectionTile {
@@ -66,7 +65,7 @@ class FileCollectionTile extends CollectionTile {
     final ThemeData theme = Theme.of(context);
     return ListTile(
       title:
-      Text(title, style: TextStyle(color: theme.colorScheme.onSecondary)),
+          Text(title, style: TextStyle(color: theme.colorScheme.onSecondary)),
       leading: Icon(
         Icons.picture_as_pdf_outlined,
         color: theme.colorScheme.onSecondary,
