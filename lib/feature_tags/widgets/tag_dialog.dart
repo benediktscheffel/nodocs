@@ -10,47 +10,41 @@ class TagDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return DialogBox(
-      children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text('Edit Tags', style: TextStyle(fontSize: 24),),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: TagChipContainer(
-              tagData: [("Tag1", true),  ("Tag2", false), ("Tag3", false), ("Tag4", false), ("Tag5", true)]
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: TagInput(),
-        ),
-        TextButton(
-          onPressed: () {
-            // TODO update Database
-            Navigator.pop(context);
-          },
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Save',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      color: theme.colorScheme.onPrimaryContainer,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+      headerText: 'Edit Tags',
+      body: const <Widget>[
+        TagChipContainer(tagData: [
+          ("Tag1", true),
+          ("Tag2", false),
+          ("Tag3", false),
+          ("Tag4", false),
+          ("Tag5", true)
+        ]),
+        TagInput(),
       ],
+      footer: TextButton(
+        onPressed: () {
+          // TODO update Database
+          Navigator.pop(context);
+        },
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                'Save',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                    color: theme.colorScheme.onPrimaryContainer,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-  /*void showTagDialog(BuildContext context) {
+/*void showTagDialog(BuildContext context) {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => const TagDialog(),

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
 class DialogBox extends StatelessWidget {
-  final List<Widget> children;
-  const DialogBox({super.key, required this.children});
+  final String headerText;
+  final List<Widget> body;
+  final Widget footer;
+
+  const DialogBox(
+      {super.key,
+      required this.body,
+      required this.headerText,
+      required this.footer});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,18 @@ class DialogBox extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: children,
+          children: <Widget>[
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(headerText, style: const TextStyle(fontSize: 24))),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: body,
+              ),
+            ),
+            footer,
+          ],
         ),
       ),
     );
