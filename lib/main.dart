@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
+import 'package:nodocs/feature_scan/widgets/scan_action_button.dart';
+import 'package:nodocs/feature_scan/widgets/scan_action_button_container.dart';
 import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
 import 'package:nodocs/widgets/collection_container.dart';
 import 'package:nodocs/widgets/button_arrow.dart';
@@ -147,17 +150,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ]
             ),
             const SearchBox(),
-            NavigationBox(buttons: [
+            /*NavigationBox(buttons: [
               NavigationButton(buttonText: 'Edit Tags', buttonIcon: Icons.edit_outlined, onPressed: () => showDialog<String>(context: context, builder: (BuildContext context) => const TagDialog())),
               NavigationButton(buttonText: 'Home', buttonIcon: Icons.home_outlined, onPressed: () {}),
               NavigationButton(buttonText: 'Search', buttonIcon: Icons.search_outlined, onPressed: () {}),
-            ])
-            /*NavigationBox(buttons: [
-                NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () {}),
-                NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
-                NavigationButton(buttonText: 'Settings', buttonIcon: Icons.settings_outlined, onPressed: () {}),
-              ]
-            )*/
+            ]),*/
+            /*ScanActionButtonContainer(buttons: [
+              ScanActionButton(buttonText: 'Rotate', buttonIcon: Icons.rotate_right_outlined, onPressed: () {}),
+            ]),*/
+            /*ScanActionButtonContainer(buttons: [
+              ScanActionButton(buttonText: 'Crop Again', buttonIcon: Icons.crop_free_outlined, onPressed: () {}),
+              ScanActionButton(buttonText: 'Retake', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
+            ]),*/
+            NavigationBox(buttons: [
+              NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () => showDialog<String>(context: context, builder: (BuildContext context) => const CollectionCreateDialog())),
+              NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
+              NavigationButton(buttonText: 'Settings', buttonIcon: Icons.settings_outlined, onPressed: () {}),
+            ]),
           ],
         ),
       ),
