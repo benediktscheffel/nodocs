@@ -14,38 +14,41 @@ class CollectionTileDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        width: 250,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(10.0),
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      // color: Colors.transparent,
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.83),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(0),
+          topRight: Radius.circular(0),
         ),
-        child: Wrap(
-          children: <Widget>[
-            ListTile(
-              trailing: const Icon(Icons.edit, color: Colors.white),
-              title: const Text('Rename', style: TextStyle(color: Colors.white)),
-              onTap: onRename,
-            ),
-            ListTile(
-              trailing: const Icon(Icons.ios_share_sharp, color: Colors.white),
-              title: const Text('Share', style: TextStyle(color: Colors.white)),
-              onTap: onShare,
-            ),
-            const Divider(
-              color: Colors.black,
-              height: 1,
-              thickness: 5,
-            ),
-            ListTile(
-              trailing: const Icon(Icons.delete, color: Colors.white),
-              title: const Text('Delete', style: TextStyle(color: Colors.white)),
-              onTap: onDelete,
-            ),
-          ],
-        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            trailing: const Icon(Icons.edit, color: Colors.white),
+            title: const Text('Rename', style: TextStyle(color: Colors.white)),
+            onTap: onRename,
+          ),
+          ListTile(
+            trailing: const Icon(Icons.ios_share_sharp, color: Colors.white),
+            title: const Text('Share', style: TextStyle(color: Colors.white)),
+            onTap: onShare,
+          ),
+          const Divider(
+            color: Colors.white,
+            height: 1,
+            thickness: 2,
+          ),
+          ListTile(
+            trailing: const Icon(Icons.delete, color: Colors.redAccent),
+            title: const Text('Delete', style: TextStyle(color: Colors.redAccent)),
+            onTap: onDelete,
+          ),
+        ],
       ),
     );
   }

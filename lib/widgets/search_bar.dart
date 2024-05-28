@@ -9,7 +9,11 @@ class SearchBox extends StatelessWidget {
     return Theme(
       data: theme,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(
+          left: 20.0,
+          right: 20.0,
+          bottom: 20.0,
+        ),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
@@ -23,7 +27,7 @@ class SearchBox extends StatelessWidget {
               return SearchBar(
                 controller: controller,
                 padding: const WidgetStatePropertyAll<EdgeInsets>(
-                    EdgeInsets.symmetric(horizontal: 16.0)),
+                    EdgeInsets.symmetric(horizontal: 14.0)),
                 onTap: () {
                   controller.openView();
                 },

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
 import 'package:nodocs/widgets/collection_container.dart';
+import 'package:nodocs/widgets/button_arrow.dart';
+import 'package:nodocs/widgets/button_switch.dart';
 import 'package:nodocs/widgets/collection_tile.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
@@ -133,10 +135,15 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             CollectionContainer(collectionItems: [
-                FolderCollectionTile(title: 'Folder 1', onPressed: () {}),
-                FolderCollectionTile(title: 'Folder 2', onPressed: () {}),
-                FileCollectionTile(title: 'File 1', onPressed: () {}),
-                FileCollectionTile(title: 'File 2', onPressed: () {}),
+                CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
+                CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
+                CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
+                CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
+                CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
+                CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
+                CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
+                CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
+                CollectionTile(title: 'DarkMode', onPressed: () {}, leading: Icons.dark_mode_outlined, trailing: SwitchButton(onChanged: (bool value) {}),),
               ]
             ),
             const SearchBox(),

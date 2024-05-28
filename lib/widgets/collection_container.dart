@@ -9,26 +9,27 @@ class CollectionContainer extends StatelessWidget {
     required this.collectionItems,
   });
 
-  // Add a scrollbar if the container overflows
-
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    // Center horizontally
-    return Container(
-            margin: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.secondary,
-              borderRadius: BorderRadius.circular(10),
+    return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.6,
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(2),
+          margin: const EdgeInsets.all(23),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.secondary,
+            borderRadius: BorderRadius.circular(16),
+          ),
+                child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: collectionItems,
+              ),
             ),
-            child: Scrollbar(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: collectionItems,
-                ),
-              )
-            ),
+        ),
     );
   }
 }
