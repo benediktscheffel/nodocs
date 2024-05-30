@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
 import 'package:nodocs/feature_scan/widgets/scan_action_button.dart';
 import 'package:nodocs/feature_scan/widgets/scan_action_button_container.dart';
+import 'package:nodocs/feature_tags/widgets/tag_dropdown.dart';
 import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
 import 'package:nodocs/widgets/collection_container.dart';
 import 'package:nodocs/widgets/button_arrow.dart';
@@ -53,6 +54,10 @@ class MyApp extends StatelessWidget {
           onError: Colors.white,
           surface: Color(0xFF111122),
           onSurface: Colors.white,
+          tertiaryContainer: Colors.white,
+          onTertiaryContainer: Colors.black,
+          tertiaryFixed: Color(0xFFECE7E7),
+          onTertiaryFixed: Color(0xFFCAC4D0),
         ) : const ColorScheme(
           brightness: Brightness.light,
           primary: Color(0xFFB9D6F2),
@@ -66,6 +71,10 @@ class MyApp extends StatelessWidget {
           onError: Colors.white,
           surface: Color(0xFFB9D6F2),
           onSurface: Colors.black,
+          tertiaryContainer: Colors.white,
+          onTertiaryContainer: Colors.black,
+          tertiaryFixed: Color(0xFFECE7E7),
+          onTertiaryFixed: Color(0xFFCAC4D0),
         ),
         buttonTheme: const ButtonThemeData(
           height: 32,
@@ -137,6 +146,10 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
+            /*const Padding(
+              padding: EdgeInsets.all(16),
+              child: TagDropdown(tags: {"Tag1", "Tag2", "Tag3", "Tag4", "Tag5", "Tag6", "Tag7", "Tag8", "Tag9", "Tag10"}),
+            ),*/
             CollectionContainer(collectionItems: [
                 CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
                 CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
