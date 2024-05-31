@@ -12,7 +12,7 @@ class TagDropdown extends StatefulWidget {
 
 class TagDropdownState extends State<TagDropdown> {
   OverlayEntry? _dropdownOverlayEntry;
-  Set<String> _selectedTags = {};
+  Set<String> _selectedTags = <String>{};
 
   late Set<String> _tags;
 
@@ -26,7 +26,7 @@ class TagDropdownState extends State<TagDropdown> {
   void initState() {
     super.initState();
     _tags = widget.tags;
-    _selectedTags = {};
+    _selectedTags = <String>{};
   }
 
   @override
@@ -45,7 +45,7 @@ class TagDropdownState extends State<TagDropdown> {
   }
 
   void _showDropdown() {
-    final overlay = Overlay.of(context);
+    final OverlayState overlay = Overlay.of(context);
     _dropdownOverlayEntry = _createDropdownOverlay();
     overlay.insert(_dropdownOverlayEntry!);
   }
@@ -59,7 +59,7 @@ class TagDropdownState extends State<TagDropdown> {
     _dropdownOverlayEntry?.markNeedsBuild();
   }
 
-  void _updateSelectedTags(String tag) {
+  void _updateSelectedTags(final String tag) {
     if (_selectedTags.contains(tag)) {
       _selectedTags.remove(tag);
     } else {
@@ -69,11 +69,11 @@ class TagDropdownState extends State<TagDropdown> {
 
   OverlayEntry _createDropdownOverlay() {
     final RenderBox renderBox = context.findRenderObject() as RenderBox;
-    final size = renderBox.size;
+    final Size size = renderBox.size;
     final ThemeData theme = Theme.of(context);
 
     return OverlayEntry(
-      builder: (context) => Positioned(
+      builder: (final BuildContext context) => Positioned(
         width: size.width,
         child: CompositedTransformFollower(
           targetAnchor: Alignment.topLeft,
@@ -99,8 +99,8 @@ class TagDropdownState extends State<TagDropdown> {
                       scrollDirection: Axis.vertical,
                       padding: EdgeInsets.zero,
                       itemCount: _tags.length,
-                      itemBuilder: (context, index) {
-                        final tag = _tags.elementAt(index);
+                      itemBuilder: (final BuildContext context, final int index) {
+                        final String tag = _tags.elementAt(index);
                         return InkWell(
                           onTap: () {
                             setState(() {
@@ -116,12 +116,12 @@ class TagDropdownState extends State<TagDropdown> {
                                 : theme.colorScheme.tertiaryContainer,
                             height: 40,
                             child: Row(
-                              children: [
+                              children: <Widget>[
                                 Expanded(
                                   child: Text(
                                     tag,
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       color: theme.colorScheme.onTertiaryContainer,
                                     ),
                                   ),
@@ -148,12 +148,12 @@ class TagDropdownState extends State<TagDropdown> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return CompositedTransformTarget(
       link: _layerLink,
       child: Row(
-        children: [
+        children: <Widget>[
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -165,19 +165,19 @@ class TagDropdownState extends State<TagDropdown> {
                 ),
               ),
               child: Column(
-                children: [
+                children: <Widget>[
                   InkWell(
                     onTap: _toggleDropdown,
                     child: Row(
-                      children: [
+                      children: <Widget>[
                         const SizedBox(width: 10),
                         Expanded(
                           child: SizedBox(
                             height: 50,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
-                              children: _selectedTags.toList().map((tag) => Row(
-                                children: [
+                              children: _selectedTags.toList().map((final String tag) => Row(
+                                children: <Widget>[
                                   TagChipDropdown(
                                       tagName: tag,
                                       onRemove: () {

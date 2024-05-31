@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:nodocs/feature_filesystem/widgets/collection_chip_dropdown.dart';
 
 class CollectionDropdown extends StatefulWidget {
   const CollectionDropdown({super.key});
@@ -24,6 +25,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
     initialScrollOffset: 0,
     keepScrollOffset: true,
   );
+  final ScrollController _horizontalScrollController = ScrollController();
 
   @override
   void initState() {
@@ -56,6 +58,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
   @override
   void dispose() {
     _dropdownScrollController.dispose();
+    _horizontalScrollController.dispose();
     _dropdownOverlay?.remove();
     super.dispose();
   }
@@ -83,13 +86,17 @@ class CollectionDropdownState extends State<CollectionDropdown> {
     _dropdownOverlay?.markNeedsBuild();
   }
 
+  _scrollToRight() {
+    _horizontalScrollController.jumpTo(_horizontalScrollController.position.maxScrollExtent);
+  }
+
   OverlayEntry _createDropdownOverlay() {
     final RenderBox renderBox = context.findRenderObject() as RenderBox;
     final Size size = renderBox.size;
     final ThemeData theme = Theme.of(context);
 
     return OverlayEntry(
-      builder: (BuildContext context) => Positioned(
+      builder: (final BuildContext context) => Positioned(
         width: size.width,
         child: CompositedTransformFollower(
           targetAnchor: Alignment.topLeft,
@@ -115,7 +122,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                     scrollDirection: Axis.vertical,
                     padding: EdgeInsets.zero,
                     itemCount: _directories.isEmpty ? 1 : _directories.length,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (final BuildContext context, final int index) {
                       const double rowHeight = 40;
                       final Directory backDir = Directory(_currentAbsolutePath).parent;
                       final Directory? entryDir = _directories.isNotEmpty ? _directories.elementAt(index) : null;
@@ -140,7 +147,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                                   child: Text(
                                     entryDir!.path.split('/').last,
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       color: theme.colorScheme.onTertiaryContainer,
                                     ),
                                   ),
@@ -168,19 +175,26 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                             });
                           },
                           child: Row(
-                              children: <Widget>[
-                                Transform.rotate(
-                                  angle: 90 * math.pi / 180,
-                                  child: const Icon(
-                                    Icons.subdirectory_arrow_left_outlined,
-                                  ),
+                            children: <Widget>[
+                              Transform.rotate(
+                                angle: 90 * math.pi / 180,
+                                child: Icon(
+                                  Icons.subdirectory_arrow_left_outlined,
+                                  color: theme.colorScheme.onTertiaryContainer,
                                 ),
-                                const SizedBox(
-                                  width: 5,
-                                  height: rowHeight,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                                height: rowHeight,
+                              ),
+                              Text(
+                                'Back',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: theme.colorScheme.onTertiaryContainer,
                                 ),
-                                const Text('Back'),
-                              ]
+                              ),
+                            ]
                           ),
                         );
                       }
@@ -212,6 +226,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
 
   @override
   Widget build(final BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((final _) => _scrollToRight());
     final ThemeData theme = Theme.of(context);
     return CompositedTransformTarget(
       link: _layerLink,
@@ -237,7 +252,16 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                         Expanded(
                           child: SizedBox(
                             height: 50,
-                            child: Text(_currentRelativePath),
+                            child: ListView(
+                              controller: _horizontalScrollController,
+                              scrollDirection: Axis.horizontal,
+                              children: <Widget>[
+                                Row(children: <Widget>[
+                                  CollectionChipDropdown(
+                                      pathName: _currentRelativePath),
+                                ])
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(width: 10),
