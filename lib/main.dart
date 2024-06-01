@@ -16,6 +16,7 @@ import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/search_bar.dart';
+import 'package:nodocs/widgets/title_with_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -131,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title, style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 17)),
         // title: const ScanTitleInput(),
+        // title: TitleWithButton(title: 'Crop Scan', icon: Icons.home_outlined, onButtonClick: () {}),
         centerTitle: true,
       ),
       body: Center(
