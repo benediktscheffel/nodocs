@@ -44,21 +44,24 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
       ),
       child: Stack(
         children: <Widget>[
-          CustomPaint(
-            painter: DottedUnderlinePainter(
-              color: theme.colorScheme.onPrimary,
-              width: 1.0,
-            ),
-            child: TextField(
-              controller: _controller,
-              focusNode: _focusNode,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
+          SizedBox(
+            height: 42,
+            child: CustomPaint(
+              painter: DottedUnderlinePainter(
+                color: theme.colorScheme.onPrimary,
+                width: 1.0,
               ),
-              decoration: const InputDecoration(
-                border: InputBorder.none,
+              child: TextField(
+                controller: _controller,
+                focusNode: _focusNode,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
               ),
             ),
           ),
