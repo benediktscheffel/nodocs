@@ -5,6 +5,7 @@ import 'package:nodocs/feature_filesystem/widgets/collection_dropdown_new.dart';
 import 'package:nodocs/feature_scan/widgets/scan_action_button.dart';
 import 'package:nodocs/feature_scan/widgets/scan_action_button_container.dart';
 import 'package:nodocs/feature_scan/widgets/scan_carousel.dart';
+import 'package:nodocs/feature_scan/widgets/scan_title_input.dart';
 import 'package:nodocs/feature_tags/widgets/tag_dropdown.dart';
 import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
 import 'package:nodocs/widgets/collection_container.dart';
@@ -129,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title, style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 17)),
+        // title: const ScanTitleInput(),
         centerTitle: true,
       ),
       body: Center(
