@@ -53,6 +53,10 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
               controller: _controller,
               focusNode: _focusNode,
               textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+              ),
               decoration: const InputDecoration(
                 border: InputBorder.none,
               ),
