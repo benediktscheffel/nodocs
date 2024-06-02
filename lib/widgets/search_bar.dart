@@ -15,17 +15,23 @@ class SearchBox extends StatelessWidget {
           bottom: 20.0,
         ),
         child: Container(
+          height: 56,
           decoration: BoxDecoration(
             border: Border.all(
               color: theme.colorScheme.secondary,
               width: 2.0,
             ),
-            borderRadius: BorderRadius.circular(33.0), // Optional
+            borderRadius: BorderRadius.circular(16.0), // Optional
           ),
           child: SearchAnchor(
             builder: (BuildContext context, SearchController controller) {
               return SearchBar(
                 controller: controller,
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                ),
                 padding: const WidgetStatePropertyAll<EdgeInsets>(
                     EdgeInsets.symmetric(horizontal: 14.0)),
                 onTap: () {
