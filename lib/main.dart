@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+
 import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
 import 'package:nodocs/feature_filesystem/widgets/collection_dropdown.dart';
 import 'package:nodocs/feature_filesystem/widgets/collection_dropdown_new.dart';
 import 'package:nodocs/feature_scan/widgets/scan_action_button.dart';
 import 'package:nodocs/feature_scan/widgets/scan_action_button_container.dart';
+import 'package:nodocs/feature_scan/widgets/scan_camera.dart';
 import 'package:nodocs/feature_scan/widgets/scan_carousel.dart';
+import 'package:nodocs/feature_scan/widgets/scan_crop.dart';
 import 'package:nodocs/feature_scan/widgets/scan_title_input.dart';
 import 'package:nodocs/feature_tags/widgets/tag_dropdown.dart';
 import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
@@ -18,12 +22,16 @@ import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/search_bar.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final List<CameraDescription> cameras = await availableCameras(); // sadly this must be done this early to prevent errors
+  runApp(MyApp(cameras: cameras));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final List<CameraDescription> cameras;
+
+  const MyApp({super.key, required this.cameras});
 
   // This widget is the root of your application.
   @override
@@ -88,13 +96,15 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'NoDocs'),
+      home: MyHomePage(title: 'NoDocs', cameras: cameras,),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  final List<CameraDescription> cameras;
+
+  const MyHomePage({super.key, required this.title, required this.cameras});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -152,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
           // action in the IDE, or press "p" in the console), to see the
           // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             /*const Padding(
               padding: EdgeInsets.all(16),
@@ -178,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.all(16),
               child: CollectionDropdown(),
             ),*/
-            CollectionContainer(collectionItems: <CollectionTile>[
+            /*CollectionContainer(collectionItems: <CollectionTile>[
                 CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
                 CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
                 CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
@@ -189,9 +199,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
                 CollectionTile(title: 'DarkMode', onPressed: () {}, leading: Icons.dark_mode_outlined, trailing: SwitchButton(onChanged: (final bool value) {}),),
               ]
-            ),
-            const SearchBox(),
-            /*NavigationBox(buttons: [
+            ),*/
+            // const SearchBox(),
+            /*const ScanCrop(path: ''),*/
+            ScanCamera(cameras: widget.cameras),
+            /*NavigationBox(buttons: <Widget>[
               NavigationButton(buttonText: 'Edit Tags', buttonIcon: Icons.edit_outlined, onPressed: () => showDialog<String>(context: context, builder: (BuildContext context) => const TagDialog())),
               NavigationButton(buttonText: 'Home', buttonIcon: Icons.home_outlined, onPressed: () {}),
               NavigationButton(buttonText: 'Search', buttonIcon: Icons.search_outlined, onPressed: () {}),
@@ -203,11 +215,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ScanActionButton(buttonText: 'Crop Again', buttonIcon: Icons.crop_free_outlined, onPressed: () {}),
               ScanActionButton(buttonText: 'Retake', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
             ]),*/
-            NavigationBox(buttons: <Widget>[
+           /* NavigationBox(buttons: <Widget>[
               NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () => showDialog<String>(context: context, builder: (final BuildContext context) => const CollectionCreateDialog())),
               NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
               NavigationButton(buttonText: 'Settings', buttonIcon: Icons.settings_outlined, onPressed: () {}),
-            ]),
+            ]),*/
           ],
         ),
       ),
