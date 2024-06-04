@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+
 class SearchBox extends StatelessWidget {
   const SearchBox({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Theme(
       data: theme,
@@ -23,7 +24,7 @@ class SearchBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(33.0), // Optional
           ),
           child: SearchAnchor(
-            builder: (BuildContext context, SearchController controller) {
+            builder: (final BuildContext context, final SearchController controller) {
               return SearchBar(
                 controller: controller,
                 padding: const WidgetStatePropertyAll<EdgeInsets>(
@@ -31,7 +32,7 @@ class SearchBox extends StatelessWidget {
                 onTap: () {
                   controller.openView();
                 },
-                onChanged: (_) {
+                onChanged: (final _) {
                   controller.openView();
                 },
                 trailing: <Widget>[
@@ -54,8 +55,8 @@ class SearchBox extends StatelessWidget {
               );
             },
             suggestionsBuilder:
-                (BuildContext context, SearchController controller) {
-              return List<ListTile>.generate(5, (int index) {
+                (final BuildContext context, final SearchController controller) {
+              return List<ListTile>.generate(5, (final int index) {
                 final String item = 'Suggestion $index';
                 return ListTile(
                   title: Text('Suggestion $index'),

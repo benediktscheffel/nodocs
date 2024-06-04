@@ -5,6 +5,9 @@ import 'package:nodocs/feature_pdfviewer/widgets/pdf_search_toolbar.dart';
 import 'package:path/path.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
+import '../../widgets/navigation_box.dart';
+import '../../widgets/navigation_button.dart';
+
 class PdfViewer extends StatefulWidget {
   const PdfViewer({super.key, required this.path});
 
@@ -47,6 +50,7 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
 
   @override
   Widget build(final BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: _showToolbar
           ? AppBar(
@@ -78,30 +82,15 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
           ),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFFFAFAFA),
+        backgroundColor: theme.colorScheme.secondary,
       )
           : AppBar(
         title: Text(
-          widget.path.split('/').last,
-          style: const TextStyle(color: Colors.black87),
+          widget.path.split('/').last.replaceAll('.pdf', ''),
+          style: TextStyle(color: theme.colorScheme.onSecondary),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.search,
-              color: Colors.black87,
-            ),
-            onPressed: () {
-              setState(() {
-                _showScrollHead = false;
-                _showToolbar = true;
-                _ensureHistoryEntry(context);
-              });
-            },
-          ),
-        ],
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFFFAFAFA),
+        backgroundColor: theme.colorScheme.secondary,
       ),
       body: Stack(
         children: <Widget>[
@@ -149,6 +138,32 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
           ),
         ],
       ),
+      bottomNavigationBar: NavigationBox(
+        buttons: <Widget>[
+          NavigationButton(
+              buttonText: 'Back',
+              buttonIcon: Icons.arrow_back_outlined,
+              onPressed: (){
+                Navigator.pop(context);
+              }),
+          NavigationButton(
+              buttonText: 'Home',
+              buttonIcon: Icons.home,
+              onPressed: () {
+                Navigator.popUntil(context, ModalRoute.withName('/'));
+              }),
+          NavigationButton(
+              buttonText: 'Search',
+              buttonIcon: Icons.search,
+              onPressed: () {
+                setState(() {
+                  _showScrollHead = false;
+                  _showToolbar = true;
+                  _ensureHistoryEntry(context);
+                });
+              }),
+        ],
+      )
     );
   }
   Future<File> _getFile(final String path) async {
