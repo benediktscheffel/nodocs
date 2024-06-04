@@ -9,14 +9,14 @@ class NavigationBox extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Container(
       color: theme.colorScheme.secondary,
       height: 80,
       child: Flex(
         direction: Axis.horizontal,
-        children: buttons.map((button) => Expanded(child: button)).toList(),
+        children: buttons.map((final Widget button) => Expanded(child: button)).toList(),
       )
     );
   }

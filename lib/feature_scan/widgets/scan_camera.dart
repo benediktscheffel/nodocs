@@ -23,7 +23,7 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
         ResolutionPreset.high,
         enableAudio: false,
       );
-      _initializeControllerFuture = _controller.initialize().then((_) {
+      _initializeControllerFuture = _controller.initialize().then((final _) {
         if (!mounted) return;
         setState(() {});
       }).catchError((final e) {
@@ -113,7 +113,7 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
                           if (!context.mounted) return;
                           await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => DisplayPictureScreen(
+                              builder: (final BuildContext context) => DisplayPictureScreen(
                                 imagePath: image.path,
                               ),
                             ),
@@ -144,7 +144,7 @@ class DisplayPictureScreen extends StatelessWidget {
   const DisplayPictureScreen({super.key, required this.imagePath});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`

@@ -9,7 +9,7 @@ class TagChipDropdown extends StatelessWidget {
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return SizedBox(
       height: 38,
@@ -20,7 +20,7 @@ class TagChipDropdown extends StatelessWidget {
           side: const BorderSide(style: BorderStyle.none),
         ),
         label: IntrinsicWidth(
-          child: Row(children: [
+          child: Row(children: <Widget>[
             Text("# ",
               style: TextStyle(
                 fontSize: 14,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../feature_filesystem/widgets/collection_create_dialog.dart';
 import '../../feature_pdfviewer/widgets/pdf_viewer.dart';
 import '../../widgets/button_arrow.dart';
 import '../../widgets/button_switch.dart';

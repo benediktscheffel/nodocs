@@ -7,7 +7,7 @@ class CollectionCreateDialog extends StatelessWidget {
   const CollectionCreateDialog({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return DialogBox(
       headerText: 'Create a new Collection',
@@ -16,7 +16,7 @@ class CollectionCreateDialog extends StatelessWidget {
       ],
       footer: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [
+        children: <Widget>[
           TextButton(
             onPressed: () {
               Navigator.pop(context);

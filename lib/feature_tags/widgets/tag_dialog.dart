@@ -7,12 +7,12 @@ class TagDialog extends StatelessWidget {
   const TagDialog({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return DialogBox(
       headerText: 'Edit Tags',
       body: const <Widget>[
-        TagChipContainer(tagData: [
+        TagChipContainer(tagData: <(String, bool)>[
           ("Tag1", true),
           ("Tag2", false),
           ("Tag3", false),
@@ -27,7 +27,7 @@ class TagDialog extends StatelessWidget {
           Navigator.pop(context);
         },
         child: Row(
-          children: [
+          children: <Widget>[
             Expanded(
               child: Text(
                 'Save',

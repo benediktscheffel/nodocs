@@ -16,11 +16,11 @@ class CollectionTile extends StatelessWidget {
     this.trailing,
   });
 
-  _onLongPress(BuildContext context) {
+  _onLongPress(final BuildContext context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
+      builder: (final BuildContext context) {
         return CollectionTileDialog(
           onRename: () {},
           onDelete: () {},
@@ -31,7 +31,7 @@ class CollectionTile extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 2),

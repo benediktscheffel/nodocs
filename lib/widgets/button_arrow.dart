@@ -9,7 +9,7 @@ class ArrowButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return IconButton(
       color: theme.colorScheme.onSecondary,

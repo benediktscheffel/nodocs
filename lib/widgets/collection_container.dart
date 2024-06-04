@@ -10,7 +10,7 @@ class CollectionContainer extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return ConstrainedBox(
         constraints: BoxConstraints(

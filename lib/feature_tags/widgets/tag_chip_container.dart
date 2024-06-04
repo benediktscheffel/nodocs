@@ -11,20 +11,20 @@ class TagChipContainer extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     return SizedBox(
       height: 85.0,
       child: Scrollbar(
         thumbVisibility: true,
         child: ListView(
           scrollDirection: Axis.vertical,
-          children: [
+          children: <Widget>[
             Wrap(
               direction: Axis.horizontal,
               spacing: 8.0,
               runSpacing: 4.0,
               clipBehavior: Clip.hardEdge,
-              children: tagData.map((tag) => TagChip(tagName: tag.$1, tagState: tag.$2)).toList(),
+              children: tagData.map((final (String, bool) tag) => TagChip(tagName: tag.$1, tagState: tag.$2)).toList(),
             ),
           ],
         ),

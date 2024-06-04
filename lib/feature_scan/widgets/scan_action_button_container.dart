@@ -6,11 +6,11 @@ class ScanActionButtonContainer extends StatelessWidget {
   const ScanActionButtonContainer({super.key, required this.buttons});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(buttons.length * 2 - 1, (index) {
+      children: List.generate(buttons.length * 2 - 1, (final int index) {
         if (index.isEven) {
           return buttons[index ~/ 2];
         } else {

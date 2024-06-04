@@ -21,7 +21,7 @@ class TagChipState extends State<TagChip> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return SizedBox(
       height: 40,
@@ -34,18 +34,18 @@ class TagChipState extends State<TagChip> {
         showCheckmark: false,
         label: _tagState ?
           IntrinsicWidth(
-            child: Row(children: [
+            child: Row(children: <Widget>[
               const Text("# ", style: TextStyle(fontSize: 14),),
               Text(widget.tagName, style: const TextStyle(fontSize: 14),)
             ])
           ) :
           IntrinsicWidth(
-            child: Row(children: [
+            child: Row(children: <Widget>[
               const Icon(Icons.add_outlined, size: 23,),
               Text(widget.tagName, style: const TextStyle(fontSize: 14),)
             ])
           ),
-        onSelected: (bool _) {
+        onSelected: (final bool _) {
           setState(() {
             _tagState = !_tagState;
           });

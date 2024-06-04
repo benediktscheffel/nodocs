@@ -12,7 +12,7 @@ class DialogBox extends StatelessWidget {
       required this.footer});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Dialog(
       backgroundColor: theme.colorScheme.primary,

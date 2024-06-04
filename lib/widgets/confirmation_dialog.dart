@@ -16,7 +16,7 @@ class ConfirmationDialog extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return DialogBox(
       headerText: header,
@@ -31,7 +31,7 @@ class ConfirmationDialog extends StatelessWidget {
       ],
       footer: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [
+        children: <Widget>[
           TextButton(
             onPressed: onCancel,
             child: Text(

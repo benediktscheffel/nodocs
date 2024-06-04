@@ -13,10 +13,10 @@ class ScanActionButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Center(
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         ElevatedButton(
           onPressed: () {
             onPressed();
@@ -29,7 +29,7 @@ class ScanActionButton extends StatelessWidget {
             ),
             padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
             backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                (Set<WidgetState> states) {
+                (final Set<WidgetState> states) {
               if (states.contains(WidgetState.pressed)) {
                 return theme.colorScheme.secondary.withOpacity(0.4);
               }

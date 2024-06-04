@@ -13,7 +13,7 @@ class CollectionTileDialog extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       // color: Colors.transparent,

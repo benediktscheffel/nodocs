@@ -24,7 +24,7 @@ class TagInputState extends State<TagInput> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return TextField(
       controller: controller,

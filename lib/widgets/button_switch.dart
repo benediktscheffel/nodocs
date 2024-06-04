@@ -13,11 +13,11 @@ class _SwitchButtonState extends State<SwitchButton> {
   bool _value = false;
 
   @override
-  Widget build(BuildContext context) {
-    var colorScheme = Theme.of(context).colorScheme;
+  Widget build(final BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Switch(
       value: _value,
-      onChanged: (value) {
+      onChanged: (final bool value) {
         setState(() {
           _value = value;
         });
