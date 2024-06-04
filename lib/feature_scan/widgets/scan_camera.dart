@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/feature_scan/widgets/scan_camera_footer.dart';
 
 class ScanCamera extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -87,52 +88,44 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
               }
               return Stack(
                 children: <Widget>[
-                  Center(
-                    child: SizedBox(
-                      height: height,
-                      width: width,
-                      child: AspectRatio(
-                        aspectRatio: _controller.value.aspectRatio,
-                        child: CameraPreview(_controller),
-                      ),
-                    ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Center(
+                        child: SizedBox(
+                          height: height,
+                          width: width,
+                          child: AspectRatio(
+                            aspectRatio: _controller.value.aspectRatio,
+                            child: CameraPreview(_controller),
+                          ),
+                        ),
+                      )
+                    ]
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: FloatingActionButton(
-                      // Provide an onPressed callback.
-                      onPressed: () async {
-                        // Take the Picture in a try / catch block. If anything goes wrong,
-                        // catch the error.
+                    child: ScanCameraFooter(
+                      onTakePhoto: () async {
                         try {
-                          // Ensure that the camera is initialized.
                           await _initializeControllerFuture;
-
-                          // Attempt to take a picture and get the file `image`
-                          // where it was saved.
-                          final image = await _controller.takePicture();
-
+                          final XFile image = await _controller.takePicture();
                           if (!context.mounted) return;
-
-                          // If the picture was taken, display it on a new screen.
                           await Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => DisplayPictureScreen(
-                                // Pass the automatically generated path to
-                                // the DisplayPictureScreen widget.
                                 imagePath: image.path,
                               ),
                             ),
                           );
                         } catch (e) {
-                          // If an error occurs, log the error to the console.
                           print(e);
                         }
                       },
-                      child: const Icon(Icons.camera_alt),
                     ),
-                  )
-                ]);
+                  ),
+                ]
+              );
             }
             return _cameraNotAvailable();
           },
