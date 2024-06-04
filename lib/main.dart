@@ -1,27 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:logging/logging.dart';
 import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
+import 'package:camera/camera.dart';
+
 import 'package:nodocs/feature_presentation/pages/widgets_page.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
+import 'package:nodocs/widgets/search_bar.dart';
+import 'package:nodocs/widgets/title_with_button.dart';
 
 void main() {
-  _setupLogging();
   runApp(const MyApp());
 }
 
-void _setupLogging() {
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((final LogRecord record) {
-    if (kDebugMode) {
-      print('${record.level.name}: ${record.time}: ${record.message}');
-    }
-  });
-}
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final List<CameraDescription> cameras;
+
+  const MyApp({super.key, required this.cameras});
 
   // This widget is the root of your application.
   @override
@@ -88,13 +83,15 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'NoDocs'),
+      home: MyHomePage(title: 'NoDocs', cameras: cameras,),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  final List<CameraDescription> cameras;
+
+  const MyHomePage({super.key, required this.title, required this.cameras});
 
   final String title;
 
@@ -182,6 +179,11 @@ class _MyHomePageState extends State<MyHomePage> {
             // PDFViewer(path: 'Immatrikulationsbescheinigung-1.pdf'),
             // const SearchBox(),
             /*NavigationBox(buttons: [
+            ),*/
+            // const SearchBox(),
+            /*const ScanCrop(path: ''),*/
+            ScanCamera(cameras: widget.cameras),
+            /*NavigationBox(buttons: <Widget>[
               NavigationButton(buttonText: 'Edit Tags', buttonIcon: Icons.edit_outlined, onPressed: () => showDialog<String>(context: context, builder: (BuildContext context) => const TagDialog())),
               NavigationButton(buttonText: 'Home', buttonIcon: Icons.home_outlined, onPressed: () {}),
               NavigationButton(buttonText: 'Search', buttonIcon: Icons.search_outlined, onPressed: () {}),
@@ -192,6 +194,11 @@ class _MyHomePageState extends State<MyHomePage> {
             /*ScanActionButtonContainer(buttons: [
               ScanActionButton(buttonText: 'Crop Again', buttonIcon: Icons.crop_free_outlined, onPressed: () {}),
               ScanActionButton(buttonText: 'Retake', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
+            ]),*/
+           /* NavigationBox(buttons: <Widget>[
+              NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () => showDialog<String>(context: context, builder: (final BuildContext context) => const CollectionCreateDialog())),
+              NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
+              NavigationButton(buttonText: 'Settings', buttonIcon: Icons.settings_outlined, onPressed: () {}),
             ]),*/
           ],
         ),
