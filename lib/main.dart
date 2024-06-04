@@ -1,16 +1,16 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
 import 'package:camera/camera.dart';
 
+import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
+import 'package:nodocs/feature_scan/widgets/scan_camera.dart';
 import 'package:nodocs/feature_presentation/pages/widgets_page.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
-import 'package:nodocs/widgets/search_bar.dart';
-import 'package:nodocs/widgets/title_with_button.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final List<CameraDescription> cameras = await availableCameras(); // sadly this must be done this early to prevent errors
+  runApp(MyApp(cameras: cameras));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,21 +25,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: darkMode
             ? const ColorScheme(
                 brightness: Brightness.dark,
@@ -175,31 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ])
               ],
             ),
+            // ScanCamera(cameras: widget.cameras),
 
-            // PDFViewer(path: 'Immatrikulationsbescheinigung-1.pdf'),
-            // const SearchBox(),
-            /*NavigationBox(buttons: [
-            ),*/
-            // const SearchBox(),
-            /*const ScanCrop(path: ''),*/
-            ScanCamera(cameras: widget.cameras),
-            /*NavigationBox(buttons: <Widget>[
-              NavigationButton(buttonText: 'Edit Tags', buttonIcon: Icons.edit_outlined, onPressed: () => showDialog<String>(context: context, builder: (BuildContext context) => const TagDialog())),
-              NavigationButton(buttonText: 'Home', buttonIcon: Icons.home_outlined, onPressed: () {}),
-              NavigationButton(buttonText: 'Search', buttonIcon: Icons.search_outlined, onPressed: () {}),
-            ]),*/
-            /*ScanActionButtonContainer(buttons: [
-              ScanActionButton(buttonText: 'Rotate', buttonIcon: Icons.rotate_right_outlined, onPressed: () {}),
-            ]),*/
-            /*ScanActionButtonContainer(buttons: [
-              ScanActionButton(buttonText: 'Crop Again', buttonIcon: Icons.crop_free_outlined, onPressed: () {}),
-              ScanActionButton(buttonText: 'Retake', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
-            ]),*/
-           /* NavigationBox(buttons: <Widget>[
-              NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () => showDialog<String>(context: context, builder: (final BuildContext context) => const CollectionCreateDialog())),
-              NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
-              NavigationButton(buttonText: 'Settings', buttonIcon: Icons.settings_outlined, onPressed: () {}),
-            ]),*/
           ],
         ),
       ),
