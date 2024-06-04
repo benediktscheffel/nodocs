@@ -62,12 +62,13 @@ class SearchBox extends StatelessWidget {
             },
             suggestionsBuilder:
                 (final BuildContext context, final SearchController controller) {
-              return List<ListTile>.generate(5, (final int index) {
+              return List<ListTile>.generate(2, (final int index) {
                 final String item = 'Suggestion $index';
                 return ListTile(
                   title: Text('Suggestion $index'),
                   onTap: () {
                     controller.closeView(item);
+                    FocusScope.of(context).unfocus();
                   },
                 );
               });

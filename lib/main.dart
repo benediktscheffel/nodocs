@@ -144,9 +144,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        color: theme.colorScheme.onPrimary,
                         padding: const EdgeInsets.all(16),
-                        child: TextButton(
+                        child:
+                        ElevatedButton(
                             onPressed: () {
                               Navigator.push(
                                   context,
@@ -154,6 +154,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                       builder: (final BuildContext context) =>
                                           const WidgetsPage()));
                             },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: theme.colorScheme.secondary,
+                              foregroundColor: theme.colorScheme.onSecondary,
+                            ),
                             child: const Text('Widgets')),
                       ),
                     ])
