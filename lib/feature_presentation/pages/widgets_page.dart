@@ -11,13 +11,11 @@ import '../../feature_filesystem/widgets/collection_dropdown.dart';
 import '../../feature_pdfviewer/widgets/pdf_viewer.dart';
 import '../../feature_scan/widgets/scan_action_button.dart';
 import '../../feature_scan/widgets/scan_camera.dart';
+import '../../feature_scan/widgets/scan_carousel.dart';
 import '../../feature_scan/widgets/scan_crop.dart';
 import '../../feature_tags/widgets/tag_dialog.dart';
 import '../../feature_tags/widgets/tag_dropdown.dart';
-import '../../widgets/button_arrow.dart';
-import '../../widgets/button_switch.dart';
-import '../../widgets/collection_container.dart';
-import '../../widgets/collection_tile.dart';
+import '../../feature_collections/widgets/collection_container.dart';
 import '../../widgets/dropdown_with_label.dart';
 import '../../widgets/navigation_box.dart';
 import '../../widgets/navigation_button.dart';
@@ -96,32 +94,51 @@ class WidgetsPage extends StatelessWidget {
                     right: 16,
                   ),
                   child: DropdownWithLabel(
-                      dropdown: CollectionDropdown(), label: "Select Folder"),
-                ),
-                /*Padding(
-              padding: const EdgeInsets.all(16),
-              child: ScanCarousel(onPageSelect: (final int index) {},),
-            ),*/
-                _sectionHeader(theme, 'Our Menu Widgets'),
-                CollectionContainer(collectionItems: <CollectionTile>[
-                  CollectionTile(
-                      title: 'Folder 1',
-                      onPressed: () {},
-                      leading: Icons.folder_outlined,
-                      trailing: ArrowButton(onPressed: () {})),
-                  CollectionTile(
-                      title: 'File 1',
-                      onPressed: () {},
-                      leading: Icons.picture_as_pdf_outlined),
-                  CollectionTile(
-                    title: 'DarkMode',
-                    onPressed: () {},
-                    leading: Icons.dark_mode_outlined,
-                    trailing: SwitchButton(onChanged: (final bool value) {}),
+                    dropdown: CollectionDropdown(),
+                    label: "Select Folder",
                   ),
-                ]),
+                ),
+                _sectionHeader(theme, 'Our Carousel Widget'),
+                ScanCarousel(onPageSelect: (final int index) {},),
+                _sectionHeader(theme, 'Our Menu Widgets'),
+                /*SettingsContainer(collectionItems: <SettingsTile>[
+                          SettingsTile(
+                            title: 'DarkMode',
+                            onPressed: () {},
+                            leading: Icons.dark_mode_outlined,
+                            trailing: SwitchButton(onChanged: (final bool value) {}),
+                          ),
+                        ]),*/
+                const CollectionContainer(),
                 _sectionHeader(theme, 'Our Searchbar Widget'),
                 const SearchBox(),
+                _sectionHeader(theme, 'Our Pdf Viewer'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<dynamic>(
+                              builder: (final BuildContext context) =>
+                              const PdfViewer(
+                                path: 'collection1/Immatrikulationsbescheinigung-1.pdf',
+                              ),
+                            )
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.secondary,
+                          foregroundColor: theme.colorScheme.onSecondary,
+                        ),
+                        child: const Text('Pdf Viewer')
+                      ),
+                    ),
+                  ],
+                ),
                 _sectionHeader(theme, 'Our Dialog Widgets'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -129,28 +146,32 @@ class WidgetsPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: ElevatedButton(
-                          onPressed: () => showDialog<String>(
-                            context: context,
-                            builder: (final BuildContext context) =>
-                              const CollectionCreateDialog()
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colorScheme.secondary,
-                            foregroundColor: theme.colorScheme.onSecondary,
-                          ), child: const Text('New Collection')),
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (final BuildContext context) =>
+                            const CollectionCreateDialog()
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.secondary,
+                          foregroundColor: theme.colorScheme.onSecondary,
+                        ),
+                        child: const Text('New Collection')
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: ElevatedButton(
-                          onPressed: () => showDialog<String>(
-                              context: context,
-                              builder: (final BuildContext context) =>
-                              const TagDialog(),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colorScheme.secondary,
-                            foregroundColor: theme.colorScheme.onSecondary,
-                          ), child: const Text('Edit Tags')),
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (final BuildContext context) =>
+                          const TagDialog(),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.secondary,
+                          foregroundColor: theme.colorScheme.onSecondary,
+                        ),
+                        child: const Text('Edit Tags')
+                      ),
                     ),
                   ],
                 ),
@@ -160,43 +181,46 @@ class WidgetsPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: ElevatedButton(
-                          onPressed: () => showDialog<String>(
-                              context: context,
-                              builder: (final BuildContext context) =>
-                                  ConfirmationDialog(
-                                      onConfirm: (){},
-                                      onCancel: (){},
-                                      header: 'Discard this scan?',
-                                      notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
-                                  ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colorScheme.secondary,
-                            foregroundColor: theme.colorScheme.onSecondary,
-                          ), child: const Text('Discard Scan')),
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (final BuildContext context) =>
+                            ConfirmationDialog(
+                              onConfirm: (){},
+                              onCancel: (){},
+                              header: 'Discard this scan?',
+                              notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
+                            ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.secondary,
+                          foregroundColor: theme.colorScheme.onSecondary,
+                        ),
+                        child: const Text('Discard Scan')
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: ElevatedButton(
-                          onPressed: () => showDialog<String>(
-                            context: context,
-                            builder: (final BuildContext context) =>
-                            ConfirmationDialog(
-                              onConfirm: (){},
-                              onCancel: (){},
-                              header: 'Retake this scan?',
-                                notificationText: 'Are you sure you want to retake the scan of the current page without saving?'
-                            ),
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (final BuildContext context) =>
+                          ConfirmationDialog(
+                            onConfirm: (){},
+                            onCancel: (){},
+                            header: 'Retake this scan?',
+                            notificationText: 'Are you sure you want to retake the scan of the current page without saving?',
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colorScheme.secondary,
-                            foregroundColor: theme.colorScheme.onSecondary,
-                          ), child: const Text('Retake Scan')),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.secondary,
+                          foregroundColor: theme.colorScheme.onSecondary,
+                        ),
+                        child: const Text('Retake Scan')
+                      ),
                     ),
                   ],
                 ),
                 _sectionHeader(theme, 'Our Navigation Widgets'),
-                // const SearchBox(),
                 NavigationBox(buttons: <Widget>[
                   NavigationButton(buttonText: 'Edit Tags', buttonIcon: Icons.edit_outlined, onPressed: () {}),
                   NavigationButton(buttonText: 'Home', buttonIcon: Icons.home_outlined, onPressed: () {}),
@@ -245,45 +269,45 @@ class WidgetsPage extends StatelessWidget {
                 ),
                 _sectionHeader(theme, 'Our Title with Button Widgets'),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<dynamic>(
-                              builder: (final BuildContext context) =>
-                              const WidgetsTitleWithButtonPage(
-                                icon: Icons.home_outlined,
-                                title: 'Crop Scan',
-                              )
-                          )
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.colorScheme.secondary,
-                      foregroundColor: theme.colorScheme.onSecondary,
-                    ),
-                    child: const Text('Open Button with Crop Scan Title Page')
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                        builder: (final BuildContext context) =>
+                        const WidgetsTitleWithButtonPage(
+                          icon: Icons.home_outlined,
+                          title: 'Crop Scan',
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.secondary,
+                    foregroundColor: theme.colorScheme.onSecondary,
+                  ),
+                  child: const Text('Open Button with Crop Scan Title Page')
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute<dynamic>(
-                              builder: (final BuildContext context) =>
-                              const WidgetsTitleWithButtonPage(
-                                icon: Icons.arrow_back_ios,
-                                title: 'Settings',
-                              )
-                          )
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.colorScheme.secondary,
-                      foregroundColor: theme.colorScheme.onSecondary,
-                    ),
-                    child: const Text('Open Button with Settings Title Page')
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                        builder: (final BuildContext context) =>
+                        const WidgetsTitleWithButtonPage(
+                          icon: Icons.arrow_back_ios,
+                          title: 'Settings',
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.secondary,
+                    foregroundColor: theme.colorScheme.onSecondary,
+                  ),
+                  child: const Text('Open Button with Settings Title Page')
                 ),
                 _sectionHeader(theme, 'Our Camera Widget'),
                 SizedBox(
@@ -291,18 +315,11 @@ class WidgetsPage extends StatelessWidget {
                   child: ScanCamera(cameras: cameras,),
                 ),
                 _sectionHeader(theme, 'Our Crop Widget'),
-                /*ScanActionButtonContainer(buttons: [
-              ScanActionButton(buttonText: 'Rotate', buttonIcon: Icons.rotate_right_outlined, onPressed: () {}),
-            ]),*/
-                /*ScanActionButtonContainer(buttons: [
-              ScanActionButton(buttonText: 'Crop Again', buttonIcon: Icons.crop_free_outlined, onPressed: () {}),
-              ScanActionButton(buttonText: 'Retake', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
-            ]),*/
               ],
             ),
           ),
           const ScanCrop(path: '/data/data/com.example.nodocs/files/Collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg',),
-        ],
+      ],
     ),
     /*bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
