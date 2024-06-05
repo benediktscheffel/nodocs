@@ -15,6 +15,7 @@ import 'package:nodocs/feature_scan/widgets/scan_action_button_container.dart';
 import 'package:nodocs/feature_scan/widgets/scan_camera.dart';
 import 'package:nodocs/feature_scan/widgets/scan_carousel.dart';
 import 'package:nodocs/feature_scan/widgets/scan_crop.dart';
+import 'package:nodocs/feature_settings/widgets/settings_container.dart';
 
 import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
 import 'package:nodocs/feature_tags/widgets/tag_dropdown.dart';
@@ -25,6 +26,9 @@ import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/search_bar.dart';
+
+import '../../feature_settings/widgets/settings_tile.dart';
+import '../../widgets/button_switch.dart';
 
 
 
@@ -326,6 +330,33 @@ class WidgetsPage extends StatelessWidget {
             ),
           ),
           const ScanCrop(path: '/data/data/com.example.nodocs/files/Collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg',),
+          _sectionHeader(theme, 'Our Settings Widget'),
+
+          SettingsContainer(collectionItems: <SettingsTile>[
+            SettingsTile(
+              title: 'Run text recognition',
+              onPressed: () {},
+              leading: Icons.document_scanner_outlined,
+              trailing: SwitchButton(onChanged: (final bool value) {}),
+            ),
+            SettingsTile(
+                title: 'Text recognition language', onPressed: (){},
+                leading: Icons.language_outlined,
+                trailing: Icon(Icons.arrow_right, color: theme.colorScheme.onSecondary)),
+          ]),
+          SettingsContainer(collectionItems: <SettingsTile>[
+            SettingsTile(
+              title: 'Dark Mode',
+              onPressed: () {},
+              leading: Icons.dark_mode_outlined,
+              trailing: SwitchButton(onChanged: (final bool value) {}),
+            ),
+            SettingsTile(
+                title: 'Text size',
+                onPressed: (){},
+                leading: Icons.text_fields_outlined,
+                trailing: Icon(Icons.arrow_right, color: theme.colorScheme.onSecondary)),
+          ]),
       ],
     ),
     /*bottomNavigationBar: NavigationBox(
