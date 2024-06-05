@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_collections/widgets/collection_tile.dart';
+import 'package:nodocs/feature_filesystem/widgets/collection_tile.dart';
 
 
 class CollectionContainer extends StatefulWidget {

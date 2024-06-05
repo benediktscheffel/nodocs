@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../feature_pdfviewer/widgets/pdf_viewer.dart';
+import 'package:nodocs/feature_pdfviewer/widgets/pdf_viewer.dart';
 
 class CollectionTile extends StatefulWidget {
   final String title;

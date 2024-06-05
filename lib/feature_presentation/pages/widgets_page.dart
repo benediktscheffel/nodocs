@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:nodocs/feature_settings/widgets/settings_container.dart';
 import 'package:nodocs/feature_settings/widgets/settings_tile.dart';
 
-import '../../feature_filesystem/widgets/collection_dropdown.dart';
-import '../../feature_pdfviewer/widgets/pdf_viewer.dart';
-import '../../feature_tags/widgets/tag_dropdown.dart';
-import '../../feature_collections/widgets/collection_container.dart';
-import '../../widgets/dropdown_with_label.dart';
-import '../../widgets/navigation_box.dart';
-import '../../widgets/navigation_button.dart';
-import '../../widgets/search_bar.dart';
+import 'package:nodocs/feature_filesystem/widgets/collection_dropdown.dart';
+import 'package:nodocs/feature_pdfviewer/widgets/pdf_viewer.dart';
+import 'package:nodocs/feature_tags/widgets/tag_dropdown.dart';
+import 'package:nodocs/feature_filesystem/widgets/collection_container.dart';
+import 'package:nodocs/widgets/dropdown_with_label.dart';
+import 'package:nodocs/widgets/navigation_box.dart';
+import 'package:nodocs/widgets/navigation_button.dart';
+import 'package:nodocs/widgets/search_bar.dart';
 
 class WidgetsPage extends StatelessWidget {
   const WidgetsPage({super.key});
