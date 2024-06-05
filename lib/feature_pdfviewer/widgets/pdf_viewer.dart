@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:nodocs/feature_pdfviewer/widgets/pdf_search_toolbar.dart';
-import 'package:path/path.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../widgets/navigation_box.dart';
@@ -167,7 +166,6 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
     );
   }
   Future<File> _getFile(final String path) async {
-    const String devicePath = '/data/data/com.example.nodocs/files/';
-    return File(join(devicePath, path));
+    return File(path);
   }
 }

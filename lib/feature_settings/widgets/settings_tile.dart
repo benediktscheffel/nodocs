@@ -1,34 +1,19 @@
 import 'package:flutter/material.dart';
 
-import 'collection_tile_dialog.dart';
+class SettingsTile extends StatelessWidget {
 
-class CollectionTile extends StatelessWidget {
   final String title;
   final VoidCallback onPressed;
   final IconData leading;
   final Widget? trailing;
 
-  const CollectionTile({
+  const SettingsTile({
     super.key,
     required this.title,
     required this.onPressed,
     required this.leading,
     this.trailing,
   });
-
-  _onLongPress(final BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (final BuildContext context) {
-        return CollectionTileDialog(
-          onRename: () {},
-          onDelete: () {},
-          onShare: () {},
-        );
-      },
-    );
-  }
 
   @override
   Widget build(final BuildContext context) {
@@ -37,10 +22,9 @@ class CollectionTile extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10, right: 2),
       child: ListTile(
         title:
-            Text(title, style: TextStyle(color: theme.colorScheme.onSecondary)),
+        Text(title, style: TextStyle(color: theme.colorScheme.onSecondary)),
         leading: Icon(leading, color: theme.colorScheme.onSecondary),
         onTap: onPressed,
-        onLongPress: () => _onLongPress(context),
         trailing: trailing,
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
       ),
