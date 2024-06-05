@@ -25,7 +25,10 @@ class ConfirmationDialog extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             notificationText,
-            style: TextStyle(color: colorScheme.onPrimaryContainer),
+            style: TextStyle(
+              fontSize: 16,
+              color: colorScheme.onPrimary
+            ),
           ),
         ),
       ],

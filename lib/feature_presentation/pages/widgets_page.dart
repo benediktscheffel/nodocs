@@ -1,18 +1,63 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_settings/widgets/settings_container.dart';
-import 'package:nodocs/feature_settings/widgets/settings_tile.dart';
 
-import 'package:nodocs/feature_filesystem/widgets/collection_dropdown.dart';
-import 'package:nodocs/feature_pdfviewer/widgets/pdf_viewer.dart';
-import 'package:nodocs/feature_tags/widgets/tag_dropdown.dart';
 import 'package:nodocs/feature_filesystem/widgets/collection_container.dart';
+import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
+import 'package:nodocs/feature_filesystem/widgets/collection_dropdown.dart';
+
+import 'package:nodocs/feature_presentation/pages/widgets_input_title_page.dart';
+import 'package:nodocs/feature_presentation/pages/widgets_title_with_button_page.dart';
+
+import 'package:nodocs/feature_pdfviewer/widgets/pdf_viewer.dart';
+
+import 'package:nodocs/feature_scan/widgets/scan_action_button.dart';
+import 'package:nodocs/feature_scan/widgets/scan_action_button_container.dart';
+import 'package:nodocs/feature_scan/widgets/scan_camera.dart';
+import 'package:nodocs/feature_scan/widgets/scan_carousel.dart';
+import 'package:nodocs/feature_scan/widgets/scan_crop.dart';
+
+import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
+import 'package:nodocs/feature_tags/widgets/tag_dropdown.dart';
+
+import 'package:nodocs/widgets/confirmation_dialog.dart';
+import 'package:nodocs/widgets/title_with_button.dart';
 import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/search_bar.dart';
 
+
+
 class WidgetsPage extends StatelessWidget {
-  const WidgetsPage({super.key});
+  final List<CameraDescription> cameras;
+  const WidgetsPage({super.key, required this.cameras});
+
+  Widget _sectionHeader(final ThemeData theme, final String headline) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 16,
+        left: 16,
+        right: 16,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            headline,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 17,
+              color: theme.colorScheme.onPrimary,
+            ),
+          ),
+          Divider(
+            thickness: 2,
+            color: theme.colorScheme.secondary,
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -21,147 +66,277 @@ class WidgetsPage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
-        title: Text('Widgets',
-            style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 17)),
+        title: TitleWithButton(title: 'Widgets', icon: Icons.arrow_back_ios, onButtonClick: () => Navigator.popUntil(context, ModalRoute.withName('/'))),
         centerTitle: true,
       ),
-      body: Scrollbar(
-        thumbVisibility: false,
-        trackVisibility: false,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 16,
-                  right: 16,
+      body: ListView(
+        children: <Widget>[
+          Center(
+            child: Column(
+              children: <Widget>[
+                _sectionHeader(theme, 'Our Dropdown Widgets'),
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                  ),
+                  child: DropdownWithLabel(
+                      dropdown: TagDropdown(tags: <String>{
+                        "Tag1",
+                        "Tag2",
+                        "Tag3",
+                        "Tag4",
+                        "Tag5",
+                        "Tag6",
+                        "Tag7",
+                        "Tag8",
+                        "Tag9",
+                        "Tag10"
+                      }),
+                      label: "Select Tags"),
                 ),
-                child: DropdownWithLabel(
-                    dropdown: TagDropdown(tags: <String>{
-                      "Tag1",
-                      "Tag2",
-                      "Tag3",
-                      "Tag4",
-                      "Tag5",
-                      "Tag6",
-                      "Tag7",
-                      "Tag8",
-                      "Tag9",
-                      "Tag10"
-                    }),
-                    label: "Select Tags"),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 16,
-                  right: 16,
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                  ),
+                  child: DropdownWithLabel(
+                    dropdown: CollectionDropdown(),
+                    label: "Select Folder",
+                  ),
                 ),
-                child: DropdownWithLabel(
-                    dropdown: CollectionDropdown(), label: "Select Folder"),
-              ),
-              /*Padding(
-              padding: const EdgeInsets.all(16),
-              child: ScanCarousel(onPageSelect: (final int index) {},),
-            ),*/
-              /*SettingsContainer(collectionItems: <SettingsTile>[
-                SettingsTile(
-                  title: 'DarkMode',
-                  onPressed: () {},
-                  leading: Icons.dark_mode_outlined,
-                  trailing: SwitchButton(onChanged: (final bool value) {}),
-                ),
-              ]),*/
-              const CollectionContainer(),
-              const SearchBox(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: ElevatedButton(
+                _sectionHeader(theme, 'Our Carousel Widget'),
+                ScanCarousel(onPageSelect: (final int index) {},),
+                _sectionHeader(theme, 'Our Menu Widgets'),
+                /*SettingsContainer(collectionItems: <SettingsTile>[
+                          SettingsTile(
+                            title: 'DarkMode',
+                            onPressed: () {},
+                            leading: Icons.dark_mode_outlined,
+                            trailing: SwitchButton(onChanged: (final bool value) {}),
+                          ),
+                        ]),*/
+                const CollectionContainer(),
+                _sectionHeader(theme, 'Our Searchbar Widget'),
+                const SearchBox(),
+                _sectionHeader(theme, 'Our Pdf Viewer'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute<dynamic>(
-                                  builder: (final BuildContext context) =>
-                                      const PdfViewer(
-                                          path:
-                                              'collection1/Immatrikulationsbescheinigung-1.pdf')));
+                            context,
+                            MaterialPageRoute<dynamic>(
+                              builder: (final BuildContext context) =>
+                              const PdfViewer(
+                                path: 'collection1/Immatrikulationsbescheinigung-1.pdf',
+                              ),
+                            )
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colorScheme.secondary,
                           foregroundColor: theme.colorScheme.onSecondary,
                         ),
-                        child: const Text('Pdf Viewer')),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          // Navigator.push(context,MaterialPageRoute<dynamic>(builder: (final BuildContext context) => {}));
-                        },
+                        child: const Text('Pdf Viewer')
+                      ),
+                    ),
+                  ],
+                ),
+                _sectionHeader(theme, 'Our Dialog Widgets'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (final BuildContext context) =>
+                            const CollectionCreateDialog()
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colorScheme.secondary,
                           foregroundColor: theme.colorScheme.onSecondary,
                         ),
-                        // TODO: Page for this needs to be built
-                        child: const Text('Scan Carousel')),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: ElevatedButton(
-                        onPressed: () {
-                          // Navigator.push(context,MaterialPageRoute<dynamic>(builder: (final BuildContext context) => {}));
-                        },
+                        child: const Text('New Collection')
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (final BuildContext context) =>
+                          const TagDialog(),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.colorScheme.secondary,
                           foregroundColor: theme.colorScheme.onSecondary,
                         ),
-                        child: Text('Dialog X')),
+                        child: const Text('Edit Tags')
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (final BuildContext context) =>
+                            ConfirmationDialog(
+                              onConfirm: (){},
+                              onCancel: (){},
+                              header: 'Discard this scan?',
+                              notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
+                            ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.secondary,
+                          foregroundColor: theme.colorScheme.onSecondary,
+                        ),
+                        child: const Text('Discard Scan')
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElevatedButton(
+                        onPressed: () => showDialog<String>(
+                          context: context,
+                          builder: (final BuildContext context) =>
+                          ConfirmationDialog(
+                            onConfirm: (){},
+                            onCancel: (){},
+                            header: 'Retake this scan?',
+                            notificationText: 'Are you sure you want to retake the scan of the current page without saving?',
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colorScheme.secondary,
+                          foregroundColor: theme.colorScheme.onSecondary,
+                        ),
+                        child: const Text('Retake Scan')
+                      ),
+                    ),
+                  ],
+                ),
+                _sectionHeader(theme, 'Our Navigation Widgets'),
+                NavigationBox(buttons: <Widget>[
+                  NavigationButton(buttonText: 'Edit Tags', buttonIcon: Icons.edit_outlined, onPressed: () {}),
+                  NavigationButton(buttonText: 'Home', buttonIcon: Icons.home_outlined, onPressed: () {}),
+                  NavigationButton(buttonText: 'Search', buttonIcon: Icons.search_outlined, onPressed: () {}),
+                ]),
+                const SizedBox(height: 5,),
+                NavigationBox(buttons: <Widget>[
+                  NavigationButton(buttonText: 'New Collection', buttonIcon: Icons.add_outlined, onPressed: () {}),
+                  NavigationButton(buttonText: 'Scan Document', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
+                  NavigationButton(buttonText: 'Settings', buttonIcon: Icons.settings_outlined, onPressed: () {}),
+                ]),
+                const SizedBox(height: 5,),
+                NavigationBox(buttons: <Widget>[
+                  NavigationButton(buttonText: 'Retake Photo', buttonIcon: Icons.flip_camera_ios_outlined, onPressed: () {}),
+                  NavigationButton(buttonText: 'Keep Scanning', buttonIcon: Icons.arrow_forward_outlined, onPressed: () {}),
+                  NavigationButton(buttonText: 'Save Document', buttonIcon: Icons.save_outlined, onPressed: () {}),
+                ]),
+                const SizedBox(height: 5,),
+                NavigationBox(buttons: <Widget>[
+                  NavigationButton(buttonText: 'Cancel', buttonIcon: Icons.cancel_outlined, onPressed: () {}),
+                  NavigationButton(buttonText: 'Save & Exit', buttonIcon: Icons.save_outlined, onPressed: () {}),
+                ]),
+                _sectionHeader(theme, 'Our ActionButton Widgets'),
+                ScanActionButton(buttonIcon: Icons.crop_outlined, buttonText: 'Crop', onPressed: () {},),
+                const SizedBox(height: 5,),
+                ScanActionButtonContainer(buttons: <Widget>[
+                  ScanActionButton(buttonIcon: Icons.crop_free_outlined, buttonText: 'Crop Again', onPressed: () {},),
+                  ScanActionButton(buttonIcon: Icons.flip_camera_ios_outlined, buttonText: 'Retake', onPressed: () {},),
+                ]),
+                _sectionHeader(theme, 'Our Editable Title Widget'),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                          builder: (final BuildContext context) =>
+                              const WidgetsInputTitlePage()
+                      )
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.secondary,
+                    foregroundColor: theme.colorScheme.onSecondary,
                   ),
-                ],
-              ),
-              // const SearchBox(),
-              /*NavigationBox(buttons: [
-              NavigationButton(buttonText: 'Edit Tags', buttonIcon: Icons.edit_outlined, onPressed: () => showDialog<String>(context: context, builder: (BuildContext context) => const TagDialog())),
-              NavigationButton(buttonText: 'Home', buttonIcon: Icons.home_outlined, onPressed: () {}),
-              NavigationButton(buttonText: 'Search', buttonIcon: Icons.search_outlined, onPressed: () {}),
-            ]),*/
-              /*ScanActionButtonContainer(buttons: [
-              ScanActionButton(buttonText: 'Rotate', buttonIcon: Icons.rotate_right_outlined, onPressed: () {}),
-            ]),*/
-              /*ScanActionButtonContainer(buttons: [
-              ScanActionButton(buttonText: 'Crop Again', buttonIcon: Icons.crop_free_outlined, onPressed: () {}),
-              ScanActionButton(buttonText: 'Retake', buttonIcon: Icons.camera_alt_outlined, onPressed: () {}),
-            ]),*/
-            ],
+                  child: const Text('Input Title Page')
+                ),
+                _sectionHeader(theme, 'Our Title with Button Widgets'),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                        builder: (final BuildContext context) =>
+                        const WidgetsTitleWithButtonPage(
+                          icon: Icons.home_outlined,
+                          title: 'Crop Scan',
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.secondary,
+                    foregroundColor: theme.colorScheme.onSecondary,
+                  ),
+                  child: const Text('Button with Crop Scan Title Page')
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                        builder: (final BuildContext context) =>
+                        const WidgetsTitleWithButtonPage(
+                          icon: Icons.arrow_back_ios,
+                          title: 'Settings',
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.secondary,
+                    foregroundColor: theme.colorScheme.onSecondary,
+                  ),
+                  child: const Text('Button with Settings Title Page')
+                ),
+                _sectionHeader(theme, 'Our Camera Widget'),
+                SizedBox(
+                  height: 700,
+                  child: ScanCamera(cameras: cameras,),
+                ),
+                _sectionHeader(theme, 'Our Crop Widget'),
+              ],
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: NavigationBox(
+          const ScanCrop(path: '/data/data/com.example.nodocs/files/Collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg',),
+      ],
+    ),
+    /*bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
           NavigationButton(
               buttonText: 'Home',
-              buttonIcon: Icons.home,
+              buttonIcon: Icons.home_outlined,
               onPressed: () =>
                   Navigator.popUntil(context, ModalRoute.withName('/'))),
-          NavigationButton(
-              // TODO: Page for camera
-              buttonText: 'Scan Document',
-              buttonIcon: Icons.camera_alt_outlined,
-              onPressed: () {}),
-          NavigationButton(
-              buttonText: 'Settings',
-              buttonIcon: Icons.settings_outlined,
-              onPressed: () {}),
         ],
-      ),
+      ),*/
     );
   }
 }
