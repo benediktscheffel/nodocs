@@ -103,6 +103,7 @@ class _ScanCropState extends State<ScanCrop> {
   }
 
   Future<void> _cropImage() async {
+    final ThemeData theme = Theme.of(context);
     if (_pickedFile != null) {
       final CroppedFile? croppedFile = await ImageCropper().cropImage(
         sourcePath: _pickedFile!.path,
@@ -111,8 +112,8 @@ class _ScanCropState extends State<ScanCrop> {
         uiSettings: <PlatformUiSettings>[
           AndroidUiSettings(
               toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
+              toolbarColor: theme.colorScheme.secondary,
+              toolbarWidgetColor: theme.colorScheme.onSecondary,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: false),
           IOSUiSettings(

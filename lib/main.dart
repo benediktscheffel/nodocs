@@ -152,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   context,
                                   MaterialPageRoute<dynamic>(
                                       builder: (final BuildContext context) =>
-                                          const WidgetsPage()));
+                                          WidgetsPage(cameras: widget.cameras)));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: theme.colorScheme.secondary,
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: NavigationBox(buttons: <Widget>[
+      /*bottomNavigationBar: NavigationBox(buttons: <Widget>[
         NavigationButton(
             buttonText: 'New Collection',
             buttonIcon: Icons.add_outlined,
@@ -184,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
             buttonText: 'Settings',
             buttonIcon: Icons.settings_outlined,
             onPressed: () {}),
-      ]),
+      ]),*/
     );
   }
 }
