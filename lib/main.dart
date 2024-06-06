@@ -8,7 +8,8 @@ import 'package:nodocs/widgets/navigation_button.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final List<CameraDescription> cameras = await availableCameras(); // sadly this must be done this early to prevent errors
+  final List<CameraDescription> cameras =
+      await availableCameras(); // sadly this must be done this early to prevent errors
   runApp(MyApp(cameras: cameras));
 }
 
@@ -67,7 +68,10 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'NoDocs', cameras: cameras,),
+      home: MyHomePage(
+        title: 'NoDocs',
+        cameras: cameras,
+      ),
     );
   }
 }
@@ -98,93 +102,37 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            /*const Padding(
-              padding: EdgeInsets.all(16),
-              child: DropdownWithLabel(
-                dropdown: TagDropdown(
-                  tags: <String>{"Tag1", "Tag2", "Tag3", "Tag4", "Tag5", "Tag6", "Tag7", "Tag8", "Tag9", "Tag10"}
-                ),
-                label: "Select Tags"
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: DropdownWithLabel(
-                  dropdown: CollectionDropdown(),
-                  label: "Select Folder"
-              ),
-            ),*/
-            /*Padding(
-              padding: const EdgeInsets.all(16),
-              child: ScanCarousel(onPageSelect: (final int index) {},),
-            ),*/
-            /*const Padding(
-              padding: EdgeInsets.all(16),
-              child: CollectionDropdown(),
-            ),*/
-/*            CollectionContainer(collectionItems: <CollectionTile>[
-                CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
-                CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
-                CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
-                CollectionTile(title: 'Folder 1', onPressed: () {},leading: Icons.folder_outlined, trailing: ArrowButton(onPressed: () {})),
-                CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
-                CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
-                CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
-                CollectionTile(title: 'File 1', onPressed: () {}, leading: Icons.picture_as_pdf_outlined),
-                // CollectionTile(title: 'DarkMode', onPressed: () {}, leading: Icons.dark_mode_outlined, trailing: SwitchButton(onChanged: (final bool value) {}),),
-              ]
-            ),*/
-            // navigate to new Page with
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        child:
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute<dynamic>(
-                                      builder: (final BuildContext context) =>
-                                          WidgetsPage(cameras: widget.cameras)));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: theme.colorScheme.secondary,
-                              foregroundColor: theme.colorScheme.onSecondary,
-                            ),
-                            child: const Text('Widgets')),
-                      ),
-                    ])
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute<dynamic>(
+                                    builder: (final BuildContext context) =>
+                                        WidgetsPage(cameras: widget.cameras)));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colorScheme.secondary,
+                            foregroundColor: theme.colorScheme.onSecondary,
+                          ),
+                          child: const Text('Widgets')),
+                    ),
+                  ],
+                ),
               ],
             ),
-            // ScanCamera(cameras: widget.cameras),
-
           ],
         ),
       ),
-      /*bottomNavigationBar: NavigationBox(buttons: <Widget>[
-        NavigationButton(
-            buttonText: 'New Collection',
-            buttonIcon: Icons.add_outlined,
-            onPressed: () => showDialog<String>(
-                context: context,
-                builder: (final BuildContext context) =>
-                    const CollectionCreateDialog())),
-        NavigationButton(
-            buttonText: 'Scan Document',
-            buttonIcon: Icons.camera_alt_outlined,
-            onPressed: () {}),
-        NavigationButton(
-            buttonText: 'Settings',
-            buttonIcon: Icons.settings_outlined,
-            onPressed: () {}),
-      ]),*/
     );
   }
 }
