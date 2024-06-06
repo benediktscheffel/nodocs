@@ -123,33 +123,6 @@ class WidgetsPage extends StatelessWidget {
                 const CollectionContainer(),
                 _sectionHeader(theme, 'Our Searchbar Widget'),
                 const SearchBox(),
-                _sectionHeader(theme, 'Our Pdf Viewer'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<dynamic>(
-                              builder: (final BuildContext context) =>
-                              const PdfViewer(
-                                path: 'collection1/Immatrikulationsbescheinigung-1.pdf',
-                              ),
-                            )
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.colorScheme.secondary,
-                          foregroundColor: theme.colorScheme.onSecondary,
-                        ),
-                        child: const Text('Pdf Viewer')
-                      ),
-                    ),
-                  ],
-                ),
                 _sectionHeader(theme, 'Our Dialog Widgets'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

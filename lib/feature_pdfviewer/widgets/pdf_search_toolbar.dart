@@ -106,14 +106,15 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
 
   @override
   Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Row(
       children: <Widget>[
         Material(
           color: Colors.transparent,
           child: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back,
-              color: Colors.black54,
+              color: theme.colorScheme.onSecondary,
               size: 24,
             ),
             onPressed: () {
@@ -126,8 +127,8 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
         ),
         Flexible(
           child: TextFormField(
-            style: const TextStyle(
-                color: Colors.black87, fontSize: 16),
+            style: TextStyle(
+                color: theme.colorScheme.onSecondary, fontSize: 16),
             enableInteractiveSelection: false,
             focusNode: focusNode,
             keyboardType: TextInputType.text,
@@ -136,7 +137,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Find...',
-              hintStyle: TextStyle(color: const Color(0x00000000).withOpacity(0.34)),
+              hintStyle: TextStyle(color: theme.colorScheme.onSecondary.withOpacity(0.34)),
             ),
             onChanged: (final String text) {
               if (_editingController.text.isNotEmpty) {
@@ -198,9 +199,9 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
           child: Material(
             color: Colors.transparent,
             child: IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.clear,
-                color: Colors.black54,
+                color: theme.colorScheme.onSecondary,
                 size: 24,
               ),
               onPressed: () {
@@ -226,7 +227,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
               width: 24,
               height: 24,
               child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
+                color: theme.primaryColor,
               ),
             ),
           ),
@@ -237,28 +238,28 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
             children: <Widget>[
               Text(
                 '${_pdfTextSearchResult.currentInstanceIndex}',
-                style: const TextStyle(
-                    color: Colors.black87,
+                style: TextStyle(
+                    color: theme.colorScheme.onSecondary,
                     fontSize: 16),
               ),
-              const Text(
+              Text(
                 ' of ',
                 style: TextStyle(
-                    color: Colors.black87,
+                    color: theme.colorScheme.onSecondary,
                     fontSize: 16),
               ),
               Text(
                 '${_pdfTextSearchResult.totalInstanceCount}',
-                style: const TextStyle(
-                    color: Colors.black87,
+                style: TextStyle(
+                    color: theme.colorScheme.onSecondary,
                     fontSize: 16),
               ),
               Material(
                 color: Colors.transparent,
                 child: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.navigate_before,
-                    color: Colors.black87,
+                    color: theme.colorScheme.onSecondary,
                     size: 24,
                   ),
                   onPressed: () {
@@ -273,9 +274,9 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
               Material(
                 color: Colors.transparent,
                 child: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.navigate_next,
-                    color: Colors.black54,
+                    color: theme.colorScheme.onSecondary,
                     size: 24,
                   ),
                   onPressed: () {
