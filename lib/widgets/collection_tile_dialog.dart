@@ -24,31 +24,36 @@ class CollectionTileDialog extends StatelessWidget {
           topRight: Radius.circular(0),
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            trailing: const Icon(Icons.edit, color: Colors.white),
-            title: const Text('Rename', style: TextStyle(color: Colors.white)),
-            onTap: onRename,
+      child: SingleChildScrollView( // Add this
+        child: Material( // Add this
+          type: MaterialType.transparency, // Add this
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                trailing: const Icon(Icons.edit, color: Colors.white),
+                title: const Text('Rename', style: TextStyle(color: Colors.white)),
+                onTap: onRename,
+              ),
+              ListTile(
+                trailing: const Icon(Icons.ios_share_sharp, color: Colors.white),
+                title: const Text('Share', style: TextStyle(color: Colors.white)),
+                onTap: onShare,
+              ),
+              const Divider(
+                color: Colors.white,
+                height: 1,
+                thickness: 2,
+              ),
+              ListTile(
+                trailing: const Icon(Icons.delete, color: Colors.redAccent),
+                title: const Text('Delete', style: TextStyle(color: Colors.redAccent)),
+                onTap: onDelete,
+              ),
+            ],
           ),
-          ListTile(
-            trailing: const Icon(Icons.ios_share_sharp, color: Colors.white),
-            title: const Text('Share', style: TextStyle(color: Colors.white)),
-            onTap: onShare,
-          ),
-          const Divider(
-            color: Colors.white,
-            height: 1,
-            thickness: 2,
-          ),
-          ListTile(
-            trailing: const Icon(Icons.delete, color: Colors.redAccent),
-            title: const Text('Delete', style: TextStyle(color: Colors.redAccent)),
-            onTap: onDelete,
-          ),
-        ],
+        ),
       ),
     );
   }

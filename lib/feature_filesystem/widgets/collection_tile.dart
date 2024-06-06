@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:nodocs/feature_pdfviewer/widgets/pdf_viewer.dart';
 
+import '../../widgets/collection_tile_dialog.dart';
+
 class CollectionTile extends StatefulWidget {
   final String title;
   final IconData leading;
@@ -25,6 +27,20 @@ class _CollectionTileState extends State<CollectionTile> {
   bool _isExpanded = false;
   List<CollectionTile> _children = <CollectionTile>[];
 
+  _onLongPress(final BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (final BuildContext context) {
+        return CollectionTileDialog(
+              onRename: () {},
+              onDelete: () {},
+              onShare: () {},
+
+          );
+      }
+    );
+  }
+
   @override
   Widget build(final BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -41,6 +57,7 @@ class _CollectionTileState extends State<CollectionTile> {
               },
             ));
           },
+          onLongPress: () => _onLongPress(context),
           trailing: isDirectory ? Icon(_isExpanded ? Icons.arrow_drop_down : Icons.arrow_right, color: theme.colorScheme.onSecondary) : null,
         ),
         if (_isExpanded) ..._children.map((final CollectionTile child) => Padding(
