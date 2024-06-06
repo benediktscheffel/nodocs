@@ -42,14 +42,6 @@ class _CollectionContainerState extends State<CollectionContainer> {
         if (entity is File && entity.path.endsWith('.pdf')) {
           items.add(CollectionTile(
             title: entity.path.split('/').last.replaceAll('.pdf', ''),
-            /*onPressed: () {
-              Navigator.push(context, MaterialPageRoute<void>(
-                builder: (final BuildContext context) {
-                  return PdfViewer(path: entity.path);
-                },
-              )
-              );
-            },*/
             leading: Icons.picture_as_pdf_outlined,
             path: entity.path,
           ));

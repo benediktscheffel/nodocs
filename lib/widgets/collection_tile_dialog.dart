@@ -17,9 +17,9 @@ class CollectionTileDialog extends StatelessWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       // color: Colors.transparent,
-      decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.83),
-        borderRadius: const BorderRadius.only(
+      decoration: const BoxDecoration(
+        // color: Colors.black.withOpacity(0.83),
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(0),
           topRight: Radius.circular(0),
         ),
