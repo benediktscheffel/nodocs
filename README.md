@@ -1,6 +1,6 @@
 # nodocs
 
-A new Flutter project.
+A Flutter Project to scan documents and manage them.
 
 ## Getting Started
 
@@ -14,3 +14,22 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+## Development
+
+### Useful commands
+
+#### Activate Build Runner
+
+```
+flutter pub global activate build_runner
+
+```
+
+#### Regenerate generated sources
+
+```
+flutter pub run build_runner build
+
+```

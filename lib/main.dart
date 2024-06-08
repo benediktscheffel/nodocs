@@ -3,6 +3,8 @@ import 'package:camera/camera.dart';
 
 import 'package:nodocs/features/presentation/pages/widgets_page.dart';
 
+import 'go_router.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final List<CameraDescription> cameras =
@@ -19,7 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     const bool darkMode = false;
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: darkMode
@@ -65,10 +68,6 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: MyHomePage(
-        title: 'NoDocs',
-        cameras: cameras,
-      ),
     );
   }
 }
@@ -111,11 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.all(16),
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                    builder: (final BuildContext context) =>
-                                        WidgetsPage(cameras: widget.cameras)));
+                            const HomeRoute().go(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colorScheme.secondary,
