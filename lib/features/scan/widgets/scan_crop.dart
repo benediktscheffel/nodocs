@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nodocs/feature_scan/widgets/scan_action_button.dart';
-import 'package:nodocs/feature_scan/widgets/scan_action_button_container.dart';
+import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
+import 'package:nodocs/features/scan/widgets/scan_action_button_container.dart';
 
 class ScanCrop extends StatefulWidget {
   final String path;
@@ -33,17 +33,17 @@ class _ScanCropState extends State<ScanCrop> {
 
   @override
   void dispose() {
-    setState(() {
+    /*setState(() {
       _pickedFile = null;
       _croppedFile = null;
-    });
+    });*/
     super.dispose();
   }
 
   @override
   Widget build(final BuildContext context) {
-    return Expanded(
-      child: Center(
+    return
+      Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,7 +98,6 @@ class _ScanCropState extends State<ScanCrop> {
             ),
           ],
         ),
-      ),
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_tags/widgets/tag_chip_container.dart';
-import 'package:nodocs/feature_tags/widgets/tag_input.dart';
+import 'package:nodocs/features/tags/widgets/tag_chip_container.dart';
+import 'package:nodocs/features/tags/widgets/tag_input.dart';
 import 'package:nodocs/widgets/dialog_box.dart';
 
 class TagDialog extends StatelessWidget {

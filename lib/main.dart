@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
-import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
-import 'package:nodocs/feature_presentation/pages/widgets_page.dart';
-import 'package:nodocs/widgets/navigation_box.dart';
-import 'package:nodocs/widgets/navigation_button.dart';
+import 'package:nodocs/features/presentation/pages/widgets_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

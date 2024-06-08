@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_settings/widgets/settings_tile.dart';
+import 'package:nodocs/features/settings/widgets/settings_tile.dart';
 
 class SettingsContainer extends StatelessWidget {
   final List<SettingsTile> collectionItems;

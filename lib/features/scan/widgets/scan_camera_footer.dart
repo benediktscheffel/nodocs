@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nodocs/feature_scan/widgets/scan_box_last_image.dart';
-import 'package:nodocs/feature_scan/widgets/scan_camera_button.dart';
+import 'package:nodocs/features/scan/widgets/scan_box_last_image.dart';
+import 'package:nodocs/features/scan/widgets/scan_camera_button.dart';
 
 class ScanCameraFooter extends StatelessWidget {
   final VoidCallback onTakePhoto;
@@ -25,7 +25,7 @@ class ScanCameraFooter extends StatelessWidget {
           'https://images.thalia.media/03/-/684f7c82fc2a499bb90cf9140bd8fe27/harry-potter-und-der-stein-der-weisen-taschenbuch-j-k-rowling.jpeg'
         ),*/
         img: Image.file(
-          File('/data/data/com.example.nodocs/files/Collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg'),
+          File('/data/data/com.example.nodocs/files/collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg'),
           //File('/data/data/com.example.nodocs/files/annie-spratt-askpr0s66Rg-unsplash.jpg'),
         ),
         scanCounter: 6,

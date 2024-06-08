@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nodocs/features/scan/widgets/scan_title_input.dart';
+import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
-import 'package:nodocs/widgets/title_with_button.dart';
 
-import '../../feature_scan/widgets/scan_title_input.dart';
-import '../../widgets/navigation_box.dart';
 
-class WidgetsTitleWithButtonPage extends StatelessWidget {
-  final IconData icon;
-  final String title;
-
-  const WidgetsTitleWithButtonPage({super.key, required this.icon, required this.title});
+class WidgetsInputTitlePage extends StatelessWidget {
+  const WidgetsInputTitlePage({super.key});
 
   @override
   Widget build(final BuildContext context) {
@@ -17,7 +13,7 @@ class WidgetsTitleWithButtonPage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: TitleWithButton(title: title, icon: icon, onButtonClick: (){}),
+        title: const ScanTitleInput(),
         centerTitle: true,
       ),
       body: null,

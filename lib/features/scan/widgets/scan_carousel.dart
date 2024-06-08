@@ -17,7 +17,7 @@ class ScanCarousel extends StatefulWidget {
 class _ScanCarouselState extends State<ScanCarousel> {
   List<Widget> imageSliders = <Widget>[];
   List<String> images = <String>[];
-  String imageFolder = '/data/data/com.example.nodocs/files/Collection1/';
+  String imageFolder = '/data/data/com.example.nodocs/files/collection1/';
   int current = 0;
   final CarouselController controller = CarouselController();
 

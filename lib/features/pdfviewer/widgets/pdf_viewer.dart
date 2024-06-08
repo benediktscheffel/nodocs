@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_pdfviewer/widgets/pdf_search_toolbar.dart';
+import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart';
+import 'package:nodocs/widgets/navigation_box.dart';
+import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-import '../../widgets/navigation_box.dart';
-import '../../widgets/navigation_button.dart';
 
 class PdfViewer extends StatefulWidget {
   const PdfViewer({super.key, required this.path});

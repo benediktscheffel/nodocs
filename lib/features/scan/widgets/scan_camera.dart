@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_scan/widgets/scan_camera_footer.dart';
+import 'package:nodocs/features/scan/widgets/scan_camera_footer.dart';
 
 class ScanCamera extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -68,8 +68,7 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
   @override
   Widget build(final BuildContext context) {
     if (_controller.value.isInitialized) {
-      return Expanded(
-        child: FutureBuilder<void>(
+      return FutureBuilder<void>(
           future: _initializeControllerFuture,
           builder: (final BuildContext context, final AsyncSnapshot<void> snapshot) {
             if (context.findRenderObject() != null && snapshot.connectionState == ConnectionState.done) {
@@ -112,7 +111,7 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
                           final XFile image = await _controller.takePicture();
                           if (!context.mounted) return;
                           await Navigator.of(context).push(
-                            MaterialPageRoute(
+                            MaterialPageRoute<dynamic>(
                               builder: (final BuildContext context) => DisplayPictureScreen(
                                 imagePath: image.path,
                               ),
@@ -129,8 +128,7 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
             }
             return _cameraNotAvailable();
           },
-        ),
-      );
+        );
     }
     return _cameraNotAvailable();
   }

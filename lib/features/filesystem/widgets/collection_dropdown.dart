@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_filesystem/widgets/collection_chip_dropdown.dart';
+import 'package:nodocs/features/filesystem/widgets/collection_chip_dropdown.dart';
 
 class CollectionDropdown extends StatefulWidget {
   const CollectionDropdown({super.key});

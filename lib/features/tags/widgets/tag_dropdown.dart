@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_tags/widgets/tag_chip_dropdown.dart';
+import 'package:nodocs/features/tags/widgets/tag_chip_dropdown.dart';
 
 class TagDropdown extends StatefulWidget {
   final Set<String> tags;

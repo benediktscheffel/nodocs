@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nodocs/feature_filesystem/widgets/collection_input.dart';
+import 'package:nodocs/features/filesystem/widgets/collection_input.dart';
+import 'package:nodocs/widgets/dialog_box.dart';
 
-import '../../widgets/dialog_box.dart';
 
 class CollectionCreateDialog extends StatelessWidget {
   const CollectionCreateDialog({super.key});

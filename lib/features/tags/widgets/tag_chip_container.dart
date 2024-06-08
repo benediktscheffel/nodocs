@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:nodocs/feature_tags/widgets/tag_chip.dart';
+import 'package:nodocs/features/tags/widgets/tag_chip.dart';
 
 class TagChipContainer extends StatelessWidget {
   final List<(String, bool)> tagData;

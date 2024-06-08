@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
+import 'package:nodocs/widgets/collection_tile_dialog.dart';
 
-import 'package:nodocs/feature_pdfviewer/widgets/pdf_viewer.dart';
 
-import '../../widgets/collection_tile_dialog.dart';
 
 class CollectionTile extends StatefulWidget {
   final String title;

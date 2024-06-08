@@ -1,24 +1,23 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import 'package:nodocs/feature_filesystem/widgets/collection_container.dart';
-import 'package:nodocs/feature_filesystem/widgets/collection_create_dialog.dart';
-import 'package:nodocs/feature_filesystem/widgets/collection_dropdown.dart';
+import 'package:nodocs/features/filesystem/widgets/collection_container.dart';
+import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
+import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
+import 'package:nodocs/features/presentation/pages/widgets_input_title_page.dart';
+import 'package:nodocs/features/presentation/pages/widgets_title_with_button_page.dart';
 
-import 'package:nodocs/feature_presentation/pages/widgets_input_title_page.dart';
-import 'package:nodocs/feature_presentation/pages/widgets_title_with_button_page.dart';
+import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
+import 'package:nodocs/features/scan/widgets/scan_action_button_container.dart';
+import 'package:nodocs/features/scan/widgets/scan_camera.dart';
+import 'package:nodocs/features/scan/widgets/scan_carousel.dart';
+import 'package:nodocs/features/scan/widgets/scan_crop.dart';
+import 'package:nodocs/features/settings/widgets/settings_container.dart';
+import 'package:nodocs/features/settings/widgets/settings_tile.dart';
 
-import 'package:nodocs/feature_pdfviewer/widgets/pdf_viewer.dart';
-
-import 'package:nodocs/feature_scan/widgets/scan_action_button.dart';
-import 'package:nodocs/feature_scan/widgets/scan_action_button_container.dart';
-import 'package:nodocs/feature_scan/widgets/scan_camera.dart';
-import 'package:nodocs/feature_scan/widgets/scan_carousel.dart';
-import 'package:nodocs/feature_scan/widgets/scan_crop.dart';
-import 'package:nodocs/feature_settings/widgets/settings_container.dart';
-
-import 'package:nodocs/feature_tags/widgets/tag_dialog.dart';
-import 'package:nodocs/feature_tags/widgets/tag_dropdown.dart';
+import 'package:nodocs/features/tags/widgets/tag_dialog.dart';
+import 'package:nodocs/features/tags/widgets/tag_dropdown.dart';
+import 'package:nodocs/widgets/button_switch.dart';
 
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
@@ -27,8 +26,6 @@ import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/search_bar.dart';
 
-import '../../feature_settings/widgets/settings_tile.dart';
-import '../../widgets/button_switch.dart';
 
 
 
