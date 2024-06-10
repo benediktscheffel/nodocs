@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart';
+import 'package:nodocs/features/tags/widgets/tag_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -140,27 +141,31 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
           NavigationButton(
-              buttonText: 'Back',
-              buttonIcon: Icons.arrow_back_outlined,
-              onPressed: (){
-                Navigator.pop(context);
-              }),
+            buttonText: 'Edit Tags',
+            buttonIcon: Icons.edit_outlined,
+            onPressed: () => showDialog<String>(
+              context: context,
+              builder: (final BuildContext context) =>
+                const TagDialog(),
+            ),
+          ),
           NavigationButton(
-              buttonText: 'Home',
-              buttonIcon: Icons.home,
-              onPressed: () {
-                Navigator.popUntil(context, ModalRoute.withName('/'));
-              }),
+            buttonText: 'Home',
+            buttonIcon: Icons.home_outlined,
+            onPressed: () {
+              Navigator.popUntil(context, ModalRoute.withName('/'));
+            },
+          ),
           NavigationButton(
-              buttonText: 'Search',
-              buttonIcon: Icons.search,
-              onPressed: () {
-                setState(() {
-                  _showScrollHead = false;
-                  _showToolbar = true;
-                  _ensureHistoryEntry(context);
-                });
-              }),
+            buttonText: 'Search',
+            buttonIcon: Icons.search,
+            onPressed: () {
+              setState(() {
+                _showScrollHead = false;
+                _showToolbar = true;
+                _ensureHistoryEntry(context);
+              });
+            }),
         ],
       )
     );

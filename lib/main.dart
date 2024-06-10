@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:nodocs/features/filesystem/widgets/collection_container.dart';
 
-import 'package:nodocs/features/presentation/pages/widgets_page.dart';
+import 'package:nodocs/widgets/navigation_box.dart';
+import 'package:nodocs/widgets/navigation_button.dart';
+import 'package:nodocs/widgets/search_bar.dart';
+
+import 'features/filesystem/widgets/collection_create_dialog.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(final BuildContext context) {
     const bool darkMode = false;
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'NoDocs',
       theme: ThemeData(
         colorScheme: darkMode
             ? const ColorScheme(
@@ -75,10 +80,9 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   final List<CameraDescription> cameras;
+  final String title;
 
   const MyHomePage({super.key, required this.title, required this.cameras});
-
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -95,40 +99,37 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 17)),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute<dynamic>(
-                                    builder: (final BuildContext context) =>
-                                        WidgetsPage(cameras: widget.cameras)));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colorScheme.secondary,
-                            foregroundColor: theme.colorScheme.onSecondary,
-                          ),
-                          child: const Text('Widgets')),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            CollectionContainer(),
+            SearchBox(),
           ],
         ),
+      ),
+      bottomNavigationBar: NavigationBox(
+        buttons: <Widget>[
+          NavigationButton(
+            buttonText: 'New Collection',
+            buttonIcon: Icons.add_outlined,
+            onPressed: () => showDialog<String>(
+              context: context,
+              builder: (final BuildContext context) =>
+                  const CollectionCreateDialog()
+            ),
+          ),
+          NavigationButton(
+            buttonText: 'Scan Document',
+            buttonIcon: Icons.camera_alt_outlined,
+            onPressed: () {} // ScanPage(cameras: widget.cameras).build(context);}
+          ),
+          NavigationButton(
+            buttonText: 'Settings',
+            buttonIcon: Icons.settings_outlined,
+            onPressed: () {} // const SettingsPage().go(context);}
+          ),
+        ],
       ),
     );
   }
