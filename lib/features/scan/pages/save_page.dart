@@ -5,6 +5,7 @@ import 'package:nodocs/features/scan/widgets/scan_action_button_container.dart';
 import 'package:nodocs/features/scan/widgets/scan_carousel.dart';
 import 'package:nodocs/features/scan/widgets/scan_title_input.dart';
 import 'package:nodocs/features/tags/widgets/tag_dropdown.dart';
+import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
@@ -112,7 +113,10 @@ class SavePage extends StatelessWidget {
           NavigationButton(
             buttonText: 'Save & Exit',
             buttonIcon: Icons.save_outlined,
-            onPressed: () {}
+            onPressed: () {
+              // TODO OCR, Save Document and write Tags to Database
+              const HomeRoute().go(context);
+            }
           ),
         ],
       ),

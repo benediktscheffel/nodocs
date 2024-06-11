@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
+import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/collection_tile_dialog.dart';
 
 
@@ -51,11 +51,7 @@ class _CollectionTileState extends State<CollectionTile> {
           title: Text(widget.title, style: TextStyle(color: theme.colorScheme.onSecondary)),
           leading: Icon(widget.leading, color: theme.colorScheme.onSecondary),
           onTap: isDirectory ? _toggleExpand : () {
-            Navigator.push(context, MaterialPageRoute<void>(
-              builder: (final BuildContext context) {
-                return PdfViewer(path: widget.path);
-              },
-            ));
+            PdfViewerRoute(path: widget.path).go(context);
           },
           onLongPress: () => _onLongPress(context),
           trailing: isDirectory ? Icon(_isExpanded ? Icons.arrow_drop_down : Icons.arrow_right, color: theme.colorScheme.onSecondary) : null,

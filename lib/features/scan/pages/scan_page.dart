@@ -5,8 +5,7 @@ import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
 class ScanPage extends StatelessWidget {
-  final List<CameraDescription> cameras;
-  const ScanPage({super.key, required this.cameras});
+  const ScanPage({super.key});
 
   @override
   Widget build(final BuildContext context) {
@@ -28,7 +27,7 @@ class ScanPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ScanCamera(cameras: cameras,),
+      body: const ScanCamera(cameras: <CameraDescription>[],),
     );
   }
 }

@@ -8,6 +8,8 @@ import 'package:nodocs/widgets/search_bar.dart';
 
 import 'features/filesystem/widgets/collection_create_dialog.dart';
 
+import 'go_router.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final List<CameraDescription> cameras =
@@ -24,7 +26,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     const bool darkMode = false;
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'NoDocs',
       theme: ThemeData(
         colorScheme: darkMode
@@ -69,67 +72,6 @@ class MyApp extends StatelessWidget {
           minWidth: 64,
         ),
         useMaterial3: true,
-      ),
-      home: MyHomePage(
-        title: 'NoDocs',
-        cameras: cameras,
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  final List<CameraDescription> cameras;
-  final String title;
-
-  const MyHomePage({super.key, required this.title, required this.cameras});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: theme.colorScheme.primary,
-        title: Text(widget.title,
-            style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 17)),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            CollectionContainer(),
-            SearchBox(),
-          ],
-        ),
-      ),
-      bottomNavigationBar: NavigationBox(
-        buttons: <Widget>[
-          NavigationButton(
-            buttonText: 'New Collection',
-            buttonIcon: Icons.add_outlined,
-            onPressed: () => showDialog<String>(
-              context: context,
-              builder: (final BuildContext context) =>
-                  const CollectionCreateDialog()
-            ),
-          ),
-          NavigationButton(
-            buttonText: 'Scan Document',
-            buttonIcon: Icons.camera_alt_outlined,
-            onPressed: () {} // ScanPage(cameras: widget.cameras).build(context);}
-          ),
-          NavigationButton(
-            buttonText: 'Settings',
-            buttonIcon: Icons.settings_outlined,
-            onPressed: () {} // const SettingsPage().go(context);}
-          ),
-        ],
       ),
     );
   }

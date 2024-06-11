@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/scan/widgets/scan_crop.dart';
+import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
@@ -45,7 +46,10 @@ class CropPage extends StatelessWidget {
             context: context,
             builder: (final BuildContext context) =>
               ConfirmationDialog(
-                onConfirm: (){},
+                onConfirm: (){
+                  // TODO delete photo
+                  const ScanPageRoute().go(context);
+                },
                 onCancel: (){},
                 header: 'Retake this scan?',
                 notificationText: 'Are you sure you want to retake the scan of the current page without saving?',
@@ -55,12 +59,18 @@ class CropPage extends StatelessWidget {
         NavigationButton(
           buttonText: 'Keep Scanning',
           buttonIcon: Icons.arrow_forward_outlined,
-          onPressed: () {},
+          onPressed: () {
+            // TODO Save image under documents path
+            const ScanPageRoute().go(context);
+          },
         ),
         NavigationButton(
           buttonText: 'Save Document',
           buttonIcon: Icons.save_outlined,
-          onPressed: () {},
+          onPressed: () {
+            // TODO Forward image paths to SavePage
+            const SavePageRoute().go(context);
+          },
         ),
       ]),
     );
