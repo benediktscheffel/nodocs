@@ -14,6 +14,7 @@ class ScanPage extends ConsumerWidget {
     final AsyncValue<List<CameraDescription>> cameraListAsyncValue = ref.watch(cameraProvider);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: TitleWithButton(
           title: "",

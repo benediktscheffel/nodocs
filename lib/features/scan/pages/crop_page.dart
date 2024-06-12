@@ -16,6 +16,7 @@ class CropPage extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
         title: TitleWithButton(
           title: "Crop Scan",
