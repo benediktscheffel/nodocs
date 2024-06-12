@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
-import 'package:nodocs/features/filesystem/widgets/collection_container.dart';
-
-import 'package:nodocs/widgets/navigation_box.dart';
-import 'package:nodocs/widgets/navigation_button.dart';
-import 'package:nodocs/widgets/search_bar.dart';
-
-import 'features/filesystem/widgets/collection_create_dialog.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'go_router.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final List<CameraDescription> cameras =
-      await availableCameras(); // sadly this must be done this early to prevent errors
-  runApp(MyApp(cameras: cameras));
+void main() {
+  runApp(const ProviderScope(child: MyApp(),));
 }
 
 class MyApp extends StatelessWidget {
-  final List<CameraDescription> cameras;
+  const MyApp({super.key});
 
-  const MyApp({super.key, required this.cameras});
-
-  // This widget is the root of your application.
   @override
   Widget build(final BuildContext context) {
     const bool darkMode = false;

@@ -1,14 +1,17 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera.dart';
+import 'package:nodocs/providers.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
-class ScanPage extends StatelessWidget {
+class ScanPage extends ConsumerWidget {
   const ScanPage({super.key});
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final AsyncValue<List<CameraDescription>> cameraListAsyncValue = ref.watch(cameraProvider);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -27,7 +30,13 @@ class ScanPage extends StatelessWidget {
           ),
         ),
       ),
-      body: const ScanCamera(cameras: <CameraDescription>[],),
+      body: cameraListAsyncValue.when(
+        data: (final List<CameraDescription> cameraList) {
+          return ScanCamera(cameras: cameraList,);
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (final Object err, final StackTrace stack) => Center(child: Text('Error: $err')),
+      ),
     );
   }
 }
