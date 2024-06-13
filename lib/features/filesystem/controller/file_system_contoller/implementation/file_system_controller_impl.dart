@@ -31,11 +31,11 @@ class FileSystemControllerImpl implements FileSystemController {
         showDialog<String>(
         context: context,
         builder: (final BuildContext context) =>
-    const CollectionCreateDialog()
+    CollectionCreateDialog(onSave: createCollection)
     );
   }
 
-  void createCollection(final String fileName) {
-    _fileSystemAccess.createCollection(fileName);
+  Function(String) get createCollection {
+    return (final String fileName) => _fileSystemAccess.createCollection(fileName);
   }
 }

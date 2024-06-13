@@ -6,12 +6,11 @@ class FileSystemAccess {
   FileSystemAccess();
 
   void createCollection(final String name) {
-    if(name.isEmpty) {
-      throw Exception('Name must not be empty');
+    if (name.isEmpty) {
+      return;
     }
-    const String fileSystemPath = ConfigParameters.fileSystemPath;
-    final Directory directory = Directory('$fileSystemPath/$name');
-    directory.createSync();
+    Directory('${ConfigParameters.fileSystemPath}$name').create().then(
+        (final Directory directory) =>
+            print('Directory created: ${directory.path}'));
   }
-
-  }
+}

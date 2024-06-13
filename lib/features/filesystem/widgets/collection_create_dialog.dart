@@ -5,15 +5,18 @@ import 'package:nodocs/widgets/dialog_box.dart';
 
 
 class CollectionCreateDialog extends StatelessWidget {
-  const CollectionCreateDialog({super.key});
+  final Function(String) onSave;
+  final TextEditingController controller = TextEditingController();
+
+  CollectionCreateDialog({super.key, required this.onSave});
 
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return DialogBox(
       headerText: 'Create a new Collection',
-      body: const <Widget>[
-          CollectionInput(),
+      body: <Widget>[
+          CollectionInput(controller: controller),
       ],
       footer: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -33,8 +36,9 @@ class CollectionCreateDialog extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              // TODO add to Collections
-              Navigator.pop(context);
+              // onSave();
+              onSave(controller.text);
+              const HomeRoute().go(context);
             },
             child: Text(
               'Create',
