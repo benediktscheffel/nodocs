@@ -25,6 +25,8 @@ class CollectionContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: children,
               ),
-            )));
+            )
+        )
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nodocs/config/config_parameters.dart';
 
 import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
@@ -107,7 +108,7 @@ class WidgetsPage extends StatelessWidget {
           ),
         ),
         _sectionHeader(theme, 'Our Carousel Widget'),
-        ScanCarousel(onPageSelect: (final int index) {},),
+        // ScanCarousel(onPageSelect: (final int index) {},),
         _sectionHeader(theme, 'Our Menu Widgets'),
         /*SettingsContainer(collectionItems: <SettingsTile>[
                           SettingsTile(
@@ -322,7 +323,7 @@ class WidgetsPage extends StatelessWidget {
               ],
             ),
           ),
-          const ScanCrop(path: '/data/data/com.example.nodocs/files/collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg',),
+          const ScanCrop(path: '${ConfigParameters.fileSystemPath}/collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg',),
           _sectionHeader(theme, 'Our Settings Widget'),
 
           SettingsContainer(collectionItems: <SettingsTile>[

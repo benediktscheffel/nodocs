@@ -1,14 +1,16 @@
 import 'dart:io';
 
-class FileSystemAccess {
+import 'package:nodocs/config/config_parameters.dart';
 
+class FileSystemAccess {
   FileSystemAccess();
 
-
-  static const String _absolutePath = '/data/data/com.example.nodocs/files';
-
-  Future<void> createDirectory(final String name) async {
-    final Directory directory = Directory('$_absolutePath/$name');
+  void createCollection(final String name) {
+    if(name.isEmpty) {
+      throw Exception('Name must not be empty');
+    }
+    const String fileSystemPath = ConfigParameters.fileSystemPath;
+    final Directory directory = Directory('$fileSystemPath/$name');
     directory.createSync();
   }
 

@@ -36,6 +36,6 @@ class FileSystemControllerImpl implements FileSystemController {
   }
 
   void createCollection(final String fileName) {
-
+    _fileSystemAccess.createCollection(fileName);
   }
 }

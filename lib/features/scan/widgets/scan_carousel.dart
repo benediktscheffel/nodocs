@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/config/config_parameters.dart';
 
 typedef OnPageSelect = void Function(String path);
 
@@ -17,7 +18,7 @@ class ScanCarousel extends StatefulWidget {
 class _ScanCarouselState extends State<ScanCarousel> {
   List<Widget> imageSliders = <Widget>[];
   List<String> images = <String>[];
-  String imageFolder = '/data/data/com.example.nodocs/files/collection1/';
+  String imageFolder = '${ConfigParameters.fileSystemPath}collection1/';
   int current = 0;
   final CarouselController controller = CarouselController();
 

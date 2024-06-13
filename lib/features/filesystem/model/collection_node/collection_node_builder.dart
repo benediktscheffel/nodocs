@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:nodocs/config/config_parameters.dart';
+
 import 'collection_node.dart';
 
 class CollectionNodeBuilder {
-  static const String _absolutPath = '/data/data/com.example.nodocs/files';
 
   static List<CollectionNode> build() {
-    return _addChildren(_absolutPath);
+    return _addChildren(ConfigParameters.fileSystemPath);
   }
 
   static List<CollectionNode> _addChildren(final String path) {

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_chip_dropdown.dart';
 
 class CollectionDropdown extends StatefulWidget {
@@ -15,8 +16,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
   OverlayEntry? _dropdownOverlay;
 
   List<Directory> _directories = <Directory>[];
-  final String _projectRootAbsolutePath = '/data/data/com.example.nodocs/files/';
-  String _currentAbsolutePath = '/data/data/com.example.nodocs/files/';
+  final String _projectRootAbsolutePath = ConfigParameters.fileSystemPath;
+  String _currentAbsolutePath = ConfigParameters.fileSystemPath;
   String _currentRelativePath = '/';
 
 
@@ -30,7 +31,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
   @override
   void initState() {
     super.initState();
-    _currentAbsolutePath = '/data/data/com.example.nodocs/files/';
+    _currentAbsolutePath = ConfigParameters.fileSystemPath;
     _currentRelativePath = '/';
     _listDirectories();
   }

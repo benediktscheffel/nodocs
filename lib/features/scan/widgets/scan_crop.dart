@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button_container.dart';
 
@@ -21,7 +22,7 @@ class _ScanCropState extends State<ScanCrop> {
 
   void createXFile() {
     setState(() {
-      _pickedFile = widget.path.isNotEmpty ? XFile(widget.path) : XFile('/data/data/com.example.nodocs/files/annie-spratt-askpr0s66Rg-unsplash.jpg');
+      _pickedFile = widget.path.isNotEmpty ? XFile(widget.path) : XFile('${ConfigParameters.fileSystemPath}annie-spratt-askpr0s66Rg-unsplash.jpg');
     });
   }
 
