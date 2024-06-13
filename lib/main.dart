@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:camera/camera.dart';
+
+
+
+import 'config/service_locator.dart';
 import 'go_router.dart';
 
-void main() {
+Future<void> main() async {
+  setupServiceLocator();
   runApp(const ProviderScope(child: MyApp(),));
 }
 
