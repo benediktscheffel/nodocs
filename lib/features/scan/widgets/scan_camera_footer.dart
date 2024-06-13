@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nodocs/features/scan/widgets/scan_box_last_image.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_button.dart';
+import 'package:nodocs/go_router.dart';
 
 class ScanCameraFooter extends StatelessWidget {
   final VoidCallback onTakePhoto;
   const ScanCameraFooter({super.key, required this.onTakePhoto});
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImage(final BuildContext context) async {
     final XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      // TODO pass the image to the Crop View
+    if (pickedFile != null && context.mounted) {
+      CropPageRoute(path: pickedFile.path).go(context);
     }
   }
 
@@ -30,7 +31,7 @@ class ScanCameraFooter extends StatelessWidget {
         ),
         scanCounter: 6,
         onTap: () {
-          // TODO go to finished Scans View
+          const SavePageRoute().go(context);
         },
       ),
       ScanCameraButton(
@@ -40,7 +41,7 @@ class ScanCameraFooter extends StatelessWidget {
       ),
       InkWell(
         onTap: () {
-          _pickImage();
+          _pickImage(context);
         },
         child: const Icon(
           Icons.photo_library_outlined,

@@ -11,8 +11,15 @@ import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 
-class SavePage extends StatelessWidget {
+class SavePage extends StatefulWidget {
   const SavePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => SavePageState();
+}
+
+class SavePageState extends State<SavePage> {
+  String selectedImagePath = "";
 
   @override
   Widget build(final BuildContext context) {
@@ -64,14 +71,18 @@ class SavePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5,),
-                ScanCarousel(onPageSelect: (final int index) {},),
+                ScanCarousel(onPageSelect: (final String path) {
+                  selectedImagePath = path;
+                },),
                 const SizedBox(height: 5,),
                 ScanActionButtonContainer(
                   buttons: <Widget>[
                     ScanActionButton(
                       buttonIcon: Icons.crop_free_outlined,
                       buttonText: 'Crop Again',
-                      onPressed: () {},
+                      onPressed: () {
+                        CropPageRoute(path: selectedImagePath).go(context);
+                      },
                     ),
                     ScanActionButton(
                       buttonIcon: Icons.flip_camera_ios_outlined,
@@ -80,8 +91,13 @@ class SavePage extends StatelessWidget {
                         context: context,
                         builder: (final BuildContext context) =>
                           ConfirmationDialog(
-                            onConfirm: (){},
-                            onCancel: (){},
+                            onConfirm: (){
+                              // TODO delete current selected page
+                              const ScanPageRoute().go(context);
+                            },
+                            onCancel: (){
+                              Navigator.pop(context);
+                            },
                             header: 'Retake this scan?',
                             notificationText: 'Are you sure you want to retake the scan of the current page without saving?'
                           ),
@@ -103,8 +119,12 @@ class SavePage extends StatelessWidget {
               context: context,
               builder: (final BuildContext context) =>
                 ConfirmationDialog(
-                  onConfirm: (){},
-                  onCancel: (){},
+                  onConfirm: (){
+                    const HomeRoute().go(context);
+                  },
+                  onCancel: (){
+                    Navigator.pop(context);
+                  },
                   header: 'Cancel this scan?',
                   notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
                 ),

@@ -48,6 +48,7 @@ dependencies:
   riverpod_annotation: ^2.3.5
   go_router_builder: ^2.7.0
   build_verify: ^3.1.0
+  flutter_riverpod: ^2.5.1
   get_it: ^7.2.0
   injectable: ^2.4.2
 #  riverpod_generator: ^2.4.0
@@ -68,7 +69,6 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-  camera_platform_interface: any
 flutter:
 
   # The following line ensures that the Material Icons font is
