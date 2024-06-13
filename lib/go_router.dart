@@ -6,7 +6,7 @@ import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/pages/crop_page.dart';
 import 'package:nodocs/features/scan/pages/save_page.dart';
 import 'package:nodocs/features/scan/pages/scan_page.dart';
-import 'package:nodocs/features/settings/settings_page.dart';
+import 'package:nodocs/features/settings/pages/settings_page.dart';
 import 'package:nodocs/pages/home_page.dart';
 
 part 'go_router.g.dart';

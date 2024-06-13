@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/settings/widgets/settings_container.dart';
 import 'package:nodocs/features/settings/widgets/settings_tile.dart';
+import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/button_switch.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
@@ -12,11 +13,14 @@ class SettingsPage extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
         title: TitleWithButton(
           title: 'Settings',
           icon: Icons.arrow_back_ios,
-          onButtonClick: () {},
+          onButtonClick: () {
+            const HomeRoute().go(context);
+          },
         ),
         centerTitle: true,
       ),

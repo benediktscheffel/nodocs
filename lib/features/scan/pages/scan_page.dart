@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera.dart';
+import 'package:nodocs/go_router.dart';
 import 'package:nodocs/providers.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
@@ -23,8 +24,13 @@ class ScanPage extends ConsumerWidget {
             context: context,
             builder: (final BuildContext context) =>
               ConfirmationDialog(
-                onConfirm: (){},
-                onCancel: (){},
+                onConfirm: (){
+                  // TODO delete all saved images of the scan
+                  const HomeRoute().go(context);
+                },
+                onCancel: (){
+                  Navigator.pop(context);
+                },
                 header: 'Discard this scan?',
                 notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
               ),
