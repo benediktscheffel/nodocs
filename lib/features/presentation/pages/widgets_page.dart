@@ -1,8 +1,6 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:nodocs/features/filesystem/widgets/collection_container.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
@@ -27,7 +25,6 @@ import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/search_bar.dart';
 
-import '../../scan/widgets/scan_camera.dart';
 
 
 class WidgetsPage extends StatelessWidget {
@@ -120,7 +117,6 @@ class WidgetsPage extends StatelessWidget {
                             trailing: SwitchButton(onChanged: (final bool value) {}),
                           ),
                         ]),*/
-        const CollectionContainer(),
         _sectionHeader(theme, 'Our Searchbar Widget'),
         const SearchBox(),
         _sectionHeader(theme, 'Our Dialog Widgets'),
