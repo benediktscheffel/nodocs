@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 import 'package:nodocs/go_router.dart';
@@ -11,13 +10,12 @@ class CollectionTile extends StatefulWidget {
   final List<CollectionNode> nodes;
   final Function(String) onDelete;
 
-  const CollectionTile(
-      {required this.title,
-      required this.leading,
-      required this.path,
-      required this.nodes,
-      required this.onDelete,
-      super.key});
+  const CollectionTile({required this.title,
+    required this.leading,
+    required this.path,
+    required this.nodes,
+    required this.onDelete,
+    super.key});
 
   @override
   State<CollectionTile> createState() => _CollectionTileState();
@@ -33,6 +31,7 @@ class _CollectionTileState extends State<CollectionTile> {
         builder: (final BuildContext context) {
           return CollectionTileDialog(
             onRename: () {},
+            // TODO: add confirmation dialog
             onDelete: widget.onDelete(widget.path),
             onShare: () {},
           );
@@ -55,10 +54,11 @@ class _CollectionTileState extends State<CollectionTile> {
           trailing: isPdf
               ? null
               : Icon(_isExpanded ? Icons.arrow_drop_down : Icons.arrow_right,
-                  color: theme.colorScheme.onSecondary),
+              color: theme.colorScheme.onSecondary),
         ),
         if (_isExpanded)
-          ..._children.map((final CollectionTile child) => Padding(
+          ..._children.map((final CollectionTile child) =>
+              Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: child,
               ))
@@ -67,16 +67,16 @@ class _CollectionTileState extends State<CollectionTile> {
   }
 
   void _listItems() {
-    _children.addAll(widget.nodes.map((final CollectionNode node) {
-      final bool isPdf = node.path.endsWith('.pdf');
-      return CollectionTile(
-        title: node.displayName,
-        leading: isPdf ? Icons.picture_as_pdf_outlined : Icons.folder_outlined,
-        path: node.path,
-        nodes: node.children,
-        onDelete: widget.onDelete(node.path),
-      );
-    }).toList());
+    _children.addAll(widget.nodes.map((final CollectionNode node) =>
+        CollectionTile(
+          title: node.displayName,
+          leading: node.path.endsWith('.pdf') ?
+          Icons.picture_as_pdf_outlined : Icons.folder_outlined,
+          path: node.path,
+          nodes: node.children,
+          onDelete: widget.onDelete,
+        )
+    ).toList());
   }
 
   void _toggleExpand() {
