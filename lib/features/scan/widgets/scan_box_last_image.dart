@@ -8,7 +8,6 @@ class ScanBoxLastImage extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     if (img != null) {
       return Image(
         image: img!.image,
@@ -79,9 +78,6 @@ class ScanBoxLastImage extends StatelessWidget {
             ),
           );
         },
-        /*loadingBuilder: (final BuildContext context, final Widget child, final ImageChunkEvent? loadingProgress) {
-          return Center(child: child);
-        },*/
       );
     }
     return Center(

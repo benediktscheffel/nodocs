@@ -6,25 +6,23 @@ part of 'home_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fileSystemServiceImplHash() =>
-    r'f4f94505b62ca88ffe442f58057417308e188d97';
+String _$fileSystemServiceHash() => r'16f7f576869e0a04b647a84ba67dc00613a1440d';
 
-/// See also [fileSystemServiceImpl].
-@ProviderFor(fileSystemServiceImpl)
-final fileSystemServiceImplProvider =
-    AutoDisposeProvider<FileSystemServiceImpl>.internal(
-  fileSystemServiceImpl,
-  name: r'fileSystemServiceImplProvider',
+/// See also [fileSystemService].
+@ProviderFor(fileSystemService)
+final fileSystemServiceProvider =
+    AutoDisposeProvider<FileSystemService>.internal(
+  fileSystemService,
+  name: r'fileSystemServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$fileSystemServiceImplHash,
+      : _$fileSystemServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef FileSystemServiceImplRef
-    = AutoDisposeProviderRef<FileSystemServiceImpl>;
-String _$homeControllerHash() => r'8c793c82453893317c327a6f2af6d086118d52ba';
+typedef FileSystemServiceRef = AutoDisposeProviderRef<FileSystemService>;
+String _$homeControllerHash() => r'db3b4fb97882b1718699351e2a6aef68083acdd5';
 
 /// See also [homeController].
 @ProviderFor(homeController)

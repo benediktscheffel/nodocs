@@ -7,7 +7,7 @@ part of 'home_controller_impl.dart';
 // **************************************************************************
 
 String _$homeControllerImplHash() =>
-    r'e52d1caa98f91dc823b42b5f464129f5277e43fb';
+    r'5db3028c9354cf5a83eb803b7d348f0b60ac1428';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,10 +32,10 @@ class _SystemHash {
 
 abstract class _$HomeControllerImpl
     extends BuildlessAutoDisposeNotifier<HomeModel> {
-  late final FileSystemServiceImpl fileSystemService;
+  late final FileSystemService fileSystemService;
 
   HomeModel build({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
   });
 }
 
@@ -50,7 +50,7 @@ class HomeControllerImplFamily extends Family<HomeModel> {
 
   /// See also [HomeControllerImpl].
   HomeControllerImplProvider call({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
   }) {
     return HomeControllerImplProvider(
       fileSystemService: fileSystemService,
@@ -86,7 +86,7 @@ class HomeControllerImplProvider
     extends AutoDisposeNotifierProviderImpl<HomeControllerImpl, HomeModel> {
   /// See also [HomeControllerImpl].
   HomeControllerImplProvider({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
   }) : this._internal(
           () => HomeControllerImpl()..fileSystemService = fileSystemService,
           from: homeControllerImplProvider,
@@ -111,7 +111,7 @@ class HomeControllerImplProvider
     required this.fileSystemService,
   }) : super.internal();
 
-  final FileSystemServiceImpl fileSystemService;
+  final FileSystemService fileSystemService;
 
   @override
   HomeModel runNotifierBuild(
@@ -161,7 +161,7 @@ class HomeControllerImplProvider
 
 mixin HomeControllerImplRef on AutoDisposeNotifierProviderRef<HomeModel> {
   /// The parameter `fileSystemService` of this provider.
-  FileSystemServiceImpl get fileSystemService;
+  FileSystemService get fileSystemService;
 }
 
 class _HomeControllerImplProviderElement
@@ -170,7 +170,7 @@ class _HomeControllerImplProviderElement
   _HomeControllerImplProviderElement(super.provider);
 
   @override
-  FileSystemServiceImpl get fileSystemService =>
+  FileSystemService get fileSystemService =>
       (origin as HomeControllerImplProvider).fileSystemService;
 }
 // ignore_for_file: type=lint

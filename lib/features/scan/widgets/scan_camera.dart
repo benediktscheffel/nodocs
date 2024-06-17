@@ -1,7 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_footer.dart';
 import 'package:nodocs/go_router.dart';
+import 'package:nodocs/util/logging/log.dart';
 
 class ScanCamera extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -16,6 +18,8 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
 
+  final Logger _log = getLogger();
+
   Future<void> setCameraAndController() async {
     if (widget.cameras.isNotEmpty) {
       _controller = CameraController(
@@ -26,15 +30,15 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
       _initializeControllerFuture = _controller.initialize().then((final _) {
         if (!mounted) return;
         setState(() {});
-      }).catchError((final e) {
+      }).catchError((final  e) {
         if (e is CameraException) {
-          print('Camera error: ${e.description}');
+          _log.e('Camera error: ${e.description}');
         } else {
-          print('Error initializing camera: $e');
+          _log.e('Error initializing camera: $e');
         }
       });
     } else {
-      print('No cameras available');
+      _log.e('No cameras available');
     }
   }
 
@@ -112,7 +116,7 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
                           if (!context.mounted) return;
                           CropPageRoute(path: image.path).go(context);
                         } catch (e) {
-                          print(e);
+                          _log.e(e);
                         }
                       },
                     ),

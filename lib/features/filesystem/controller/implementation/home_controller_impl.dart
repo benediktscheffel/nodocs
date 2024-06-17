@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
 import 'package:nodocs/features/filesystem/model/home_model/collection_node_builder.dart';
-import 'package:nodocs/features/filesystem/services/file_system_service_impl.dart';
+import 'package:nodocs/features/filesystem/services/file_system_service.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
 import 'package:nodocs/go_router.dart';
@@ -14,7 +14,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
     implements HomeController {
   @override
   HomeModel build({
-    required final FileSystemServiceImpl fileSystemService,
+    required final FileSystemService fileSystemService,
   }) {
     return HomeModel(collectionNodes: CollectionNodeBuilder.build());
   }

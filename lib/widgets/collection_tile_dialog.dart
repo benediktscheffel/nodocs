@@ -16,33 +16,31 @@ class CollectionTileDialog extends StatelessWidget {
   Widget build(final BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
-      // color: Colors.transparent,
       decoration: const BoxDecoration(
-        // color: Colors.black.withOpacity(0.83),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(0),
           topRight: Radius.circular(0),
         ),
       ),
-      child: SingleChildScrollView( // Add this
-        child: Material( // Add this
-          type: MaterialType.transparency, // Add this
+      child: SingleChildScrollView(
+        child: Material(
+          type: MaterialType.transparency,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                trailing: const Icon(Icons.edit, color: Colors.white),
-                title: const Text('Rename', style: TextStyle(color: Colors.white)),
+                trailing: Icon(Icons.edit, color: colorScheme.onPrimary),
+                title: Text('Rename', style: TextStyle(color: colorScheme.onPrimary)),
                 onTap: onRename,
               ),
               ListTile(
-                trailing: const Icon(Icons.ios_share_sharp, color: Colors.white),
-                title: const Text('Share', style: TextStyle(color: Colors.white)),
+                trailing: Icon(Icons.ios_share_sharp, color: colorScheme.onPrimary),
+                title: Text('Share', style: TextStyle(color: colorScheme.onPrimary)),
                 onTap: onShare,
               ),
-              const Divider(
-                color: Colors.white,
+              Divider(
+                color: colorScheme.onPrimary,
                 height: 1,
                 thickness: 2,
               ),

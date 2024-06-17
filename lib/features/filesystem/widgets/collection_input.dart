@@ -26,7 +26,6 @@ class CollectionInputState extends State<CollectionInput> {
 
   @override
   Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return TextField(
       controller: widget.controller,
       decoration: InputDecoration(

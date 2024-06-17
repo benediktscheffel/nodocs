@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'dart:math' as math;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/web.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_chip_dropdown.dart';
+import 'package:nodocs/util/logging/log.dart';
 
 class CollectionDropdown extends StatefulWidget {
   const CollectionDropdown({super.key});
@@ -15,6 +16,8 @@ class CollectionDropdown extends StatefulWidget {
 
 class CollectionDropdownState extends State<CollectionDropdown> {
   OverlayEntry? _dropdownOverlay;
+
+  final Logger _log = getLogger();
 
   List<Directory> _directories = <Directory>[];
   final String _projectRootAbsolutePath = ConfigParameters.fileSystemPath;
@@ -49,9 +52,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
         }
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Error listing directories: $e');
-      }
+        _log.e('Error listing directories: $e');
     }
 
     setState(() {

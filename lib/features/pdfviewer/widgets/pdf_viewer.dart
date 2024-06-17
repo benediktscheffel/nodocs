@@ -33,7 +33,7 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
 
   void _ensureHistoryEntry(final BuildContext context) {
     if (_historyEntry == null) {
-      final ModalRoute<dynamic>? route = ModalRoute.of(context);
+      final ModalRoute<void>? route = ModalRoute.of(context);
       if (route != null) {
         _historyEntry = LocalHistoryEntry(onRemove: _handleHistoryEntryRemoved);
         route.addLocalHistoryEntry(_historyEntry!);
@@ -74,7 +74,8 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
                 setState(() {
                   _textSearchKey.currentState?.showToast = true;
                 });
-                await Future<dynamic>.delayed(const Duration(seconds: 1));
+                // Not sure if this is the correct Type here
+                await Future<void>.delayed(const Duration(seconds: 1));
                 setState(() {
                   _textSearchKey.currentState?.showToast = false;
                 });
