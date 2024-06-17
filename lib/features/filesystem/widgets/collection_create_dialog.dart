@@ -23,6 +23,8 @@ class CollectionCreateDialog extends StatelessWidget {
         children: <Widget>[
           TextButton(
             onPressed: () {
+
+
               const HomeRoute().go(context);
             },
             child: Text(

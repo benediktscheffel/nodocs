@@ -9,12 +9,14 @@ class CollectionTile extends StatefulWidget {
   final IconData leading;
   final String path;
   final List<CollectionNode> nodes;
+  final Function(String) onDelete;
 
   const CollectionTile(
       {required this.title,
       required this.leading,
       required this.path,
       required this.nodes,
+      required this.onDelete,
       super.key});
 
   @override
@@ -31,7 +33,7 @@ class _CollectionTileState extends State<CollectionTile> {
         builder: (final BuildContext context) {
           return CollectionTileDialog(
             onRename: () {},
-            onDelete: () {},
+            onDelete: widget.onDelete(widget.path),
             onShare: () {},
           );
         });
@@ -72,6 +74,7 @@ class _CollectionTileState extends State<CollectionTile> {
         leading: isPdf ? Icons.picture_as_pdf_outlined : Icons.folder_outlined,
         path: node.path,
         nodes: node.children,
+        onDelete: widget.onDelete(node.path),
       );
     }).toList());
   }

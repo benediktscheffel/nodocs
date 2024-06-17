@@ -42,12 +42,14 @@ class HomePage extends ConsumerWidget {
                                 leading: Icons.picture_as_pdf_outlined,
                                 path: node.path,
                                 nodes: node.children,
+                                onDelete: controller.deleteCollectionOrFile(node.path),
                               )
                             : CollectionTile(
                                 title: node.displayName,
                                 leading: Icons.folder_outlined,
                                 path: node.path,
                                 nodes: node.children,
+                                onDelete: controller.deleteCollectionOrFile(node.path),
                               ))
                     .toList()),
             const SearchBox(),

@@ -7,4 +7,7 @@ abstract class HomeController {
 
   void showCreateCollectionModal(final BuildContext context);
 
+  Function(String) get createCollection;
+  
+  Function(String) get deleteCollectionOrFile;
 }

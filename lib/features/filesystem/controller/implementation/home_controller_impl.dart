@@ -36,9 +36,17 @@ class HomeControllerImpl extends _$HomeControllerImpl
             CollectionCreateDialog(onSave: createCollection));
   }
 
+  @override
   Function(String) get createCollection {
     return (final String fileName) => fileSystemService
         .createCollection(fileName)!
+        .then((final _) => updateState(CollectionNodeBuilder.build()));
+  }
+
+  @override
+  Function(String) get deleteCollectionOrFile {
+    return (final String path) => fileSystemService
+        .deleteCollectionOrFile(path)!
         .then((final _) => updateState(CollectionNodeBuilder.build()));
   }
 }
