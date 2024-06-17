@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:nodocs/features/filesystem/model/collection_node/collection_node.dart';
+import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/collection_tile_dialog.dart';
 

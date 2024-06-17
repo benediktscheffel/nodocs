@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:nodocs/features/filesystem/controller/file_system_contoller/file_system_contoller.dart';
-import 'package:nodocs/features/filesystem/controller/file_system_contoller/implementation/file_system_controller_impl.dart';
-import 'package:nodocs/features/filesystem/model/collection_node/collection_node.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
+import 'package:nodocs/features/filesystem/controller/implementation/home_providers.dart';
+import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_container.dart';
-import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_tile.dart';
 import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/search_bar.dart';
 
-import '../config/service_locator.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(final BuildContext context) {
-    FileSystemController controller = getIt<FileSystemController>();
-
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    HomeController controller = ref.read(homeControllerProvider);
+    HomeModel model = ref.watch(homeModelProvider);
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -35,8 +34,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             CollectionContainer(
-                children: controller
-                    .build()
+                children: model.collectionNodes
                     .map((final CollectionNode node) =>
                         node.path.endsWith('.pdf')
                             ? CollectionTile(

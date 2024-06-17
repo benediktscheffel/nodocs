@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_chip_dropdown.dart';
@@ -48,7 +49,9 @@ class CollectionDropdownState extends State<CollectionDropdown> {
         }
       }
     } catch (e) {
-      print('Error listing directories: $e');
+      if (kDebugMode) {
+        print('Error listing directories: $e');
+      }
     }
 
     setState(() {
