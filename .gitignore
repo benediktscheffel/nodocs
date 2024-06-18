@@ -45,3 +45,8 @@ app.*.map.json
 /.run/
 
 config.env
+linux/flutter/*.cc
+linux/flutter/*.cmake
+windows/flutter/*.cc
+windows/flutter/*.cmake
+macos/flutter/*.swift
