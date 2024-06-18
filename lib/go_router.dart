@@ -6,6 +6,7 @@ import 'package:nodocs/features/scan/pages/crop_page.dart';
 import 'package:nodocs/features/scan/pages/save_page.dart';
 import 'package:nodocs/features/scan/pages/scan_page.dart';
 import 'package:nodocs/features/settings/pages/settings_page.dart';
+import 'package:nodocs/features/settings/pages/text_recognition_language_page.dart';
 import 'package:nodocs/pages/home_page.dart';
 
 part 'go_router.g.dart';
@@ -32,6 +33,9 @@ GoRouter router = GoRouter(
     ),
     TypedGoRoute<CropPageRoute>(
       path: NavigationServiceRoutes.crop,
+    ),
+    TypedGoRoute<TextRecognitionLanguagePageRoute>(
+      path: NavigationServiceRoutes.ocrLanguage,
     ),
   ]
 )
@@ -95,5 +99,15 @@ class SettingsPageRoute extends GoRouteData {
   @override
   Widget build(final BuildContext context, final GoRouterState state) {
     return const SettingsPage();
+  }
+}
+
+@immutable
+class TextRecognitionLanguagePageRoute extends GoRouteData {
+  const TextRecognitionLanguagePageRoute();
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) {
+    return const TextRecognitionLanguagePage();
   }
 }

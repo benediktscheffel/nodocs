@@ -5,5 +5,6 @@ class NavigationServiceRoutes {
   static const String settings = 'settings';
   static const String crop = 'crop';
   static const String save = 'save';
+  static const String ocrLanguage = 'language';
   static const String base = '/';
 }

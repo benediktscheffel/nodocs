@@ -34,6 +34,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
           path: 'crop',
           factory: $CropPageRouteExtension._fromState,
         ),
+        GoRouteData.$route(
+          path: 'language',
+          factory: $TextRecognitionLanguagePageRouteExtension._fromState,
+        ),
       ],
     );
 
@@ -138,6 +142,25 @@ extension $CropPageRouteExtension on CropPageRoute {
         queryParams: {
           'path': path,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $TextRecognitionLanguagePageRouteExtension
+    on TextRecognitionLanguagePageRoute {
+  static TextRecognitionLanguagePageRoute _fromState(GoRouterState state) =>
+      const TextRecognitionLanguagePageRoute();
+
+  String get location => GoRouteData.$location(
+        '/home/language',
       );
 
   void go(BuildContext context) => context.go(location);
