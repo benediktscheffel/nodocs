@@ -6,6 +6,23 @@ part of 'home_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$homeNavigationServiceHash() =>
+    r'c1fa0a55405e1a087db38b2bac9d8bd401ef79c6';
+
+/// See also [homeNavigationService].
+@ProviderFor(homeNavigationService)
+final homeNavigationServiceProvider =
+    AutoDisposeProvider<NavigationService>.internal(
+  homeNavigationService,
+  name: r'homeNavigationServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$homeNavigationServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef HomeNavigationServiceRef = AutoDisposeProviderRef<NavigationService>;
 String _$fileSystemServiceHash() => r'16f7f576869e0a04b647a84ba67dc00613a1440d';
 
 /// See also [fileSystemService].
@@ -22,7 +39,7 @@ final fileSystemServiceProvider =
 );
 
 typedef FileSystemServiceRef = AutoDisposeProviderRef<FileSystemService>;
-String _$homeControllerHash() => r'e188f60b7e587e69adae751aba4e4bc9f7f13018';
+String _$homeControllerHash() => r'db6879f2f37f419f03f01d641276131614007263';
 
 /// See also [homeController].
 @ProviderFor(homeController)
@@ -37,7 +54,7 @@ final homeControllerProvider = AutoDisposeProvider<HomeController>.internal(
 );
 
 typedef HomeControllerRef = AutoDisposeProviderRef<HomeController>;
-String _$homeModelHash() => r'087c1fe8ef02d181b996f231694864857a533e22';
+String _$homeModelHash() => r'c54beeff2a57cf1072879f6710aa20f0dcbea202';
 
 /// See also [homeModel].
 @ProviderFor(homeModel)

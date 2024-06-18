@@ -46,14 +46,13 @@ dependencies:
   go_router: ^14.1.4
   riverpod: ^2.5.1
   riverpod_annotation: ^2.3.5
-  go_router_builder: ^2.7.0
   build_verify: ^3.1.0
   flutter_riverpod: ^2.5.1
   get_it: ^7.2.0
   injectable: ^2.4.2
   freezed_annotation: ^2.4.1
   logger: ^2.3.0
-  optional: ^6.1.0+1
+  fpdart: ^1.1.0
 
 dev_dependencies:
   riverpod_generator: ^2.4.0

@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
-
 import 'config/service_locator.dart';
 import 'go_router.dart';
 
 void main() {
   setupServiceLocator();
-  runApp(const ProviderScope(child: MyApp(),));
+  runApp(const ProviderScope(
+    child: MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     const bool darkMode = false;
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: ref.watch(goRouterProvider),
       title: 'NoDocs',
       theme: ThemeData(
         colorScheme: darkMode

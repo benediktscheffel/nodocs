@@ -7,7 +7,7 @@ part of 'home_controller_impl.dart';
 // **************************************************************************
 
 String _$homeControllerImplHash() =>
-    r'be8979acc2298da51c77e3d22cf32846bfae5fd0';
+    r'32aa47ee4d902ceca20003ae51219e289396a7a6';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,9 +33,11 @@ class _SystemHash {
 abstract class _$HomeControllerImpl
     extends BuildlessAutoDisposeNotifier<HomeModel> {
   late final FileSystemService fileSystemService;
+  late final NavigationService navigationService;
 
   HomeModel build({
     required FileSystemService fileSystemService,
+    required NavigationService navigationService,
   });
 }
 
@@ -51,9 +53,11 @@ class HomeControllerImplFamily extends Family<HomeModel> {
   /// See also [HomeControllerImpl].
   HomeControllerImplProvider call({
     required FileSystemService fileSystemService,
+    required NavigationService navigationService,
   }) {
     return HomeControllerImplProvider(
       fileSystemService: fileSystemService,
+      navigationService: navigationService,
     );
   }
 
@@ -63,6 +67,7 @@ class HomeControllerImplFamily extends Family<HomeModel> {
   ) {
     return call(
       fileSystemService: provider.fileSystemService,
+      navigationService: provider.navigationService,
     );
   }
 
@@ -87,8 +92,11 @@ class HomeControllerImplProvider
   /// See also [HomeControllerImpl].
   HomeControllerImplProvider({
     required FileSystemService fileSystemService,
+    required NavigationService navigationService,
   }) : this._internal(
-          () => HomeControllerImpl()..fileSystemService = fileSystemService,
+          () => HomeControllerImpl()
+            ..fileSystemService = fileSystemService
+            ..navigationService = navigationService,
           from: homeControllerImplProvider,
           name: r'homeControllerImplProvider',
           debugGetCreateSourceHash:
@@ -99,6 +107,7 @@ class HomeControllerImplProvider
           allTransitiveDependencies:
               HomeControllerImplFamily._allTransitiveDependencies,
           fileSystemService: fileSystemService,
+          navigationService: navigationService,
         );
 
   HomeControllerImplProvider._internal(
@@ -109,9 +118,11 @@ class HomeControllerImplProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.fileSystemService,
+    required this.navigationService,
   }) : super.internal();
 
   final FileSystemService fileSystemService;
+  final NavigationService navigationService;
 
   @override
   HomeModel runNotifierBuild(
@@ -119,6 +130,7 @@ class HomeControllerImplProvider
   ) {
     return notifier.build(
       fileSystemService: fileSystemService,
+      navigationService: navigationService,
     );
   }
 
@@ -127,13 +139,16 @@ class HomeControllerImplProvider
     return ProviderOverride(
       origin: this,
       override: HomeControllerImplProvider._internal(
-        () => create()..fileSystemService = fileSystemService,
+        () => create()
+          ..fileSystemService = fileSystemService
+          ..navigationService = navigationService,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         fileSystemService: fileSystemService,
+        navigationService: navigationService,
       ),
     );
   }
@@ -147,13 +162,15 @@ class HomeControllerImplProvider
   @override
   bool operator ==(Object other) {
     return other is HomeControllerImplProvider &&
-        other.fileSystemService == fileSystemService;
+        other.fileSystemService == fileSystemService &&
+        other.navigationService == navigationService;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, fileSystemService.hashCode);
+    hash = _SystemHash.combine(hash, navigationService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -162,6 +179,9 @@ class HomeControllerImplProvider
 mixin HomeControllerImplRef on AutoDisposeNotifierProviderRef<HomeModel> {
   /// The parameter `fileSystemService` of this provider.
   FileSystemService get fileSystemService;
+
+  /// The parameter `navigationService` of this provider.
+  NavigationService get navigationService;
 }
 
 class _HomeControllerImplProviderElement
@@ -172,6 +192,9 @@ class _HomeControllerImplProviderElement
   @override
   FileSystemService get fileSystemService =>
       (origin as HomeControllerImplProvider).fileSystemService;
+  @override
+  NavigationService get navigationService =>
+      (origin as HomeControllerImplProvider).navigationService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

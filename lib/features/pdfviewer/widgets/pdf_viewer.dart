@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart';
 import 'package:nodocs/features/tags/widgets/tag_dialog.dart';
-import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -155,7 +156,7 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
             buttonText: 'Home',
             buttonIcon: Icons.home_outlined,
             onPressed: () {
-              const HomeRoute().go(context);
+              GoRouter.of(context).push(NavigationServiceRoutes.home);
             },
           ),
           NavigationButton(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
-import 'package:nodocs/go_router.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/widgets/collection_tile_dialog.dart';
 
 class CollectionTile extends StatefulWidget {
@@ -8,18 +8,21 @@ class CollectionTile extends StatefulWidget {
   final IconData leading;
   final String path;
   final List<CollectionTile> children;
+  final VoidCallback onTapPdf;
   final Function(String) onDelete;
-
-  const CollectionTile(
-      {required this.title,
-      required this.leading,
-      required this.path,
-      required this.children,
-      required this.onDelete,
-      super.key});
 
   @override
   State<CollectionTile> createState() => _CollectionTileState();
+
+  const CollectionTile({
+    required this.title,
+    required this.leading,
+    required this.path,
+    required this.children,
+    required this.onDelete,
+    required this.onTapPdf,
+    super.key,
+  });
 }
 
 class _CollectionTileState extends State<CollectionTile> {
@@ -50,9 +53,7 @@ class _CollectionTileState extends State<CollectionTile> {
           title: Text(widget.title,
               style: TextStyle(color: theme.colorScheme.onSecondary)),
           leading: Icon(widget.leading, color: theme.colorScheme.onSecondary),
-          onTap: isPdf
-              ? () => PdfViewerRoute(path: widget.path).go(context)
-              : () => _toggleExpand(),
+          onTap: isPdf ? widget.onTapPdf : () => _toggleExpand(),
           onLongPress: () => _onLongPress(context),
           trailing: isPdf
               ? null
@@ -67,7 +68,6 @@ class _CollectionTileState extends State<CollectionTile> {
       ],
     );
   }
-
 
   void _toggleExpand() {
     if (_children.isEmpty) {

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button_container.dart';
 import 'package:nodocs/features/scan/widgets/scan_carousel.dart';
 import 'package:nodocs/features/scan/widgets/scan_title_input.dart';
 import 'package:nodocs/features/tags/widgets/tag_dropdown.dart';
-import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
@@ -70,18 +71,28 @@ class SavePageState extends State<SavePage> {
                     label: "Select Folder",
                   ),
                 ),
-                const SizedBox(height: 5,),
-                ScanCarousel(onPageSelect: (final String path) {
-                  selectedImagePath = path;
-                },),
-                const SizedBox(height: 5,),
+                const SizedBox(
+                  height: 5,
+                ),
+                ScanCarousel(
+                  onPageSelect: (final String path) {
+                    selectedImagePath = path;
+                  },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
                 ScanActionButtonContainer(
                   buttons: <Widget>[
                     ScanActionButton(
                       buttonIcon: Icons.crop_free_outlined,
                       buttonText: 'Crop Again',
                       onPressed: () {
-                        CropPageRoute(path: selectedImagePath).go(context);
+                        GoRouter.of(context).push(Uri(
+                            path: NavigationServiceRoutes.crop,
+                            queryParameters: <String, String>{
+                              'path': selectedImagePath
+                            }).toString());
                       },
                     ),
                     ScanActionButton(
@@ -90,17 +101,18 @@ class SavePageState extends State<SavePage> {
                       onPressed: () => showDialog<String>(
                         context: context,
                         builder: (final BuildContext context) =>
-                          ConfirmationDialog(
-                            onConfirm: (){
-                              // TODO delete current selected page
-                              const ScanPageRoute().go(context);
-                            },
-                            onCancel: (){
-                              Navigator.pop(context);
-                            },
-                            header: 'Retake this scan?',
-                            notificationText: 'Are you sure you want to retake the scan of the current page without saving?'
-                          ),
+                            ConfirmationDialog(
+                                onConfirm: () {
+                                  // TODO delete current selected page
+                                  GoRouter.of(context)
+                                      .push(NavigationServiceRoutes.scan);
+                                },
+                                onCancel: () {
+                                  GoRouter.of(context).pop();
+                                },
+                                header: 'Retake this scan?',
+                                notificationText:
+                                    'Are you sure you want to retake the scan of the current page without saving?'),
                       ),
                     ),
                   ],
@@ -117,27 +129,25 @@ class SavePageState extends State<SavePage> {
             buttonIcon: Icons.cancel_outlined,
             onPressed: () => showDialog<String>(
               context: context,
-              builder: (final BuildContext context) =>
-                ConfirmationDialog(
-                  onConfirm: (){
-                    const HomeRoute().go(context);
+              builder: (final BuildContext context) => ConfirmationDialog(
+                  onConfirm: () {
+                    GoRouter.of(context).go(NavigationServiceRoutes.home);
                   },
-                  onCancel: (){
+                  onCancel: () {
                     Navigator.pop(context);
                   },
                   header: 'Cancel this scan?',
-                  notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
-                ),
+                  notificationText:
+                      'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'),
             ),
           ),
           NavigationButton(
-            buttonText: 'Save & Exit',
-            buttonIcon: Icons.save_outlined,
-            onPressed: () {
-              // TODO OCR, Save Document and write Tags to Database
-              const HomeRoute().go(context);
-            }
-          ),
+              buttonText: 'Save & Exit',
+              buttonIcon: Icons.save_outlined,
+              onPressed: () {
+                // TODO OCR, Save Document and write Tags to Database
+                GoRouter.of(context).go(NavigationServiceRoutes.home);
+              }),
         ],
       ),
     );

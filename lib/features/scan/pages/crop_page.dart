@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/widgets/scan_crop.dart';
-import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
@@ -9,6 +10,7 @@ import 'package:nodocs/widgets/title_with_button.dart';
 
 class CropPage extends StatelessWidget {
   final String path;
+
   const CropPage({super.key, required this.path});
 
   @override
@@ -23,20 +25,21 @@ class CropPage extends StatelessWidget {
           icon: Icons.home_outlined,
           onButtonClick: () => showDialog<String>(
             context: context,
-            builder: (final BuildContext context) =>
-              ConfirmationDialog(
-                onConfirm: (){},
-                onCancel: (){},
+            builder: (final BuildContext context) => ConfirmationDialog(
+                onConfirm: () {},
+                onCancel: () {},
                 header: 'Discard this scan?',
-                notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
-              ),
+                notificationText:
+                    'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'),
           ),
         ),
       ),
       body: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          ScanCrop(path: path,),
+          ScanCrop(
+            path: path,
+          ),
         ],
       ),
       bottomNavigationBar: NavigationBox(buttons: <Widget>[
@@ -45,16 +48,16 @@ class CropPage extends StatelessWidget {
           buttonIcon: Icons.flip_camera_ios_outlined,
           onPressed: () => showDialog<String>(
             context: context,
-            builder: (final BuildContext context) =>
-              ConfirmationDialog(
-                onConfirm: (){
-                  // TODO delete photo
-                  const ScanPageRoute().go(context);
-                },
-                onCancel: (){},
-                header: 'Retake this scan?',
-                notificationText: 'Are you sure you want to retake the scan of the current page without saving?',
-              ),
+            builder: (final BuildContext context) => ConfirmationDialog(
+              onConfirm: () {
+                // TODO delete photo
+                GoRouter.of(context).go(NavigationServiceRoutes.pdfViewer);
+              },
+              onCancel: () {},
+              header: 'Retake this scan?',
+              notificationText:
+                  'Are you sure you want to retake the scan of the current page without saving?',
+            ),
           ),
         ),
         NavigationButton(
@@ -62,7 +65,7 @@ class CropPage extends StatelessWidget {
           buttonIcon: Icons.arrow_forward_outlined,
           onPressed: () {
             // TODO Save image under documents path
-            const ScanPageRoute().go(context);
+            GoRouter.of(context).go(NavigationServiceRoutes.scan);
           },
         ),
         NavigationButton(
@@ -70,7 +73,7 @@ class CropPage extends StatelessWidget {
           buttonIcon: Icons.save_outlined,
           onPressed: () {
             // TODO Forward image paths to SavePage
-            const SavePageRoute().go(context);
+            GoRouter.of(context).go(NavigationServiceRoutes.save);
           },
         ),
       ]),

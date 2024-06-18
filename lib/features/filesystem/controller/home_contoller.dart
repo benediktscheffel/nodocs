@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 abstract class HomeController {
 
-  Function(String) pdfViewerRoute();
+  void showCreateCollectionModal();
 
-  void showCreateCollectionModal(final BuildContext context);
+  void showConfirmDeletionDialog(final BuildContext context);
+
+  void goToPage(final Uri uri);
 
   Function(String) createCollection();
   

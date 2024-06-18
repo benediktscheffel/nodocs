@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nodocs/widgets/confirmation_dialog.dart';
 
 class CollectionTileDialog extends StatelessWidget {
   final String contextPath;
@@ -53,7 +55,7 @@ class CollectionTileDialog extends StatelessWidget {
                 trailing: const Icon(Icons.delete, color: Colors.redAccent),
                 title: const Text('Delete',
                     style: TextStyle(color: Colors.redAccent)),
-                onTap: () => onDelete(contextPath),
+                onTap: () => _showConfirmDeletionDialog(context),
               ),
             ],
           ),
@@ -61,4 +63,17 @@ class CollectionTileDialog extends StatelessWidget {
       ),
     );
   }
+  void _showConfirmDeletionDialog(final BuildContext context) {
+    GoRouter goRouter = GoRouter.of(context);
+    showDialog<String>(
+        context: context,
+        builder: (final BuildContext context) => ConfirmationDialog(
+          onConfirm: () => onDelete(contextPath),
+          onCancel: () => <void>{
+          },
+          header: 'Confirm Deletion',
+          notificationText: 'Are you sure you want to delete this file?',
+        ));
+  }
+
 }

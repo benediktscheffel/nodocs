@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:logger/src/logger.dart';
+import 'package:logger/logger.dart';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
 import 'package:nodocs/features/filesystem/model/home_model/collection_node_builder.dart';
 import 'package:nodocs/features/filesystem/services/file_system_service.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
-import 'package:nodocs/go_router.dart';
+import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/util/logging/log.dart';
+import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_controller_impl.g.dart';
@@ -19,6 +20,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
   @override
   HomeModel build({
     required final FileSystemService fileSystemService,
+    required final NavigationService navigationService,
   }) {
     return HomeModel(collectionNodes: CollectionNodeBuilder.build());
   }
@@ -28,16 +30,24 @@ class HomeControllerImpl extends _$HomeControllerImpl
   }
 
   @override
-  Function(String) pdfViewerRoute() {
-    return (final String path) => PdfViewerRoute(path: path);
+  void showCreateCollectionModal() {
+    _log.i("Showing create collection modal");
+    navigationService.showPopup<void>(
+        CollectionCreateDialog(onSave: createCollection())
+    );
   }
 
   @override
-  void showCreateCollectionModal(final BuildContext context) {
+  void showConfirmDeletionDialog(final BuildContext context) {
     showDialog<String>(
         context: context,
-        builder: (final BuildContext context) =>
-            CollectionCreateDialog(onSave: createCollection()));
+        builder: (final BuildContext context) => ConfirmationDialog(
+              onConfirm: () => deleteCollectionOrFile,
+              // close dialog
+              onCancel: () {},
+              header: 'Confirm Deletion',
+              notificationText: 'Are you sure you want to delete this file?',
+            ));
   }
 
   @override
@@ -54,8 +64,14 @@ class HomeControllerImpl extends _$HomeControllerImpl
 
   @override
   Function(String) get deleteCollectionOrFile {
-    return (final String path) =>
-        fileSystemService.deleteCollectionOrFile(path)!
+    return (final String path) => fileSystemService
+        .deleteCollectionOrFile(path)!
         .then((final _) => updateState(CollectionNodeBuilder.build()));
+  }
+
+  @override
+  void goToPage(final Uri uri) {
+    _log.i("Navigating to: ${uri.toString()}");
+    navigationService.push(uri.toString());
   }
 }

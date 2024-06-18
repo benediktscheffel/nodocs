@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/settings/widgets/settings_container.dart';
 import 'package:nodocs/features/settings/widgets/settings_tile.dart';
-import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/button_switch.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
@@ -19,7 +20,7 @@ class SettingsPage extends StatelessWidget {
           title: 'Settings',
           icon: Icons.arrow_back_ios,
           onButtonClick: () {
-            const HomeRoute().go(context);
+            GoRouter.of(context).go(NavigationServiceRoutes.home);
           },
         ),
         centerTitle: true,
