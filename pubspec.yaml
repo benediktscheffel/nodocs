@@ -53,6 +53,7 @@ dependencies:
   injectable: ^2.4.2
   freezed_annotation: ^2.4.1
   logger: ^2.3.0
+  optional: ^6.1.0+1
 
 dev_dependencies:
   riverpod_generator: ^2.4.0

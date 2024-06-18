@@ -14,6 +14,20 @@ import 'package:nodocs/widgets/search_bar.dart';
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
+  List<CollectionTile> _buildCollectionTiles(final List<CollectionNode> nodes, final HomeController controller) {
+    return nodes
+        .map((final CollectionNode node) => CollectionTile(
+      title: node.displayName,
+      leading: node.path.endsWith('.pdf')
+          ? Icons.picture_as_pdf_outlined
+          : Icons.folder_outlined,
+      path: node.path,
+      onDelete: controller.deleteCollectionOrFile,
+      children: _buildCollectionTiles(node.children, controller),
+    )).toList();
+  }
+
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     HomeController controller = ref.read(homeControllerProvider);
@@ -34,24 +48,7 @@ class HomePage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             CollectionContainer(
-                children: model.collectionNodes
-                    .map((final CollectionNode node) =>
-                        node.path.endsWith('.pdf')
-                            ? CollectionTile(
-                                title: node.displayName,
-                                leading: Icons.picture_as_pdf_outlined,
-                                path: node.path,
-                                nodes: node.children,
-                                onDelete: controller.deleteCollectionOrFile,
-                              )
-                            : CollectionTile(
-                                title: node.displayName,
-                                leading: Icons.folder_outlined,
-                                path: node.path,
-                                nodes: node.children,
-                                onDelete: controller.deleteCollectionOrFile,
-                              ))
-                    .toList()),
+                children: _buildCollectionTiles(model.collectionNodes, controller)),
             const SearchBox(),
           ],
         ),

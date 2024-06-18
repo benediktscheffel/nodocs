@@ -22,7 +22,7 @@ final fileSystemServiceProvider =
 );
 
 typedef FileSystemServiceRef = AutoDisposeProviderRef<FileSystemService>;
-String _$homeControllerHash() => r'db3b4fb97882b1718699351e2a6aef68083acdd5';
+String _$homeControllerHash() => r'e188f60b7e587e69adae751aba4e4bc9f7f13018';
 
 /// See also [homeController].
 @ProviderFor(homeController)
@@ -37,7 +37,7 @@ final homeControllerProvider = AutoDisposeProvider<HomeController>.internal(
 );
 
 typedef HomeControllerRef = AutoDisposeProviderRef<HomeController>;
-String _$homeModelHash() => r'53cce51fc3f3045a405a51c9ac66ec7473470e33';
+String _$homeModelHash() => r'087c1fe8ef02d181b996f231694864857a533e22';
 
 /// See also [homeModel].
 @ProviderFor(homeModel)
