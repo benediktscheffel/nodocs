@@ -35,7 +35,7 @@ class HomePage extends ConsumerWidget {
           children: <Widget>[
             CollectionContainer(
                 children:
-                    _buildCollectionTiles(model.collectionNodes, controller)),
+                _buildCollectionTiles(model.collectionNodes, controller)),
             const SearchBox(),
           ],
         ),
@@ -45,8 +45,10 @@ class HomePage extends ConsumerWidget {
           NavigationButton(
             buttonText: 'New Collection',
             buttonIcon: Icons.add_outlined,
-            onPressed: () => _showCreateCollectionModal(
-                context, controller.createCollection()),
+            onPressed: () =>
+                _showCreateCollectionModal(
+                    context, controller.createCollection(),
+                    controller.goBack),
           ),
           NavigationButton(
               buttonText: 'Scan Document',
@@ -66,29 +68,33 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  List<CollectionTile> _buildCollectionTiles(
-      final List<CollectionNode> nodes, final HomeController controller) {
+  List<CollectionTile> _buildCollectionTiles(final List<CollectionNode> nodes,
+      final HomeController controller) {
     return nodes
-        .map((final CollectionNode node) => CollectionTile(
-              title: node.displayName,
-              leading: node.path.endsWith('.pdf')
-                  ? Icons.picture_as_pdf_outlined
-                  : Icons.folder_outlined,
-              path: node.path,
-              onDelete: controller.deleteCollectionOrFile,
-              onTapPdf: () => controller.goToPage(Uri(
+        .map((final CollectionNode node) =>
+        CollectionTile(
+          title: node.displayName,
+          leading: node.path.endsWith('.pdf')
+              ? Icons.picture_as_pdf_outlined
+              : Icons.folder_outlined,
+          path: node.path,
+          onDelete: controller.deleteCollectionOrFile(),
+          onTapPdf: () =>
+              controller.goToPage(Uri(
                   path: NavigationServiceRoutes.pdfViewer,
                   queryParameters: <String, String>{'path': node.path})),
-              children: _buildCollectionTiles(node.children, controller),
-            ))
+          onRename:  controller.renameCollectionOrFile(),
+          goBack: controller.goBack,
+          children: _buildCollectionTiles(node.children, controller),
+        ))
         .toList();
   }
 
-  void _showCreateCollectionModal(
-      final BuildContext context, final Function(String) onSave) {
+  void _showCreateCollectionModal(final BuildContext context,
+      final Function(String) onSave, final VoidCallback goBack) {
     showDialog<String>(
         context: context,
         builder: (final BuildContext context) =>
-            CollectionCreateDialog(onSave: onSave));
+            CollectionCreateDialog(onSave: onSave, goBack: goBack,));
   }
 }

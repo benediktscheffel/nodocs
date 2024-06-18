@@ -9,9 +9,13 @@ abstract class HomeController {
 
   void goToPage(final Uri uri);
 
+  void goBack();
+
   Function(String) createCollection();
   
-  Function(String) get deleteCollectionOrFile;
+  Function(String) deleteCollectionOrFile();
+
+  Function(String, String) renameCollectionOrFile();
 
   Function(String) getPath();
 }

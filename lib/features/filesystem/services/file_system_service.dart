@@ -30,7 +30,7 @@ class FileSystemService {
     return null;
   }
 
-  Option<Directory> renameCollection(
+  Option<Directory> _renameCollection(
       final String oldPath, final String newName) {
     if (oldPath.isEmpty || newName.isEmpty) {
       return const Option<Directory>.none();
@@ -45,13 +45,13 @@ class FileSystemService {
     return const Option<Directory>.none();
   }
 
-  Option<File> renamePdfFile(final String oldPath, final String newName) {
+  Option<File> _renamePdfFile(final String oldPath, final String newName) {
     if (oldPath.isEmpty || newName.isEmpty) {
       return const Option<File>.none();
     }
     final File oldFile = File(oldPath);
     if (oldFile.existsSync()) {
-      final File newFile = File('${oldFile.parent.path}/$newName');
+      final File newFile = File('${oldFile.parent.path}/${_nameToPdf(newName)}');
       return Option<File>.fromNullable(oldFile.renameSync(newFile.path));
     }
     return const Option<File>.none();
@@ -60,5 +60,16 @@ class FileSystemService {
   bool newPathAlreadyExist(final String path, final String name) {
     final FileSystemEntity entity = File('$path/$name');
     return entity.existsSync();
+  }
+
+  Option<FileSystemEntity> renameCollectionOrFile(final String oldPath, final String newName) {
+    if (oldPath.endsWith('.pdf')) {
+      return _renamePdfFile(oldPath, newName);
+    }
+    return _renameCollection(oldPath, newName);
+  }
+
+  String _nameToPdf(final String name) {
+    return name.endsWith('.pdf') ? name : '$name.pdf';
   }
 }

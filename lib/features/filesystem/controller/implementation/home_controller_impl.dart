@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
 import 'package:nodocs/features/filesystem/model/home_model/collection_node_builder.dart';
@@ -33,8 +34,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
   void showCreateCollectionModal() {
     _log.i("Showing create collection modal");
     navigationService.showPopup<void>(
-        CollectionCreateDialog(onSave: createCollection())
-    );
+        CollectionCreateDialog(onSave: createCollection(), goBack: goBack));
   }
 
   @override
@@ -63,7 +63,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
   }
 
   @override
-  Function(String) get deleteCollectionOrFile {
+  Function(String) deleteCollectionOrFile() {
     return (final String path) => fileSystemService
         .deleteCollectionOrFile(path)!
         .then((final _) => updateState(CollectionNodeBuilder.build()));
@@ -73,5 +73,19 @@ class HomeControllerImpl extends _$HomeControllerImpl
   void goToPage(final Uri uri) {
     _log.i("Navigating to: ${uri.toString()}");
     navigationService.push(uri.toString());
+  }
+
+  @override
+  void goBack() {
+    _log.i("Going back");
+    navigationService.pop();
+  }
+
+  @override
+  Function(String, String) renameCollectionOrFile() {
+    return (final String oldPath, final String newName) => fileSystemService
+        .renameCollectionOrFile(oldPath, newName)
+        .map((final _) => updateState(CollectionNodeBuilder.build()))
+        .getOrElse(() => _log.e("Failed to rename collection or file"));
   }
 }

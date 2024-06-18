@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CollectionInput extends StatefulWidget {
-  const CollectionInput({super.key, required this.controller});
+  const CollectionInput(
+      {super.key, required this.controller, required this.hintText});
 
   final TextEditingController controller;
+  final String hintText;
 
   @override
   CollectionInputState createState() => CollectionInputState();
@@ -28,16 +30,19 @@ class CollectionInputState extends State<CollectionInput> {
   Widget build(final BuildContext context) {
     return TextField(
       controller: widget.controller,
+      autofocus: true,
       decoration: InputDecoration(
-        hintText: 'New Collection',
-        suffixIcon: isTextEmpty ? null : IconButton(
-          onPressed: () {
-            widget.controller.text = '';
-          },
-          icon: const Icon(
-            Icons.cancel_outlined,
-          ),
-        ),
+        hintText: widget.hintText,
+        suffixIcon: isTextEmpty
+            ? null
+            : IconButton(
+                onPressed: () {
+                  widget.controller.text = '';
+                },
+                icon: const Icon(
+                  Icons.cancel_outlined,
+                ),
+              ),
       ),
     );
   }

@@ -7,7 +7,9 @@ class CollectionTile extends StatefulWidget {
   final String path;
   final List<CollectionTile> children;
   final VoidCallback onTapPdf;
+  final VoidCallback goBack;
   final Function(String) onDelete;
+  final Function(String, String) onRename;
 
   @override
   State<CollectionTile> createState() => _CollectionTileState();
@@ -19,6 +21,8 @@ class CollectionTile extends StatefulWidget {
     required this.children,
     required this.onDelete,
     required this.onTapPdf,
+    required this.onRename,
+    required this.goBack,
     super.key,
   });
 }
@@ -32,8 +36,10 @@ class _CollectionTileState extends State<CollectionTile> {
         context: context,
         builder: (final BuildContext context) {
           return CollectionTileDialog(
+            contextName: widget.title,
+            goBack: widget.goBack,
             contextPath: widget.path,
-            onRename: () {},
+            onRename: widget.onRename,
             onDelete: widget.onDelete,
             onShare: () {},
           );

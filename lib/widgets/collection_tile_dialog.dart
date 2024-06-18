@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nodocs/features/filesystem/widgets/collection_rename_dialog.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 
 class CollectionTileDialog extends StatelessWidget {
   final String contextPath;
-  final VoidCallback onRename;
+  final String contextName;
+  final Function(String, String) onRename;
+  final VoidCallback goBack;
   final Function(String) onDelete;
   final VoidCallback onShare;
 
@@ -13,6 +16,8 @@ class CollectionTileDialog extends StatelessWidget {
     required this.onDelete,
     required this.onShare,
     required this.contextPath,
+    required this.goBack,
+    required this.contextName,
   });
 
   @override
@@ -36,7 +41,7 @@ class CollectionTileDialog extends StatelessWidget {
                 trailing: Icon(Icons.edit, color: colorScheme.onPrimary),
                 title: Text('Rename',
                     style: TextStyle(color: colorScheme.onPrimary)),
-                onTap: onRename,
+                onTap: () => _showRenameDialog(context),
               ),
               ListTile(
                 trailing:
@@ -62,16 +67,37 @@ class CollectionTileDialog extends StatelessWidget {
       ),
     );
   }
-  void _showConfirmDeletionDialog(final BuildContext context) {
+
+  _showConfirmDeletionDialog(final BuildContext context) {
     showDialog<String>(
         context: context,
         builder: (final BuildContext context) => ConfirmationDialog(
-          onConfirm: () => onDelete(contextPath),
-          onCancel: () => <void>{
-          },
-          header: 'Confirm Deletion',
-          notificationText: 'Are you sure you want to delete this file?',
-        ));
+              onConfirm: () => _onDelete(contextPath),
+              onCancel: () => _onCancel(),
+              header: 'Confirm Deletion',
+              notificationText: 'Are you sure you want to delete this file?',
+            ));
   }
 
+  void _showRenameDialog(final BuildContext context) {
+    showDialog<String>(
+        context: context,
+        builder: (final BuildContext context) => CollectionRenameDialog(
+              onSave: onRename,
+              goBack: _onCancel,
+              contextPath: contextPath,
+              initialName: contextName,
+            ));
+  }
+
+  void _onDelete(final String path) {
+    onDelete(path);
+    goBack();
+    goBack();
+  }
+
+  void _onCancel() {
+    goBack();
+    goBack();
+  }
 }
