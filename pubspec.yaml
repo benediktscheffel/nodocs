@@ -38,7 +38,7 @@ dependencies:
   carousel_slider: ^4.2.1
   image_picker: ^1.1.2
   image_cropper: ^6.0.0
-  camera: ^0.11.0+1
+  camera: ^0.10.2+1
   path_provider: ^2.1.3
   path: ^1.9.0
   syncfusion_flutter_pdfviewer: ^26.1.35
@@ -51,6 +51,12 @@ dependencies:
   flutter_riverpod: ^2.5.1
   get_it: ^7.2.0
   injectable: ^2.4.2
+  pdf: ^3.10.8
+  http: ^1.2.1
+  flutter_dotenv: ^5.1.0
+# ocr_scan_text: ^1.3.1
+# google_mlkit_text_recognition: ^0.8.1
+#  google_ml_kit: ^0.7.3
 #  riverpod_generator: ^2.4.0
 
 dev_dependencies:
@@ -77,8 +83,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - config.env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

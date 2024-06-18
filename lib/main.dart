@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
@@ -7,8 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'config/service_locator.dart';
 import 'go_router.dart';
 
-void main() {
+Future<void> main() async {
   setupServiceLocator();
+  await dotenv.load(fileName: "config.env");
   runApp(const ProviderScope(child: MyApp(),));
 }
 

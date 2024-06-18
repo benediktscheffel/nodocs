@@ -25,8 +25,12 @@ class CropPage extends StatelessWidget {
             context: context,
             builder: (final BuildContext context) =>
               ConfirmationDialog(
-                onConfirm: (){},
-                onCancel: (){},
+                onConfirm: (){
+                  const HomeRoute().go(context);
+                },
+                onCancel: (){
+                  Navigator.pop(context);
+                },
                 header: 'Discard this scan?',
                 notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
               ),
@@ -51,7 +55,9 @@ class CropPage extends StatelessWidget {
                   // TODO delete photo
                   const ScanPageRoute().go(context);
                 },
-                onCancel: (){},
+                onCancel: (){
+                  Navigator.pop(context);
+                },
                 header: 'Retake this scan?',
                 notificationText: 'Are you sure you want to retake the scan of the current page without saving?',
               ),
