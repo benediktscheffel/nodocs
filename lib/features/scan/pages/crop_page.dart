@@ -27,7 +27,7 @@ class CropPage extends StatelessWidget {
             builder: (final BuildContext context) =>
               ConfirmationDialog(
                 onConfirm: (){
-                  const HomeRoute().go(context);
+                  GoRouter.of(context).go(NavigationServiceRoutes.home);
                 },
                 onCancel: (){
                   Navigator.pop(context);

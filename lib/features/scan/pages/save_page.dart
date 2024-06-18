@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
@@ -13,6 +14,7 @@ import 'package:nodocs/features/scan/widgets/scan_carousel.dart';
 import 'package:nodocs/features/scan/widgets/scan_ocr_loading_dialog.dart';
 import 'package:nodocs/features/scan/widgets/scan_title_input.dart';
 import 'package:nodocs/features/tags/widgets/tag_dropdown.dart';
+import 'package:nodocs/util/logging/log.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
@@ -30,6 +32,7 @@ class SavePage extends StatefulWidget {
 
 class SavePageState extends State<SavePage> {
   String selectedImagePath = "";
+  final Logger _log = getLogger();
 
   @override
   Widget build(final BuildContext context) {
@@ -177,7 +180,7 @@ class SavePageState extends State<SavePage> {
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         throw Exception('No internet connection');
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       throw Exception('No internet connection');
     }
   }
@@ -332,11 +335,11 @@ class SavePageState extends State<SavePage> {
   Future<void> pollAndSaveDocument(final String location, final String accessToken) async {
     Map<String, dynamic> documentStatusAndDownloadUri = await getStatusAndDownloadUri(location, accessToken);
     while (documentStatusAndDownloadUri['status'] == 'in progress') {
-      print("Status: ${documentStatusAndDownloadUri['status']}");
+      _log.i("Status: ${documentStatusAndDownloadUri['status']}");
       documentStatusAndDownloadUri = await getStatusAndDownloadUri(location, accessToken);
     }
     if (documentStatusAndDownloadUri['status'] == 'done') {
-      print("Status: ${documentStatusAndDownloadUri['status']}");
+      _log.i("Status: ${documentStatusAndDownloadUri['status']}");
       final String downloadUri = documentStatusAndDownloadUri['asset']['downloadUri'];
       http.Response response = await http.get(
         Uri.parse(downloadUri),
@@ -425,6 +428,6 @@ class SavePageState extends State<SavePage> {
     final String path = '${directory.path}/.pdf';
     final File output = File(path);
     await output.writeAsBytes(await pdf);
-    print("Document saved at: $path");
+    _log.i("Document saved at: $path");
   }
 }

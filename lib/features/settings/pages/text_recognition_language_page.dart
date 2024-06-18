@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/settings/widgets/settings_container.dart';
 import 'package:nodocs/features/settings/widgets/settings_tile.dart';
-import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
 class TextRecognitionLanguagePage extends StatefulWidget {
@@ -68,7 +69,7 @@ class _TextRecognitionLanguagePageState extends State<TextRecognitionLanguagePag
           title: 'Text recognition language',
           icon: Icons.arrow_back_ios,
           onButtonClick: () {
-            const SettingsPageRoute().go(context);
+            GoRouter.of(context).go(NavigationServiceRoutes.settings);
           },
         ),
         centerTitle: true,

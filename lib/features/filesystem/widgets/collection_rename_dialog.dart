@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_input.dart';
 import 'package:nodocs/widgets/dialog_box.dart';
 

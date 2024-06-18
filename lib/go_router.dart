@@ -9,7 +9,6 @@ import 'package:nodocs/features/scan/pages/save_page.dart';
 import 'package:nodocs/features/scan/pages/scan_page.dart';
 import 'package:nodocs/features/settings/pages/settings_page.dart';
 import 'package:nodocs/features/settings/pages/text_recognition_language_page.dart';
-import 'package:nodocs/pages/home_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'go_router.g.dart';

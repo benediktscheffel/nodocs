@@ -46,7 +46,7 @@ class SettingsPage extends StatelessWidget {
                 SettingsTile(
                   title: 'Text recognition language',
                   onPressed: () {
-                    const TextRecognitionLanguagePageRoute().go(context);
+                    GoRouter.of(context).go(NavigationServiceRoutes.ocrLanguage);
                   },
                   leading: Icons.language_outlined,
                   trailing: Icon(
