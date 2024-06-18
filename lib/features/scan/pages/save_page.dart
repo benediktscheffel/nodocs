@@ -248,7 +248,6 @@ class SavePageState extends State<SavePage> {
     } on SocketException catch (e) {
       showErrorInternetDialog();
       throw Exception("$e: Unable to OCR document! Check your internet connection!");
-      }
     }
   }
 
@@ -397,7 +396,6 @@ class SavePageState extends State<SavePage> {
     final Map<String, dynamic> responseHeader = response.headers as Map<String, dynamic>;
     return responseHeader['location'];
   }
-
 
   Future<pw.Document> createPDF(final List<String> imagePaths) async {
     final pw.Document pdf = pw.Document();
