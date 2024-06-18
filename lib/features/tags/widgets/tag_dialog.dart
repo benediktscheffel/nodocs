@@ -43,11 +43,4 @@ class TagDialog extends StatelessWidget {
       ),
     );
   }
-
-/*void showTagDialog(BuildContext context) {
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => const TagDialog(),
-    );
-  }*/
 }

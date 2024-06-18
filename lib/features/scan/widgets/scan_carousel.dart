@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
+import 'package:nodocs/util/logging/log.dart';
 
 typedef OnPageSelect = void Function(String path);
 
@@ -21,6 +23,7 @@ class _ScanCarouselState extends State<ScanCarousel> {
   String imageFolder = '${ConfigParameters.fileSystemPath}collection1/';
   int current = 0;
   final CarouselController controller = CarouselController();
+  final Logger _log = getLogger();
 
   @override
   void initState() {
@@ -93,7 +96,7 @@ class _ScanCarouselState extends State<ScanCarousel> {
           widget.onPageSelect(getImagePathById(0));
       });
     } catch (e) {
-      print('Error loading images: $e');
+      _log.e('Error loading images: $e');
     }
   }
 

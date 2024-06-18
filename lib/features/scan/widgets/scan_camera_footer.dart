@@ -1,20 +1,26 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nodocs/config/config_parameters.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/widgets/scan_box_last_image.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_button.dart';
-import 'package:nodocs/go_router.dart';
 
 class ScanCameraFooter extends StatelessWidget {
   final VoidCallback onTakePhoto;
+
   const ScanCameraFooter({super.key, required this.onTakePhoto});
 
   Future<void> _pickImage(final BuildContext context) async {
-    final XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null && context.mounted) {
-      CropPageRoute(path: pickedFile.path).go(context);
+      GoRouter.of(context).push(Uri(
+              path: NavigationServiceRoutes.crop,
+              queryParameters: <String, String>{'path': pickedFile.path})
+          .toString());
     }
   }
 
@@ -23,16 +29,13 @@ class ScanCameraFooter extends StatelessWidget {
     final List<Widget> row = <Widget>[
       ScanBoxLastImage(
         // TODO replace the image path with the actual latest image
-        /*img: Image.network(
-          'https://images.thalia.media/03/-/684f7c82fc2a499bb90cf9140bd8fe27/harry-potter-und-der-stein-der-weisen-taschenbuch-j-k-rowling.jpeg'
-        ),*/
         img: Image.file(
-          File('${ConfigParameters.fileSystemPath}/collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg'),
-          //File('/data/data/com.example.nodocs/files/annie-spratt-askpr0s66Rg-unsplash.jpg'),
+          File(
+              '${ConfigParameters.fileSystemPath}/collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg'),
         ),
         scanCounter: 6,
         onTap: () {
-          const SavePageRoute().go(context);
+          GoRouter.of(context).goNamed(NavigationServiceRoutes.save);
         },
       ),
       ScanCameraButton(
@@ -52,31 +55,31 @@ class ScanCameraFooter extends StatelessWidget {
     ];
 
     return Container(
-      height: 150,
-      decoration: const BoxDecoration(
-        color: Color(0x77000000),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Text(
-            'Scan Document',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Flex(
-            direction: Axis.horizontal,
+        height: 150,
+        decoration: const BoxDecoration(
+          color: Color(0x77000000),
+        ),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: row.map((final Widget rowItem) => Expanded(child: rowItem)).toList(),
-          )
-        ]
-      )
-    );
+            children: <Widget>[
+              const Text(
+                'Scan Document',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Flex(
+                direction: Axis.horizontal,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: row
+                    .map((final Widget rowItem) => Expanded(child: rowItem))
+                    .toList(),
+              )
+            ]));
   }
 }

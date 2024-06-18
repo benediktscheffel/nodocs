@@ -22,7 +22,7 @@ class SearchBox extends StatelessWidget {
               color: theme.colorScheme.secondary,
               width: 2.0,
             ),
-            borderRadius: BorderRadius.circular(16.0), // Optional
+            borderRadius: BorderRadius.circular(16.0),
           ),
           child: SearchAnchor(
             builder: (final BuildContext context, final SearchController controller) {

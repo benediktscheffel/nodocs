@@ -3,22 +3,31 @@ import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_input.dart';
 import 'package:nodocs/widgets/dialog_box.dart';
 
-class CollectionCreateDialog extends StatelessWidget {
-  final Function(String) onSave;
+class CollectionRenameDialog extends StatelessWidget {
+  final String contextPath;
+  final String initialName;
+  final Function(String, String) onSave;
   final VoidCallback goBack;
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController controller;
 
-  CollectionCreateDialog(
-      {super.key, required this.onSave, required this.goBack});
+  CollectionRenameDialog(
+      {super.key,
+      required this.onSave,
+      required this.goBack,
+      required this.contextPath,
+      required this.initialName})
+      : controller = TextEditingController(text: initialName)
+          ..selection =
+              TextSelection(baseOffset: 0, extentOffset: initialName.length);
 
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return DialogBox(
-      headerText: 'Create a new Collection',
+      headerText: 'Rename',
       body: <Widget>[
         CollectionInput(
-          hintText: 'New Collection',
+          hintText: 'Rename Collection/File',
           controller: controller,
         ),
       ],
@@ -39,7 +48,7 @@ class CollectionCreateDialog extends StatelessWidget {
           TextButton(
             onPressed: () => _onSave(controller.text),
             child: Text(
-              'Create',
+              'Confirm',
               textAlign: TextAlign.right,
               style: TextStyle(
                 color: theme.colorScheme.onPrimaryContainer,
@@ -55,7 +64,7 @@ class CollectionCreateDialog extends StatelessWidget {
 
   _onSave(final String name) {
     if (name.isNotEmpty) {
-      onSave(name);
+      onSave(contextPath, name);
     }
     goBack();
   }

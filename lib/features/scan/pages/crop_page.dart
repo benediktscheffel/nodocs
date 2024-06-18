@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/widgets/scan_crop.dart';
-import 'package:nodocs/go_router.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
@@ -53,7 +54,7 @@ class CropPage extends StatelessWidget {
               ConfirmationDialog(
                 onConfirm: (){
                   // TODO delete photo
-                  const ScanPageRoute().go(context);
+                  GoRouter.of(context).go(NavigationServiceRoutes.scan);
                 },
                 onCancel: (){
                   Navigator.pop(context);
@@ -68,7 +69,7 @@ class CropPage extends StatelessWidget {
           buttonIcon: Icons.arrow_forward_outlined,
           onPressed: () {
             // TODO Save image under documents path
-            const ScanPageRoute().go(context);
+            GoRouter.of(context).go(NavigationServiceRoutes.scan);
           },
         ),
         NavigationButton(
@@ -76,7 +77,7 @@ class CropPage extends StatelessWidget {
           buttonIcon: Icons.save_outlined,
           onPressed: () {
             // TODO Forward image paths to SavePage
-            const SavePageRoute().go(context);
+            GoRouter.of(context).go(NavigationServiceRoutes.save);
           },
         ),
       ]),

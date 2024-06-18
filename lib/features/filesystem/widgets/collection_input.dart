@@ -1,43 +1,48 @@
 import 'package:flutter/material.dart';
 
 class CollectionInput extends StatefulWidget {
-  const CollectionInput({super.key});
+  const CollectionInput(
+      {super.key, required this.controller, required this.hintText});
+
+  final TextEditingController controller;
+  final String hintText;
 
   @override
   CollectionInputState createState() => CollectionInputState();
 }
 
 class CollectionInputState extends State<CollectionInput> {
-  final TextEditingController controller = TextEditingController();
   bool isTextEmpty = true;
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(updateTextState);
+    widget.controller.addListener(updateTextState);
   }
 
   void updateTextState() {
     setState(() {
-      isTextEmpty = controller.text.isEmpty;
+      isTextEmpty = widget.controller.text.isEmpty;
     });
   }
 
   @override
   Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return TextField(
-      controller: controller,
+      controller: widget.controller,
+      autofocus: true,
       decoration: InputDecoration(
-        hintText: 'New Collection',
-        suffixIcon: isTextEmpty ? null : IconButton(
-          onPressed: () {
-            controller.text = '';
-          },
-          icon: const Icon(
-            Icons.cancel_outlined,
-          ),
-        ),
+        hintText: widget.hintText,
+        suffixIcon: isTextEmpty
+            ? null
+            : IconButton(
+                onPressed: () {
+                  widget.controller.text = '';
+                },
+                icon: const Icon(
+                  Icons.cancel_outlined,
+                ),
+              ),
       ),
     );
   }
