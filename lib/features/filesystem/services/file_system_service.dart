@@ -4,7 +4,6 @@ import 'package:fpdart/fpdart.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/util/logging/log.dart';
-import 'package:optional/optional.dart';
 
 class FileSystemService {
 

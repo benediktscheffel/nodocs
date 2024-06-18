@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/widgets/collection_tile_dialog.dart';
 
 class CollectionTile extends StatefulWidget {
@@ -36,7 +34,6 @@ class _CollectionTileState extends State<CollectionTile> {
           return CollectionTileDialog(
             contextPath: widget.path,
             onRename: () {},
-            // TODO: add confirmation dialog
             onDelete: widget.onDelete,
             onShare: () {},
           );

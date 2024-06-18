@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 
 class CollectionTileDialog extends StatelessWidget {
@@ -64,7 +63,6 @@ class CollectionTileDialog extends StatelessWidget {
     );
   }
   void _showConfirmDeletionDialog(final BuildContext context) {
-    GoRouter goRouter = GoRouter.of(context);
     showDialog<String>(
         context: context,
         builder: (final BuildContext context) => ConfirmationDialog(

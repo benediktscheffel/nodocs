@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/go_router.dart';
-import 'package:nodocs/util/logging/log.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'go_router_navigation_service.g.dart';
@@ -17,7 +15,6 @@ goRouterNavigationService(final GoRouterNavigationServiceRef ref) =>
 
 class GoRouterNavigationService extends NavigationService {
   final GoRouter _router;
-  final Logger _log = getLogger();
 
   GoRouterNavigationService({
     required final GoRouter goRouter,
