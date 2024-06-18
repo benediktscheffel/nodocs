@@ -6,6 +6,8 @@ class ConfirmationDialog extends StatelessWidget {
   final String notificationText;
   final VoidCallback onConfirm;
   final VoidCallback onCancel;
+  final String? cancelText;
+  final String? confirmText;
 
   const ConfirmationDialog({
     super.key,
@@ -13,6 +15,8 @@ class ConfirmationDialog extends StatelessWidget {
     required this.onCancel,
     required this.header,
     required this.notificationText,
+    this.cancelText,
+    this.confirmText,
   });
 
   @override
@@ -38,7 +42,7 @@ class ConfirmationDialog extends StatelessWidget {
           TextButton(
             onPressed: onCancel,
             child: Text(
-              'Cancel',
+              cancelText == null ? 'Cancel' : cancelText!,
               textAlign: TextAlign.right,
               style: TextStyle(
                 color: colorScheme.onPrimaryContainer,
@@ -49,7 +53,7 @@ class ConfirmationDialog extends StatelessWidget {
           TextButton(
             onPressed: onConfirm,
             child: Text(
-              'Confirm',
+              confirmText == null ? 'Confirm' : confirmText!,
               textAlign: TextAlign.right,
               style: TextStyle(
                 color: colorScheme.onPrimaryContainer,
