@@ -25,60 +25,54 @@ class SettingsPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-        ),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            SettingsContainer(
-              collectionItems: <SettingsTile>[
-                SettingsTile(
-                  title: 'Run text recognition',
-                  onPressed: () {},
-                  leading: Icons.text_snippet_outlined,
-                  trailing: SwitchButton(
-                    onChanged: (final bool value) {},
-                  ),
+      body: ListView(
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          SettingsContainer(
+            collectionItems: <SettingsTile>[
+              SettingsTile(
+                title: 'Run text recognition',
+                onPressed: () {},
+                leading: Icons.text_snippet_outlined,
+                trailing: SwitchButton(
+                  onChanged: (final bool value) {},
                 ),
-                SettingsTile(
-                  title: 'Text recognition language',
-                  onPressed: () {
-                    GoRouter.of(context).go(NavigationServiceRoutes.ocrLanguage);
-                  },
-                  leading: Icons.language_outlined,
-                  trailing: Icon(
+              ),
+              SettingsTile(
+                title: 'Text recognition language',
+                onPressed: () {
+                  GoRouter.of(context).go(NavigationServiceRoutes.ocrLanguage);
+                },
+                leading: Icons.language_outlined,
+                trailing: Icon(
+                  Icons.arrow_right_outlined,
+                  color: theme.colorScheme.onSecondary,
+                ),
+              ),
+            ],
+          ),
+          SettingsContainer(
+            collectionItems: <SettingsTile>[
+              SettingsTile(
+                title: 'DarkMode',
+                onPressed: () {},
+                leading: Icons.dark_mode_outlined,
+                trailing: SwitchButton(
+                  onChanged: (final bool value) {},
+                ),
+              ),
+              SettingsTile(
+                title: 'Text size',
+                onPressed: () {},
+                leading: Icons.text_fields_outlined,
+                trailing: Icon(
                     Icons.arrow_right_outlined,
                     color: theme.colorScheme.onSecondary,
-                  ),
                 ),
-              ],
-            ),
-            SettingsContainer(
-              collectionItems: <SettingsTile>[
-                SettingsTile(
-                  title: 'DarkMode',
-                  onPressed: () {},
-                  leading: Icons.dark_mode_outlined,
-                  trailing: SwitchButton(
-                    onChanged: (final bool value) {},
-                  ),
-                ),
-                SettingsTile(
-                  title: 'Text size',
-                  onPressed: () {},
-                  leading: Icons.text_fields_outlined,
-                  trailing: Icon(
-                      Icons.arrow_right_outlined,
-                      color: theme.colorScheme.onSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

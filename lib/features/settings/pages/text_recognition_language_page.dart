@@ -74,34 +74,28 @@ class _TextRecognitionLanguagePageState extends State<TextRecognitionLanguagePag
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-          right: 16,
-        ),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            SettingsContainer(
-              collectionItems: sortedLanguages.entries.map((final MapEntry<String, String> entry) =>
-                SettingsTile(
-                  title: entry.value,
-                  onPressed: () {
-                    // TODO Save entry key globally for text recognition
-                    setState(() {
-                      selectedLanguage = entry.key;
-                    });
-                  },
-                  leading: Icons.language_outlined,
-                  trailing: selectedLanguage == entry.key ? Icon(
-                    Icons.check_circle,
-                    color: theme.colorScheme.onSecondary,
-                  ): null,
-                ),
-              ).toList()
-            ),
-          ],
-        ),
+      body: ListView(
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          SettingsContainer(
+            collectionItems: sortedLanguages.entries.map((final MapEntry<String, String> entry) =>
+              SettingsTile(
+                title: entry.value,
+                onPressed: () {
+                  // TODO Save entry key globally for text recognition
+                  setState(() {
+                    selectedLanguage = entry.key;
+                  });
+                },
+                leading: Icons.language_outlined,
+                trailing: selectedLanguage == entry.key ? Icon(
+                  Icons.check_circle,
+                  color: theme.colorScheme.onSecondary,
+                ): null,
+              ),
+            ).toList()
+          ),
+        ],
       ),
     );
   }
