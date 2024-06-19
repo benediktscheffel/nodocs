@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_input.dart';
 import 'package:nodocs/widgets/dialog_box.dart';
 
 class CollectionRenameDialog extends StatelessWidget {
-  final String contextPath;
-  final String initialName;
-  final Function(String, String) onSave;
+  final Function(String) onSave;
   final VoidCallback goBack;
   final TextEditingController controller;
 
@@ -14,11 +11,11 @@ class CollectionRenameDialog extends StatelessWidget {
       {super.key,
       required this.onSave,
       required this.goBack,
-      required this.contextPath,
-      required this.initialName})
-      : controller = TextEditingController(text: initialName)
+      required final String initialText,
+      })
+      : controller = TextEditingController(text: initialText)
           ..selection =
-              TextSelection(baseOffset: 0, extentOffset: initialName.length);
+              TextSelection(baseOffset: 0, extentOffset: initialText.length);
 
   @override
   Widget build(final BuildContext context) {
@@ -64,7 +61,7 @@ class CollectionRenameDialog extends StatelessWidget {
 
   _onSave(final String name) {
     if (name.isNotEmpty) {
-      onSave(contextPath, name);
+      onSave(name);
     }
     goBack();
   }

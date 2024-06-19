@@ -5,8 +5,11 @@ import 'package:nodocs/features/filesystem/controller/implementation/home_provid
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_container.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
+import 'package:nodocs/features/filesystem/widgets/collection_rename_dialog.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_tile.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
+import 'package:nodocs/widgets/collection_tile_dialog.dart';
+import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/search_bar.dart';
@@ -35,7 +38,7 @@ class HomePage extends ConsumerWidget {
           children: <Widget>[
             CollectionContainer(
                 children:
-                _buildCollectionTiles(model.collectionNodes, controller)),
+                    _buildCollectionTiles(model.collectionNodes, controller)),
             const SearchBox(),
           ],
         ),
@@ -45,10 +48,8 @@ class HomePage extends ConsumerWidget {
           NavigationButton(
             buttonText: 'New Collection',
             buttonIcon: Icons.add_outlined,
-            onPressed: () =>
-                _showCreateCollectionModal(
-                    context, controller.createCollection(),
-                    controller.goBack),
+            onPressed: () => _showCreateCollectionModal(
+                context, controller.createCollection(), controller.goBack),
           ),
           NavigationButton(
               buttonText: 'Scan Document',
@@ -68,25 +69,36 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  List<CollectionTile> _buildCollectionTiles(final List<CollectionNode> nodes,
-      final HomeController controller) {
+  List<CollectionTile> _buildCollectionTiles(
+      final List<CollectionNode> nodes, final HomeController controller) {
     return nodes
-        .map((final CollectionNode node) =>
-        CollectionTile(
-          title: node.displayName,
-          leading: node.path.endsWith('.pdf')
-              ? Icons.picture_as_pdf_outlined
-              : Icons.folder_outlined,
-          path: node.path,
-          onDelete: controller.deleteCollectionOrFile(),
-          onTapPdf: () =>
-              controller.goToPage(Uri(
-                  path: NavigationServiceRoutes.pdfViewer,
-                  queryParameters: <String, String>{'path': node.path})),
-          onRename:  controller.renameCollectionOrFile(),
-          goBack: controller.goBack,
-          children: _buildCollectionTiles(node.children, controller),
-        ))
+        .map(
+          (final CollectionNode node) => CollectionTile(
+            title: node.displayName,
+            isPdf: node.path.endsWith('.pdf'),
+            onTapPdf: () => controller.goToPage(Uri(
+                path: NavigationServiceRoutes.pdfViewer,
+                queryParameters: <String, String>{'path': node.path})),
+            dialog: CollectionTileDialog(
+              contextName: node.displayName,
+              contextPath: node.path,
+              onShare: () {},
+              deleteDialog: ConfirmationDialog(
+                onConfirm: () => controller.deleteCollectionOrFile(node.path),
+                onCancel: () => controller.goBackTwice,
+                header: 'Confirm Deletion',
+                notificationText:
+                    'Are you sure you want to delete \'${node.displayName}\'?',
+              ),
+              renameDialog: CollectionRenameDialog(
+                onSave: controller.renameCollectionOrFile(node.path),
+                goBack: controller.goBackTwice,
+                initialText: node.displayName,
+              ),
+            ),
+            children: _buildCollectionTiles(node.children, controller),
+          ),
+        )
         .toList();
   }
 
@@ -94,7 +106,9 @@ class HomePage extends ConsumerWidget {
       final Function(String) onSave, final VoidCallback goBack) {
     showDialog<String>(
         context: context,
-        builder: (final BuildContext context) =>
-            CollectionCreateDialog(onSave: onSave, goBack: goBack,));
+        builder: (final BuildContext context) => CollectionCreateDialog(
+              onSave: onSave,
+              goBack: goBack,
+            ));
   }
 }
