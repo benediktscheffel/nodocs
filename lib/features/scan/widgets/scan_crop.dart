@@ -37,10 +37,6 @@ class _ScanCropState extends State<ScanCrop> {
 
   @override
   void dispose() {
-    setState(() {
-      _pickedFile = null;
-      _croppedFile = null;
-    });
     super.dispose();
   }
 
