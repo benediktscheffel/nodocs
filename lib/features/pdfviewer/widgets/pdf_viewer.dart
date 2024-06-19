@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart';
+import 'package:nodocs/features/tags/widgets/tag_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -31,7 +34,7 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
 
   void _ensureHistoryEntry(final BuildContext context) {
     if (_historyEntry == null) {
-      final ModalRoute<dynamic>? route = ModalRoute.of(context);
+      final ModalRoute<void>? route = ModalRoute.of(context);
       if (route != null) {
         _historyEntry = LocalHistoryEntry(onRemove: _handleHistoryEntryRemoved);
         route.addLocalHistoryEntry(_historyEntry!);
@@ -72,7 +75,8 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
                 setState(() {
                   _textSearchKey.currentState?.showToast = true;
                 });
-                await Future<dynamic>.delayed(const Duration(seconds: 1));
+                // Not sure if this is the correct Type here
+                await Future<void>.delayed(const Duration(seconds: 1));
                 setState(() {
                   _textSearchKey.currentState?.showToast = false;
                 });
@@ -140,27 +144,31 @@ class CustomSearchPdfViewerState extends State<PdfViewer> {
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
           NavigationButton(
-              buttonText: 'Back',
-              buttonIcon: Icons.arrow_back_outlined,
-              onPressed: (){
-                Navigator.pop(context);
-              }),
+            buttonText: 'Edit Tags',
+            buttonIcon: Icons.edit_outlined,
+            onPressed: () => showDialog<String>(
+              context: context,
+              builder: (final BuildContext context) =>
+                const TagDialog(),
+            ),
+          ),
           NavigationButton(
-              buttonText: 'Home',
-              buttonIcon: Icons.home,
-              onPressed: () {
-                Navigator.popUntil(context, ModalRoute.withName('/'));
-              }),
+            buttonText: 'Home',
+            buttonIcon: Icons.home_outlined,
+            onPressed: () {
+              GoRouter.of(context).push(NavigationServiceRoutes.home);
+            },
+          ),
           NavigationButton(
-              buttonText: 'Search',
-              buttonIcon: Icons.search,
-              onPressed: () {
-                setState(() {
-                  _showScrollHead = false;
-                  _showToolbar = true;
-                  _ensureHistoryEntry(context);
-                });
-              }),
+            buttonText: 'Search',
+            buttonIcon: Icons.search,
+            onPressed: () {
+              setState(() {
+                _showScrollHead = false;
+                _showToolbar = true;
+                _ensureHistoryEntry(context);
+              });
+            }),
         ],
       )
     );

@@ -1,113 +1,86 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
 import 'package:nodocs/widgets/collection_tile_dialog.dart';
-
-
 
 class CollectionTile extends StatefulWidget {
   final String title;
   final IconData leading;
   final String path;
+  final List<CollectionTile> children;
+  final VoidCallback onTapPdf;
+  final VoidCallback goBack;
+  final Function(String) onDelete;
+  final Function(String, String) onRename;
+
+  @override
+  State<CollectionTile> createState() => _CollectionTileState();
 
   const CollectionTile({
     required this.title,
     required this.leading,
     required this.path,
+    required this.children,
+    required this.onDelete,
+    required this.onTapPdf,
+    required this.onRename,
+    required this.goBack,
     super.key,
   });
-
-  @override
-  State<CollectionTile> createState() => _CollectionTileState();
 }
 
 class _CollectionTileState extends State<CollectionTile> {
   bool _isExpanded = false;
-  List<CollectionTile> _children = <CollectionTile>[];
+  final List<CollectionTile> _children = <CollectionTile>[];
 
   _onLongPress(final BuildContext context) {
     showModalBottomSheet(
-      context: context,
-      builder: (final BuildContext context) {
-        return CollectionTileDialog(
-              onRename: () {},
-              onDelete: () {},
-              onShare: () {},
-
+        context: context,
+        builder: (final BuildContext context) {
+          return CollectionTileDialog(
+            contextName: widget.title,
+            goBack: widget.goBack,
+            contextPath: widget.path,
+            onRename: widget.onRename,
+            onDelete: widget.onDelete,
+            onShare: () {},
           );
-      }
-    );
+        });
   }
 
   @override
   Widget build(final BuildContext context) {
     ThemeData theme = Theme.of(context);
-    final bool isDirectory = FileSystemEntity.typeSync(widget.path) == FileSystemEntityType.directory;
+    final bool isPdf = widget.path.endsWith('.pdf');
     return Column(
       children: <Widget>[
         ListTile(
-          title: Text(widget.title, style: TextStyle(color: theme.colorScheme.onSecondary)),
+          title: Text(widget.title,
+              style: TextStyle(color: theme.colorScheme.onSecondary)),
           leading: Icon(widget.leading, color: theme.colorScheme.onSecondary),
-          onTap: isDirectory ? _toggleExpand : () {
-            Navigator.push(context, MaterialPageRoute<void>(
-              builder: (final BuildContext context) {
-                return PdfViewer(path: widget.path);
-              },
-            ));
-          },
+          onTap: isPdf ? widget.onTapPdf : () => _toggleExpand(),
           onLongPress: () => _onLongPress(context),
-          trailing: isDirectory ? Icon(_isExpanded ? Icons.arrow_drop_down : Icons.arrow_right, color: theme.colorScheme.onSecondary) : null,
+          trailing: isPdf
+              ? null
+              : Icon(_isExpanded ? Icons.arrow_drop_down : Icons.arrow_right,
+                  color: theme.colorScheme.onSecondary),
         ),
-        if (_isExpanded) ..._children.map((final CollectionTile child) => Padding(
-          padding: const EdgeInsets.only(left: 16.0), // Add left padding to the children items
-          child: child,
-        ))
+        if (_isExpanded)
+          ...widget.children.map((final CollectionTile child) => Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: child,
+              ))
       ],
     );
   }
+
   void _toggleExpand() {
     if (_children.isEmpty) {
-      _listItems();
+      setState(() {
+        _isExpanded = !_isExpanded;
+      });
     } else {
       setState(() {
         _isExpanded = !_isExpanded;
       });
     }
-  }
-
-  Future<void> _listItems() async {
-    final Directory directory = Directory(widget.path);
-    final List<CollectionTile> items = <CollectionTile>[];
-
-    try {
-      final List<FileSystemEntity> entities = directory.listSync();
-      for (FileSystemEntity entity in entities) {
-        if (entity is Directory) {
-          items.add(CollectionTile(
-            title: entity.path.split('/').last,
-            leading: Icons.folder,
-            path: entity.path,
-          ));
-        }
-        if (entity is File && entity.path.endsWith('.pdf')) {
-          items.add(CollectionTile(
-            title: entity.path.split('/').last.replaceAll('.pdf', ''),
-            leading: Icons.picture_as_pdf_outlined,
-            path: entity.path,
-          ));
-        }
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error listing directories: $e');
-      }
-    }
-
-    setState(() {
-      _children = items;
-      _isExpanded = true;
-    });
   }
 }

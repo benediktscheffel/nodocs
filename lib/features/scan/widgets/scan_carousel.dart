@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:nodocs/config/config_parameters.dart';
+import 'package:nodocs/util/logging/log.dart';
 
-typedef OnPageSelect = void Function(int pageIndex);
+typedef OnPageSelect = void Function(String path);
 
 class ScanCarousel extends StatefulWidget {
   final OnPageSelect onPageSelect;
@@ -17,9 +20,10 @@ class ScanCarousel extends StatefulWidget {
 class _ScanCarouselState extends State<ScanCarousel> {
   List<Widget> imageSliders = <Widget>[];
   List<String> images = <String>[];
-  String imageFolder = '/data/data/com.example.nodocs/files/collection1/';
+  String imageFolder = '${ConfigParameters.fileSystemPath}collection1/';
   int current = 0;
   final CarouselController controller = CarouselController();
+  final Logger _log = getLogger();
 
   @override
   void initState() {
@@ -89,9 +93,10 @@ class _ScanCarouselState extends State<ScanCarousel> {
               ),
             ),
           )).toList();
+          widget.onPageSelect(getImagePathById(0));
       });
     } catch (e) {
-      print('Error loading images: $e');
+      _log.e('Error loading images: $e');
     }
   }
 
@@ -115,6 +120,10 @@ class _ScanCarouselState extends State<ScanCarousel> {
     return imageFiles;
   }
 
+  String getImagePathById(final int id) {
+    return imageFolder + images[id].split("/").last;
+  }
+  
   @override
   Widget build(final BuildContext context) {
     return Column(
@@ -132,7 +141,7 @@ class _ScanCarouselState extends State<ScanCarousel> {
               onPageChanged: (final int index, final CarouselPageChangedReason reason) {
                 setState(() {
                   current = index;
-                  widget.onPageSelect(index);
+                  widget.onPageSelect(getImagePathById(index));
                 });
               }
             ),
