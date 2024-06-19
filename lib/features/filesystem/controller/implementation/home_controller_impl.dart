@@ -40,14 +40,15 @@ class HomeControllerImpl extends _$HomeControllerImpl
   @override
   void showConfirmDeletionDialog(final BuildContext context) {
     showDialog<String>(
-        context: context,
-        builder: (final BuildContext context) => ConfirmationDialog(
-              onConfirm: () => deleteCollectionOrFile,
-              // close dialog
-              onCancel: () {},
-              header: 'Confirm Deletion',
-              notificationText: 'Are you sure you want to delete this file?',
-            ));
+      context: context,
+      builder: (final BuildContext context) => ConfirmationDialog(
+        onConfirm: () => deleteCollectionOrFile,
+        // close dialog
+        onCancel: () {},
+        header: 'Confirm Deletion',
+        notificationText: 'Are you sure you want to delete this file?',
+      ),
+    );
   }
 
   @override
@@ -58,33 +59,32 @@ class HomeControllerImpl extends _$HomeControllerImpl
   }
 
   @override
-  Function(String) getPath() {
-    return (final String path) => <void>{_log.i("Path: $path")};
-  }
-
-  @override
-  Function(String) deleteCollectionOrFile() {
-    return (final String path) => fileSystemService
+  void deleteCollectionOrFile(final String path) {
+    fileSystemService
         .deleteCollectionOrFile(path)!
         .then((final _) => updateState(CollectionNodeBuilder.build()));
   }
 
   @override
   void goToPage(final Uri uri) {
-    _log.i("Navigating to: ${uri.toString()}");
     navigationService.push(uri.toString());
   }
 
   @override
   void goBack() {
-    _log.i("Going back");
     navigationService.pop();
   }
 
   @override
-  Function(String, String) renameCollectionOrFile() {
-    return (final String oldPath, final String newName) => fileSystemService
-        .renameCollectionOrFile(oldPath, newName)
+  void goBackTwice() {
+    navigationService.pop();
+    navigationService.pop();
+  }
+
+  @override
+  Function(String) renameCollectionOrFile(final String path) {
+    return (final String newName) => fileSystemService
+        .renameCollectionOrFile(path, newName)
         .map((final _) => updateState(CollectionNodeBuilder.build()))
         .getOrElse(() => _log.e("Failed to rename collection or file"));
   }

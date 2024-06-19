@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,7 +33,7 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
       _initializeControllerFuture = _controller.initialize().then((final _) {
         if (!mounted) return;
         setState(() {});
-      }).catchError((final e) {
+      }).catchError((final dynamic e) {
         if (e is CameraException) {
           _log.e('Camera error: ${e.description}');
         } else {

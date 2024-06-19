@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:nodocs/widgets/collection_tile_dialog.dart';
 
 class CollectionTile extends StatefulWidget {
+  final bool isPdf;
   final String title;
-  final IconData leading;
-  final String path;
-  final List<CollectionTile> children;
+  final Widget dialog;
   final VoidCallback onTapPdf;
-  final VoidCallback goBack;
-  final Function(String) onDelete;
-  final Function(String, String) onRename;
+  final List<CollectionTile> children;
 
   @override
   State<CollectionTile> createState() => _CollectionTileState();
 
   const CollectionTile({
-    required this.title,
-    required this.leading,
-    required this.path,
-    required this.children,
-    required this.onDelete,
-    required this.onTapPdf,
-    required this.onRename,
-    required this.goBack,
     super.key,
+    required this.isPdf,
+    required this.title,
+    required this.dialog,
+    required this.onTapPdf,
+    required this.children,
   });
 }
 
@@ -35,30 +28,24 @@ class _CollectionTileState extends State<CollectionTile> {
     showModalBottomSheet(
         context: context,
         builder: (final BuildContext context) {
-          return CollectionTileDialog(
-            contextName: widget.title,
-            goBack: widget.goBack,
-            contextPath: widget.path,
-            onRename: widget.onRename,
-            onDelete: widget.onDelete,
-            onShare: () {},
-          );
+          return widget.dialog;
         });
   }
 
   @override
   Widget build(final BuildContext context) {
     ThemeData theme = Theme.of(context);
-    final bool isPdf = widget.path.endsWith('.pdf');
     return Column(
       children: <Widget>[
         ListTile(
           title: Text(widget.title,
               style: TextStyle(color: theme.colorScheme.onSecondary)),
-          leading: Icon(widget.leading, color: theme.colorScheme.onSecondary),
-          onTap: isPdf ? widget.onTapPdf : () => _toggleExpand(),
+          leading: Icon(
+              widget.isPdf ? Icons.picture_as_pdf_outlined : Icons.folder_outlined,
+              color: theme.colorScheme.onSecondary),
+          onTap: widget.isPdf ? widget.onTapPdf : () => _toggleExpand(),
           onLongPress: () => _onLongPress(context),
-          trailing: isPdf
+          trailing: widget.isPdf
               ? null
               : Icon(_isExpanded ? Icons.arrow_drop_down : Icons.arrow_right,
                   color: theme.colorScheme.onSecondary),
