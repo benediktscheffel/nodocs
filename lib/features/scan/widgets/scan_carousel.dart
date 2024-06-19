@@ -1,137 +1,27 @@
-import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
-import 'package:nodocs/config/config_parameters.dart';
-import 'package:nodocs/util/logging/log.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nodocs/features/scan/controller/implementation/save_provider.dart';
+import 'package:nodocs/features/scan/controller/save_controller.dart';
+import 'package:nodocs/features/scan/model/save_model.dart';
 
 typedef OnPageSelect = void Function(String path);
-
-class ScanCarousel extends StatefulWidget {
+class ScanCarousel extends ConsumerWidget {
   final OnPageSelect onPageSelect;
 
   const ScanCarousel({super.key, required this.onPageSelect});
 
   @override
-  State<StatefulWidget> createState() => _ScanCarouselState();
-}
-
-class _ScanCarouselState extends State<ScanCarousel> {
-  List<Widget> imageSliders = <Widget>[];
-  List<String> images = <String>[];
-  String imageFolder = '${ConfigParameters.fileSystemPath}collection1/';
-  int current = 0;
-  final CarouselController controller = CarouselController();
-  final Logger _log = getLogger();
-
-  @override
-  void initState() {
-    super.initState();
-    _loadImages();
-  }
-
-  Future<void> _loadImages() async {
-    try {
-      images = await _listImagePathsInDirectory();
-      setState(() {
-        imageSliders = images
-          .map((final String path) => Container(
-            height: 100,
-            margin: const EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-              child: Stack(
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      width: 1000,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Image.file(
-                        File(path),
-                        fit: BoxFit.contain,
-                        height: 200.0,
-                        alignment: Alignment.center,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    right: 0.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.0),
-                        gradient: const LinearGradient(
-                          colors: <Color>[
-                            Color.fromARGB(200, 0, 0, 0),
-                            Color.fromARGB(0, 0, 0, 0)
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 20.0,
-                      ),
-                      child: Text(
-                        'Page ${images.indexOf(path) + 1}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )).toList();
-          widget.onPageSelect(getImagePathById(0));
-      });
-    } catch (e) {
-      _log.e('Error loading images: $e');
-    }
-  }
-
-  Future<List<String>> _listImagePathsInDirectory() async {
-    final Directory directory = Directory(imageFolder);
-    if (!await directory.exists()) {
-      throw Exception("Directory does not exist");
-    }
-    List<String> imageFiles = <String>[];
-
-    final List<String> supportedExtensions = <String>['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
-
-    await for (FileSystemEntity entity in directory.list(recursive: false, followLinks: false)) {
-      if (entity is File) {
-        final String extension = entity.path.split('.').last.toLowerCase();
-        if (supportedExtensions.contains(extension)) {
-          imageFiles.add(entity.path);
-        }
-      }
-    }
-    return imageFiles;
-  }
-
-  String getImagePathById(final int id) {
-    return imageFolder + images[id].split("/").last;
-  }
-  
-  @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    SaveController saveController = ref.read(saveControllerProvider);
+    SaveModel model = ref.watch(saveModelProvider);
+    final CarouselController carouselController = CarouselController();
     return Column(
       children: <Widget>[
-        if (imageSliders.isNotEmpty)
+        if (model.imageSliders.isNotEmpty)
           CarouselSlider(
-            items: imageSliders,
-            carouselController: controller,
+            items: model.imageSliders.toList(),
+            carouselController: carouselController,
             options: CarouselOptions(
               height: 300,
               autoPlay: false,
@@ -139,20 +29,18 @@ class _ScanCarouselState extends State<ScanCarousel> {
               scrollDirection: Axis.horizontal,
               enlargeCenterPage: true,
               onPageChanged: (final int index, final CarouselPageChangedReason reason) {
-                setState(() {
-                  current = index;
-                  widget.onPageSelect(getImagePathById(index));
-                });
+                saveController.setCurrentSliderIndex(index);
+                onPageSelect(saveController.getImagePathById(index));
               }
             ),
           ),
-        if (images.isNotEmpty)
+        if (model.imagePaths.isNotEmpty)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: images.asMap().entries.map((final MapEntry<int, String> entry) {
+            children: model.imagePaths.toList().asMap().entries.map((final MapEntry<int, String> entry) {
               return GestureDetector(
                 onTap: () {
-                  controller.animateToPage(entry.key);
+                  carouselController.animateToPage(entry.key);
                 },
                 child: Container(
                   width: 12.0,
@@ -163,7 +51,7 @@ class _ScanCarouselState extends State<ScanCarousel> {
                     color: (Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : Colors.black)
-                        .withOpacity(current == entry.key ? 0.9 : 0.4)),
+                        .withOpacity(model.currentSliderIndex == entry.key ? 0.9 : 0.4)),
                 ),
               );
             }).toList(),

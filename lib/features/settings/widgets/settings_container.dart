@@ -12,10 +12,7 @@ class SettingsContainer extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.6,
-      ),
+    return IntrinsicHeight(
       child: Container(
         padding: const EdgeInsets.all(2),
         margin: const EdgeInsets.all(23),

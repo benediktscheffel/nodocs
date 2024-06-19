@@ -2,12 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/filesystem/pages/home_page.dart';
-import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/pages/crop_page.dart';
 import 'package:nodocs/features/scan/pages/save_page.dart';
 import 'package:nodocs/features/scan/pages/scan_page.dart';
 import 'package:nodocs/features/settings/pages/settings_page.dart';
+import 'package:nodocs/features/settings/pages/text_recognition_language_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'go_router.g.dart';
@@ -57,6 +58,12 @@ GoRouter goRouter(final GoRouterRef ref) => GoRouter(
         GoRoute(
             path: NavigationServiceRoutes.settings,
             builder: (final BuildContext context, final __) =>
-                const SettingsPage()),
+                const SettingsPage()
+        ),
+        GoRoute(
+            path: NavigationServiceRoutes.ocrLanguage,
+            builder: (final BuildContext context, final __) =>
+                const TextRecognitionLanguagePage()
+        ),
       ],
     );

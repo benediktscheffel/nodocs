@@ -43,3 +43,10 @@ app.*.map.json
 /android/app/release
 
 /.run/
+
+config.env
+linux/flutter/*.cc
+linux/flutter/*.cmake
+windows/flutter/*.cc
+windows/flutter/*.cmake
+macos/flutter/*.swift
