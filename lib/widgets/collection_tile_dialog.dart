@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:nodocs/features/filesystem/widgets/collection_rename_dialog.dart';
-import 'package:nodocs/widgets/confirmation_dialog.dart';
 
 class CollectionTileDialog extends StatelessWidget {
   final String contextPath;
   final String contextName;
-  final Function(String, String) onRename;
-  final VoidCallback goBack;
-  final Function(String) onDelete;
   final VoidCallback onShare;
+  final Widget deleteDialog;
+  final Widget renameDialog;
 
   const CollectionTileDialog({
     super.key,
-    required this.onRename,
-    required this.onDelete,
     required this.onShare,
     required this.contextPath,
-    required this.goBack,
     required this.contextName,
+    required this.deleteDialog,
+    required this.renameDialog,
   });
 
   @override
@@ -71,33 +67,12 @@ class CollectionTileDialog extends StatelessWidget {
   _showConfirmDeletionDialog(final BuildContext context) {
     showDialog<String>(
         context: context,
-        builder: (final BuildContext context) => ConfirmationDialog(
-              onConfirm: () => _onDelete(contextPath),
-              onCancel: () => _onCancel(),
-              header: 'Confirm Deletion',
-              notificationText: 'Are you sure you want to delete this file?',
-            ));
+        builder: (final BuildContext context) => deleteDialog);
   }
 
   void _showRenameDialog(final BuildContext context) {
     showDialog<String>(
         context: context,
-        builder: (final BuildContext context) => CollectionRenameDialog(
-              onSave: onRename,
-              goBack: _onCancel,
-              contextPath: contextPath,
-              initialName: contextName,
-            ));
-  }
-
-  void _onDelete(final String path) {
-    onDelete(path);
-    goBack();
-    goBack();
-  }
-
-  void _onCancel() {
-    goBack();
-    goBack();
+        builder: (final BuildContext context) => renameDialog);
   }
 }

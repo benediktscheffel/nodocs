@@ -11,11 +11,12 @@ abstract class HomeController {
 
   void goBack();
 
+  void goBackTwice();
+
   Function(String) createCollection();
   
-  Function(String) deleteCollectionOrFile();
+  void deleteCollectionOrFile(final String path);
 
-  Function(String, String) renameCollectionOrFile();
+  Function(String) renameCollectionOrFile(final String path);
 
-  Function(String) getPath();
 }
