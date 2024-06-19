@@ -58,6 +58,17 @@ class MyApp extends ConsumerWidget {
                 tertiaryFixed: Color(0xFFECE7E7),
                 onTertiaryFixed: Color(0xFFCAC4D0),
               ),
+        textSelectionTheme: darkMode
+            ? const TextSelectionThemeData(
+                cursorColor: Colors.white,
+                selectionColor: Color(0xFF0353A4),
+                selectionHandleColor: Colors.white,
+              )
+            : const TextSelectionThemeData(
+                cursorColor: Colors.black,
+                selectionColor: Color(0xFF0353A4),
+                selectionHandleColor: Colors.black,
+              ),
         buttonTheme: const ButtonThemeData(
           height: 32,
           minWidth: 64,
