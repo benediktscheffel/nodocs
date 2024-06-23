@@ -1,12 +1,30 @@
 import 'package:isar/isar.dart';
-import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
+import 'package:nodocs/config/config_parameters.dart';
+import 'package:nodocs/features/tags/services/persistence/tag_persistence_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/tables/tag_tables.dart';
 import 'package:nodocs/util/hash/fast_hash_function.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class IsarPersistenceService extends PersistenceService {
-  final Isar isar;
+part 'isar_tag_persistence_service.g.dart';
 
-  IsarPersistenceService({required this.isar});
+@Riverpod(keepAlive: true)
+TagPersistenceService tagPersistenceService(
+        final TagPersistenceServiceRef ref) =>
+    IsarTagPersistenceService();
+
+class IsarTagPersistenceService extends TagPersistenceService {
+  late final Isar isar;
+
+  IsarTagPersistenceService();
+
+  @override
+  Future<void> init() async {
+    isar = await Isar.open(
+      name: 'nodocs',
+      directory: ConfigParameters.fileSystemPath,
+      <CollectionSchema<Object>>[FileSchema, TagSchema],
+    );
+  }
 
   @override
   Future<void> addTagToFile(final String filePath, final String tagName) async {
@@ -87,6 +105,17 @@ class IsarPersistenceService extends PersistenceService {
             }
           });
         }
+      }
+    });
+  }
+
+  @override
+  Future<List<String>> loadTags(final String filePath) {
+    return isar.files.get(Hash.fastHash(filePath)).then((final File? file) {
+      if (file != null) {
+        return file.tableAs.map((final Tag tag) => tag.name).toList();
+      } else {
+        return <String>[];
       }
     });
   }

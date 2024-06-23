@@ -1,0 +1,71 @@
+import 'package:nodocs/features/navigation/navigation_service.dart';
+import 'package:nodocs/features/pdfviewer/controller/pdf_controller.dart';
+import 'package:nodocs/features/pdfviewer/model/pdf_viewer_model.dart';
+import 'package:nodocs/features/tags/services/persistence/tag_persistence_service.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'pdf_controller_impl.g.dart';
+
+@riverpod
+class PdfControllerImpl extends _$PdfControllerImpl implements PdfController {
+  @override
+  PdfViewerModel build({
+    required final TagPersistenceService tagPersistenceService,
+    required final NavigationService navigationService,
+  }) {
+    return const PdfViewerModel(path: 'path', tags: <Tag>[]);
+  }
+
+  @override
+  void addTagToFile(final String filePath, final String tagName) {
+    tagPersistenceService.addTagToFile(filePath, tagName).then((final _) {
+      loadTags(filePath);
+    });
+  }
+
+  @override
+  void addTagsToFile(final String filePath, final List<String> tagNames) {
+    tagPersistenceService.addTagsToFile(filePath, tagNames).then((final _) {
+      loadTags(filePath);
+    });
+  }
+
+  @override
+  void deleteTagFromFile(final String filePath, final String tagName) {
+    tagPersistenceService.deleteTagFromFile(filePath, tagName).then((final _) {
+      loadTags(filePath);
+    });
+  }
+
+  @override
+  void goBack() {
+    navigationService.pop();
+  }
+
+  @override
+  void goBackTwice() {
+    navigationService.pop();
+    navigationService.pop();
+  }
+
+  @override
+  void goToPage(final Uri uri) {
+    navigationService.push(uri.toString());
+  }
+
+  @override
+  void loadTags(final String filePath) {
+    tagPersistenceService
+        .loadTags(filePath)
+        .then((final List<String> tagNames) {
+      final List<Tag> tags =
+          tagNames.map((final String tagName) => Tag(name: tagName)).toList();
+      updateTags(tags);
+    });
+  }
+
+  @override
+  void updateTags(final List<Tag> tags) {
+    state = state.copyWith(tags: tags);
+  }
+}

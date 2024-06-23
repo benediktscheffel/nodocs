@@ -543,6 +543,7 @@ File _fileDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = File();
+  object.id = id;
   object.path = reader.readString(offsets[0]);
   return object;
 }
@@ -570,6 +571,7 @@ List<IsarLinkBase<dynamic>> _fileGetLinks(File object) {
 }
 
 void _fileAttach(IsarCollection<dynamic> col, Id id, File object) {
+  object.id = id;
   object.tableAs.attach(col, col.isar.collection<Tag>(), r'tableAs', id);
 }
 

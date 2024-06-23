@@ -1,4 +1,7 @@
-abstract class PersistenceService {
+abstract class TagPersistenceService {
+
+  Future<void> init();
+
   Future<void> deleteTagFromFile(final String filePath, final String tagName);
 
   Future<void> deleteTag(final String tagName);
@@ -15,4 +18,6 @@ abstract class PersistenceService {
 
   Future<void> addTagsToFile(
       final String filePath, final List<String> tagNames);
+
+  Future<List<String>> loadTags(final String filePath);
 }
