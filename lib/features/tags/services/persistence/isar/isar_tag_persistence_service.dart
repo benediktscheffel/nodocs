@@ -109,7 +109,8 @@ class IsarTagPersistenceService extends TagPersistenceService {
       }
       return isar.writeTxn(() => file.tableAs.save());
     } else {
-      return Future<void>.value();
+      isar.writeTxnSync(() => isar.fileDOs.put(FileDO()..path = filePath));
+      return addTagsToFile(filePath, tagNames);
     }
   }
 
