@@ -9,12 +9,18 @@ class IsarPersistenceService extends PersistenceService {
   IsarPersistenceService({required this.isar});
 
   @override
-  Future<void> addTagToFile(final String filePath, final Tag tag) async {
-    final File? file = await isar.files.get(Hash.fastHash(filePath));
-    if (file != null) {
-      file.tableAs.add(tag);
-      isar.files.put(file);
+  Future<void> addTagToFile(final String filePath, final String tagName) async {
+    final Tag? tag = await isar.tags.get(Hash.fastHash(tagName));
+    if (tag == null) {
+      isar.tags.put(Tag()..name = tagName);
     }
+
+    isar.files.get(Hash.fastHash(filePath)).then((final File? file) {
+      if (file != null) {
+        file.tableAs.add(tag!);
+        isar.files.put(file);
+      }
+    });
   }
 
   @override
@@ -58,6 +64,29 @@ class IsarPersistenceService extends PersistenceService {
         file.path = newPath;
         file.id = Hash.fastHash(newPath);
         isar.files.put(file);
+      }
+    });
+  }
+
+  @override
+  Future<void> addTagsToFile(
+      final String filePath, final List<String> tagNames) {
+    return isar.files.get(Hash.fastHash(filePath)).then((final File? file) {
+      if (file != null) {
+        for (final String tagName in tagNames) {
+          isar.tags.get(Hash.fastHash(tagName)).then((final Tag? tag) {
+            if (tag != null) {
+              file.tableAs.add(tag);
+              isar.files.put(file);
+            } else {
+              final Tag tag = Tag()..name = tagName;
+              isar.tags.put(tag).then((final int id) {
+                file.tableAs.add(tag);
+                isar.files.put(file);
+              });
+            }
+          });
+        }
       }
     });
   }
