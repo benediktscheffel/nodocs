@@ -10,10 +10,6 @@ abstract class PdfController {
 
   void goBack();
 
-  void goBackMaybe();
-
-  void goBackTwice();
-
   void toggleToolbar(final bool showToolbar);
 
   void toggleScrollHead(final bool showScrollHead);
@@ -31,4 +27,8 @@ abstract class PdfController {
   void ensureHistoryEntry(final BuildContext context);
 
   void showToast();
+
+  void initSearchKey();
+
+  void disposeSearchKey();
 }

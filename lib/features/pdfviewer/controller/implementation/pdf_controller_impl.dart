@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/pdfviewer/controller/pdf_controller.dart';
 import 'package:nodocs/features/pdfviewer/model/pdf_viewer_model.dart';
 import 'package:nodocs/features/pdfviewer/services/pdf_search_service.dart';
@@ -56,18 +57,8 @@ class PdfControllerImpl extends _$PdfControllerImpl implements PdfController {
 
   @override
   void goBack() {
-    navigationService.pop();
-  }
-
-  @override
-  void goBackMaybe() {
-    navigationService.goBack();
-  }
-
-  @override
-  void goBackTwice() {
-    navigationService.pop();
-    navigationService.pop();
+    navigationService.goBack(
+        fallbackUri: Uri(path: NavigationServiceRoutes.home));
   }
 
   @override
@@ -106,4 +97,14 @@ class PdfControllerImpl extends _$PdfControllerImpl implements PdfController {
 
   @override
   get pdfViewerController => pdfSearchService.pdfViewerController;
+
+  @override
+  void disposeSearchKey() {
+    pdfSearchService.disposeKey();
+  }
+
+  @override
+  void initSearchKey() {
+    pdfSearchService.initKey();
+  }
 }

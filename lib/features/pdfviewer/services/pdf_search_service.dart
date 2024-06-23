@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfSearchService {
   late final PdfViewerController controller;
   LocalHistoryEntry? historyEntry;
-  late final GlobalKey<PdfSearchToolbarState> _textSearchKey = GlobalKey();
+  late GlobalKey<PdfSearchToolbarState>? textSearchKey;
 
   PdfSearchService() {
     controller = PdfViewerController();
@@ -22,18 +23,26 @@ class PdfSearchService {
   }
 
   void _handleHistoryEntryRemoved() {
-    _textSearchKey.currentState?.clearSearch();
+    textSearchKey!.currentState?.clearSearch();
     historyEntry = null;
   }
 
   void showToast() {
-    _textSearchKey.currentState?.showToast = true;
+    textSearchKey!.currentState?.showToast = true;
     Future<void>.delayed(const Duration(seconds: 1)).then((final _) {
-      _textSearchKey.currentState?.showToast = false;
+      textSearchKey!.currentState?.showToast = false;
     });
   }
 
-  GlobalKey<PdfSearchToolbarState> get key => _textSearchKey;
+  void initKey() {
+    textSearchKey = GlobalKey<PdfSearchToolbarState>();
+  }
+
+  void disposeKey() {
+    textSearchKey = null;
+  }
+
+  GlobalKey<PdfSearchToolbarState> get key => textSearchKey!;
 
   PdfViewerController get pdfViewerController => controller;
 }

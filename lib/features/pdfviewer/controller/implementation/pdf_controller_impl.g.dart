@@ -6,7 +6,7 @@ part of 'pdf_controller_impl.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pdfControllerImplHash() => r'36c8817b1620207c5da9e0cf26905072f403a309';
+String _$pdfControllerImplHash() => r'7934cd87009ea68a9d33dc76e4772b5af9bd1f80';
 
 /// Copied from Dart SDK
 class _SystemHash {

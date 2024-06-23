@@ -24,7 +24,7 @@ class PdfViewerPage extends ConsumerWidget {
 
     final PdfController controller = ref.read(pdfViewerControllerProvider);
     final PdfViewerModel model = ref.watch(pdfViewerModelProvider);
-
+    controller.initSearchKey();
     return Scaffold(
       appBar: model.showToolbar
           ? AppBar(
@@ -109,6 +109,7 @@ class PdfViewerPage extends ConsumerWidget {
             buttonText: 'Home',
             buttonIcon: Icons.home_outlined,
             onPressed: () {
+              controller.disposeSearchKey();
               controller.goToPage(Uri(path: NavigationServiceRoutes.home));
             },
           ),
