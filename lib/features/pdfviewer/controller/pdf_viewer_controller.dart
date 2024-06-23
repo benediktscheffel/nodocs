@@ -10,6 +10,8 @@ abstract class PdfViewerController {
 
   void goBack();
 
+  void closeDialog();
+
   void toggleToolbar(final bool showToolbar);
 
   void toggleScrollHead(final bool showScrollHead);

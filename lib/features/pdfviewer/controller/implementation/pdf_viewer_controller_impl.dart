@@ -62,6 +62,13 @@ class PdfViewerControllerImpl extends _$PdfViewerControllerImpl implements PdfVi
   }
 
   @override
+  void closeDialog() {
+    navigationService.goBack(
+      fallbackUri: Uri(path: NavigationServiceRoutes.pdfViewer)
+    );
+  }
+
+  @override
   void goToPage(final Uri uri) {
     navigationService.push(uri.toString());
   }

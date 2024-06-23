@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/pdfviewer/controller/implementation/pdf_viewer_providers.dart';
 import 'package:nodocs/features/pdfviewer/controller/pdf_viewer_controller.dart';
 import 'package:nodocs/features/pdfviewer/model/pdf_viewer_model.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
+import 'package:nodocs/features/tags/widgets/tag_chip_container.dart';
 import 'package:nodocs/features/tags/widgets/tag_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
@@ -22,7 +22,8 @@ class PdfViewerPage extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
 
-    final PdfViewerController controller = ref.read(pdfViewerControllerProvider);
+    final PdfViewerController controller =
+        ref.read(pdfViewerControllerProvider);
     final PdfViewerModel model = ref.watch(pdfViewerModelProvider);
     controller.initSearchKey();
     return Scaffold(
@@ -102,7 +103,18 @@ class PdfViewerPage extends ConsumerWidget {
             buttonIcon: Icons.edit_outlined,
             onPressed: () => showDialog<String>(
               context: context,
-              builder: (final BuildContext context) => const TagDialog(),
+              builder: (final BuildContext context) => TagDialog(
+                goBack: controller.closeDialog,
+                tagChipContainer: const TagChipContainer(
+                  tagData: <(String, bool)>[
+                    ("Tag1", true),
+                    ("Tag2", false),
+                    ("Tag3", false),
+                    ("Tag4", false),
+                    ("Tag5", true)
+                  ],
+                ),
+              ),
             ),
           ),
           NavigationButton(
@@ -110,7 +122,7 @@ class PdfViewerPage extends ConsumerWidget {
             buttonIcon: Icons.home_outlined,
             onPressed: () {
               controller.disposeSearchKey();
-              controller.goToPage(Uri(path: NavigationServiceRoutes.home));
+              controller.goBack();
             },
           ),
           NavigationButton(
