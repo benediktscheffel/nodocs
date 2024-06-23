@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:nodocs/features/tags/widgets/tag_chip_container.dart';
 import 'package:nodocs/widgets/dialog_box.dart';
 
 class TagDialog extends StatelessWidget {
   final TagChipContainer tagChipContainer;
   final VoidCallback goBack;
+  final Function(List<String>) saveTags;
 
   const TagDialog({
     super.key,
     required this.tagChipContainer,
     required this.goBack,
+    required this.saveTags,
   });
 
   @override
@@ -17,10 +20,15 @@ class TagDialog extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return DialogBox(
       headerText: 'Edit Tags',
-      body: <Widget>[tagChipContainer],
+      body: <Widget>[
+        tagChipContainer,
+      ],
       footer: TextButton(
         onPressed: () {
-          // TODO update Database
+          saveTags(tagChipContainer.tagData
+              .filter((final (String, bool) tag) => tag.$2 == true)
+              .map((final (String, bool) tag) => tag.$1)
+              .toList());
           goBack();
         },
         child: Row(

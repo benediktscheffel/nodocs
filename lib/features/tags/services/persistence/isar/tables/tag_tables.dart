@@ -1,24 +1,20 @@
 import 'package:isar/isar.dart';
-import 'package:nodocs/util/hash/fast_hash_function.dart';
 
 part 'tag_tables.g.dart';
 
 @collection
 class TagDO {
+  Id id = Isar.autoIncrement;
   late final String name;
 
-  Id get id => Hash.fastHash(name);
-
-  final IsarLinks<FileDO> tableBs = IsarLinks<FileDO>();
+  final IsarLinks<FileDO> tableAs = IsarLinks<FileDO>();
 }
 
 @collection
 class FileDO {
-  Id get id => Hash.fastHash(path);
+  Id id = Isar.autoIncrement;
 
   late final String path;
 
   final IsarLinks<TagDO> tableAs = IsarLinks<TagDO>();
-
-  set id(final Id id) => this.id = id;
 }

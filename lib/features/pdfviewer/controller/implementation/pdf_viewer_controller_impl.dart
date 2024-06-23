@@ -10,7 +10,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'pdf_viewer_controller_impl.g.dart';
 
 @riverpod
-class PdfViewerControllerImpl extends _$PdfViewerControllerImpl implements PdfViewerController {
+class PdfViewerControllerImpl extends _$PdfViewerControllerImpl
+    implements PdfViewerController {
   @override
   PdfViewerModel build({
     required final TagPersistenceService tagPersistenceService,
@@ -42,10 +43,11 @@ class PdfViewerControllerImpl extends _$PdfViewerControllerImpl implements PdfVi
   }
 
   @override
-  void addTagsToFile(final String filePath, final List<String> tagNames) {
-    tagPersistenceService.addTagsToFile(filePath, tagNames).then((final _) {
-      loadTags(filePath);
-    });
+  Function(List<String>) addTagsToFile(final String filePath) {
+    return (final List<String> tagNames) =>
+        tagPersistenceService.addTagsToFile(filePath, tagNames).then((final _) {
+          loadTags(filePath);
+        });
   }
 
   @override
@@ -64,8 +66,7 @@ class PdfViewerControllerImpl extends _$PdfViewerControllerImpl implements PdfVi
   @override
   void closeDialog() {
     navigationService.goBack(
-      fallbackUri: Uri(path: NavigationServiceRoutes.pdfViewer)
-    );
+        fallbackUri: Uri(path: NavigationServiceRoutes.pdfViewer));
   }
 
   @override

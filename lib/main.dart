@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/isar_tag_persistence_service.dart';
-
 import 'config/service_locator.dart';
 import 'go_router.dart';
 
@@ -10,9 +9,12 @@ void main() async {
   await providerContainer.read(tagPersistenceServiceProvider).init();
 
   setupServiceLocator();
-  runApp(const ProviderScope(
-    child: MyApp(),
-  ));
+  runApp(
+    UncontrolledProviderScope(
+      container: providerContainer,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {

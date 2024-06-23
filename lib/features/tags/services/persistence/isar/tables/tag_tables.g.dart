@@ -70,6 +70,7 @@ TagDO _tagDODeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = TagDO();
+  object.id = id;
   object.name = reader.readString(offsets[0]);
   return object;
 }
@@ -93,11 +94,12 @@ Id _tagDOGetId(TagDO object) {
 }
 
 List<IsarLinkBase<dynamic>> _tagDOGetLinks(TagDO object) {
-  return [object.tableBs];
+  return [object.tableAs];
 }
 
 void _tagDOAttach(IsarCollection<dynamic> col, Id id, TagDO object) {
-  object.tableBs.attach(col, col.isar.collection<FileDO>(), r'tableBs', id);
+  object.id = id;
+  object.tableAs.attach(col, col.isar.collection<FileDO>(), r'tableBs', id);
 }
 
 extension TagDOQueryWhereSort on QueryBuilder<TagDO, TagDO, QWhere> {

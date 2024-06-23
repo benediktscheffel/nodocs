@@ -104,15 +104,12 @@ class PdfViewerPage extends ConsumerWidget {
             onPressed: () => showDialog<String>(
               context: context,
               builder: (final BuildContext context) => TagDialog(
+                saveTags: controller.addTagsToFile(path),
                 goBack: controller.closeDialog,
-                tagChipContainer: const TagChipContainer(
-                  tagData: <(String, bool)>[
-                    ("Tag1", true),
-                    ("Tag2", false),
-                    ("Tag3", false),
-                    ("Tag4", false),
-                    ("Tag5", true)
-                  ],
+                tagChipContainer: TagChipContainer(
+                  tagData: model.tags
+                      .map((final Tag tag) => (tag.name, true))
+                      .toList(),
                 ),
               ),
             ),

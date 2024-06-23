@@ -1,5 +1,4 @@
 abstract class TagPersistenceService {
-
   Future<void> init();
 
   Future<void> deleteTagFromFile(final String filePath, final String tagName);

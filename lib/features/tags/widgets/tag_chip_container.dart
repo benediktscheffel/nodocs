@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'package:nodocs/features/tags/widgets/tag_chip.dart';
+import 'package:nodocs/features/tags/widgets/tag_input.dart';
 
-class TagChipContainer extends StatelessWidget {
+class TagChipContainer extends StatefulWidget {
   final List<(String, bool)> tagData;
 
   const TagChipContainer({super.key, required this.tagData});
 
+  @override
+  State<TagChipContainer> createState() => _TagChipContainerState();
+}
+
+class _TagChipContainerState extends State<TagChipContainer> {
   @override
   Widget build(final BuildContext context) {
     return SizedBox(
@@ -21,14 +27,25 @@ class TagChipContainer extends StatelessWidget {
               spacing: 8.0,
               runSpacing: 4.0,
               clipBehavior: Clip.hardEdge,
-              children: tagData
+              children: widget.tagData
                   .map((final (String, bool) tag) =>
                       TagChip(tagName: tag.$1, tagState: tag.$2))
                   .toList(),
             ),
+            TagInput(
+              addTag: _addTag(),
+            )
           ],
         ),
       ),
     );
+  }
+
+  Function(String) _addTag() {
+    return (final String tagName) {
+      setState(() {
+        widget.tagData.add((tagName, true));
+      });
+    };
   }
 }

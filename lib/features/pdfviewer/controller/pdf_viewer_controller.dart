@@ -22,7 +22,7 @@ abstract class PdfViewerController {
 
   void deleteTagFromFile(final String filePath, final String tagName);
 
-  void addTagsToFile(final String filePath, final List<String> tagNames);
+  Function(List<String>) addTagsToFile(final String filePath);
 
   void updateTags(final List<Tag> tags);
 
