@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
-import 'package:nodocs/features/pdfviewer/controller/pdf_controller.dart';
+import 'package:nodocs/features/pdfviewer/controller/pdf_viewer_controller.dart';
 import 'package:nodocs/features/pdfviewer/model/pdf_viewer_model.dart';
 import 'package:nodocs/features/pdfviewer/services/pdf_search_service.dart';
 import 'package:nodocs/features/tags/services/persistence/tag_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'pdf_controller_impl.g.dart';
+part 'pdf_viewer_controller_impl.g.dart';
 
 @riverpod
-class PdfControllerImpl extends _$PdfControllerImpl implements PdfController {
+class PdfViewerControllerImpl extends _$PdfViewerControllerImpl implements PdfViewerController {
   @override
   PdfViewerModel build({
     required final TagPersistenceService tagPersistenceService,

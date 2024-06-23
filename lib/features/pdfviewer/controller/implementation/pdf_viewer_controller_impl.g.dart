@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pdf_controller_impl.dart';
+part of 'pdf_viewer_controller_impl.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pdfControllerImplHash() => r'7934cd87009ea68a9d33dc76e4772b5af9bd1f80';
+String _$pdfViewerControllerImplHash() =>
+    r'bf5aa7b20a43e013bdb8cac217e55c722f657741';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$PdfControllerImpl
+abstract class _$PdfViewerControllerImpl
     extends BuildlessAutoDisposeNotifier<PdfViewerModel> {
   late final TagPersistenceService tagPersistenceService;
   late final NavigationService navigationService;
@@ -42,22 +43,22 @@ abstract class _$PdfControllerImpl
   });
 }
 
-/// See also [PdfControllerImpl].
-@ProviderFor(PdfControllerImpl)
-const pdfControllerImplProvider = PdfControllerImplFamily();
+/// See also [PdfViewerControllerImpl].
+@ProviderFor(PdfViewerControllerImpl)
+const pdfViewerControllerImplProvider = PdfViewerControllerImplFamily();
 
-/// See also [PdfControllerImpl].
-class PdfControllerImplFamily extends Family<PdfViewerModel> {
-  /// See also [PdfControllerImpl].
-  const PdfControllerImplFamily();
+/// See also [PdfViewerControllerImpl].
+class PdfViewerControllerImplFamily extends Family<PdfViewerModel> {
+  /// See also [PdfViewerControllerImpl].
+  const PdfViewerControllerImplFamily();
 
-  /// See also [PdfControllerImpl].
-  PdfControllerImplProvider call({
+  /// See also [PdfViewerControllerImpl].
+  PdfViewerControllerImplProvider call({
     required TagPersistenceService tagPersistenceService,
     required NavigationService navigationService,
     required PdfSearchService pdfSearchService,
   }) {
-    return PdfControllerImplProvider(
+    return PdfViewerControllerImplProvider(
       tagPersistenceService: tagPersistenceService,
       navigationService: navigationService,
       pdfSearchService: pdfSearchService,
@@ -65,8 +66,8 @@ class PdfControllerImplFamily extends Family<PdfViewerModel> {
   }
 
   @override
-  PdfControllerImplProvider getProviderOverride(
-    covariant PdfControllerImplProvider provider,
+  PdfViewerControllerImplProvider getProviderOverride(
+    covariant PdfViewerControllerImplProvider provider,
   ) {
     return call(
       tagPersistenceService: provider.tagPersistenceService,
@@ -87,37 +88,37 @@ class PdfControllerImplFamily extends Family<PdfViewerModel> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'pdfControllerImplProvider';
+  String? get name => r'pdfViewerControllerImplProvider';
 }
 
-/// See also [PdfControllerImpl].
-class PdfControllerImplProvider
-    extends AutoDisposeNotifierProviderImpl<PdfControllerImpl, PdfViewerModel> {
-  /// See also [PdfControllerImpl].
-  PdfControllerImplProvider({
+/// See also [PdfViewerControllerImpl].
+class PdfViewerControllerImplProvider extends AutoDisposeNotifierProviderImpl<
+    PdfViewerControllerImpl, PdfViewerModel> {
+  /// See also [PdfViewerControllerImpl].
+  PdfViewerControllerImplProvider({
     required TagPersistenceService tagPersistenceService,
     required NavigationService navigationService,
     required PdfSearchService pdfSearchService,
   }) : this._internal(
-          () => PdfControllerImpl()
+          () => PdfViewerControllerImpl()
             ..tagPersistenceService = tagPersistenceService
             ..navigationService = navigationService
             ..pdfSearchService = pdfSearchService,
-          from: pdfControllerImplProvider,
-          name: r'pdfControllerImplProvider',
+          from: pdfViewerControllerImplProvider,
+          name: r'pdfViewerControllerImplProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$pdfControllerImplHash,
-          dependencies: PdfControllerImplFamily._dependencies,
+                  : _$pdfViewerControllerImplHash,
+          dependencies: PdfViewerControllerImplFamily._dependencies,
           allTransitiveDependencies:
-              PdfControllerImplFamily._allTransitiveDependencies,
+              PdfViewerControllerImplFamily._allTransitiveDependencies,
           tagPersistenceService: tagPersistenceService,
           navigationService: navigationService,
           pdfSearchService: pdfSearchService,
         );
 
-  PdfControllerImplProvider._internal(
+  PdfViewerControllerImplProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -135,7 +136,7 @@ class PdfControllerImplProvider
 
   @override
   PdfViewerModel runNotifierBuild(
-    covariant PdfControllerImpl notifier,
+    covariant PdfViewerControllerImpl notifier,
   ) {
     return notifier.build(
       tagPersistenceService: tagPersistenceService,
@@ -145,10 +146,10 @@ class PdfControllerImplProvider
   }
 
   @override
-  Override overrideWith(PdfControllerImpl Function() create) {
+  Override overrideWith(PdfViewerControllerImpl Function() create) {
     return ProviderOverride(
       origin: this,
-      override: PdfControllerImplProvider._internal(
+      override: PdfViewerControllerImplProvider._internal(
         () => create()
           ..tagPersistenceService = tagPersistenceService
           ..navigationService = navigationService
@@ -166,14 +167,14 @@ class PdfControllerImplProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<PdfControllerImpl, PdfViewerModel>
+  AutoDisposeNotifierProviderElement<PdfViewerControllerImpl, PdfViewerModel>
       createElement() {
-    return _PdfControllerImplProviderElement(this);
+    return _PdfViewerControllerImplProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is PdfControllerImplProvider &&
+    return other is PdfViewerControllerImplProvider &&
         other.tagPersistenceService == tagPersistenceService &&
         other.navigationService == navigationService &&
         other.pdfSearchService == pdfSearchService;
@@ -190,7 +191,8 @@ class PdfControllerImplProvider
   }
 }
 
-mixin PdfControllerImplRef on AutoDisposeNotifierProviderRef<PdfViewerModel> {
+mixin PdfViewerControllerImplRef
+    on AutoDisposeNotifierProviderRef<PdfViewerModel> {
   /// The parameter `tagPersistenceService` of this provider.
   TagPersistenceService get tagPersistenceService;
 
@@ -201,20 +203,20 @@ mixin PdfControllerImplRef on AutoDisposeNotifierProviderRef<PdfViewerModel> {
   PdfSearchService get pdfSearchService;
 }
 
-class _PdfControllerImplProviderElement
-    extends AutoDisposeNotifierProviderElement<PdfControllerImpl,
-        PdfViewerModel> with PdfControllerImplRef {
-  _PdfControllerImplProviderElement(super.provider);
+class _PdfViewerControllerImplProviderElement
+    extends AutoDisposeNotifierProviderElement<PdfViewerControllerImpl,
+        PdfViewerModel> with PdfViewerControllerImplRef {
+  _PdfViewerControllerImplProviderElement(super.provider);
 
   @override
   TagPersistenceService get tagPersistenceService =>
-      (origin as PdfControllerImplProvider).tagPersistenceService;
+      (origin as PdfViewerControllerImplProvider).tagPersistenceService;
   @override
   NavigationService get navigationService =>
-      (origin as PdfControllerImplProvider).navigationService;
+      (origin as PdfViewerControllerImplProvider).navigationService;
   @override
   PdfSearchService get pdfSearchService =>
-      (origin as PdfControllerImplProvider).pdfSearchService;
+      (origin as PdfViewerControllerImplProvider).pdfSearchService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

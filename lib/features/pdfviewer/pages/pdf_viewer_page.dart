@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/pdfviewer/controller/implementation/pdf_viewer_providers.dart';
-import 'package:nodocs/features/pdfviewer/controller/pdf_controller.dart';
+import 'package:nodocs/features/pdfviewer/controller/pdf_viewer_controller.dart';
 import 'package:nodocs/features/pdfviewer/model/pdf_viewer_model.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
@@ -22,7 +22,7 @@ class PdfViewerPage extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
 
-    final PdfController controller = ref.read(pdfViewerControllerProvider);
+    final PdfViewerController controller = ref.read(pdfViewerControllerProvider);
     final PdfViewerModel model = ref.watch(pdfViewerModelProvider);
     controller.initSearchKey();
     return Scaffold(

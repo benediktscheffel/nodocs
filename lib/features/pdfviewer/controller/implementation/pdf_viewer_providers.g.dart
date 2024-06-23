@@ -6,7 +6,7 @@ part of 'pdf_viewer_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pdfSearchServiceHash() => r'3742a6eb28471272215f5e1088c15bc387c69aa1';
+String _$pdfSearchServiceHash() => r'd4da056b8f9ef9e9e64da7db7664d944c63f9972';
 
 /// See also [pdfSearchService].
 @ProviderFor(pdfSearchService)
@@ -40,11 +40,12 @@ final pdfViewerNavigationServiceProvider =
 typedef PdfViewerNavigationServiceRef
     = AutoDisposeProviderRef<NavigationService>;
 String _$pdfViewerControllerHash() =>
-    r'd0fa4d09c36287aef80073e99fbc4ceacd2e4ae3';
+    r'9bcdf36b2e1b2f765939f11384b7a396d13bcf46';
 
 /// See also [pdfViewerController].
 @ProviderFor(pdfViewerController)
-final pdfViewerControllerProvider = AutoDisposeProvider<PdfController>.internal(
+final pdfViewerControllerProvider =
+    AutoDisposeProvider<PdfViewerController>.internal(
   pdfViewerController,
   name: r'pdfViewerControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -54,8 +55,8 @@ final pdfViewerControllerProvider = AutoDisposeProvider<PdfController>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef PdfViewerControllerRef = AutoDisposeProviderRef<PdfController>;
-String _$pdfViewerModelHash() => r'a27ba9c1d08af691cd448a74145d4b3cfd5dcfb7';
+typedef PdfViewerControllerRef = AutoDisposeProviderRef<PdfViewerController>;
+String _$pdfViewerModelHash() => r'8eef2ea55786d6e5206b39584b5fa8a917b5b457';
 
 /// See also [pdfViewerModel].
 @ProviderFor(pdfViewerModel)

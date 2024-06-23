@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/pdfviewer/model/pdf_viewer_model.dart';
 
-abstract class PdfController {
+abstract class PdfViewerController {
   get searchKey;
 
   get pdfViewerController;
