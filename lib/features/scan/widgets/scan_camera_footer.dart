@@ -35,7 +35,7 @@ class ScanCameraFooter extends StatelessWidget {
         ),
         scanCounter: 6,
         onTap: () {
-          GoRouter.of(context).goNamed(NavigationServiceRoutes.save);
+          GoRouter.of(context).push(NavigationServiceRoutes.save);
         },
       ),
       ScanCameraButton(
