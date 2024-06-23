@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/filesystem/pages/home_page.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
-import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
+import 'package:nodocs/features/pdfviewer/pages/pdf_viewer_page.dart';
 import 'package:nodocs/features/scan/pages/crop_page.dart';
 import 'package:nodocs/features/scan/pages/save_page.dart';
 import 'package:nodocs/features/scan/pages/scan_page.dart';
@@ -36,7 +36,7 @@ GoRouter goRouter(final GoRouterRef ref) => GoRouter(
           path: '/viewer/:path',
           builder: (final BuildContext context, final GoRouterState state) {
             final String? path = state.uri.queryParameters['path'];
-            return PdfViewer(path: path!);
+            return PdfViewerPage(path: path!);
           },
         ),
         GoRoute(

@@ -6,7 +6,7 @@ part of 'pdf_controller_impl.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pdfControllerImplHash() => r'20954d84a512f9f217b6e248d5b9a1d6bf7dce71';
+String _$pdfControllerImplHash() => r'36c8817b1620207c5da9e0cf26905072f403a309';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,10 +33,12 @@ abstract class _$PdfControllerImpl
     extends BuildlessAutoDisposeNotifier<PdfViewerModel> {
   late final TagPersistenceService tagPersistenceService;
   late final NavigationService navigationService;
+  late final PdfSearchService pdfSearchService;
 
   PdfViewerModel build({
     required TagPersistenceService tagPersistenceService,
     required NavigationService navigationService,
+    required PdfSearchService pdfSearchService,
   });
 }
 
@@ -53,10 +55,12 @@ class PdfControllerImplFamily extends Family<PdfViewerModel> {
   PdfControllerImplProvider call({
     required TagPersistenceService tagPersistenceService,
     required NavigationService navigationService,
+    required PdfSearchService pdfSearchService,
   }) {
     return PdfControllerImplProvider(
       tagPersistenceService: tagPersistenceService,
       navigationService: navigationService,
+      pdfSearchService: pdfSearchService,
     );
   }
 
@@ -67,6 +71,7 @@ class PdfControllerImplFamily extends Family<PdfViewerModel> {
     return call(
       tagPersistenceService: provider.tagPersistenceService,
       navigationService: provider.navigationService,
+      pdfSearchService: provider.pdfSearchService,
     );
   }
 
@@ -92,10 +97,12 @@ class PdfControllerImplProvider
   PdfControllerImplProvider({
     required TagPersistenceService tagPersistenceService,
     required NavigationService navigationService,
+    required PdfSearchService pdfSearchService,
   }) : this._internal(
           () => PdfControllerImpl()
             ..tagPersistenceService = tagPersistenceService
-            ..navigationService = navigationService,
+            ..navigationService = navigationService
+            ..pdfSearchService = pdfSearchService,
           from: pdfControllerImplProvider,
           name: r'pdfControllerImplProvider',
           debugGetCreateSourceHash:
@@ -107,6 +114,7 @@ class PdfControllerImplProvider
               PdfControllerImplFamily._allTransitiveDependencies,
           tagPersistenceService: tagPersistenceService,
           navigationService: navigationService,
+          pdfSearchService: pdfSearchService,
         );
 
   PdfControllerImplProvider._internal(
@@ -118,10 +126,12 @@ class PdfControllerImplProvider
     required super.from,
     required this.tagPersistenceService,
     required this.navigationService,
+    required this.pdfSearchService,
   }) : super.internal();
 
   final TagPersistenceService tagPersistenceService;
   final NavigationService navigationService;
+  final PdfSearchService pdfSearchService;
 
   @override
   PdfViewerModel runNotifierBuild(
@@ -130,6 +140,7 @@ class PdfControllerImplProvider
     return notifier.build(
       tagPersistenceService: tagPersistenceService,
       navigationService: navigationService,
+      pdfSearchService: pdfSearchService,
     );
   }
 
@@ -140,7 +151,8 @@ class PdfControllerImplProvider
       override: PdfControllerImplProvider._internal(
         () => create()
           ..tagPersistenceService = tagPersistenceService
-          ..navigationService = navigationService,
+          ..navigationService = navigationService
+          ..pdfSearchService = pdfSearchService,
         from: from,
         name: null,
         dependencies: null,
@@ -148,6 +160,7 @@ class PdfControllerImplProvider
         debugGetCreateSourceHash: null,
         tagPersistenceService: tagPersistenceService,
         navigationService: navigationService,
+        pdfSearchService: pdfSearchService,
       ),
     );
   }
@@ -162,7 +175,8 @@ class PdfControllerImplProvider
   bool operator ==(Object other) {
     return other is PdfControllerImplProvider &&
         other.tagPersistenceService == tagPersistenceService &&
-        other.navigationService == navigationService;
+        other.navigationService == navigationService &&
+        other.pdfSearchService == pdfSearchService;
   }
 
   @override
@@ -170,6 +184,7 @@ class PdfControllerImplProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, tagPersistenceService.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
+    hash = _SystemHash.combine(hash, pdfSearchService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -181,6 +196,9 @@ mixin PdfControllerImplRef on AutoDisposeNotifierProviderRef<PdfViewerModel> {
 
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
+
+  /// The parameter `pdfSearchService` of this provider.
+  PdfSearchService get pdfSearchService;
 }
 
 class _PdfControllerImplProviderElement
@@ -194,6 +212,9 @@ class _PdfControllerImplProviderElement
   @override
   NavigationService get navigationService =>
       (origin as PdfControllerImplProvider).navigationService;
+  @override
+  PdfSearchService get pdfSearchService =>
+      (origin as PdfControllerImplProvider).pdfSearchService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

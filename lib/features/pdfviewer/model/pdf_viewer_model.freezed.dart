@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PdfViewerModel {
-  String get path => throw _privateConstructorUsedError;
   List<Tag> get tags => throw _privateConstructorUsedError;
+  bool get showToolbar => throw _privateConstructorUsedError;
+  bool get showScrollHead => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PdfViewerModelCopyWith<PdfViewerModel> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $PdfViewerModelCopyWith<$Res> {
           PdfViewerModel value, $Res Function(PdfViewerModel) then) =
       _$PdfViewerModelCopyWithImpl<$Res, PdfViewerModel>;
   @useResult
-  $Res call({String path, List<Tag> tags});
+  $Res call({List<Tag> tags, bool showToolbar, bool showScrollHead});
 }
 
 /// @nodoc
@@ -46,18 +47,23 @@ class _$PdfViewerModelCopyWithImpl<$Res, $Val extends PdfViewerModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? path = null,
     Object? tags = null,
+    Object? showToolbar = null,
+    Object? showScrollHead = null,
   }) {
     return _then(_value.copyWith(
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
       tags: null == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>,
+      showToolbar: null == showToolbar
+          ? _value.showToolbar
+          : showToolbar // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showScrollHead: null == showScrollHead
+          ? _value.showScrollHead
+          : showScrollHead // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$PdfViewerModelImplCopyWith<$Res>
       __$$PdfViewerModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String path, List<Tag> tags});
+  $Res call({List<Tag> tags, bool showToolbar, bool showScrollHead});
 }
 
 /// @nodoc
@@ -84,18 +90,23 @@ class __$$PdfViewerModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? path = null,
     Object? tags = null,
+    Object? showToolbar = null,
+    Object? showScrollHead = null,
   }) {
     return _then(_$PdfViewerModelImpl(
-      path: null == path
-          ? _value.path
-          : path // ignore: cast_nullable_to_non_nullable
-              as String,
       tags: null == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<Tag>,
+      showToolbar: null == showToolbar
+          ? _value.showToolbar
+          : showToolbar // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showScrollHead: null == showScrollHead
+          ? _value.showScrollHead
+          : showScrollHead // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -104,11 +115,11 @@ class __$$PdfViewerModelImplCopyWithImpl<$Res>
 
 class _$PdfViewerModelImpl implements _PdfViewerModel {
   const _$PdfViewerModelImpl(
-      {required this.path, required final List<Tag> tags})
+      {required final List<Tag> tags,
+      required this.showToolbar,
+      required this.showScrollHead})
       : _tags = tags;
 
-  @override
-  final String path;
   final List<Tag> _tags;
   @override
   List<Tag> get tags {
@@ -118,8 +129,13 @@ class _$PdfViewerModelImpl implements _PdfViewerModel {
   }
 
   @override
+  final bool showToolbar;
+  @override
+  final bool showScrollHead;
+
+  @override
   String toString() {
-    return 'PdfViewerModel(path: $path, tags: $tags)';
+    return 'PdfViewerModel(tags: $tags, showToolbar: $showToolbar, showScrollHead: $showScrollHead)';
   }
 
   @override
@@ -127,13 +143,16 @@ class _$PdfViewerModelImpl implements _PdfViewerModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PdfViewerModelImpl &&
-            (identical(other.path, path) || other.path == path) &&
-            const DeepCollectionEquality().equals(other._tags, _tags));
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
+            (identical(other.showToolbar, showToolbar) ||
+                other.showToolbar == showToolbar) &&
+            (identical(other.showScrollHead, showScrollHead) ||
+                other.showScrollHead == showScrollHead));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, path, const DeepCollectionEquality().hash(_tags));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_tags), showToolbar, showScrollHead);
 
   @JsonKey(ignore: true)
   @override
@@ -145,13 +164,16 @@ class _$PdfViewerModelImpl implements _PdfViewerModel {
 
 abstract class _PdfViewerModel implements PdfViewerModel {
   const factory _PdfViewerModel(
-      {required final String path,
-      required final List<Tag> tags}) = _$PdfViewerModelImpl;
+      {required final List<Tag> tags,
+      required final bool showToolbar,
+      required final bool showScrollHead}) = _$PdfViewerModelImpl;
 
   @override
-  String get path;
-  @override
   List<Tag> get tags;
+  @override
+  bool get showToolbar;
+  @override
+  bool get showScrollHead;
   @override
   @JsonKey(ignore: true)
   _$$PdfViewerModelImplCopyWith<_$PdfViewerModelImpl> get copyWith =>

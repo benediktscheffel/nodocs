@@ -22,85 +22,87 @@ class IsarTagPersistenceService extends TagPersistenceService {
     isar = await Isar.open(
       name: 'nodocs',
       directory: ConfigParameters.fileSystemPath,
-      <CollectionSchema<Object>>[FileSchema, TagSchema],
+      <CollectionSchema<Object>>[FileDOSchema, TagDOSchema],
     );
   }
 
   @override
   Future<void> addTagToFile(final String filePath, final String tagName) async {
-    final Tag? tag = await isar.tags.get(Hash.fastHash(tagName));
+    final TagDO? tag = await isar.tagDOs.get(Hash.fastHash(tagName));
     if (tag == null) {
-      isar.tags.put(Tag()..name = tagName);
+      isar.tagDOs.put(TagDO()..name = tagName);
     }
 
-    isar.files.get(Hash.fastHash(filePath)).then((final File? file) {
+    isar.fileDOs.get(Hash.fastHash(filePath)).then((final FileDO? file) {
       if (file != null) {
         file.tableAs.add(tag!);
-        isar.files.put(file);
+        isar.fileDOs.put(file);
       }
     });
   }
 
   @override
   Future<void> deleteFile(final String filePath) async {
-    isar.files.delete(Hash.fastHash(filePath));
+    isar.fileDOs.delete(Hash.fastHash(filePath));
   }
 
   @override
   Future<void> deleteTag(final String tagName) async {
-    isar.tags.delete(Hash.fastHash(tagName));
+    isar.tagDOs.delete(Hash.fastHash(tagName));
   }
 
   @override
   Future<void> deleteTagFromFile(
       final String filePath, final String tagName) async {
-    final Tag? tag = await isar.tags.get(Hash.fastHash(tagName));
-    isar.files.get(Hash.fastHash(filePath)).then((final File? file) {
+    final TagDO? tag = await isar.tagDOs.get(Hash.fastHash(tagName));
+    isar.fileDOs.get(Hash.fastHash(filePath)).then((final FileDO? file) {
       if (file != null) {
         file.tableAs.remove(tag);
-        isar.files.put(file);
+        isar.fileDOs.put(file);
       }
     });
   }
 
   @override
   Future<int> insertFile(final String filePath) async {
-    final File file = File()..path = filePath;
-    return isar.files.put(file);
+    final FileDO file = FileDO()..path = filePath;
+    return isar.fileDOs.put(file);
   }
 
   @override
   Future<int> insertTag(final String tagName) {
-    final Tag tag = Tag()..name = tagName;
-    return isar.tags.put(tag);
+    final TagDO tag = TagDO()..name = tagName;
+    return isar.tagDOs.put(tag);
   }
 
   @override
   Future<void> updateFile(final String oldPath, final String newPath) {
-    return isar.files.get(Hash.fastHash(oldPath)).then((final File? file) {
+    return isar.fileDOs.get(Hash.fastHash(oldPath)).then((final FileDO? file) {
       if (file != null) {
         file.path = newPath;
         file.id = Hash.fastHash(newPath);
-        isar.files.put(file);
+        isar.fileDOs.put(file);
       }
     });
   }
 
   @override
   Future<void> addTagsToFile(
-      final String filePath, final List<String> tagNames) {
-    return isar.files.get(Hash.fastHash(filePath)).then((final File? file) {
+    final String filePath,
+    final List<String> tagNames,
+  ) {
+    return isar.fileDOs.get(Hash.fastHash(filePath)).then((final FileDO? file) {
       if (file != null) {
         for (final String tagName in tagNames) {
-          isar.tags.get(Hash.fastHash(tagName)).then((final Tag? tag) {
+          isar.tagDOs.get(Hash.fastHash(tagName)).then((final TagDO? tag) {
             if (tag != null) {
               file.tableAs.add(tag);
-              isar.files.put(file);
+              isar.fileDOs.put(file);
             } else {
-              final Tag tag = Tag()..name = tagName;
-              isar.tags.put(tag).then((final int id) {
+              final TagDO tag = TagDO()..name = tagName;
+              isar.tagDOs.put(tag).then((final int id) {
                 file.tableAs.add(tag);
-                isar.files.put(file);
+                isar.fileDOs.put(file);
               });
             }
           });
@@ -111,9 +113,9 @@ class IsarTagPersistenceService extends TagPersistenceService {
 
   @override
   Future<List<String>> loadTags(final String filePath) {
-    return isar.files.get(Hash.fastHash(filePath)).then((final File? file) {
+    return isar.fileDOs.get(Hash.fastHash(filePath)).then((final FileDO? file) {
       if (file != null) {
-        return file.tableAs.map((final Tag tag) => tag.name).toList();
+        return file.tableAs.map((final TagDO tag) => tag.name).toList();
       } else {
         return <String>[];
       }

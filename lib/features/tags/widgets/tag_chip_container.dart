@@ -5,10 +5,7 @@ import 'package:nodocs/features/tags/widgets/tag_chip.dart';
 class TagChipContainer extends StatelessWidget {
   final List<(String, bool)> tagData;
 
-  const TagChipContainer({
-    super.key,
-    required this.tagData
-  });
+  const TagChipContainer({super.key, required this.tagData});
 
   @override
   Widget build(final BuildContext context) {
@@ -24,7 +21,10 @@ class TagChipContainer extends StatelessWidget {
               spacing: 8.0,
               runSpacing: 4.0,
               clipBehavior: Clip.hardEdge,
-              children: tagData.map((final (String, bool) tag) => TagChip(tagName: tag.$1, tagState: tag.$2)).toList(),
+              children: tagData
+                  .map((final (String, bool) tag) =>
+                      TagChip(tagName: tag.$1, tagState: tag.$2))
+                  .toList(),
             ),
           ],
         ),

@@ -9,13 +9,13 @@ part of 'tag_tables.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetTagCollection on Isar {
-  IsarCollection<Tag> get tags => this.collection();
+extension GetTagDOCollection on Isar {
+  IsarCollection<TagDO> get tagDOs => this.collection();
 }
 
-const TagSchema = CollectionSchema(
-  name: r'Tag',
-  id: 4007045862261149568,
+const TagDOSchema = CollectionSchema(
+  name: r'TagDO',
+  id: 1966464723353307788,
   properties: {
     r'name': PropertySchema(
       id: 0,
@@ -23,29 +23,29 @@ const TagSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _tagEstimateSize,
-  serialize: _tagSerialize,
-  deserialize: _tagDeserialize,
-  deserializeProp: _tagDeserializeProp,
+  estimateSize: _tagDOEstimateSize,
+  serialize: _tagDOSerialize,
+  deserialize: _tagDODeserialize,
+  deserializeProp: _tagDODeserializeProp,
   idName: r'id',
   indexes: {},
   links: {
     r'tableBs': LinkSchema(
-      id: 7629100596461557340,
+      id: -2957523250376367543,
       name: r'tableBs',
-      target: r'File',
+      target: r'FileDO',
       single: false,
     )
   },
   embeddedSchemas: {},
-  getId: _tagGetId,
-  getLinks: _tagGetLinks,
-  attach: _tagAttach,
+  getId: _tagDOGetId,
+  getLinks: _tagDOGetLinks,
+  attach: _tagDOAttach,
   version: '3.1.0+1',
 );
 
-int _tagEstimateSize(
-  Tag object,
+int _tagDOEstimateSize(
+  TagDO object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -54,8 +54,8 @@ int _tagEstimateSize(
   return bytesCount;
 }
 
-void _tagSerialize(
-  Tag object,
+void _tagDOSerialize(
+  TagDO object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -63,18 +63,18 @@ void _tagSerialize(
   writer.writeString(offsets[0], object.name);
 }
 
-Tag _tagDeserialize(
+TagDO _tagDODeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Tag();
+  final object = TagDO();
   object.name = reader.readString(offsets[0]);
   return object;
 }
 
-P _tagDeserializeProp<P>(
+P _tagDODeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -88,28 +88,28 @@ P _tagDeserializeProp<P>(
   }
 }
 
-Id _tagGetId(Tag object) {
+Id _tagDOGetId(TagDO object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _tagGetLinks(Tag object) {
+List<IsarLinkBase<dynamic>> _tagDOGetLinks(TagDO object) {
   return [object.tableBs];
 }
 
-void _tagAttach(IsarCollection<dynamic> col, Id id, Tag object) {
-  object.tableBs.attach(col, col.isar.collection<File>(), r'tableBs', id);
+void _tagDOAttach(IsarCollection<dynamic> col, Id id, TagDO object) {
+  object.tableBs.attach(col, col.isar.collection<FileDO>(), r'tableBs', id);
 }
 
-extension TagQueryWhereSort on QueryBuilder<Tag, Tag, QWhere> {
-  QueryBuilder<Tag, Tag, QAfterWhere> anyId() {
+extension TagDOQueryWhereSort on QueryBuilder<TagDO, TagDO, QWhere> {
+  QueryBuilder<TagDO, TagDO, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension TagQueryWhere on QueryBuilder<Tag, Tag, QWhereClause> {
-  QueryBuilder<Tag, Tag, QAfterWhereClause> idEqualTo(Id id) {
+extension TagDOQueryWhere on QueryBuilder<TagDO, TagDO, QWhereClause> {
+  QueryBuilder<TagDO, TagDO, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -118,7 +118,7 @@ extension TagQueryWhere on QueryBuilder<Tag, Tag, QWhereClause> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<TagDO, TagDO, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -140,7 +140,7 @@ extension TagQueryWhere on QueryBuilder<Tag, Tag, QWhereClause> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<TagDO, TagDO, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -149,7 +149,7 @@ extension TagQueryWhere on QueryBuilder<Tag, Tag, QWhereClause> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<TagDO, TagDO, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -158,7 +158,7 @@ extension TagQueryWhere on QueryBuilder<Tag, Tag, QWhereClause> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterWhereClause> idBetween(
+  QueryBuilder<TagDO, TagDO, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -175,8 +175,8 @@ extension TagQueryWhere on QueryBuilder<Tag, Tag, QWhereClause> {
   }
 }
 
-extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> idEqualTo(Id value) {
+extension TagDOQueryFilter on QueryBuilder<TagDO, TagDO, QFilterCondition> {
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -185,7 +185,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -198,7 +198,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> idLessThan(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -211,7 +211,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> idBetween(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -228,7 +228,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameEqualTo(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -241,7 +241,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameGreaterThan(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -256,7 +256,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameLessThan(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -271,7 +271,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameBetween(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -290,7 +290,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameStartsWith(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -303,7 +303,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameEndsWith(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -316,7 +316,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameContains(String value,
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -327,7 +327,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameMatches(String pattern,
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameMatches(String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -338,7 +338,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameIsEmpty() {
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
@@ -347,7 +347,7 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> nameIsNotEmpty() {
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> nameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
@@ -357,35 +357,36 @@ extension TagQueryFilter on QueryBuilder<Tag, Tag, QFilterCondition> {
   }
 }
 
-extension TagQueryObject on QueryBuilder<Tag, Tag, QFilterCondition> {}
+extension TagDOQueryObject on QueryBuilder<TagDO, TagDO, QFilterCondition> {}
 
-extension TagQueryLinks on QueryBuilder<Tag, Tag, QFilterCondition> {
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> tableBs(FilterQuery<File> q) {
+extension TagDOQueryLinks on QueryBuilder<TagDO, TagDO, QFilterCondition> {
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBs(
+      FilterQuery<FileDO> q) {
     return QueryBuilder.apply(this, (query) {
       return query.link(q, r'tableBs');
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> tableBsLengthEqualTo(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsLengthEqualTo(
       int length) {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(r'tableBs', length, true, length, true);
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> tableBsIsEmpty() {
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(r'tableBs', 0, true, 0, true);
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> tableBsIsNotEmpty() {
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(r'tableBs', 0, false, 999999, true);
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> tableBsLengthLessThan(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsLengthLessThan(
     int length, {
     bool include = false,
   }) {
@@ -394,7 +395,7 @@ extension TagQueryLinks on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> tableBsLengthGreaterThan(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -403,7 +404,7 @@ extension TagQueryLinks on QueryBuilder<Tag, Tag, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterFilterCondition> tableBsLengthBetween(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -416,48 +417,48 @@ extension TagQueryLinks on QueryBuilder<Tag, Tag, QFilterCondition> {
   }
 }
 
-extension TagQuerySortBy on QueryBuilder<Tag, Tag, QSortBy> {
-  QueryBuilder<Tag, Tag, QAfterSortBy> sortByName() {
+extension TagDOQuerySortBy on QueryBuilder<TagDO, TagDO, QSortBy> {
+  QueryBuilder<TagDO, TagDO, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterSortBy> sortByNameDesc() {
+  QueryBuilder<TagDO, TagDO, QAfterSortBy> sortByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 }
 
-extension TagQuerySortThenBy on QueryBuilder<Tag, Tag, QSortThenBy> {
-  QueryBuilder<Tag, Tag, QAfterSortBy> thenById() {
+extension TagDOQuerySortThenBy on QueryBuilder<TagDO, TagDO, QSortThenBy> {
+  QueryBuilder<TagDO, TagDO, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<TagDO, TagDO, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterSortBy> thenByName() {
+  QueryBuilder<TagDO, TagDO, QAfterSortBy> thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<Tag, Tag, QAfterSortBy> thenByNameDesc() {
+  QueryBuilder<TagDO, TagDO, QAfterSortBy> thenByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 }
 
-extension TagQueryWhereDistinct on QueryBuilder<Tag, Tag, QDistinct> {
-  QueryBuilder<Tag, Tag, QDistinct> distinctByName(
+extension TagDOQueryWhereDistinct on QueryBuilder<TagDO, TagDO, QDistinct> {
+  QueryBuilder<TagDO, TagDO, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'name', caseSensitive: caseSensitive);
@@ -465,14 +466,14 @@ extension TagQueryWhereDistinct on QueryBuilder<Tag, Tag, QDistinct> {
   }
 }
 
-extension TagQueryProperty on QueryBuilder<Tag, Tag, QQueryProperty> {
-  QueryBuilder<Tag, int, QQueryOperations> idProperty() {
+extension TagDOQueryProperty on QueryBuilder<TagDO, TagDO, QQueryProperty> {
+  QueryBuilder<TagDO, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Tag, String, QQueryOperations> nameProperty() {
+  QueryBuilder<TagDO, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });
@@ -482,13 +483,13 @@ extension TagQueryProperty on QueryBuilder<Tag, Tag, QQueryProperty> {
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetFileCollection on Isar {
-  IsarCollection<File> get files => this.collection();
+extension GetFileDOCollection on Isar {
+  IsarCollection<FileDO> get fileDOs => this.collection();
 }
 
-const FileSchema = CollectionSchema(
-  name: r'File',
-  id: -3161376545294130050,
+const FileDOSchema = CollectionSchema(
+  name: r'FileDO',
+  id: 4861036590674428938,
   properties: {
     r'path': PropertySchema(
       id: 0,
@@ -496,29 +497,29 @@ const FileSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _fileEstimateSize,
-  serialize: _fileSerialize,
-  deserialize: _fileDeserialize,
-  deserializeProp: _fileDeserializeProp,
+  estimateSize: _fileDOEstimateSize,
+  serialize: _fileDOSerialize,
+  deserialize: _fileDODeserialize,
+  deserializeProp: _fileDODeserializeProp,
   idName: r'id',
   indexes: {},
   links: {
     r'tableAs': LinkSchema(
-      id: 4515759687237639686,
+      id: -6068111678772101219,
       name: r'tableAs',
-      target: r'Tag',
+      target: r'TagDO',
       single: false,
     )
   },
   embeddedSchemas: {},
-  getId: _fileGetId,
-  getLinks: _fileGetLinks,
-  attach: _fileAttach,
+  getId: _fileDOGetId,
+  getLinks: _fileDOGetLinks,
+  attach: _fileDOAttach,
   version: '3.1.0+1',
 );
 
-int _fileEstimateSize(
-  File object,
+int _fileDOEstimateSize(
+  FileDO object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -527,8 +528,8 @@ int _fileEstimateSize(
   return bytesCount;
 }
 
-void _fileSerialize(
-  File object,
+void _fileDOSerialize(
+  FileDO object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -536,19 +537,19 @@ void _fileSerialize(
   writer.writeString(offsets[0], object.path);
 }
 
-File _fileDeserialize(
+FileDO _fileDODeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = File();
+  final object = FileDO();
   object.id = id;
   object.path = reader.readString(offsets[0]);
   return object;
 }
 
-P _fileDeserializeProp<P>(
+P _fileDODeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -562,29 +563,29 @@ P _fileDeserializeProp<P>(
   }
 }
 
-Id _fileGetId(File object) {
+Id _fileDOGetId(FileDO object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _fileGetLinks(File object) {
+List<IsarLinkBase<dynamic>> _fileDOGetLinks(FileDO object) {
   return [object.tableAs];
 }
 
-void _fileAttach(IsarCollection<dynamic> col, Id id, File object) {
+void _fileDOAttach(IsarCollection<dynamic> col, Id id, FileDO object) {
   object.id = id;
-  object.tableAs.attach(col, col.isar.collection<Tag>(), r'tableAs', id);
+  object.tableAs.attach(col, col.isar.collection<TagDO>(), r'tableAs', id);
 }
 
-extension FileQueryWhereSort on QueryBuilder<File, File, QWhere> {
-  QueryBuilder<File, File, QAfterWhere> anyId() {
+extension FileDOQueryWhereSort on QueryBuilder<FileDO, FileDO, QWhere> {
+  QueryBuilder<FileDO, FileDO, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension FileQueryWhere on QueryBuilder<File, File, QWhereClause> {
-  QueryBuilder<File, File, QAfterWhereClause> idEqualTo(Id id) {
+extension FileDOQueryWhere on QueryBuilder<FileDO, FileDO, QWhereClause> {
+  QueryBuilder<FileDO, FileDO, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -593,7 +594,7 @@ extension FileQueryWhere on QueryBuilder<File, File, QWhereClause> {
     });
   }
 
-  QueryBuilder<File, File, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<FileDO, FileDO, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -615,7 +616,7 @@ extension FileQueryWhere on QueryBuilder<File, File, QWhereClause> {
     });
   }
 
-  QueryBuilder<File, File, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<FileDO, FileDO, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -624,7 +625,7 @@ extension FileQueryWhere on QueryBuilder<File, File, QWhereClause> {
     });
   }
 
-  QueryBuilder<File, File, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<FileDO, FileDO, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -633,7 +634,7 @@ extension FileQueryWhere on QueryBuilder<File, File, QWhereClause> {
     });
   }
 
-  QueryBuilder<File, File, QAfterWhereClause> idBetween(
+  QueryBuilder<FileDO, FileDO, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -650,8 +651,8 @@ extension FileQueryWhere on QueryBuilder<File, File, QWhereClause> {
   }
 }
 
-extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
-  QueryBuilder<File, File, QAfterFilterCondition> idEqualTo(Id value) {
+extension FileDOQueryFilter on QueryBuilder<FileDO, FileDO, QFilterCondition> {
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -660,7 +661,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -673,7 +674,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> idLessThan(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -686,7 +687,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> idBetween(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -703,7 +704,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathEqualTo(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -716,7 +717,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathGreaterThan(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -731,7 +732,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathLessThan(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -746,7 +747,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathBetween(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -765,7 +766,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathStartsWith(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -778,7 +779,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathEndsWith(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -791,7 +792,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathContains(String value,
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -802,7 +803,8 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathMatches(String pattern,
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathMatches(
+      String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -813,7 +815,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathIsEmpty() {
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'path',
@@ -822,7 +824,7 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> pathIsNotEmpty() {
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> pathIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'path',
@@ -832,35 +834,36 @@ extension FileQueryFilter on QueryBuilder<File, File, QFilterCondition> {
   }
 }
 
-extension FileQueryObject on QueryBuilder<File, File, QFilterCondition> {}
+extension FileDOQueryObject on QueryBuilder<FileDO, FileDO, QFilterCondition> {}
 
-extension FileQueryLinks on QueryBuilder<File, File, QFilterCondition> {
-  QueryBuilder<File, File, QAfterFilterCondition> tableAs(FilterQuery<Tag> q) {
+extension FileDOQueryLinks on QueryBuilder<FileDO, FileDO, QFilterCondition> {
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> tableAs(
+      FilterQuery<TagDO> q) {
     return QueryBuilder.apply(this, (query) {
       return query.link(q, r'tableAs');
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> tableAsLengthEqualTo(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> tableAsLengthEqualTo(
       int length) {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(r'tableAs', length, true, length, true);
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> tableAsIsEmpty() {
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> tableAsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(r'tableAs', 0, true, 0, true);
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> tableAsIsNotEmpty() {
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> tableAsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(r'tableAs', 0, false, 999999, true);
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> tableAsLengthLessThan(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> tableAsLengthLessThan(
     int length, {
     bool include = false,
   }) {
@@ -869,7 +872,7 @@ extension FileQueryLinks on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> tableAsLengthGreaterThan(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> tableAsLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
@@ -878,7 +881,7 @@ extension FileQueryLinks on QueryBuilder<File, File, QFilterCondition> {
     });
   }
 
-  QueryBuilder<File, File, QAfterFilterCondition> tableAsLengthBetween(
+  QueryBuilder<FileDO, FileDO, QAfterFilterCondition> tableAsLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -891,48 +894,48 @@ extension FileQueryLinks on QueryBuilder<File, File, QFilterCondition> {
   }
 }
 
-extension FileQuerySortBy on QueryBuilder<File, File, QSortBy> {
-  QueryBuilder<File, File, QAfterSortBy> sortByPath() {
+extension FileDOQuerySortBy on QueryBuilder<FileDO, FileDO, QSortBy> {
+  QueryBuilder<FileDO, FileDO, QAfterSortBy> sortByPath() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'path', Sort.asc);
     });
   }
 
-  QueryBuilder<File, File, QAfterSortBy> sortByPathDesc() {
+  QueryBuilder<FileDO, FileDO, QAfterSortBy> sortByPathDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'path', Sort.desc);
     });
   }
 }
 
-extension FileQuerySortThenBy on QueryBuilder<File, File, QSortThenBy> {
-  QueryBuilder<File, File, QAfterSortBy> thenById() {
+extension FileDOQuerySortThenBy on QueryBuilder<FileDO, FileDO, QSortThenBy> {
+  QueryBuilder<FileDO, FileDO, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<File, File, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<FileDO, FileDO, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<File, File, QAfterSortBy> thenByPath() {
+  QueryBuilder<FileDO, FileDO, QAfterSortBy> thenByPath() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'path', Sort.asc);
     });
   }
 
-  QueryBuilder<File, File, QAfterSortBy> thenByPathDesc() {
+  QueryBuilder<FileDO, FileDO, QAfterSortBy> thenByPathDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'path', Sort.desc);
     });
   }
 }
 
-extension FileQueryWhereDistinct on QueryBuilder<File, File, QDistinct> {
-  QueryBuilder<File, File, QDistinct> distinctByPath(
+extension FileDOQueryWhereDistinct on QueryBuilder<FileDO, FileDO, QDistinct> {
+  QueryBuilder<FileDO, FileDO, QDistinct> distinctByPath(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'path', caseSensitive: caseSensitive);
@@ -940,14 +943,14 @@ extension FileQueryWhereDistinct on QueryBuilder<File, File, QDistinct> {
   }
 }
 
-extension FileQueryProperty on QueryBuilder<File, File, QQueryProperty> {
-  QueryBuilder<File, int, QQueryOperations> idProperty() {
+extension FileDOQueryProperty on QueryBuilder<FileDO, FileDO, QQueryProperty> {
+  QueryBuilder<FileDO, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<File, String, QQueryOperations> pathProperty() {
+  QueryBuilder<FileDO, String, QQueryOperations> pathProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'path');
     });

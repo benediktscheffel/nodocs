@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/pdfviewer/controller/pdf_controller.dart';
 import 'package:nodocs/features/pdfviewer/model/pdf_viewer_model.dart';
+import 'package:nodocs/features/pdfviewer/services/pdf_search_service.dart';
 import 'package:nodocs/features/tags/services/persistence/tag_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,8 +14,23 @@ class PdfControllerImpl extends _$PdfControllerImpl implements PdfController {
   PdfViewerModel build({
     required final TagPersistenceService tagPersistenceService,
     required final NavigationService navigationService,
+    required final PdfSearchService pdfSearchService,
   }) {
-    return const PdfViewerModel(path: 'path', tags: <Tag>[]);
+    return const PdfViewerModel(
+      tags: <Tag>[],
+      showToolbar: false,
+      showScrollHead: false,
+    );
+  }
+
+  @override
+  void toggleToolbar(final bool showToolbar) {
+    state = state.copyWith(showToolbar: showToolbar);
+  }
+
+  @override
+  void toggleScrollHead(final bool showScrollHead) {
+    state = state.copyWith(showScrollHead: showScrollHead);
   }
 
   @override
@@ -43,6 +60,11 @@ class PdfControllerImpl extends _$PdfControllerImpl implements PdfController {
   }
 
   @override
+  void goBackMaybe() {
+    navigationService.goBack();
+  }
+
+  @override
   void goBackTwice() {
     navigationService.pop();
     navigationService.pop();
@@ -68,4 +90,20 @@ class PdfControllerImpl extends _$PdfControllerImpl implements PdfController {
   void updateTags(final List<Tag> tags) {
     state = state.copyWith(tags: tags);
   }
+
+  @override
+  void ensureHistoryEntry(final BuildContext context) {
+    pdfSearchService.ensureHistoryEntry(context);
+  }
+
+  @override
+  void showToast() {
+    pdfSearchService.showToast();
+  }
+
+  @override
+  get searchKey => pdfSearchService.key;
+
+  @override
+  get pdfViewerController => pdfSearchService.pdfViewerController;
 }

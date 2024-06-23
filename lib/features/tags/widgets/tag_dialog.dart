@@ -6,6 +6,7 @@ import 'package:nodocs/widgets/dialog_box.dart';
 class TagDialog extends StatelessWidget {
   const TagDialog({super.key});
 
+
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
