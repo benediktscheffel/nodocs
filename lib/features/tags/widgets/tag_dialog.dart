@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:nodocs/features/tags/widgets/tag_chip_container.dart';
 import 'package:nodocs/widgets/dialog_box.dart';
 
 class TagDialog extends StatelessWidget {
   final TagChipContainer tagChipContainer;
   final VoidCallback goBack;
-  final Function(List<String>) saveTags;
+  final Function(List<(String, bool)>) saveTags;
 
   const TagDialog({
     super.key,
@@ -25,10 +24,7 @@ class TagDialog extends StatelessWidget {
       ],
       footer: TextButton(
         onPressed: () {
-          saveTags(tagChipContainer.tagData
-              .filter((final (String, bool) tag) => tag.$2 == true)
-              .map((final (String, bool) tag) => tag.$1)
-              .toList());
+          saveTags(tagChipContainer.tagData);
           goBack();
         },
         child: Row(

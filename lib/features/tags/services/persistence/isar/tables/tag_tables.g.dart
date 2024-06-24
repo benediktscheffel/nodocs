@@ -30,9 +30,9 @@ const TagDOSchema = CollectionSchema(
   idName: r'id',
   indexes: {},
   links: {
-    r'tableBs': LinkSchema(
-      id: -2957523250376367543,
-      name: r'tableBs',
+    r'tableAs': LinkSchema(
+      id: 4831611901938371524,
+      name: r'tableAs',
       target: r'FileDO',
       single: false,
     )
@@ -99,7 +99,7 @@ List<IsarLinkBase<dynamic>> _tagDOGetLinks(TagDO object) {
 
 void _tagDOAttach(IsarCollection<dynamic> col, Id id, TagDO object) {
   object.id = id;
-  object.tableAs.attach(col, col.isar.collection<FileDO>(), r'tableBs', id);
+  object.tableAs.attach(col, col.isar.collection<FileDO>(), r'tableAs', id);
 }
 
 extension TagDOQueryWhereSort on QueryBuilder<TagDO, TagDO, QWhere> {
@@ -362,51 +362,51 @@ extension TagDOQueryFilter on QueryBuilder<TagDO, TagDO, QFilterCondition> {
 extension TagDOQueryObject on QueryBuilder<TagDO, TagDO, QFilterCondition> {}
 
 extension TagDOQueryLinks on QueryBuilder<TagDO, TagDO, QFilterCondition> {
-  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBs(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableAs(
       FilterQuery<FileDO> q) {
     return QueryBuilder.apply(this, (query) {
-      return query.link(q, r'tableBs');
+      return query.link(q, r'tableAs');
     });
   }
 
-  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsLengthEqualTo(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableAsLengthEqualTo(
       int length) {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tableBs', length, true, length, true);
+      return query.linkLength(r'tableAs', length, true, length, true);
     });
   }
 
-  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsIsEmpty() {
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableAsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tableBs', 0, true, 0, true);
+      return query.linkLength(r'tableAs', 0, true, 0, true);
     });
   }
 
-  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsIsNotEmpty() {
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableAsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tableBs', 0, false, 999999, true);
+      return query.linkLength(r'tableAs', 0, false, 999999, true);
     });
   }
 
-  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsLengthLessThan(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableAsLengthLessThan(
     int length, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tableBs', 0, true, length, include);
+      return query.linkLength(r'tableAs', 0, true, length, include);
     });
   }
 
-  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsLengthGreaterThan(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableAsLengthGreaterThan(
     int length, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tableBs', length, include, 999999, true);
+      return query.linkLength(r'tableAs', length, include, 999999, true);
     });
   }
 
-  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableBsLengthBetween(
+  QueryBuilder<TagDO, TagDO, QAfterFilterCondition> tableAsLengthBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -414,7 +414,7 @@ extension TagDOQueryLinks on QueryBuilder<TagDO, TagDO, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(
-          r'tableBs', lower, includeLower, upper, includeUpper);
+          r'tableAs', lower, includeLower, upper, includeUpper);
     });
   }
 }

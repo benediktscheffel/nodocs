@@ -7,7 +7,7 @@ part of 'pdf_viewer_controller_impl.dart';
 // **************************************************************************
 
 String _$pdfViewerControllerImplHash() =>
-    r'3964c1666e9718815e3af275d710449e249092a2';
+    r'1b70b256154a99a0103eeb79e8b87a68619b6d47';
 
 /// Copied from Dart SDK
 class _SystemHash {

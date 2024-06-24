@@ -18,11 +18,7 @@ abstract class PdfViewerController {
 
   void loadTags(final String filePath);
 
-  void addTagToFile(final String filePath, final String tagName);
-
-  void deleteTagFromFile(final String filePath, final String tagName);
-
-  Function(List<String>) addTagsToFile(final String filePath);
+  Function(List<(String, bool)>) syncTagsWithDatabase(final String filePath);
 
   void updateTags(final List<Tag> tags);
 

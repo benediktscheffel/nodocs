@@ -26,6 +26,7 @@ class PdfViewerPage extends ConsumerWidget {
         ref.read(pdfViewerControllerProvider);
     final PdfViewerModel model = ref.watch(pdfViewerModelProvider);
     controller.initSearchKey();
+    controller.loadTags(path);
     return Scaffold(
       appBar: model.showToolbar
           ? AppBar(
@@ -104,11 +105,11 @@ class PdfViewerPage extends ConsumerWidget {
             onPressed: () => showDialog<String>(
               context: context,
               builder: (final BuildContext context) => TagDialog(
-                saveTags: controller.addTagsToFile(path),
+                saveTags: controller.syncTagsWithDatabase(path),
                 goBack: controller.closeDialog,
                 tagChipContainer: TagChipContainer(
                   tagData: model.tags
-                      .map((final Tag tag) => (tag.name, true))
+                      .map((final Tag tag) => (tag.name, tag.selected))
                       .toList(),
                 ),
               ),

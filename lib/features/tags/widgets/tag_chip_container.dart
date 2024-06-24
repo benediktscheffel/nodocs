@@ -28,8 +28,17 @@ class _TagChipContainerState extends State<TagChipContainer> {
               runSpacing: 4.0,
               clipBehavior: Clip.hardEdge,
               children: widget.tagData
-                  .map((final (String, bool) tag) =>
-                      TagChip(tagName: tag.$1, tagState: tag.$2))
+                  .map((final (String, bool) tag) => TagChip(
+                        tagName: tag.$1,
+                        tagState: tag.$2,
+                        onSelected: (final bool value) {
+                          setState(() {
+                            widget.tagData[widget.tagData.indexWhere(
+                                (final (String, bool) tagI) =>
+                                    tagI.$1 == tag.$1)] = (tag.$1, value);
+                          });
+                        },
+                      ))
                   .toList(),
             ),
             TagInput(

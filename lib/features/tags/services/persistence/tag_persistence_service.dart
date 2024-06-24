@@ -15,8 +15,10 @@ abstract class TagPersistenceService {
 
   Future<void> updateFile(final String oldPath, final String newPath);
 
-  Future<void> addTagsToFile(
-      final String filePath, final List<String> tagNames);
+  Future<void> addTagsToFile(final String filePath, final List<String> tags);
 
-  Future<List<String>> loadTags(final String filePath);
+  List<(String, bool)> loadTags(final String filePath);
+
+  Future<void> deleteTagsFromFile(
+      final String filePath, final List<String> tags);
 }

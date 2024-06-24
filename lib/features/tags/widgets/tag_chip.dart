@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 class TagChip extends StatefulWidget {
   final bool tagState;
   final String tagName;
+  final ValueChanged<bool> onSelected;
 
-  const TagChip({super.key, required this.tagState, required this.tagName});
+  const TagChip({
+    super.key,
+    required this.tagState,
+    required this.tagName,
+    required this.onSelected,
+  });
 
   @override
   TagChipState createState() => TagChipState();
@@ -58,6 +64,7 @@ class TagChipState extends State<TagChip> {
           setState(() {
             _tagState = !_tagState;
           });
+          widget.onSelected(_tagState);
         },
         selected: _tagState,
         color: _tagState

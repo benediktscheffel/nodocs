@@ -183,6 +183,7 @@ abstract class _PdfViewerModel implements PdfViewerModel {
 /// @nodoc
 mixin _$Tag {
   String get name => throw _privateConstructorUsedError;
+  bool get selected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TagCopyWith<Tag> get copyWith => throw _privateConstructorUsedError;
@@ -193,7 +194,7 @@ abstract class $TagCopyWith<$Res> {
   factory $TagCopyWith(Tag value, $Res Function(Tag) then) =
       _$TagCopyWithImpl<$Res, Tag>;
   @useResult
-  $Res call({String name});
+  $Res call({String name, bool selected});
 }
 
 /// @nodoc
@@ -209,12 +210,17 @@ class _$TagCopyWithImpl<$Res, $Val extends Tag> implements $TagCopyWith<$Res> {
   @override
   $Res call({
     Object? name = null,
+    Object? selected = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      selected: null == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -225,7 +231,7 @@ abstract class _$$TagImplCopyWith<$Res> implements $TagCopyWith<$Res> {
       __$$TagImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name});
+  $Res call({String name, bool selected});
 }
 
 /// @nodoc
@@ -238,12 +244,17 @@ class __$$TagImplCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res, _$TagImpl>
   @override
   $Res call({
     Object? name = null,
+    Object? selected = null,
   }) {
     return _then(_$TagImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      selected: null == selected
+          ? _value.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -251,14 +262,16 @@ class __$$TagImplCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res, _$TagImpl>
 /// @nodoc
 
 class _$TagImpl implements _Tag {
-  const _$TagImpl({required this.name});
+  const _$TagImpl({required this.name, required this.selected});
 
   @override
   final String name;
+  @override
+  final bool selected;
 
   @override
   String toString() {
-    return 'Tag(name: $name)';
+    return 'Tag(name: $name, selected: $selected)';
   }
 
   @override
@@ -266,11 +279,13 @@ class _$TagImpl implements _Tag {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TagImpl &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.selected, selected) ||
+                other.selected == selected));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(runtimeType, name, selected);
 
   @JsonKey(ignore: true)
   @override
@@ -280,10 +295,13 @@ class _$TagImpl implements _Tag {
 }
 
 abstract class _Tag implements Tag {
-  const factory _Tag({required final String name}) = _$TagImpl;
+  const factory _Tag(
+      {required final String name, required final bool selected}) = _$TagImpl;
 
   @override
   String get name;
+  @override
+  bool get selected;
   @override
   @JsonKey(ignore: true)
   _$$TagImplCopyWith<_$TagImpl> get copyWith =>

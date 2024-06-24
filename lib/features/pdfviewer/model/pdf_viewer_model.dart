@@ -15,5 +15,6 @@ class PdfViewerModel with _$PdfViewerModel {
 class Tag with _$Tag {
   const factory Tag({
     required final String name,
+    required final bool selected,
   }) = _Tag;
 }

@@ -88,11 +88,11 @@ class IsarTagPersistenceService extends TagPersistenceService {
 
   @override
   Future<void> addTagsToFile(
-      final String filePath, final List<String> tagNames) async {
+      final String filePath, final List<String> tags) async {
     final FileDO? file =
         isar.fileDOs.filter().pathEqualTo(filePath).findFirstSync();
     if (file != null) {
-      for (final String tagName in tagNames) {
+      for (final String tagName in tags) {
         final TagDO? tag =
             isar.tagDOs.filter().nameEqualTo(tagName).findFirstSync();
         if (tag != null) {
@@ -110,22 +110,42 @@ class IsarTagPersistenceService extends TagPersistenceService {
       return isar.writeTxn(() => file.tableAs.save());
     } else {
       isar.writeTxnSync(() => isar.fileDOs.put(FileDO()..path = filePath));
-      return addTagsToFile(filePath, tagNames);
+      return addTagsToFile(filePath, tags);
     }
   }
 
   @override
-  Future<List<String>> loadTags(final String filePath) {
-    return isar.fileDOs
-        .filter()
-        .pathEqualTo(filePath)
-        .findFirst()
-        .then((final FileDO? file) {
-      if (file != null) {
-        return file.tableAs.map((final TagDO tag) => tag.name).toList();
-      } else {
-        return <String>[];
+  Future<void> deleteTagsFromFile(
+      final String filePath, final List<String> tags) async {
+    FileDO? file = isar.fileDOs.filter().pathEqualTo(filePath).findFirstSync();
+    if (file != null) {
+      for (final String tagName in tags) {
+        final List<TagDO> tags =
+            isar.tagDOs.filter().nameEqualTo(tagName).findAllSync();
+        if (tags.isNotEmpty) {
+          tags.map((final TagDO tag) {
+            file.tableAs.remove(tag);
+            tag.tableAs.remove(file);
+            isar.writeTxn(() => tag.tableAs.save());
+          });
+        }
       }
-    });
+      return isar.writeTxn(() => file.tableAs.save());
+    }
+  }
+
+  @override
+  List<(String, bool)> loadTags(final String filePath) {
+    return isar.tagDOs
+        .filter()
+        .nameIsNotEmpty()
+        .findAllSync()
+        .map((final TagDO tag) => (
+              tag.name,
+              tag.tableAs
+                  .map((final FileDO file) => file.path)
+                  .contains(filePath)
+            ))
+        .toList();
   }
 }

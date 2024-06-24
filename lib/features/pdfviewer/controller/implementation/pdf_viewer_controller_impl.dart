@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/pdfviewer/controller/pdf_viewer_controller.dart';
@@ -36,25 +37,26 @@ class PdfViewerControllerImpl extends _$PdfViewerControllerImpl
   }
 
   @override
-  void addTagToFile(final String filePath, final String tagName) {
-    tagPersistenceService.addTagToFile(filePath, tagName).then((final _) {
-      loadTags(filePath);
-    });
-  }
-
-  @override
-  Function(List<String>) addTagsToFile(final String filePath) {
-    return (final List<String> tagNames) =>
-        tagPersistenceService.addTagsToFile(filePath, tagNames).then((final _) {
-          loadTags(filePath);
-        });
-  }
-
-  @override
-  void deleteTagFromFile(final String filePath, final String tagName) {
-    tagPersistenceService.deleteTagFromFile(filePath, tagName).then((final _) {
-      loadTags(filePath);
-    });
+  Function(List<(String, bool)>) syncTagsWithDatabase(final String filePath) {
+    return (final List<(String, bool)> tags) {
+      tagPersistenceService
+          .addTagsToFile(
+              filePath,
+              tags
+                  .filter((final (String, bool) t) => t.$2)
+                  .map((final (String, bool) t) => t.$1)
+                  .toList())
+          .then((final _) => tagPersistenceService
+                  .deleteTagsFromFile(
+                      filePath,
+                      tags
+                          .filter((final (String, bool) t) => !t.$2)
+                          .map((final (String, bool) t) => t.$1)
+                          .toList())
+                  .then((final _) {
+                loadTags(filePath);
+              }));
+    };
   }
 
   @override
@@ -76,13 +78,20 @@ class PdfViewerControllerImpl extends _$PdfViewerControllerImpl
 
   @override
   void loadTags(final String filePath) {
-    tagPersistenceService
+    final List<Tag> tags = tagPersistenceService
         .loadTags(filePath)
-        .then((final List<String> tagNames) {
-      final List<Tag> tags =
-          tagNames.map((final String tagName) => Tag(name: tagName)).toList();
-      updateTags(tags);
+        .map((final (String, bool) tag) => Tag(name: tag.$1, selected: tag.$2))
+        .toList();
+
+    tags.sort((final Tag a, final Tag b) {
+      if (a.selected == b.selected) {
+        return a.name.compareTo(b.name);
+      } else if (a.selected && !b.selected) {
+        return -1;
+      }
+      return 1;
     });
+    updateTags(tags);
   }
 
   @override
