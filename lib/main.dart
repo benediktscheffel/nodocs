@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/isar_tag_persistence_service.dart';
 import 'config/service_locator.dart';
@@ -9,7 +10,7 @@ void main() async {
   await providerContainer.read(tagPersistenceServiceProvider).init();
 
   setupServiceLocator();
-  // await dotenv.load(fileName: "config.env");
+  await dotenv.load(fileName: "config.env");
   runApp(const ProviderScope(
     child: MyApp(),
   ));
