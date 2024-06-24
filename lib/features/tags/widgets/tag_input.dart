@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TagInput extends StatefulWidget {
-  const TagInput({super.key});
+  final Function(String) addTag;
+
+  const TagInput({
+    super.key,
+    required this.addTag,
+  });
 
   @override
   TagInputState createState() => TagInputState();
@@ -31,15 +36,18 @@ class TagInputState extends State<TagInput> {
       decoration: InputDecoration(
         prefix: const Text('# '),
         hintText: 'Create new Tag',
-        suffixIcon: isTextEmpty ? null : IconButton(
-          onPressed: () {
-            // TODO add to other Tags
-          },
-          icon: Icon(
-            Icons.add_circle_outlined,
-            color: theme.colorScheme.secondary,
-          ),
-        ),
+        suffixIcon: isTextEmpty
+            ? null
+            : IconButton(
+                onPressed: () {
+                  widget.addTag(controller.text);
+                  controller.text = '';
+                },
+                icon: Icon(
+                  Icons.add_circle_outlined,
+                  color: theme.colorScheme.secondary,
+                ),
+              ),
       ),
     );
   }

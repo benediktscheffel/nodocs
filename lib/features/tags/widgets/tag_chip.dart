@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 class TagChip extends StatefulWidget {
   final bool tagState;
   final String tagName;
+  final ValueChanged<bool> onSelected;
 
-  const TagChip({super.key, required this.tagState, required this.tagName});
+  const TagChip({
+    super.key,
+    required this.tagState,
+    required this.tagName,
+    required this.onSelected,
+  });
 
   @override
   TagChipState createState() => TagChipState();
 }
-
 
 class TagChipState extends State<TagChip> {
   late bool _tagState;
@@ -32,30 +37,46 @@ class TagChipState extends State<TagChip> {
           side: const BorderSide(style: BorderStyle.none),
         ),
         showCheckmark: false,
-        label: _tagState ?
-          IntrinsicWidth(
-            child: Row(children: <Widget>[
-              const Text("# ", style: TextStyle(fontSize: 14),),
-              Text(widget.tagName, style: const TextStyle(fontSize: 14),)
-            ])
-          ) :
-          IntrinsicWidth(
-            child: Row(children: <Widget>[
-              const Icon(Icons.add_outlined, size: 23,),
-              Text(widget.tagName, style: const TextStyle(fontSize: 14),)
-            ])
-          ),
+        label: _tagState
+            ? IntrinsicWidth(
+                child: Row(children: <Widget>[
+                const Text(
+                  "# ",
+                  style: TextStyle(fontSize: 14),
+                ),
+                Text(
+                  widget.tagName,
+                  style: const TextStyle(fontSize: 14),
+                )
+              ]))
+            : IntrinsicWidth(
+                child: Row(children: <Widget>[
+                const Icon(
+                  Icons.add_outlined,
+                  size: 23,
+                ),
+                Text(
+                  widget.tagName,
+                  style: const TextStyle(fontSize: 14),
+                )
+              ])),
         onSelected: (final bool _) {
           setState(() {
             _tagState = !_tagState;
           });
+          widget.onSelected(_tagState);
         },
         selected: _tagState,
-        color: _tagState ?
-          WidgetStateProperty.all<Color>(theme.colorScheme.secondary) :
-          WidgetStateProperty.all<Color>(theme.colorScheme.tertiary),
-        deleteIcon: _tagState ? const Icon(Icons.close, size: 20,): null,
-        onDeleted: _tagState ? () {}: null,
+        color: _tagState
+            ? WidgetStateProperty.all<Color>(theme.colorScheme.secondary)
+            : WidgetStateProperty.all<Color>(theme.colorScheme.tertiary),
+        deleteIcon: _tagState
+            ? const Icon(
+                Icons.close,
+                size: 20,
+              )
+            : null,
+        onDeleted: _tagState ? () {} : null,
       ),
     );
   }
