@@ -31,27 +31,6 @@ class HomeControllerImpl extends _$HomeControllerImpl
   }
 
   @override
-  void showCreateCollectionModal() {
-    _log.i("Showing create collection modal");
-    navigationService.showPopup<void>(
-        CollectionCreateDialog(onSave: createCollection(), goBack: goBack));
-  }
-
-  @override
-  void showConfirmDeletionDialog(final BuildContext context) {
-    showDialog<String>(
-      context: context,
-      builder: (final BuildContext context) => ConfirmationDialog(
-        onConfirm: () => deleteCollectionOrFile,
-        // close dialog
-        onCancel: () {},
-        header: 'Confirm Deletion',
-        notificationText: 'Are you sure you want to delete this file?',
-      ),
-    );
-  }
-
-  @override
   Function(String) createCollection() {
     return (final String fileName) => fileSystemService
         .createCollection(fileName)!
