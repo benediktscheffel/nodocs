@@ -1,18 +1,21 @@
 import 'package:isar/isar.dart';
+import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
-import 'package:nodocs/features/tags/services/persistence/tag_persistence_service.dart';
+import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/tables/tag_tables.dart';
+import 'package:nodocs/util/logging/log.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'isar_tag_persistence_service.g.dart';
+part 'isar_persistence_service.g.dart';
 
 @Riverpod(keepAlive: true)
-TagPersistenceService tagPersistenceService(
-        final TagPersistenceServiceRef ref) =>
-    IsarTagPersistenceService();
+PersistenceService persistenceService(final PersistenceServiceRef ref) =>
+    IsarPersistenceService();
 
-class IsarTagPersistenceService extends TagPersistenceService {
+class IsarPersistenceService extends PersistenceService {
   late final Isar isar;
+
+  static final Logger _log = getLogger();
 
   @override
   Future<void> init() async {
@@ -24,21 +27,34 @@ class IsarTagPersistenceService extends TagPersistenceService {
   }
 
   @override
-  Future<void> addTagToFile(final String filePath, final String tagName) async {
+  Future<int> addTagToFile(final String filePath, final String tagName) async {
     final FileDO? file =
         isar.fileDOs.filter().pathEqualTo(filePath).findFirstSync();
     final TagDO? tag =
         isar.tagDOs.filter().nameEqualTo(tagName).findFirstSync();
     if (file != null && tag != null) {
       file.tableAs.add(tag);
-      await isar.writeTxn(() => isar.fileDOs.put(file));
+      return isar.writeTxn(() => isar.fileDOs.put(file));
     }
+    return Future<int>.value(-1);
   }
 
   @override
-  Future<void> deleteFile(final String filePath) async {
-    await isar.writeTxn(
-        () => isar.fileDOs.filter().pathEqualTo(filePath).deleteFirst());
+  Future<bool> deleteFile(final String filePath) async {
+    final List<FileDO> files =
+        isar.fileDOs.filter().pathStartsWith(filePath).findAllSync();
+    for (final FileDO file in files) {
+      for (final TagDO tag in file.tableAs) {
+        tag.tableAs.remove(file);
+        if (tag.tableAs.isEmpty) {
+          await isar.writeTxn(() => isar.tagDOs.delete(tag.id));
+        } else {
+          await isar.writeTxn(() => tag.tableAs.save());
+        }
+      }
+      return isar.writeTxn(() => isar.fileDOs.delete(file.id));
+    }
+    return Future<bool>.value(false);
   }
 
   @override
@@ -75,14 +91,15 @@ class IsarTagPersistenceService extends TagPersistenceService {
   }
 
   @override
-  Future<void> updateFile(final String oldPath, final String newPath) {
+  Future<int> updateFile(final String oldPath, final String newPath) {
     final FileDO? file =
         isar.fileDOs.filter().pathEqualTo(oldPath).findFirstSync();
     if (file != null) {
-      file.path = newPath;
-      return isar.writeTxn(() => isar.fileDOs.put(file));
+      return isar.writeTxn(() => isar.fileDOs.put(FileDO()
+        ..path = newPath
+        ..id = file.id));
     } else {
-      return Future<void>.value();
+      return Future<int>.value(-1);
     }
   }
 
@@ -108,10 +125,10 @@ class IsarTagPersistenceService extends TagPersistenceService {
         }
       }
       return isar.writeTxn(() => file.tableAs.save());
-    } else {
-      isar.writeTxnSync(() => isar.fileDOs.put(FileDO()..path = filePath));
-      return addTagsToFile(filePath, tags);
     }
+    isar
+        .writeTxn(() => isar.fileDOs.put(FileDO()..path = filePath))
+        .then((final _) => addTagsToFile(filePath, tags));
   }
 
   @override
@@ -123,11 +140,15 @@ class IsarTagPersistenceService extends TagPersistenceService {
         final List<TagDO> tags =
             isar.tagDOs.filter().nameEqualTo(tagName).findAllSync();
         if (tags.isNotEmpty) {
-          tags.map((final TagDO tag) {
-            file.tableAs.remove(tag);
-            tag.tableAs.remove(file);
-            isar.writeTxn(() => tag.tableAs.save());
-          });
+          for (final TagDO tagToDelete in tags) {
+            file.tableAs.remove(tagToDelete);
+            tagToDelete.tableAs.remove(file);
+            if (tagToDelete.tableAs.isEmpty) {
+              isar.writeTxn(() => isar.tagDOs.delete(tagToDelete.id));
+            } else {
+              isar.writeTxn(() => tagToDelete.tableAs.save());
+            }
+          }
         }
       }
       return isar.writeTxn(() => file.tableAs.save());
@@ -147,5 +168,20 @@ class IsarTagPersistenceService extends TagPersistenceService {
                   .contains(filePath)
             ))
         .toList();
+  }
+
+  @override
+  Future<void> updateFilesInCollection(
+      final String oldPath, final String newPath) {
+    _log.i('updating files in $oldPath');
+    final List<FileDO> filesToUpdate = isar.fileDOs
+        .filter()
+        .pathStartsWith(oldPath)
+        .findAllSync()
+        .map((final FileDO file) => FileDO()
+          ..path = file.path.replaceAll(oldPath, newPath)
+          ..id = file.id)
+        .toList();
+    return isar.writeTxn(() => isar.fileDOs.putAll(filesToUpdate));
   }
 }

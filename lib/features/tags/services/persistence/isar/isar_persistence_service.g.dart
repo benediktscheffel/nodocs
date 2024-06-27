@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'isar_tag_persistence_service.dart';
+part of 'isar_persistence_service.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tagPersistenceServiceHash() =>
-    r'4bfb9f4659ae940de85b0fbdd009115324e588b2';
+String _$persistenceServiceHash() =>
+    r'ea705ee193ee1ef3490880aa316e00e48e39a86a';
 
-/// See also [tagPersistenceService].
-@ProviderFor(tagPersistenceService)
-final tagPersistenceServiceProvider = Provider<TagPersistenceService>.internal(
-  tagPersistenceService,
-  name: r'tagPersistenceServiceProvider',
+/// See also [persistenceService].
+@ProviderFor(persistenceService)
+final persistenceServiceProvider = Provider<PersistenceService>.internal(
+  persistenceService,
+  name: r'persistenceServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$tagPersistenceServiceHash,
+      : _$persistenceServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef TagPersistenceServiceRef = ProviderRef<TagPersistenceService>;
+typedef PersistenceServiceRef = ProviderRef<PersistenceService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

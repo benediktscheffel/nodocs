@@ -7,7 +7,7 @@ part of 'save_controller_impl.dart';
 // **************************************************************************
 
 String _$saveControllerImplHash() =>
-    r'86389bee488755e24cfbf51f606caba82a3fdfce';
+    r'c7289dddfab06c6ced4e3f30288c383961db9a5c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,11 +32,11 @@ class _SystemHash {
 
 abstract class _$SaveControllerImpl
     extends BuildlessAutoDisposeNotifier<SaveModel> {
-  late final FileSystemService fileSystemService;
+  late final FileSystemServiceImpl fileSystemService;
   late final NavigationService navigationService;
 
   SaveModel build({
-    required FileSystemService fileSystemService,
+    required FileSystemServiceImpl fileSystemService,
     required NavigationService navigationService,
   });
 }
@@ -52,7 +52,7 @@ class SaveControllerImplFamily extends Family<SaveModel> {
 
   /// See also [SaveControllerImpl].
   SaveControllerImplProvider call({
-    required FileSystemService fileSystemService,
+    required FileSystemServiceImpl fileSystemService,
     required NavigationService navigationService,
   }) {
     return SaveControllerImplProvider(
@@ -91,7 +91,7 @@ class SaveControllerImplProvider
     extends AutoDisposeNotifierProviderImpl<SaveControllerImpl, SaveModel> {
   /// See also [SaveControllerImpl].
   SaveControllerImplProvider({
-    required FileSystemService fileSystemService,
+    required FileSystemServiceImpl fileSystemService,
     required NavigationService navigationService,
   }) : this._internal(
           () => SaveControllerImpl()
@@ -121,7 +121,7 @@ class SaveControllerImplProvider
     required this.navigationService,
   }) : super.internal();
 
-  final FileSystemService fileSystemService;
+  final FileSystemServiceImpl fileSystemService;
   final NavigationService navigationService;
 
   @override
@@ -178,7 +178,7 @@ class SaveControllerImplProvider
 
 mixin SaveControllerImplRef on AutoDisposeNotifierProviderRef<SaveModel> {
   /// The parameter `fileSystemService` of this provider.
-  FileSystemService get fileSystemService;
+  FileSystemServiceImpl get fileSystemService;
 
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
@@ -190,7 +190,7 @@ class _SaveControllerImplProviderElement
   _SaveControllerImplProviderElement(super.provider);
 
   @override
-  FileSystemService get fileSystemService =>
+  FileSystemServiceImpl get fileSystemService =>
       (origin as SaveControllerImplProvider).fileSystemService;
   @override
   NavigationService get navigationService =>

@@ -40,7 +40,7 @@ final pdfViewerNavigationServiceProvider =
 typedef PdfViewerNavigationServiceRef
     = AutoDisposeProviderRef<NavigationService>;
 String _$pdfViewerControllerHash() =>
-    r'9bcdf36b2e1b2f765939f11384b7a396d13bcf46';
+    r'f6f9f040daf58b4b7ee486c4acd0f312da16fe8c';
 
 /// See also [pdfViewerController].
 @ProviderFor(pdfViewerController)
@@ -56,7 +56,7 @@ final pdfViewerControllerProvider =
 );
 
 typedef PdfViewerControllerRef = AutoDisposeProviderRef<PdfViewerController>;
-String _$pdfViewerModelHash() => r'8eef2ea55786d6e5206b39584b5fa8a917b5b457';
+String _$pdfViewerModelHash() => r'f15d7b8d79ab76640dba96fa3cb03d87555972e8';
 
 /// See also [pdfViewerModel].
 @ProviderFor(pdfViewerModel)

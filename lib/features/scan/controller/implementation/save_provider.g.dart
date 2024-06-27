@@ -23,12 +23,12 @@ final saveNavigationServiceProvider =
 );
 
 typedef SaveNavigationServiceRef = AutoDisposeProviderRef<NavigationService>;
-String _$fileSystemServiceHash() => r'16f7f576869e0a04b647a84ba67dc00613a1440d';
+String _$fileSystemServiceHash() => r'9636cd82cbbc42538fb98758927593c1956efb5a';
 
 /// See also [fileSystemService].
 @ProviderFor(fileSystemService)
 final fileSystemServiceProvider =
-    AutoDisposeProvider<FileSystemService>.internal(
+    AutoDisposeProvider<FileSystemServiceImpl>.internal(
   fileSystemService,
   name: r'fileSystemServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -38,7 +38,7 @@ final fileSystemServiceProvider =
   allTransitiveDependencies: null,
 );
 
-typedef FileSystemServiceRef = AutoDisposeProviderRef<FileSystemService>;
+typedef FileSystemServiceRef = AutoDisposeProviderRef<FileSystemServiceImpl>;
 String _$saveControllerHash() => r'd23b11b4b5b4060e03b0bd631a826e13a4b911e7';
 
 /// See also [saveController].

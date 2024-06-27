@@ -84,7 +84,10 @@ class HomePage extends ConsumerWidget {
               contextPath: node.path,
               onShare: () {},
               deleteDialog: ConfirmationDialog(
-                onConfirm: () => controller.deleteCollectionOrFile(node.path),
+                onConfirm: () => <void>{
+                  controller.deleteCollectionOrFile(node.path),
+                  controller.goBackTwice()
+                },
                 onCancel: () => controller.goBackTwice,
                 header: 'Confirm Deletion',
                 notificationText:
