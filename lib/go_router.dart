@@ -43,17 +43,23 @@ GoRouter goRouter(final GoRouterRef ref) => GoRouter(
         GoRoute(
           path: NavigationServiceRoutes.crop,
           builder: (final BuildContext context, final GoRouterState state) {
-            final String path = state.uri.queryParameters['path']!;
-            return CropPage(path: path);
+            final List<String> imagePaths = state.uri.queryParametersAll['path']!;
+            return CropPage(imagePaths: imagePaths);
           },
         ),
         GoRoute(
           path: NavigationServiceRoutes.save,
-          builder: (final BuildContext context, final __) => const SavePage(),
+          builder: (final BuildContext context, final GoRouterState state) {
+            final List<String> imagePaths = state.uri.queryParametersAll['path']!;
+            return SavePage(imagePaths: imagePaths);
+          },
         ),
         GoRoute(
           path: NavigationServiceRoutes.scan,
-          builder: (final BuildContext context, final __) => const ScanPage(),
+          builder: (final BuildContext context, final GoRouterState state) {
+            final List<String> imagePaths = state.uri.queryParametersAll['path'] ?? <String>[];
+            return ScanPage(imagePaths: imagePaths);
+          }
         ),
         GoRoute(
             path: NavigationServiceRoutes.settings,

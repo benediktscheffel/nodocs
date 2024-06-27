@@ -17,7 +17,8 @@ import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 
 class SavePage extends ConsumerWidget {
-  const SavePage({super.key});
+  final List<String> imagePaths;
+  const SavePage({super.key, required this.imagePaths});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {

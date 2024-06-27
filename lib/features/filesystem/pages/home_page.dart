@@ -55,7 +55,11 @@ class HomePage extends ConsumerWidget {
               buttonText: 'Scan Document',
               buttonIcon: Icons.camera_alt_outlined,
               onPressed: () {
-                controller.goToPage(Uri(path: NavigationServiceRoutes.scan));
+                controller.goToPage(Uri(
+                    path: NavigationServiceRoutes.scan,
+                    queryParameters: <String, List<String>>{
+                      'path': <String>[],
+                    }));
               }),
           NavigationButton(
               buttonText: 'Settings',

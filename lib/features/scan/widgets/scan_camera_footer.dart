@@ -1,39 +1,41 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
+import 'package:nodocs/features/scan/controller/implementation/scan_provider.dart';
+import 'package:nodocs/features/scan/controller/scan_controller.dart';
 import 'package:nodocs/features/scan/widgets/scan_box_last_image.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_button.dart';
 
-class ScanCameraFooter extends StatelessWidget {
+class ScanCameraFooter extends ConsumerWidget {
   final VoidCallback onTakePhoto;
+  final List<String> imagePaths;
 
-  const ScanCameraFooter({super.key, required this.onTakePhoto});
+  const ScanCameraFooter({super.key, required this.onTakePhoto, required this.imagePaths});
 
-  Future<void> _pickImage(final BuildContext context) async {
+  Future<void> _pickImage(final BuildContext context, final ScanController scanController) async {
     final XFile? pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null && context.mounted) {
+      List<String> images = scanController.addToImagePaths(imagePaths, pickedFile.path);
       GoRouter.of(context).push(Uri(
-              path: NavigationServiceRoutes.crop,
-              queryParameters: <String, String>{'path': pickedFile.path})
-          .toString());
+          path: NavigationServiceRoutes.crop,
+          queryParameters: <String, List<String>>{
+            'path': images
+          }).toString());
     }
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final ScanController scanController = ref.watch(scanControllerProvider);
     final List<Widget> row = <Widget>[
       ScanBoxLastImage(
         // TODO replace the image path with the actual latest image
-        img: Image.file(
-          File(
-              '${ConfigParameters.fileSystemPath}/collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg'),
-        ),
-        scanCounter: 6,
+        imgPath: scanController.getLatestImagePath(imagePaths),
+        scanCounter: scanController.getScanCounter(imagePaths),
         onTap: () {
           GoRouter.of(context).push(NavigationServiceRoutes.save);
         },
@@ -45,7 +47,7 @@ class ScanCameraFooter extends StatelessWidget {
       ),
       InkWell(
         onTap: () {
-          _pickImage(context);
+          _pickImage(context, scanController);
         },
         child: const Icon(
           Icons.photo_library_outlined,
