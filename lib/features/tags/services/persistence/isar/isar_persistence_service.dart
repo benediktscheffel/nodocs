@@ -1,6 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
+import 'package:nodocs/config/service_locator.dart';
 import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/tables/tag_tables.dart';
 import 'package:nodocs/util/logging/log.dart';
@@ -10,7 +11,7 @@ part 'isar_persistence_service.g.dart';
 
 @Riverpod(keepAlive: true)
 PersistenceService persistenceService(final PersistenceServiceRef ref) =>
-    IsarPersistenceService();
+    getIt<IsarPersistenceService>();
 
 class IsarPersistenceService extends PersistenceService {
   late final Isar isar;
