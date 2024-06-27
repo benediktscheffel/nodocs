@@ -108,9 +108,6 @@ class IsarTagPersistenceService extends TagPersistenceService {
         }
       }
       return isar.writeTxn(() => file.tableAs.save());
-    } else {
-      isar.writeTxnSync(() => isar.fileDOs.put(FileDO()..path = filePath));
-      return addTagsToFile(filePath, tags);
     }
   }
 
@@ -123,11 +120,11 @@ class IsarTagPersistenceService extends TagPersistenceService {
         final List<TagDO> tags =
             isar.tagDOs.filter().nameEqualTo(tagName).findAllSync();
         if (tags.isNotEmpty) {
-          tags.map((final TagDO tag) {
-            file.tableAs.remove(tag);
-            tag.tableAs.remove(file);
-            isar.writeTxn(() => tag.tableAs.save());
-          });
+          for (final TagDO tagToDelete in tags) {
+            file.tableAs.remove(tagToDelete);
+            tagToDelete.tableAs.remove(file);
+            isar.writeTxn(() => tagToDelete.tableAs.save());
+          }
         }
       }
       return isar.writeTxn(() => file.tableAs.save());
