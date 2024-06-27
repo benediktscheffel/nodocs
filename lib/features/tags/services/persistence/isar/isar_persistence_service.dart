@@ -27,21 +27,34 @@ class IsarPersistenceService extends PersistenceService {
   }
 
   @override
-  Future<void> addTagToFile(final String filePath, final String tagName) async {
+  Future<int> addTagToFile(final String filePath, final String tagName) async {
     final FileDO? file =
         isar.fileDOs.filter().pathEqualTo(filePath).findFirstSync();
     final TagDO? tag =
         isar.tagDOs.filter().nameEqualTo(tagName).findFirstSync();
     if (file != null && tag != null) {
       file.tableAs.add(tag);
-      await isar.writeTxn(() => isar.fileDOs.put(file));
+      return isar.writeTxn(() => isar.fileDOs.put(file));
     }
+    return Future<int>.value(-1);
   }
 
   @override
-  Future<void> deleteFile(final String filePath) async {
-    await isar.writeTxn(
-        () => isar.fileDOs.filter().pathEqualTo(filePath).deleteFirst());
+  Future<bool> deleteFile(final String filePath) async {
+    final List<FileDO> files =
+        isar.fileDOs.filter().pathStartsWith(filePath).findAllSync();
+    for (final FileDO file in files) {
+      for (final TagDO tag in file.tableAs) {
+        tag.tableAs.remove(file);
+        if (tag.tableAs.isEmpty) {
+          await isar.writeTxn(() => isar.tagDOs.delete(tag.id));
+        } else {
+          await isar.writeTxn(() => tag.tableAs.save());
+        }
+      }
+      return isar.writeTxn(() => isar.fileDOs.delete(file.id));
+    }
+    return Future<bool>.value(false);
   }
 
   @override
@@ -78,7 +91,7 @@ class IsarPersistenceService extends PersistenceService {
   }
 
   @override
-  Future<void> updateFile(final String oldPath, final String newPath) {
+  Future<int> updateFile(final String oldPath, final String newPath) {
     final FileDO? file =
         isar.fileDOs.filter().pathEqualTo(oldPath).findFirstSync();
     if (file != null) {
@@ -86,7 +99,7 @@ class IsarPersistenceService extends PersistenceService {
         ..path = newPath
         ..id = file.id));
     } else {
-      return Future<void>.value();
+      return Future<int>.value(-1);
     }
   }
 
@@ -113,6 +126,9 @@ class IsarPersistenceService extends PersistenceService {
       }
       return isar.writeTxn(() => file.tableAs.save());
     }
+    isar
+        .writeTxn(() => isar.fileDOs.put(FileDO()..path = filePath))
+        .then((final _) => addTagsToFile(filePath, tags));
   }
 
   @override

@@ -12,7 +12,6 @@ part 'home_controller_impl.g.dart';
 @riverpod
 class HomeControllerImpl extends _$HomeControllerImpl
     implements HomeController {
-
   @override
   HomeModel build({
     required final FileSystemService fileSystemService,
@@ -37,6 +36,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
   void deleteCollectionOrFile(final String path) {
     fileSystemService
         .deleteCollectionOrFile(path)!
+        .then((final FileSystemEntity _) => persistenceService.deleteFile(path))
         .then((final _) => updateState(CollectionNodeBuilder.build()));
   }
 

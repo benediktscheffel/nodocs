@@ -5,7 +5,6 @@ import 'package:nodocs/features/filesystem/services/file_system_access/file_syst
 import 'package:nodocs/util/logging/log.dart';
 
 class FileSystemServiceImpl implements FileSystemService {
-
   final Logger _log = getLogger();
 
   @override
@@ -19,14 +18,12 @@ class FileSystemServiceImpl implements FileSystemService {
   @override
   Future<FileSystemEntity>? deleteCollectionOrFile(final String path) {
     _log.d('deleting $path');
-
     if (path.isEmpty) {
       return null;
     }
     final Directory entity = Directory(path);
     if (entity.existsSync()) {
-      _log.d('deleting $path');
-      return entity.delete();
+      return entity.delete(recursive: true);
     }
     return null;
   }
@@ -51,14 +48,16 @@ class FileSystemServiceImpl implements FileSystemService {
     }
     final File oldFile = File(oldPath);
     if (oldFile.existsSync()) {
-      final File newFile = File('${oldFile.parent.path}/${_nameToPdf(newName)}');
+      final File newFile =
+          File('${oldFile.parent.path}/${_nameToPdf(newName)}');
       return oldFile.rename(newFile.path);
     }
     return null;
   }
 
   @override
-  Future<FileSystemEntity>? renameCollectionOrFile(final String oldPath, final String newName) {
+  Future<FileSystemEntity>? renameCollectionOrFile(
+      final String oldPath, final String newName) {
     if (oldPath.endsWith('.pdf')) {
       return _renamePdfFile(oldPath, newName);
     }
