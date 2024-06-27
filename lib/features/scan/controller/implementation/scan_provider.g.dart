@@ -23,22 +23,7 @@ final scanNavigationServiceProvider =
 );
 
 typedef ScanNavigationServiceRef = AutoDisposeProviderRef<NavigationService>;
-String _$cameraServiceHash() => r'645a41ea7ecfcd9c14354f915597e0b86395c519';
-
-/// See also [cameraService].
-@ProviderFor(cameraService)
-final cameraServiceProvider = AutoDisposeProvider<CameraService>.internal(
-  cameraService,
-  name: r'cameraServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$cameraServiceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef CameraServiceRef = AutoDisposeProviderRef<CameraService>;
-String _$scanControllerHash() => r'894c329fbffbffb200eed110439acf3e459b9b24';
+String _$scanControllerHash() => r'de06dfac0d79c2a4a36028615dd64149ab7b3df1';
 
 /// See also [scanController].
 @ProviderFor(scanController)
@@ -53,7 +38,7 @@ final scanControllerProvider = AutoDisposeProvider<ScanController>.internal(
 );
 
 typedef ScanControllerRef = AutoDisposeProviderRef<ScanController>;
-String _$scanModelHash() => r'6217fef1ccc905f4ee8029c01e0deeec627ff771';
+String _$scanModelHash() => r'9595d8ca83f7b4309008402d13ea3daa827a69a5';
 
 /// See also [scanModel].
 @ProviderFor(scanModel)
