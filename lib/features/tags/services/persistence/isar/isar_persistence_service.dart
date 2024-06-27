@@ -1,18 +1,21 @@
 import 'package:isar/isar.dart';
+import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/tables/tag_tables.dart';
+import 'package:nodocs/util/logging/log.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'isar_persistence_service.g.dart';
 
 @Riverpod(keepAlive: true)
-PersistenceService persistenceService(
-        final PersistenceServiceRef ref) =>
+PersistenceService persistenceService(final PersistenceServiceRef ref) =>
     IsarPersistenceService();
 
 class IsarPersistenceService extends PersistenceService {
   late final Isar isar;
+
+  static final Logger _log = getLogger();
 
   @override
   Future<void> init() async {
@@ -79,8 +82,9 @@ class IsarPersistenceService extends PersistenceService {
     final FileDO? file =
         isar.fileDOs.filter().pathEqualTo(oldPath).findFirstSync();
     if (file != null) {
-      file.path = newPath;
-      return isar.writeTxn(() => isar.fileDOs.put(file));
+      return isar.writeTxn(() => isar.fileDOs.put(FileDO()
+        ..path = newPath
+        ..id = file.id));
     } else {
       return Future<void>.value();
     }
@@ -148,5 +152,20 @@ class IsarPersistenceService extends PersistenceService {
                   .contains(filePath)
             ))
         .toList();
+  }
+
+  @override
+  Future<void> updateFilesInCollection(
+      final String oldPath, final String newPath) {
+    _log.i('updating files in $oldPath');
+    final List<FileDO> filesToUpdate = isar.fileDOs
+        .filter()
+        .pathStartsWith(oldPath)
+        .findAllSync()
+        .map((final FileDO file) => FileDO()
+          ..path = file.path.replaceAll(oldPath, newPath)
+          ..id = file.id)
+        .toList();
+    return isar.writeTxn(() => isar.fileDOs.putAll(filesToUpdate));
   }
 }

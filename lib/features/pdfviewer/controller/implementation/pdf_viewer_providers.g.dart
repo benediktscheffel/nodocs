@@ -56,7 +56,7 @@ final pdfViewerControllerProvider =
 );
 
 typedef PdfViewerControllerRef = AutoDisposeProviderRef<PdfViewerController>;
-String _$pdfViewerModelHash() => r'8eef2ea55786d6e5206b39584b5fa8a917b5b457';
+String _$pdfViewerModelHash() => r'f15d7b8d79ab76640dba96fa3cb03d87555972e8';
 
 /// See also [pdfViewerModel].
 @ProviderFor(pdfViewerModel)

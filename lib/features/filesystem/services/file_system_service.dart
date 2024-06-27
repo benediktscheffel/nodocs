@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:fpdart/fpdart.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/util/logging/log.dart';
@@ -30,31 +28,30 @@ class FileSystemService {
     return null;
   }
 
-  Option<Directory> _renameCollection(
+  Future<Directory>? _renameCollection(
       final String oldPath, final String newName) {
     if (oldPath.isEmpty || newName.isEmpty) {
-      return const Option<Directory>.none();
+      return null;
     }
     final Directory oldDirectory = Directory(oldPath);
     if (oldDirectory.existsSync()) {
       final Directory newDirectory =
           Directory('${oldDirectory.parent.path}/$newName');
-      return Option<Directory>.fromNullable(
-          oldDirectory.renameSync(newDirectory.path));
+      return oldDirectory.rename(newDirectory.path);
     }
-    return const Option<Directory>.none();
+    return null;
   }
 
-  Option<File> _renamePdfFile(final String oldPath, final String newName) {
+  Future<File>? _renamePdfFile(final String oldPath, final String newName) {
     if (oldPath.isEmpty || newName.isEmpty) {
-      return const Option<File>.none();
+      return null;
     }
     final File oldFile = File(oldPath);
     if (oldFile.existsSync()) {
       final File newFile = File('${oldFile.parent.path}/${_nameToPdf(newName)}');
-      return Option<File>.fromNullable(oldFile.renameSync(newFile.path));
+      return oldFile.rename(newFile.path);
     }
-    return const Option<File>.none();
+    return null;
   }
 
   bool newPathAlreadyExist(final String path, final String name) {
@@ -62,7 +59,7 @@ class FileSystemService {
     return entity.existsSync();
   }
 
-  Option<FileSystemEntity> renameCollectionOrFile(final String oldPath, final String newName) {
+  Future<FileSystemEntity>? renameCollectionOrFile(final String oldPath, final String newName) {
     if (oldPath.endsWith('.pdf')) {
       return _renamePdfFile(oldPath, newName);
     }

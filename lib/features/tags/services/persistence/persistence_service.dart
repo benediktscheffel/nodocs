@@ -21,4 +21,6 @@ abstract class PersistenceService {
 
   Future<void> deleteTagsFromFile(
       final String filePath, final List<String> tags);
+
+  Future<void> updateFilesInCollection(final String oldPath, final String newPath);
 }
