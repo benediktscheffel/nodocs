@@ -6,10 +6,9 @@ import 'config/service_locator.dart';
 import 'go_router.dart';
 
 void main() async {
+  setupServiceLocator();
   final ProviderContainer providerContainer = ProviderContainer();
   await providerContainer.read(persistenceServiceProvider).init();
-
-  setupServiceLocator();
   await dotenv.load(fileName: "config.env");
   runApp(const ProviderScope(
     child: MyApp(),

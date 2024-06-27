@@ -11,7 +11,7 @@ part 'isar_persistence_service.g.dart';
 
 @Riverpod(keepAlive: true)
 PersistenceService persistenceService(final PersistenceServiceRef ref) =>
-    getIt<IsarPersistenceService>();
+    getIt<PersistenceService>();
 
 class IsarPersistenceService extends PersistenceService {
   late final Isar isar;
