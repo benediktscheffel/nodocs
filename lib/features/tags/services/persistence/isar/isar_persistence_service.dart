@@ -1,17 +1,17 @@
 import 'package:isar/isar.dart';
 import 'package:nodocs/config/config_parameters.dart';
-import 'package:nodocs/features/tags/services/persistence/tag_persistence_service.dart';
+import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/tables/tag_tables.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'isar_tag_persistence_service.g.dart';
+part 'isar_persistence_service.g.dart';
 
 @Riverpod(keepAlive: true)
-TagPersistenceService tagPersistenceService(
-        final TagPersistenceServiceRef ref) =>
-    IsarTagPersistenceService();
+PersistenceService persistenceService(
+        final PersistenceServiceRef ref) =>
+    IsarPersistenceService();
 
-class IsarTagPersistenceService extends TagPersistenceService {
+class IsarPersistenceService extends PersistenceService {
   late final Isar isar;
 
   @override
@@ -123,7 +123,6 @@ class IsarTagPersistenceService extends TagPersistenceService {
           for (final TagDO tagToDelete in tags) {
             file.tableAs.remove(tagToDelete);
             tagToDelete.tableAs.remove(file);
-            print('tableAsLength: ${tagToDelete.tableAs.length}');
             if (tagToDelete.tableAs.isEmpty) {
               isar.writeTxn(() => isar.tagDOs.delete(tagToDelete.id));
             } else {

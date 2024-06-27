@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nodocs/features/tags/services/persistence/isar/isar_tag_persistence_service.dart';
+import 'package:nodocs/features/tags/services/persistence/isar/isar_persistence_service.dart';
 import 'config/service_locator.dart';
 import 'go_router.dart';
 
 void main() async {
   final ProviderContainer providerContainer = ProviderContainer();
-  await providerContainer.read(tagPersistenceServiceProvider).init();
+  await providerContainer.read(persistenceServiceProvider).init();
 
   setupServiceLocator();
   // await dotenv.load(fileName: "config.env");
