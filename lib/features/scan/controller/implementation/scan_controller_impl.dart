@@ -1,9 +1,7 @@
-import 'package:camera/camera.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/scan/controller/scan_controller.dart';
 import 'package:nodocs/features/scan/model/scan_model.dart';
-import 'package:nodocs/features/scan/services/camera_service.dart';
 import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/util/logging/log.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,14 +15,8 @@ class ScanControllerImpl extends _$ScanControllerImpl implements ScanController 
   @override
   ScanModel build({
     required final NavigationService navigationService,
-    required final AsyncValue<CameraController?> cameraController,
   }) {
     return const ScanModel();
-  }
-
-  @override
-  AsyncValue<CameraController?> getCameraController() {
-    return cameraController;
   }
 
   @override
@@ -48,19 +40,5 @@ class ScanControllerImpl extends _$ScanControllerImpl implements ScanController 
   @override
   int getScanCounter(final List<String> imagePaths) {
     return imagePaths.length;
-  }
-
-  @override
-  void clearCameraController() {
-    /*cameraController.when(data: (final CameraController? controller) {
-      if (controller == null) {
-        return;
-      }
-      controller.dispose();
-    }, loading: () {
-      _log.i("closing camera...");
-    }, error: (final _, final __) {
-      _log.e("error closing camera");
-    });*/
   }
 }

@@ -7,7 +7,7 @@ part of 'scan_controller_impl.dart';
 // **************************************************************************
 
 String _$scanControllerImplHash() =>
-    r'fce0d56b7584433a2a78e627b30eb778e363052a';
+    r'5c0ed4501c35fe337f570707b16dc0abe707af11';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,11 +33,9 @@ class _SystemHash {
 abstract class _$ScanControllerImpl
     extends BuildlessAutoDisposeNotifier<ScanModel> {
   late final NavigationService navigationService;
-  late final AsyncValue<CameraController?> cameraController;
 
   ScanModel build({
     required NavigationService navigationService,
-    required AsyncValue<CameraController?> cameraController,
   });
 }
 
@@ -53,11 +51,9 @@ class ScanControllerImplFamily extends Family<ScanModel> {
   /// See also [ScanControllerImpl].
   ScanControllerImplProvider call({
     required NavigationService navigationService,
-    required AsyncValue<CameraController?> cameraController,
   }) {
     return ScanControllerImplProvider(
       navigationService: navigationService,
-      cameraController: cameraController,
     );
   }
 
@@ -67,7 +63,6 @@ class ScanControllerImplFamily extends Family<ScanModel> {
   ) {
     return call(
       navigationService: provider.navigationService,
-      cameraController: provider.cameraController,
     );
   }
 
@@ -92,11 +87,8 @@ class ScanControllerImplProvider
   /// See also [ScanControllerImpl].
   ScanControllerImplProvider({
     required NavigationService navigationService,
-    required AsyncValue<CameraController?> cameraController,
   }) : this._internal(
-          () => ScanControllerImpl()
-            ..navigationService = navigationService
-            ..cameraController = cameraController,
+          () => ScanControllerImpl()..navigationService = navigationService,
           from: scanControllerImplProvider,
           name: r'scanControllerImplProvider',
           debugGetCreateSourceHash:
@@ -107,7 +99,6 @@ class ScanControllerImplProvider
           allTransitiveDependencies:
               ScanControllerImplFamily._allTransitiveDependencies,
           navigationService: navigationService,
-          cameraController: cameraController,
         );
 
   ScanControllerImplProvider._internal(
@@ -118,11 +109,9 @@ class ScanControllerImplProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.navigationService,
-    required this.cameraController,
   }) : super.internal();
 
   final NavigationService navigationService;
-  final AsyncValue<CameraController?> cameraController;
 
   @override
   ScanModel runNotifierBuild(
@@ -130,7 +119,6 @@ class ScanControllerImplProvider
   ) {
     return notifier.build(
       navigationService: navigationService,
-      cameraController: cameraController,
     );
   }
 
@@ -139,16 +127,13 @@ class ScanControllerImplProvider
     return ProviderOverride(
       origin: this,
       override: ScanControllerImplProvider._internal(
-        () => create()
-          ..navigationService = navigationService
-          ..cameraController = cameraController,
+        () => create()..navigationService = navigationService,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         navigationService: navigationService,
-        cameraController: cameraController,
       ),
     );
   }
@@ -162,15 +147,13 @@ class ScanControllerImplProvider
   @override
   bool operator ==(Object other) {
     return other is ScanControllerImplProvider &&
-        other.navigationService == navigationService &&
-        other.cameraController == cameraController;
+        other.navigationService == navigationService;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
-    hash = _SystemHash.combine(hash, cameraController.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -179,9 +162,6 @@ class ScanControllerImplProvider
 mixin ScanControllerImplRef on AutoDisposeNotifierProviderRef<ScanModel> {
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
-
-  /// The parameter `cameraController` of this provider.
-  AsyncValue<CameraController?> get cameraController;
 }
 
 class _ScanControllerImplProviderElement
@@ -192,9 +172,6 @@ class _ScanControllerImplProviderElement
   @override
   NavigationService get navigationService =>
       (origin as ScanControllerImplProvider).navigationService;
-  @override
-  AsyncValue<CameraController?> get cameraController =>
-      (origin as ScanControllerImplProvider).cameraController;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

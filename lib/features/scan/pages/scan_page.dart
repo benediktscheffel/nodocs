@@ -8,6 +8,7 @@ import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/implementation/scan_provider.dart';
 import 'package:nodocs/features/scan/controller/scan_controller.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera.dart';
+import 'package:nodocs/providers/camera_provider.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
@@ -18,7 +19,7 @@ class ScanPage extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ScanController scanController = ref.watch(scanControllerProvider);
-    final AsyncValue<CameraController?> cameraController = scanController.getCameraController();
+    final AsyncValue<List<CameraDescription>> cameraListAsyncValue = ref.watch(cameraProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -43,12 +44,12 @@ class ScanPage extends ConsumerWidget {
           ),
         ),
       ),
-      body: cameraController.when(
-        data: (final CameraController? controller) {
-          if (controller == null) {
+      body: cameraListAsyncValue.when(
+        data: (final List<CameraDescription> cameras) {
+          if (cameras.isEmpty) {
             return const Center(child: Text('No camera found'));
           }
-          return ScanCamera(imagePaths: imagePaths, cameraController: controller, scanController: scanController);
+          return ScanCamera(imagePaths: imagePaths, cameraList: cameras, scanController: scanController);
         },
         loading: () => Center(
           child: CircularProgressIndicator(

@@ -7,7 +7,4 @@ abstract class ScanController {
   List<String> removeFromImagePaths(final List<String> imagePaths);
   String getLatestImagePath(final List<String> imagePaths);
   int getScanCounter(final List<String> imagePaths);
-
-  AsyncValue<CameraController?> getCameraController();
-  void clearCameraController();
 }
