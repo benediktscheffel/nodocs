@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
 import 'package:nodocs/features/filesystem/model/home_model/collection_node_builder.dart';
 import 'package:nodocs/features/filesystem/services/file_system_service.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
-import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/util/logging/log.dart';
-import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_controller_impl.g.dart';

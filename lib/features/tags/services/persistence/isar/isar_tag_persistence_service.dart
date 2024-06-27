@@ -123,7 +123,12 @@ class IsarTagPersistenceService extends TagPersistenceService {
           for (final TagDO tagToDelete in tags) {
             file.tableAs.remove(tagToDelete);
             tagToDelete.tableAs.remove(file);
-            isar.writeTxn(() => tagToDelete.tableAs.save());
+            print('tableAsLength: ${tagToDelete.tableAs.length}');
+            if (tagToDelete.tableAs.isEmpty) {
+              isar.writeTxn(() => isar.tagDOs.delete(tagToDelete.id));
+            } else {
+              isar.writeTxn(() => tagToDelete.tableAs.save());
+            }
           }
         }
       }
