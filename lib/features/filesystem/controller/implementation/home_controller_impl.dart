@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
 import 'package:nodocs/features/filesystem/model/home_model/collection_node_builder.dart';
-import 'package:nodocs/features/filesystem/services/file_system_service.dart';
+import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
