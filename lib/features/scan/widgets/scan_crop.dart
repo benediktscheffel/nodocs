@@ -38,7 +38,6 @@ class _ScanCropState extends ConsumerState<ScanCrop> {
     return FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (final BuildContext context, final AsyncSnapshot<void> snapshot) {
-      print("image paths: ${controller.getImagePaths()}");
       final CroppedFile? croppedImage = controller.getCroppedImage();
       final XFile? pickedImage = controller.getPickedImage();
       final double screenWidth =
