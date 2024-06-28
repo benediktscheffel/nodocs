@@ -7,7 +7,7 @@ part of 'scan_controller_impl.dart';
 // **************************************************************************
 
 String _$scanControllerImplHash() =>
-    r'5c0ed4501c35fe337f570707b16dc0abe707af11';
+    r'94ac8b1755b5e2d3615aac536402f950a6c56f0e';
 
 /// Copied from Dart SDK
 class _SystemHash {

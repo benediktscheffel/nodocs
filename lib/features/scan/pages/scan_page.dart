@@ -32,11 +32,10 @@ class ScanPage extends ConsumerWidget {
             builder: (final BuildContext context) =>
               ConfirmationDialog(
                 onConfirm: (){
-                  // TODO delete all saved images of the scan
-                  GoRouter.of(context).go(NavigationServiceRoutes.home);
+                  scanController.goToPage(Uri(path: NavigationServiceRoutes.home));
                 },
                 onCancel: (){
-                  GoRouter.of(context).pop();
+                  scanController.goBack();
                 },
                 header: 'Discard this scan?',
                 notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'

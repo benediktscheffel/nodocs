@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/implementation/scan_provider.dart';
@@ -20,11 +19,11 @@ class ScanCameraFooter extends ConsumerWidget {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null && context.mounted) {
       List<String> images = scanController.addToImagePaths(imagePaths, pickedFile.path);
-      GoRouter.of(context).push(Uri(
+      scanController.goToPage(Uri(
           path: NavigationServiceRoutes.crop,
           queryParameters: <String, List<String>>{
             'path': images
-          }).toString());
+          }));
     }
   }
 
@@ -37,7 +36,9 @@ class ScanCameraFooter extends ConsumerWidget {
         imgPath: scanController.getLatestImagePath(imagePaths),
         scanCounter: scanController.getScanCounter(imagePaths),
         onTap: () {
-          GoRouter.of(context).push(NavigationServiceRoutes.save);
+          scanController.goToPage(Uri(
+              path: NavigationServiceRoutes.save,
+              queryParameters: <String, List<String>>{'path': imagePaths}));
         },
       ),
       ScanCameraButton(

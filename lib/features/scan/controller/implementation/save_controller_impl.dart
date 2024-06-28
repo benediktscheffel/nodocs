@@ -1,18 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart'as http;
+import 'package:image_cropper/image_cropper.dart';
 import 'package:logger/logger.dart';
-import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/services/file_system_service.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/save_controller.dart';
 import 'package:nodocs/features/scan/model/save_model.dart';
 import 'package:nodocs/features/scan/services/carousel_service.dart';
+import 'package:nodocs/features/scan/services/crop_service.dart';
+import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/util/logging/log.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,9 +34,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     required final FileSystemService fileSystemService,
     required final NavigationService navigationService,
   }) {
-    return SaveModel(
-      selectedImagePath: '',
-      imagePaths: CarouselService.listImagePathsInDirectory('${ConfigParameters.fileSystemPath}collection1/'),
+    return const SaveModel(
       tags: <String>{
         "Tag1",
         "Tag2",
@@ -46,10 +47,32 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
         "Tag9",
         "Tag10",
       },
-      imageFolder: '${ConfigParameters.fileSystemPath}collection1/',
-      imageSliders: CarouselService.loadImages('${ConfigParameters.fileSystemPath}collection1/'),
       currentSliderIndex: 0,
+      imagePaths: <String>[],
     );
+  }
+
+  @override
+  void init(final List<String> imagePaths) {
+    state = state.copyWith(imagePaths: imagePaths);
+  }
+
+  @override
+  void clear() {
+       state = state.copyWith(tags: <String>{
+         "Tag1",
+         "Tag2",
+         "Tag3",
+         "Tag4",
+         "Tag5",
+         "Tag6",
+         "Tag7",
+         "Tag8",
+         "Tag9",
+         "Tag10",
+       },
+         currentSliderIndex: 0,
+         imagePaths: <String>[],);
   }
 
   @override
@@ -105,7 +128,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   }
 
   @override
-  void handleDocumentOCR(final BuildContext context, final Set<String> paths) async {
+  void handleDocumentOCR(final BuildContext context, final List<String> paths) async {
     try {
       final List<InternetAddress> result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -299,7 +322,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   }
 
   @override
-  Future<pw.Document> createPDF(final Set<String> imagePaths) async {
+  Future<pw.Document> createPDF(final List<String> imagePaths) async {
     final pw.Document pdf = pw.Document();
     for (final String path in imagePaths) {
       final pw.MemoryImage image = pw.MemoryImage(File(path).readAsBytesSync());
@@ -327,11 +350,6 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   }
 
   @override
-  void setSelectedImagePath(final String path) {
-    state = state.copyWith(selectedImagePath: path);
-  }
-
-  @override
   void goToPage(final Uri uri) {
     _log.i("Navigating to: ${uri.toString()}");
     navigationService.push(uri.toString());
@@ -345,11 +363,50 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
 
   @override
   String getImagePathById(final int id) {
-    return state.imageFolder + state.imagePaths.elementAt(id).split("/").last;
+    return (id >= 0 && state.imagePaths.length > id) ? state.imagePaths.elementAt(id) : '';
+  }
+
+  @override
+  List<Widget> getImageWidgets(final List<String> imagePaths) {
+    return CarouselService.buildImageWidgets(imagePaths);
   }
 
   @override
   void setCurrentSliderIndex(final int index) {
     state = state.copyWith(currentSliderIndex: index);
+  }
+
+  @override
+  int getCurrentSliderIndex() {
+    return state.currentSliderIndex;
+  }
+
+  @override
+  Set<String> getTags() {
+    return state.tags;
+  }
+
+  @override
+  List<String> getImagePaths() {
+    return state.imagePaths;
+  }
+
+  @override
+  XFile getSelectedImageFile() {
+    String path = getImagePathById(state.currentSliderIndex);
+    return XFile(path);
+  }
+
+  @override
+  void setCroppedImage(final CroppedFile croppedFile) {
+    String pathToReplace = getImagePathById(state.currentSliderIndex);
+    state = state.copyWith(
+        imagePaths: ImageService.replaceImagePath(
+            pathToReplace, croppedFile.path, state.imagePaths));
+  }
+
+  @override
+  Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context) {
+    return CropService.cropImage(theme, pickedFile, context);
   }
 }

@@ -41,4 +41,16 @@ class ScanControllerImpl extends _$ScanControllerImpl implements ScanController 
   int getScanCounter(final List<String> imagePaths) {
     return imagePaths.length;
   }
+
+  @override
+  void goToPage(final Uri uri) {
+    _log.i("Navigating to: ${uri.toString()}");
+    navigationService.push(uri.toString());
+  }
+
+  @override
+  void goBack() {
+    _log.i("Going back");
+    navigationService.pop();
+  }
 }

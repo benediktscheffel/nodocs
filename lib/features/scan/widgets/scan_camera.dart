@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/scan_controller.dart';
@@ -150,10 +149,10 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
                   widget.imagePaths,
                   image.path,
                 );
-                GoRouter.of(context).push(Uri(
+                widget.scanController.goToPage(Uri(
                   path: NavigationServiceRoutes.crop,
-                  queryParameters: {'path': images},
-                ).toString());
+                  queryParameters: <String, List<String>> {'path': images},
+                ));
               } catch (e) {
                 if (mounted) {
                   Center(child: Text(e.toString()));
