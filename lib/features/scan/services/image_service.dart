@@ -21,4 +21,17 @@ class ImageService {
     }
     return '';
   }
+
+
+  static List<String> replaceImagePath(final String oldPath, final String newPath, final List<String> imagePaths) {
+    if (!imagePaths.contains(oldPath)) {
+      return imagePaths;
+    }
+    int oldIndex = imagePaths.indexOf(oldPath);
+    List<String> updatedImagePaths = List<String>.from(imagePaths);
+    updatedImagePaths[oldIndex] = newPath;
+
+    return updatedImagePaths;
+  }
+
 }

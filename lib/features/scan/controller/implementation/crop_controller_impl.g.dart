@@ -7,7 +7,7 @@ part of 'crop_controller_impl.dart';
 // **************************************************************************
 
 String _$cropControllerImplHash() =>
-    r'514865a0a7ed45c63b15088a31d3d26d42a0c56d';
+    r'f0ddb137d7d9ea87b50b9d7f19bc77491afaf0ae';
 
 /// Copied from Dart SDK
 class _SystemHash {

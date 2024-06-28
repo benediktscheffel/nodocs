@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CropModel {
   List<String> get imagePaths => throw _privateConstructorUsedError;
+  CroppedFile? get croppedFile => throw _privateConstructorUsedError;
+  XFile? get pickedFile => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CropModelCopyWith<CropModel> get copyWith =>
@@ -28,7 +30,8 @@ abstract class $CropModelCopyWith<$Res> {
   factory $CropModelCopyWith(CropModel value, $Res Function(CropModel) then) =
       _$CropModelCopyWithImpl<$Res, CropModel>;
   @useResult
-  $Res call({List<String> imagePaths});
+  $Res call(
+      {List<String> imagePaths, CroppedFile? croppedFile, XFile? pickedFile});
 }
 
 /// @nodoc
@@ -45,12 +48,22 @@ class _$CropModelCopyWithImpl<$Res, $Val extends CropModel>
   @override
   $Res call({
     Object? imagePaths = null,
+    Object? croppedFile = freezed,
+    Object? pickedFile = freezed,
   }) {
     return _then(_value.copyWith(
       imagePaths: null == imagePaths
           ? _value.imagePaths
           : imagePaths // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      croppedFile: freezed == croppedFile
+          ? _value.croppedFile
+          : croppedFile // ignore: cast_nullable_to_non_nullable
+              as CroppedFile?,
+      pickedFile: freezed == pickedFile
+          ? _value.pickedFile
+          : pickedFile // ignore: cast_nullable_to_non_nullable
+              as XFile?,
     ) as $Val);
   }
 }
@@ -63,7 +76,8 @@ abstract class _$$CropModelImplCopyWith<$Res>
       __$$CropModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> imagePaths});
+  $Res call(
+      {List<String> imagePaths, CroppedFile? croppedFile, XFile? pickedFile});
 }
 
 /// @nodoc
@@ -78,12 +92,22 @@ class __$$CropModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? imagePaths = null,
+    Object? croppedFile = freezed,
+    Object? pickedFile = freezed,
   }) {
     return _then(_$CropModelImpl(
       imagePaths: null == imagePaths
           ? _value._imagePaths
           : imagePaths // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      croppedFile: freezed == croppedFile
+          ? _value.croppedFile
+          : croppedFile // ignore: cast_nullable_to_non_nullable
+              as CroppedFile?,
+      pickedFile: freezed == pickedFile
+          ? _value.pickedFile
+          : pickedFile // ignore: cast_nullable_to_non_nullable
+              as XFile?,
     ));
   }
 }
@@ -91,7 +115,10 @@ class __$$CropModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CropModelImpl implements _CropModel {
-  const _$CropModelImpl({required final List<String> imagePaths})
+  const _$CropModelImpl(
+      {required final List<String> imagePaths,
+      required this.croppedFile,
+      required this.pickedFile})
       : _imagePaths = imagePaths;
 
   final List<String> _imagePaths;
@@ -103,8 +130,13 @@ class _$CropModelImpl implements _CropModel {
   }
 
   @override
+  final CroppedFile? croppedFile;
+  @override
+  final XFile? pickedFile;
+
+  @override
   String toString() {
-    return 'CropModel(imagePaths: $imagePaths)';
+    return 'CropModel(imagePaths: $imagePaths, croppedFile: $croppedFile, pickedFile: $pickedFile)';
   }
 
   @override
@@ -113,12 +145,19 @@ class _$CropModelImpl implements _CropModel {
         (other.runtimeType == runtimeType &&
             other is _$CropModelImpl &&
             const DeepCollectionEquality()
-                .equals(other._imagePaths, _imagePaths));
+                .equals(other._imagePaths, _imagePaths) &&
+            (identical(other.croppedFile, croppedFile) ||
+                other.croppedFile == croppedFile) &&
+            (identical(other.pickedFile, pickedFile) ||
+                other.pickedFile == pickedFile));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_imagePaths));
+      runtimeType,
+      const DeepCollectionEquality().hash(_imagePaths),
+      croppedFile,
+      pickedFile);
 
   @JsonKey(ignore: true)
   @override
@@ -128,11 +167,17 @@ class _$CropModelImpl implements _CropModel {
 }
 
 abstract class _CropModel implements CropModel {
-  const factory _CropModel({required final List<String> imagePaths}) =
-      _$CropModelImpl;
+  const factory _CropModel(
+      {required final List<String> imagePaths,
+      required final CroppedFile? croppedFile,
+      required final XFile? pickedFile}) = _$CropModelImpl;
 
   @override
   List<String> get imagePaths;
+  @override
+  CroppedFile? get croppedFile;
+  @override
+  XFile? get pickedFile;
   @override
   @JsonKey(ignore: true)
   _$$CropModelImplCopyWith<_$CropModelImpl> get copyWith =>

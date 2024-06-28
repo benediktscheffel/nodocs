@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/crop_controller.dart';
 import 'package:nodocs/features/scan/controller/implementation/crop_provider.dart';
-import 'package:nodocs/features/scan/controller/implementation/scan_provider.dart';
 import 'package:nodocs/features/scan/widgets/scan_crop.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
@@ -46,7 +45,7 @@ class CropPage extends ConsumerWidget {
       body: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          ScanCrop(path: imagePaths.last,),
+          ScanCrop(imagePaths: imagePaths),
         ],
       ),
       bottomNavigationBar: NavigationBox(buttons: <Widget>[
@@ -58,12 +57,13 @@ class CropPage extends ConsumerWidget {
             builder: (final BuildContext context) =>
               ConfirmationDialog(
                 onConfirm: (){
-                  List<String> images = controller.removeFromImagePaths(imagePaths);
+                  controller.removeLastImageFromImagePaths();
                   controller.goToPage(Uri(
                     path: NavigationServiceRoutes.scan,
                     queryParameters: <String, List<String>>{
-                      'path': images,
+                      'path': controller.getImagePaths(),
                     }));
+                  controller.clear();
                 },
                 onCancel: (){
                   controller.goBack();
@@ -80,8 +80,9 @@ class CropPage extends ConsumerWidget {
             controller.goToPage(Uri(
                 path: NavigationServiceRoutes.scan,
                 queryParameters: <String, List<String>>{
-                  'path': imagePaths,
+                  'path': controller.getImagePaths(),
                 }));
+            controller.clear();
           },
         ),
         NavigationButton(
@@ -91,8 +92,9 @@ class CropPage extends ConsumerWidget {
             controller.goToPage(Uri(
                 path: NavigationServiceRoutes.save,
                 queryParameters: <String, List<String>>{
-                  'path': imagePaths,
+                  'path': controller.getImagePaths(),
                 }));
+            controller.clear();
           },
         ),
       ]),
