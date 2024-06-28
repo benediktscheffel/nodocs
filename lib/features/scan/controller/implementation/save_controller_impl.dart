@@ -49,6 +49,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
       },
       currentSliderIndex: 0,
       imagePaths: <String>[],
+      toggleCamera: false,
     );
   }
 
@@ -59,20 +60,23 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
 
   @override
   void clear() {
-       state = state.copyWith(tags: <String>{
-         "Tag1",
-         "Tag2",
-         "Tag3",
-         "Tag4",
-         "Tag5",
-         "Tag6",
-         "Tag7",
-         "Tag8",
-         "Tag9",
-         "Tag10",
-       },
+       state = state.copyWith(
+         tags: <String>{
+           "Tag1",
+           "Tag2",
+           "Tag3",
+           "Tag4",
+           "Tag5",
+           "Tag6",
+           "Tag7",
+           "Tag8",
+           "Tag9",
+           "Tag10",
+         },
          currentSliderIndex: 0,
-         imagePaths: <String>[],);
+         imagePaths: <String>[],
+         toggleCamera: false,
+       );
   }
 
   @override
@@ -367,8 +371,8 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   }
 
   @override
-  List<Widget> getImageWidgets(final List<String> imagePaths) {
-    return CarouselService.buildImageWidgets(imagePaths);
+  List<Widget> getImageWidgets() {
+    return CarouselService.buildImageWidgets(state.imagePaths);
   }
 
   @override
@@ -408,5 +412,15 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   @override
   Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context) {
     return CropService.cropImage(theme, pickedFile, context);
+  }
+
+  @override
+  void toggleCamera() {
+    state = state.copyWith(toggleCamera: !state.toggleCamera);
+  }
+
+  @override
+  bool getCameraState() {
+    return state.toggleCamera;
   }
 }

@@ -1,44 +1,34 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nodocs/features/navigation/navigation_service_routes.dart';
-import 'package:nodocs/features/scan/controller/implementation/scan_provider.dart';
-import 'package:nodocs/features/scan/controller/scan_controller.dart';
+import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_box_last_image.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_button.dart';
 
-class ScanCameraFooter extends ConsumerWidget {
+class ScanCameraFooter extends StatelessWidget {
+  final ValueChanged<String> onImageSelected;
   final VoidCallback onTakePhoto;
+  final VoidCallback onLastImageTapped;
   final List<String> imagePaths;
 
-  const ScanCameraFooter({super.key, required this.onTakePhoto, required this.imagePaths});
+  const ScanCameraFooter({super.key, required this.onTakePhoto, required this.imagePaths, required this.onImageSelected, required this.onLastImageTapped});
 
-  Future<void> _pickImage(final BuildContext context, final ScanController scanController) async {
+  Future<void> _pickImage(final BuildContext context) async {
     final XFile? pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null && context.mounted) {
-      List<String> images = scanController.addToImagePaths(imagePaths, pickedFile.path);
-      scanController.goToPage(Uri(
-          path: NavigationServiceRoutes.crop,
-          queryParameters: <String, List<String>>{
-            'path': images
-          }));
+      onImageSelected.call(pickedFile.path);
     }
   }
 
   @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
-    final ScanController scanController = ref.watch(scanControllerProvider);
+  Widget build(final BuildContext context) {
     final List<Widget> row = <Widget>[
       ScanBoxLastImage(
-        // TODO replace the image path with the actual latest image
-        imgPath: scanController.getLatestImagePath(imagePaths),
-        scanCounter: scanController.getScanCounter(imagePaths),
+        imgPath: ImageService.getLatestImagePath(imagePaths),
+        scanCounter: imagePaths.length,
         onTap: () {
-          scanController.goToPage(Uri(
-              path: NavigationServiceRoutes.save,
-              queryParameters: <String, List<String>>{'path': imagePaths}));
+          onLastImageTapped.call();
         },
       ),
       ScanCameraButton(
@@ -48,7 +38,7 @@ class ScanCameraFooter extends ConsumerWidget {
       ),
       InkWell(
         onTap: () {
-          _pickImage(context, scanController);
+          _pickImage(context);
         },
         child: const Icon(
           Icons.photo_library_outlined,

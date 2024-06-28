@@ -19,6 +19,7 @@ mixin _$SaveModel {
   Set<String> get tags => throw _privateConstructorUsedError;
   int get currentSliderIndex => throw _privateConstructorUsedError;
   List<String> get imagePaths => throw _privateConstructorUsedError;
+  bool get toggleCamera => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SaveModelCopyWith<SaveModel> get copyWith =>
@@ -31,7 +32,10 @@ abstract class $SaveModelCopyWith<$Res> {
       _$SaveModelCopyWithImpl<$Res, SaveModel>;
   @useResult
   $Res call(
-      {Set<String> tags, int currentSliderIndex, List<String> imagePaths});
+      {Set<String> tags,
+      int currentSliderIndex,
+      List<String> imagePaths,
+      bool toggleCamera});
 }
 
 /// @nodoc
@@ -50,6 +54,7 @@ class _$SaveModelCopyWithImpl<$Res, $Val extends SaveModel>
     Object? tags = null,
     Object? currentSliderIndex = null,
     Object? imagePaths = null,
+    Object? toggleCamera = null,
   }) {
     return _then(_value.copyWith(
       tags: null == tags
@@ -64,6 +69,10 @@ class _$SaveModelCopyWithImpl<$Res, $Val extends SaveModel>
           ? _value.imagePaths
           : imagePaths // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      toggleCamera: null == toggleCamera
+          ? _value.toggleCamera
+          : toggleCamera // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -77,7 +86,10 @@ abstract class _$$SaveModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Set<String> tags, int currentSliderIndex, List<String> imagePaths});
+      {Set<String> tags,
+      int currentSliderIndex,
+      List<String> imagePaths,
+      bool toggleCamera});
 }
 
 /// @nodoc
@@ -94,6 +106,7 @@ class __$$SaveModelImplCopyWithImpl<$Res>
     Object? tags = null,
     Object? currentSliderIndex = null,
     Object? imagePaths = null,
+    Object? toggleCamera = null,
   }) {
     return _then(_$SaveModelImpl(
       tags: null == tags
@@ -108,6 +121,10 @@ class __$$SaveModelImplCopyWithImpl<$Res>
           ? _value._imagePaths
           : imagePaths // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      toggleCamera: null == toggleCamera
+          ? _value.toggleCamera
+          : toggleCamera // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -118,7 +135,8 @@ class _$SaveModelImpl implements _SaveModel {
   const _$SaveModelImpl(
       {required final Set<String> tags,
       required this.currentSliderIndex,
-      required final List<String> imagePaths})
+      required final List<String> imagePaths,
+      required this.toggleCamera})
       : _tags = tags,
         _imagePaths = imagePaths;
 
@@ -141,8 +159,11 @@ class _$SaveModelImpl implements _SaveModel {
   }
 
   @override
+  final bool toggleCamera;
+
+  @override
   String toString() {
-    return 'SaveModel(tags: $tags, currentSliderIndex: $currentSliderIndex, imagePaths: $imagePaths)';
+    return 'SaveModel(tags: $tags, currentSliderIndex: $currentSliderIndex, imagePaths: $imagePaths, toggleCamera: $toggleCamera)';
   }
 
   @override
@@ -154,7 +175,9 @@ class _$SaveModelImpl implements _SaveModel {
             (identical(other.currentSliderIndex, currentSliderIndex) ||
                 other.currentSliderIndex == currentSliderIndex) &&
             const DeepCollectionEquality()
-                .equals(other._imagePaths, _imagePaths));
+                .equals(other._imagePaths, _imagePaths) &&
+            (identical(other.toggleCamera, toggleCamera) ||
+                other.toggleCamera == toggleCamera));
   }
 
   @override
@@ -162,7 +185,8 @@ class _$SaveModelImpl implements _SaveModel {
       runtimeType,
       const DeepCollectionEquality().hash(_tags),
       currentSliderIndex,
-      const DeepCollectionEquality().hash(_imagePaths));
+      const DeepCollectionEquality().hash(_imagePaths),
+      toggleCamera);
 
   @JsonKey(ignore: true)
   @override
@@ -175,7 +199,8 @@ abstract class _SaveModel implements SaveModel {
   const factory _SaveModel(
       {required final Set<String> tags,
       required final int currentSliderIndex,
-      required final List<String> imagePaths}) = _$SaveModelImpl;
+      required final List<String> imagePaths,
+      required final bool toggleCamera}) = _$SaveModelImpl;
 
   @override
   Set<String> get tags;
@@ -183,6 +208,8 @@ abstract class _SaveModel implements SaveModel {
   int get currentSliderIndex;
   @override
   List<String> get imagePaths;
+  @override
+  bool get toggleCamera;
   @override
   @JsonKey(ignore: true)
   _$$SaveModelImplCopyWith<_$SaveModelImpl> get copyWith =>

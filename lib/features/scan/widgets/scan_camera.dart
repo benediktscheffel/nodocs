@@ -2,20 +2,20 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:nodocs/features/navigation/navigation_service_routes.dart';
-import 'package:nodocs/features/scan/controller/scan_controller.dart';
 import 'package:nodocs/features/scan/services/camera_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_footer.dart';
 import 'package:nodocs/util/logging/log.dart';
 
 // ConsumerStatefulWidget because the CameraController is very difficult to handle inside riverpod providers
 class ScanCamera extends ConsumerStatefulWidget {
-  final ScanController scanController;
   final List<CameraDescription> cameraList;
   final List<String> imagePaths;
+  final ValueChanged<XFile> onPhoto;
+  final ValueChanged<String> onImageSelected;
+  final VoidCallback onLastImageTapped;
 
   const ScanCamera(
-      {super.key, required this.imagePaths, required this.cameraList, required this.scanController});
+      {super.key, required this.imagePaths, required this.cameraList, required this.onPhoto, required this.onImageSelected, required this.onLastImageTapped});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ScanCameraState();
@@ -145,14 +145,7 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
               try {
                 final XFile image = await _cameraController.takePicture();
                 if (!mounted) return;
-                final List<String> images = widget.scanController.addToImagePaths(
-                  widget.imagePaths,
-                  image.path,
-                );
-                widget.scanController.goToPage(Uri(
-                  path: NavigationServiceRoutes.crop,
-                  queryParameters: <String, List<String>> {'path': images},
-                ));
+                widget.onPhoto.call(image);
               } catch (e) {
                 if (mounted) {
                   Center(child: Text(e.toString()));
@@ -160,6 +153,12 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
               }
             },
             imagePaths: widget.imagePaths,
+            onImageSelected: (String path) {
+              widget.onImageSelected(path);
+            },
+            onLastImageTapped: () {
+              widget.onLastImageTapped();
+            },
           ),
         ),
       ],

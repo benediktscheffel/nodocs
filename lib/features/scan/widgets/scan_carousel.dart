@@ -11,13 +11,13 @@ class ScanCarousel extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    SaveController saveController = ref.read(saveControllerProvider);
+    SaveController saveController = ref.watch(saveControllerProvider);
     final CarouselController carouselController = CarouselController();
     return Column(
       children: <Widget>[
-        if (saveController.getImageWidgets(imagePaths).isNotEmpty)
+        if (saveController.getImageWidgets().isNotEmpty)
           CarouselSlider(
-            items: saveController.getImageWidgets(imagePaths),
+            items: saveController.getImageWidgets(),
             carouselController: carouselController,
             options: CarouselOptions(
               height: 300,

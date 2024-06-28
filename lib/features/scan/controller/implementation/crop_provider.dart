@@ -4,7 +4,6 @@ import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/scan/controller/crop_controller.dart';
 import 'package:nodocs/features/scan/controller/implementation/crop_controller_impl.dart';
 import 'package:nodocs/features/scan/model/crop_model.dart';
-import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

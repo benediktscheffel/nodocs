@@ -7,7 +7,7 @@ part of 'save_controller_impl.dart';
 // **************************************************************************
 
 String _$saveControllerImplHash() =>
-    r'bd2d701c071eb9ecd391097391f1bb9d46f8ff56';
+    r'36700c8b1a528e8068c8b4b4138bd5b60bdeb6ed';
 
 /// Copied from Dart SDK
 class _SystemHash {

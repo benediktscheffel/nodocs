@@ -8,7 +8,7 @@ abstract class SaveController {
   void clear();
 
   String getImagePathById(final int id);
-  List<Widget> getImageWidgets(final List<String> imagePaths);
+  List<Widget> getImageWidgets();
   void setCurrentSliderIndex(final int index);
   int getCurrentSliderIndex();
   XFile getSelectedImageFile();
@@ -16,6 +16,8 @@ abstract class SaveController {
   List<String> getImagePaths();
   void setCroppedImage(final CroppedFile croppedFile);
   Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context);
+  void toggleCamera();
+  bool getCameraState();
 
   Future<void> checkInternetConnection();
   Future<void> savePDF(final pdf);
