@@ -103,7 +103,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                             final XFile pickedImage = controller.getSelectedImageFile();
                             CroppedFile? croppedFile = await controller.cropImage(theme, pickedImage, context);
                             if (croppedFile != null) {
-                              controller.setCroppedImage(croppedFile);
+                              controller.setEditedImage(croppedFile.path);
                               setState(() {});
                             }
                           },
@@ -210,14 +210,16 @@ class _SavePageState extends ConsumerState<SavePage> {
                 imagePaths: const <String>[],
                 cameraList: cameras,
                 onPhoto: (final XFile image) {
-                  // TODO Implement this
+                  controller.setEditedImage(image.path);
+                  controller.toggleCamera();
+                  setState(() {});
                 },
-                onImageSelected: (String path) {
-                  // TODO Implement this
+                onImageSelected: (final String path) {
+                  controller.setEditedImage(path);
+                  controller.toggleCamera();
+                  setState(() {});
                 },
-                onLastImageTapped: () {
-                  // TODO Implement this
-                },
+                onLastImageTapped: () {},
               );
             },
             loading: () => Center(

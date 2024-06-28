@@ -7,17 +7,17 @@ abstract class SaveController {
   void init(final List<String> imagePaths);
   void clear();
 
-  String getImagePathById(final int id);
   List<Widget> getImageWidgets();
   void setCurrentSliderIndex(final int index);
   int getCurrentSliderIndex();
   XFile getSelectedImageFile();
-  Set<String> getTags();
   List<String> getImagePaths();
-  void setCroppedImage(final CroppedFile croppedFile);
+  void setEditedImage(final String path);
   Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context);
   void toggleCamera();
   bool getCameraState();
+
+  Set<String> getTags();
 
   Future<void> checkInternetConnection();
   Future<void> savePDF(final pdf);

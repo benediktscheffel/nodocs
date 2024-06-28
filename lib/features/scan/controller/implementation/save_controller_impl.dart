@@ -365,8 +365,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     navigationService.pop();
   }
 
-  @override
-  String getImagePathById(final int id) {
+  String _getImagePathById(final int id) {
     return (id >= 0 && state.imagePaths.length > id) ? state.imagePaths.elementAt(id) : '';
   }
 
@@ -397,16 +396,16 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
 
   @override
   XFile getSelectedImageFile() {
-    String path = getImagePathById(state.currentSliderIndex);
+    String path = _getImagePathById(state.currentSliderIndex);
     return XFile(path);
   }
 
   @override
-  void setCroppedImage(final CroppedFile croppedFile) {
-    String pathToReplace = getImagePathById(state.currentSliderIndex);
+  void setEditedImage(final String path) {
+    String pathToReplace = _getImagePathById(state.currentSliderIndex);
     state = state.copyWith(
         imagePaths: ImageService.replaceImagePath(
-            pathToReplace, croppedFile.path, state.imagePaths));
+            pathToReplace, path, state.imagePaths));
   }
 
   @override
