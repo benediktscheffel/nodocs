@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:nodocs/features/tags/services/persistence/isar/isar_persistence_service.dart';
 import 'config/service_locator.dart';
 import 'go_router.dart';
 
-Future<void> main() async {
+void main() async {
+  final ProviderContainer providerContainer = ProviderContainer();
+  await providerContainer.read(persistenceServiceProvider).init();
+
   setupServiceLocator();
   await dotenv.load(fileName: "config.env");
   runApp(const ProviderScope(
     child: MyApp(),
   ));
+  runApp(
+    UncontrolledProviderScope(
+      container: providerContainer,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {

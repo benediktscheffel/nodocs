@@ -1,14 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
-import 'package:logger/logger.dart';
+import 'dart:io';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
 import 'package:nodocs/features/filesystem/model/home_model/collection_node_builder.dart';
-import 'package:nodocs/features/filesystem/services/file_system_service.dart';
+import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
-import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
-import 'package:nodocs/util/logging/log.dart';
-import 'package:nodocs/widgets/confirmation_dialog.dart';
+import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_controller_impl.g.dart';
@@ -16,39 +12,17 @@ part 'home_controller_impl.g.dart';
 @riverpod
 class HomeControllerImpl extends _$HomeControllerImpl
     implements HomeController {
-  final Logger _log = getLogger();
-
   @override
   HomeModel build({
     required final FileSystemService fileSystemService,
     required final NavigationService navigationService,
+    required final PersistenceService persistenceService,
   }) {
     return HomeModel(collectionNodes: CollectionNodeBuilder.build());
   }
 
   void updateState(final List<CollectionNode> collectionNodes) {
     state = state.copyWith(collectionNodes: collectionNodes);
-  }
-
-  @override
-  void showCreateCollectionModal() {
-    _log.i("Showing create collection modal");
-    navigationService.showPopup<void>(
-        CollectionCreateDialog(onSave: createCollection(), goBack: goBack));
-  }
-
-  @override
-  void showConfirmDeletionDialog(final BuildContext context) {
-    showDialog<String>(
-      context: context,
-      builder: (final BuildContext context) => ConfirmationDialog(
-        onConfirm: () => deleteCollectionOrFile,
-        // close dialog
-        onCancel: () {},
-        header: 'Confirm Deletion',
-        notificationText: 'Are you sure you want to delete this file?',
-      ),
-    );
   }
 
   @override
@@ -62,6 +36,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
   void deleteCollectionOrFile(final String path) {
     fileSystemService
         .deleteCollectionOrFile(path)!
+        .then((final FileSystemEntity _) => persistenceService.deleteFile(path))
         .then((final _) => updateState(CollectionNodeBuilder.build()));
   }
 
@@ -84,8 +59,10 @@ class HomeControllerImpl extends _$HomeControllerImpl
   @override
   Function(String) renameCollectionOrFile(final String path) {
     return (final String newName) => fileSystemService
-        .renameCollectionOrFile(path, newName)
-        .map((final _) => updateState(CollectionNodeBuilder.build()))
-        .getOrElse(() => _log.e("Failed to rename collection or file"));
+        .renameCollectionOrFile(path, newName)!
+        .then((final FileSystemEntity file) => file.path.endsWith('.pdf')
+            ? persistenceService.updateFile(path, file.path)
+            : persistenceService.updateFilesInCollection(path, file.path))
+        .then((final _) => updateState(CollectionNodeBuilder.build()));
   }
 }

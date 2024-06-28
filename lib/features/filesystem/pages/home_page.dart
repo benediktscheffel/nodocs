@@ -19,8 +19,8 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    HomeController controller = ref.read(homeControllerProvider);
-    HomeModel model = ref.watch(homeModelProvider);
+    final HomeController controller = ref.read(homeControllerProvider);
+    final HomeModel model = ref.watch(homeModelProvider);
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -88,7 +88,10 @@ class HomePage extends ConsumerWidget {
               contextPath: node.path,
               onShare: () {},
               deleteDialog: ConfirmationDialog(
-                onConfirm: () => controller.deleteCollectionOrFile(node.path),
+                onConfirm: () => <void>{
+                  controller.deleteCollectionOrFile(node.path),
+                  controller.goBackTwice()
+                },
                 onCancel: () => controller.goBackTwice,
                 header: 'Confirm Deletion',
                 notificationText:
