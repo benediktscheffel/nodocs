@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/settings/services/persistence/implementation/settings_shared_preferences_persistence_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/isar_persistence_service.dart';
+import 'package:nodocs/widgets/themes.dart';
 import 'config/service_locator.dart';
 import 'go_router.dart';
 
@@ -29,65 +30,12 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    const bool darkMode = false;
+    bool darkMode = false;
+        // ref.watch(settingsPersistenceServiceProvider).loadSettings().darkMode;
     return MaterialApp.router(
       routerConfig: ref.watch(goRouterProvider),
       title: 'NoDocs',
-      theme: ThemeData(
-        colorScheme: darkMode
-            ? const ColorScheme(
-                brightness: Brightness.dark,
-                primary: Color(0xFF111122),
-                onPrimary: Colors.white,
-                onPrimaryContainer: Color(0xFF0353A4),
-                secondary: Color(0xFF061A40),
-                onSecondary: Colors.white,
-                tertiary: Color(0xFF006DAA),
-                onTertiary: Colors.white,
-                error: Colors.red,
-                onError: Colors.white,
-                surface: Color(0xFF111122),
-                onSurface: Colors.white,
-                tertiaryContainer: Colors.white,
-                onTertiaryContainer: Colors.black,
-                tertiaryFixed: Color(0xFFECE7E7),
-                onTertiaryFixed: Color(0xFFCAC4D0),
-              )
-            : const ColorScheme(
-                brightness: Brightness.light,
-                primary: Color(0xFFB9D6F2),
-                onPrimary: Colors.black,
-                onPrimaryContainer: Color(0xFF0353A4),
-                secondary: Color(0xFF0353A4),
-                onSecondary: Colors.white,
-                tertiary: Colors.white,
-                onTertiary: Colors.black,
-                error: Colors.red,
-                onError: Colors.white,
-                surface: Color(0xFFB9D6F2),
-                onSurface: Colors.black,
-                tertiaryContainer: Colors.white,
-                onTertiaryContainer: Colors.black,
-                tertiaryFixed: Color(0xFFECE7E7),
-                onTertiaryFixed: Color(0xFFCAC4D0),
-              ),
-        textSelectionTheme: darkMode
-            ? const TextSelectionThemeData(
-                cursorColor: Colors.white,
-                selectionColor: Color(0xFF0353A4),
-                selectionHandleColor: Colors.white,
-              )
-            : const TextSelectionThemeData(
-                cursorColor: Colors.black,
-                selectionColor: Color(0xFF0353A4),
-                selectionHandleColor: Colors.black,
-              ),
-        buttonTheme: const ButtonThemeData(
-          height: 32,
-          minWidth: 64,
-        ),
-        useMaterial3: true,
-      ),
+      theme: darkMode ? Themes.dark : Themes.light,
     );
   }
 }
