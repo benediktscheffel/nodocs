@@ -16,12 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SaveModel {
-  String get selectedImagePath => throw _privateConstructorUsedError;
-  String get imageFolder => throw _privateConstructorUsedError;
-  Set<String> get imagePaths => throw _privateConstructorUsedError;
   Set<String> get tags => throw _privateConstructorUsedError;
-  Set<Widget> get imageSliders => throw _privateConstructorUsedError;
   int get currentSliderIndex => throw _privateConstructorUsedError;
+  List<String> get imagePaths => throw _privateConstructorUsedError;
+  bool get toggleCamera => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SaveModelCopyWith<SaveModel> get copyWith =>
@@ -34,12 +32,10 @@ abstract class $SaveModelCopyWith<$Res> {
       _$SaveModelCopyWithImpl<$Res, SaveModel>;
   @useResult
   $Res call(
-      {String selectedImagePath,
-      String imageFolder,
-      Set<String> imagePaths,
-      Set<String> tags,
-      Set<Widget> imageSliders,
-      int currentSliderIndex});
+      {Set<String> tags,
+      int currentSliderIndex,
+      List<String> imagePaths,
+      bool toggleCamera});
 }
 
 /// @nodoc
@@ -55,38 +51,28 @@ class _$SaveModelCopyWithImpl<$Res, $Val extends SaveModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedImagePath = null,
-    Object? imageFolder = null,
-    Object? imagePaths = null,
     Object? tags = null,
-    Object? imageSliders = null,
     Object? currentSliderIndex = null,
+    Object? imagePaths = null,
+    Object? toggleCamera = null,
   }) {
     return _then(_value.copyWith(
-      selectedImagePath: null == selectedImagePath
-          ? _value.selectedImagePath
-          : selectedImagePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageFolder: null == imageFolder
-          ? _value.imageFolder
-          : imageFolder // ignore: cast_nullable_to_non_nullable
-              as String,
-      imagePaths: null == imagePaths
-          ? _value.imagePaths
-          : imagePaths // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
       tags: null == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as Set<String>,
-      imageSliders: null == imageSliders
-          ? _value.imageSliders
-          : imageSliders // ignore: cast_nullable_to_non_nullable
-              as Set<Widget>,
       currentSliderIndex: null == currentSliderIndex
           ? _value.currentSliderIndex
           : currentSliderIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      imagePaths: null == imagePaths
+          ? _value.imagePaths
+          : imagePaths // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      toggleCamera: null == toggleCamera
+          ? _value.toggleCamera
+          : toggleCamera // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -100,12 +86,10 @@ abstract class _$$SaveModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String selectedImagePath,
-      String imageFolder,
-      Set<String> imagePaths,
-      Set<String> tags,
-      Set<Widget> imageSliders,
-      int currentSliderIndex});
+      {Set<String> tags,
+      int currentSliderIndex,
+      List<String> imagePaths,
+      bool toggleCamera});
 }
 
 /// @nodoc
@@ -119,38 +103,28 @@ class __$$SaveModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? selectedImagePath = null,
-    Object? imageFolder = null,
-    Object? imagePaths = null,
     Object? tags = null,
-    Object? imageSliders = null,
     Object? currentSliderIndex = null,
+    Object? imagePaths = null,
+    Object? toggleCamera = null,
   }) {
     return _then(_$SaveModelImpl(
-      selectedImagePath: null == selectedImagePath
-          ? _value.selectedImagePath
-          : selectedImagePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageFolder: null == imageFolder
-          ? _value.imageFolder
-          : imageFolder // ignore: cast_nullable_to_non_nullable
-              as String,
-      imagePaths: null == imagePaths
-          ? _value._imagePaths
-          : imagePaths // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
       tags: null == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as Set<String>,
-      imageSliders: null == imageSliders
-          ? _value._imageSliders
-          : imageSliders // ignore: cast_nullable_to_non_nullable
-              as Set<Widget>,
       currentSliderIndex: null == currentSliderIndex
           ? _value.currentSliderIndex
           : currentSliderIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      imagePaths: null == imagePaths
+          ? _value._imagePaths
+          : imagePaths // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      toggleCamera: null == toggleCamera
+          ? _value.toggleCamera
+          : toggleCamera // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -159,27 +133,12 @@ class __$$SaveModelImplCopyWithImpl<$Res>
 
 class _$SaveModelImpl implements _SaveModel {
   const _$SaveModelImpl(
-      {required this.selectedImagePath,
-      required this.imageFolder,
-      required final Set<String> imagePaths,
-      required final Set<String> tags,
-      required final Set<Widget> imageSliders,
-      required this.currentSliderIndex})
-      : _imagePaths = imagePaths,
-        _tags = tags,
-        _imageSliders = imageSliders;
-
-  @override
-  final String selectedImagePath;
-  @override
-  final String imageFolder;
-  final Set<String> _imagePaths;
-  @override
-  Set<String> get imagePaths {
-    if (_imagePaths is EqualUnmodifiableSetView) return _imagePaths;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_imagePaths);
-  }
+      {required final Set<String> tags,
+      required this.currentSliderIndex,
+      required final List<String> imagePaths,
+      required this.toggleCamera})
+      : _tags = tags,
+        _imagePaths = imagePaths;
 
   final Set<String> _tags;
   @override
@@ -189,20 +148,22 @@ class _$SaveModelImpl implements _SaveModel {
     return EqualUnmodifiableSetView(_tags);
   }
 
-  final Set<Widget> _imageSliders;
   @override
-  Set<Widget> get imageSliders {
-    if (_imageSliders is EqualUnmodifiableSetView) return _imageSliders;
+  final int currentSliderIndex;
+  final List<String> _imagePaths;
+  @override
+  List<String> get imagePaths {
+    if (_imagePaths is EqualUnmodifiableListView) return _imagePaths;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_imageSliders);
+    return EqualUnmodifiableListView(_imagePaths);
   }
 
   @override
-  final int currentSliderIndex;
+  final bool toggleCamera;
 
   @override
   String toString() {
-    return 'SaveModel(selectedImagePath: $selectedImagePath, imageFolder: $imageFolder, imagePaths: $imagePaths, tags: $tags, imageSliders: $imageSliders, currentSliderIndex: $currentSliderIndex)';
+    return 'SaveModel(tags: $tags, currentSliderIndex: $currentSliderIndex, imagePaths: $imagePaths, toggleCamera: $toggleCamera)';
   }
 
   @override
@@ -210,28 +171,22 @@ class _$SaveModelImpl implements _SaveModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SaveModelImpl &&
-            (identical(other.selectedImagePath, selectedImagePath) ||
-                other.selectedImagePath == selectedImagePath) &&
-            (identical(other.imageFolder, imageFolder) ||
-                other.imageFolder == imageFolder) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
+            (identical(other.currentSliderIndex, currentSliderIndex) ||
+                other.currentSliderIndex == currentSliderIndex) &&
             const DeepCollectionEquality()
                 .equals(other._imagePaths, _imagePaths) &&
-            const DeepCollectionEquality().equals(other._tags, _tags) &&
-            const DeepCollectionEquality()
-                .equals(other._imageSliders, _imageSliders) &&
-            (identical(other.currentSliderIndex, currentSliderIndex) ||
-                other.currentSliderIndex == currentSliderIndex));
+            (identical(other.toggleCamera, toggleCamera) ||
+                other.toggleCamera == toggleCamera));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      selectedImagePath,
-      imageFolder,
-      const DeepCollectionEquality().hash(_imagePaths),
       const DeepCollectionEquality().hash(_tags),
-      const DeepCollectionEquality().hash(_imageSliders),
-      currentSliderIndex);
+      currentSliderIndex,
+      const DeepCollectionEquality().hash(_imagePaths),
+      toggleCamera);
 
   @JsonKey(ignore: true)
   @override
@@ -242,25 +197,19 @@ class _$SaveModelImpl implements _SaveModel {
 
 abstract class _SaveModel implements SaveModel {
   const factory _SaveModel(
-      {required final String selectedImagePath,
-      required final String imageFolder,
-      required final Set<String> imagePaths,
-      required final Set<String> tags,
-      required final Set<Widget> imageSliders,
-      required final int currentSliderIndex}) = _$SaveModelImpl;
+      {required final Set<String> tags,
+      required final int currentSliderIndex,
+      required final List<String> imagePaths,
+      required final bool toggleCamera}) = _$SaveModelImpl;
 
-  @override
-  String get selectedImagePath;
-  @override
-  String get imageFolder;
-  @override
-  Set<String> get imagePaths;
   @override
   Set<String> get tags;
   @override
-  Set<Widget> get imageSliders;
-  @override
   int get currentSliderIndex;
+  @override
+  List<String> get imagePaths;
+  @override
+  bool get toggleCamera;
   @override
   @JsonKey(ignore: true)
   _$$SaveModelImplCopyWith<_$SaveModelImpl> get copyWith =>

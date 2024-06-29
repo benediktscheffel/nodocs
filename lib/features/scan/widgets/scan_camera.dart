@@ -1,48 +1,60 @@
-import 'dart:async';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:nodocs/features/navigation/navigation_service_routes.dart';
+import 'package:nodocs/features/scan/services/camera_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_footer.dart';
 import 'package:nodocs/util/logging/log.dart';
 
-class ScanCamera extends StatefulWidget {
-  final List<CameraDescription> cameras;
+// ConsumerStatefulWidget because the CameraController is very difficult to handle inside riverpod providers
+class ScanCamera extends ConsumerStatefulWidget {
+  final List<CameraDescription> cameraList;
+  final List<String> imagePaths;
+  final ValueChanged<XFile> onPhoto;
+  final ValueChanged<String> onImageSelected;
+  final VoidCallback onLastImageTapped;
 
-  const ScanCamera({super.key, required this.cameras});
+  const ScanCamera(
+      {super.key, required this.imagePaths, required this.cameraList, required this.onPhoto, required this.onImageSelected, required this.onLastImageTapped});
 
   @override
-  ScanCameraState createState() => ScanCameraState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ScanCameraState();
 }
 
-class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
-  late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
-
+class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObserver {
+  late CameraController _cameraController;
   final Logger _log = getLogger();
 
   Future<void> setCameraAndController() async {
-    if (widget.cameras.isNotEmpty) {
-      _controller = CameraController(
-        widget.cameras.first,
+    if (widget.cameraList.isNotEmpty) {
+      _cameraController = CameraController(
+        widget.cameraList.first,
         ResolutionPreset.high,
         enableAudio: false,
       );
-      _initializeControllerFuture = _controller.initialize().then((final _) {
-        if (!mounted) return;
-        setState(() {});
-      }).catchError((final dynamic e) {
+      try {
+        await _cameraController.initialize();
+        if (mounted) {
+          setState(() {});
+        }
+      } catch (e) {
         if (e is CameraException) {
           _log.e('Camera error: ${e.description}');
         } else {
           _log.e('Error initializing camera: $e');
         }
-      });
+      }
     } else {
       _log.e('No cameras available');
     }
+  }
+
+  Widget _cameraNotAvailable(final BuildContext context) {
+    return Center(
+        child: CircularProgressIndicator(
+          color: Theme.of(context).colorScheme.onPrimary,
+        )
+    );
   }
 
   @override
@@ -56,96 +68,100 @@ class ScanCameraState extends State<ScanCamera> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _controller.dispose();
+    _cameraController.dispose();
     super.dispose();
   }
 
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-    if (_controller.value.isInitialized) {
+    if (_cameraController.value.isInitialized) {
       setCameraAndController();
     }
   }
 
-  Widget _cameraNotAvailable() {
-    return const Center(child: CircularProgressIndicator());
-  }
-
   @override
   Widget build(final BuildContext context) {
-    if (_controller.value.isInitialized) {
-      return FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder:
-            (final BuildContext context, final AsyncSnapshot<void> snapshot) {
-          if (context.findRenderObject() != null &&
-              snapshot.connectionState == ConnectionState.done) {
-            final RenderBox renderBox = context.findRenderObject() as RenderBox;
-            double height = 0.0;
-            double width = 0.0;
-            // portrait
-            if (renderBox.size.width < renderBox.size.height) {
-              height = (renderBox.size.width * _controller.value.aspectRatio) <
-                      renderBox.size.height
-                  ? renderBox.size.width * _controller.value.aspectRatio
-                  : renderBox.size.height;
-              width = (height / _controller.value.aspectRatio) >
-                      renderBox.size.width
-                  ? renderBox.size.width
-                  : height / _controller.value.aspectRatio;
-            }
-            // landscape
-            else {
-              width = (renderBox.size.height * _controller.value.aspectRatio) <
-                      renderBox.size.width
-                  ? renderBox.size.height * _controller.value.aspectRatio
-                  : renderBox.size.width;
-              height = (width / _controller.value.aspectRatio) <
-                      renderBox.size.height
-                  ? width / _controller.value.aspectRatio
-                  : renderBox.size.height;
-            }
-            return Stack(children: <Widget>[
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Center(
-                      child: SizedBox(
-                        height: height,
-                        width: width,
-                        child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: CameraPreview(_controller),
-                        ),
-                      ),
-                    )
-                  ]),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ScanCameraFooter(
-                  onTakePhoto: () async {
-                    try {
-                      await _initializeControllerFuture;
-                      final XFile image = await _controller.takePicture();
-                      if (!context.mounted) return;
-                      GoRouter.of(context).push(Uri(
-                          path: NavigationServiceRoutes.crop,
-                          queryParameters: <String, String>{
-                            'path': image.path
-                          }).toString());
-                    } catch (e) {
-                      _log.e(e);
-                    }
-                  },
-                ),
-              ),
-            ]);
-          }
-          return _cameraNotAvailable();
-        },
+    if (!_cameraController.value.isInitialized) {
+      return _cameraNotAvailable(context);
+    }
+
+    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
+    if (renderBox == null) {
+      return _cameraNotAvailable(context);
+    }
+
+    double height = 0.0;
+    double width = 0.0;
+
+    // portrait
+    if (renderBox.size.width < renderBox.size.height) {
+      height = CameraService.calculatePortraitHeight(
+        _cameraController.value.aspectRatio,
+        renderBox.size.width,
+        renderBox.size.height,
+      );
+      width = CameraService.calculatePortraitWidth(
+        _cameraController.value.aspectRatio,
+        renderBox.size.width,
+        height,
       );
     }
-    return _cameraNotAvailable();
+    // landscape
+    else {
+      width = CameraService.calculateLandscapeWidth(
+        _cameraController.value.aspectRatio,
+        renderBox.size.width,
+        renderBox.size.height,
+      );
+      height = CameraService.calculateLandscapeHeight(
+        _cameraController.value.aspectRatio,
+        width,
+        renderBox.size.height,
+      );
+    }
+
+    return Stack(
+      children: <Widget>[
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Center(
+              child: SizedBox(
+                height: renderBox.size.height,
+                width: renderBox.size.width,
+                child: AspectRatio(
+                  aspectRatio: _cameraController.value.aspectRatio,
+                  child: CameraPreview(_cameraController),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: ScanCameraFooter(
+            onTakePhoto: () async {
+              try {
+                final XFile image = await _cameraController.takePicture();
+                if (!mounted) return;
+                widget.onPhoto.call(image);
+              } catch (e) {
+                if (mounted) {
+                  Center(child: Text(e.toString()));
+                }
+              }
+            },
+            imagePaths: widget.imagePaths,
+            onImageSelected: (String path) {
+              widget.onImageSelected(path);
+            },
+            onLastImageTapped: () {
+              widget.onLastImageTapped();
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -1,142 +1,118 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:nodocs/config/config_parameters.dart';
+import 'package:nodocs/features/scan/controller/crop_controller.dart';
+import 'package:nodocs/features/scan/controller/implementation/crop_provider.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button_container.dart';
 
-class ScanCrop extends StatefulWidget {
-  final String path;
+class ScanCrop extends ConsumerStatefulWidget {
+  final List<String> imagePaths;
 
-  const ScanCrop({super.key, required this.path});
+  const ScanCrop({super.key, required this.imagePaths});
 
   @override
-  State<StatefulWidget> createState() => _ScanCropState();
+  ConsumerState<ScanCrop> createState() => _ScanCropState();
 }
 
-class _ScanCropState extends State<ScanCrop> {
-  XFile? _pickedFile;
-  CroppedFile? _croppedFile;
-
-  void createXFile() {
-    setState(() {
-      _pickedFile = widget.path.isNotEmpty
-          ? XFile(widget.path)
-          : XFile(
-              '${ConfigParameters.fileSystemPath}annie-spratt-askpr0s66Rg-unsplash.jpg');
-    });
-  }
+class _ScanCropState extends ConsumerState<ScanCrop> {
+  late Future<void> _initializeControllerFuture;
 
   @override
   void initState() {
     super.initState();
-    createXFile();
+    _initializeControllerFuture = _initializeController();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  Future<void> _initializeController() async {
+    final CropController controller = ref.read(cropControllerProvider);
+    controller.init(widget.imagePaths);
   }
 
   @override
   Widget build(final BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Card(
-              elevation: 4.0,
-              color: Theme.of(context).colorScheme.secondary,
-              child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Builder(
-                    builder: (final BuildContext context) {
-                      final double screenWidth =
-                          MediaQuery.of(context).size.width;
-                      final double screenHeight =
-                          MediaQuery.of(context).size.height;
-                      if (_croppedFile != null) {
-                        return ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: 0.8 * screenWidth,
-                            maxHeight: 0.7 * screenHeight,
-                          ),
-                          child: Image.file(File(_croppedFile!.path)),
-                        );
-                      } else if (_pickedFile != null) {
-                        return ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: 0.8 * screenWidth,
-                            maxHeight: 0.7 * screenHeight,
-                          ),
-                          child: Image.file(File(_pickedFile!.path)),
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
-                  )),
-            ),
-          ),
-          const SizedBox(height: 24.0),
-          ScanActionButtonContainer(
-            buttons: <Widget>[
-              ScanActionButton(
-                buttonIcon: Icons.crop_outlined,
-                buttonText: 'Crop',
-                onPressed: () {
-                  _cropImage();
-                },
+    final CropController controller = ref.watch(cropControllerProvider);
+    return FutureBuilder<void>(
+        future: _initializeControllerFuture,
+        builder: (final BuildContext context, final AsyncSnapshot<void> snapshot) {
+      final CroppedFile? croppedImage = controller.getCroppedImage();
+      final XFile? pickedImage = controller.getPickedImage();
+      final double screenWidth =
+          MediaQuery
+              .of(context)
+              .size
+              .width;
+      final double screenHeight =
+          MediaQuery
+              .of(context)
+              .size
+              .height;
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Card(
+                elevation: 4.0,
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .secondary,
+                child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Builder(
+                      builder: (final BuildContext context) {
+                        if (croppedImage != null) {
+                          return ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxWidth: 0.8 * screenWidth,
+                              maxHeight: 0.7 * screenHeight,
+                            ),
+                            child: Image.file(File(croppedImage.path)),
+                          );
+                        } else if (pickedImage != null) {
+                          return ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxWidth: 0.8 * screenWidth,
+                              maxHeight: 0.7 * screenHeight,
+                            ),
+                            child: Image.file(File(pickedImage.path)),
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    )),
               ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _cropImage() async {
-    final ThemeData theme = Theme.of(context);
-    if (_pickedFile != null) {
-      final CroppedFile? croppedFile = await ImageCropper().cropImage(
-        sourcePath: _pickedFile!.path,
-        compressFormat: ImageCompressFormat.jpg,
-        compressQuality: 100,
-        uiSettings: <PlatformUiSettings>[
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: theme.colorScheme.secondary,
-              toolbarWidgetColor: theme.colorScheme.onSecondary,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(
-            title: 'Cropper',
-          ),
-          WebUiSettings(
-            context: context,
-            presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(
-              width: 520,
-              height: 520,
             ),
-            viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
-            enableExif: true,
-            enableZoom: true,
-            showZoomer: true,
-          ),
-        ],
+            const SizedBox(height: 24.0),
+            ScanActionButtonContainer(
+              buttons: <Widget>[
+                ScanActionButton(
+                  buttonIcon: Icons.crop_outlined,
+                  buttonText: 'Crop',
+                  onPressed: () async {
+                    final XFile? pickedImage = controller.getPickedImage();
+                    if (pickedImage == null) return;
+                    CroppedFile? croppedFile = await controller.cropImage(
+                        Theme.of(context), pickedImage, context);
+                    if (croppedFile != null) {
+                      controller.setCroppedImage(croppedFile);
+                      controller.replaceImagePath(croppedFile.path);
+                      setState(() {});
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       );
-      if (croppedFile != null) {
-        setState(() {
-          _croppedFile = croppedFile;
-        });
-      }
-    }
+    });
   }
 }
