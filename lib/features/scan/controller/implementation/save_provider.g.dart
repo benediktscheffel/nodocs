@@ -39,7 +39,21 @@ final fileSystemServiceProvider =
 );
 
 typedef FileSystemServiceRef = AutoDisposeProviderRef<FileSystemServiceImpl>;
-String _$saveControllerHash() => r'd23b11b4b5b4060e03b0bd631a826e13a4b911e7';
+String _$ocrServiceHash() => r'43094f67dc25876042616f453a1f5193fc09368c';
+
+/// See also [ocrService].
+@ProviderFor(ocrService)
+final ocrServiceProvider = AutoDisposeProvider<OcrServiceImpl>.internal(
+  ocrService,
+  name: r'ocrServiceProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$ocrServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef OcrServiceRef = AutoDisposeProviderRef<OcrServiceImpl>;
+String _$saveControllerHash() => r'c83d6f24618826d42b69ffe8b97c2bf110b7d29e';
 
 /// See also [saveController].
 @ProviderFor(saveController)
@@ -54,7 +68,7 @@ final saveControllerProvider = AutoDisposeProvider<SaveController>.internal(
 );
 
 typedef SaveControllerRef = AutoDisposeProviderRef<SaveController>;
-String _$saveModelHash() => r'66d3f10d903c8512c22e6c0ab294317906610258';
+String _$saveModelHash() => r'5edb400826155921377f724c2bdc45b6616fee5d';
 
 /// See also [saveModel].
 @ProviderFor(saveModel)
