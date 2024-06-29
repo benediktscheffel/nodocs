@@ -67,7 +67,11 @@ class SettingsPage extends ConsumerWidget {
                 leading: Icons.dark_mode_outlined,
                 trailing: SwitchButton(
                   value: model.settings.darkMode,
-                  onChanged: (final bool value) {},
+                  // change ThemeData to darkMode if darkMode is true
+
+                  onChanged: (final bool value) {
+                    controller.toggleDarkMode();
+                  },
                 ),
               ),
               SettingsTile(

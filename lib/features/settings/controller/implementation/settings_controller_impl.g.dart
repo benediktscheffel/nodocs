@@ -7,7 +7,7 @@ part of 'settings_controller_impl.dart';
 // **************************************************************************
 
 String _$settingsControllerImplHash() =>
-    r'd6ba38a90307d0a549424629ca2b678388ad976a';
+    r'94e39b608b4eebf8d4be7347fde78ed34f739547';
 
 /// Copied from Dart SDK
 class _SystemHash {
