@@ -14,7 +14,7 @@ class SettingsControllerImpl extends _$SettingsControllerImpl
     required final SettingsPersistenceService settingsPersistenceService,
     required final NavigationService navigationService,
   }) {
-    return SettingsModel(settings: settingsPersistenceService.loadSettings());
+    return SettingsModel(settings: _initializeSettings());
   }
 
   @override
@@ -32,5 +32,9 @@ class SettingsControllerImpl extends _$SettingsControllerImpl
   @override
   void goBack(final Uri? uri) {
     navigationService.goBack(fallbackUri: uri);
+  }
+
+  Settings _initializeSettings() {
+    return Settings(darkMode: settingsPersistenceService.loadBool('darkMode'));
   }
 }

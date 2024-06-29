@@ -1,11 +1,14 @@
 import 'dart:async';
 
-import 'package:nodocs/features/settings/model/settings_model.dart';
 
 abstract class SettingsPersistenceService {
   Future<void> init();
 
-  Settings  loadSettings();
-  
   Future<void> saveBool(final String key, final bool value);
+
+  bool loadBool(final String key);
+
+  Future<void> saveString(final String key, final String value);
+
+  String? loadString(final String key);
 }

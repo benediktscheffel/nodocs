@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_controller_impl.g.dart';
 
-@Riverpod(keepAlive: false)
+@riverpod
 class HomeControllerImpl extends _$HomeControllerImpl
     implements HomeController {
   @override
