@@ -7,7 +7,7 @@ part of 'isar_persistence_service.dart';
 // **************************************************************************
 
 String _$persistenceServiceHash() =>
-    r'3f8bde3e3899d03da0d799ceb5324aa2a03217a8';
+    r'ad207cb2586162f453624d4fda4ac1e2df1a3a9c';
 
 /// See also [persistenceService].
 @ProviderFor(persistenceService)

@@ -1,3 +1,3 @@
 abstract class SettingsController {
-  bool toggleDarkMode();
+  void toggleDarkMode();
 }

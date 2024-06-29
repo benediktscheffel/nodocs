@@ -59,6 +59,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   isar_generator: ^3.1.0+1

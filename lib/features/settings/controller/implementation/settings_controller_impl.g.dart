@@ -7,7 +7,7 @@ part of 'settings_controller_impl.dart';
 // **************************************************************************
 
 String _$settingsControllerImplHash() =>
-    r'43c35f56106edd226992c16c06f556bf4d47f4f5';
+    r'd6ba38a90307d0a549424629ca2b678388ad976a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,11 +32,13 @@ class _SystemHash {
 
 abstract class _$SettingsControllerImpl
     extends BuildlessAutoDisposeNotifier<SettingsModel> {
-  late final bool darkMode;
+  late final SettingsPersistenceService settingsPersistenceService;
+  late final NavigationService navigationService;
 
-  SettingsModel build(
-    bool darkMode,
-  );
+  SettingsModel build({
+    required SettingsPersistenceService settingsPersistenceService,
+    required NavigationService navigationService,
+  });
 }
 
 /// See also [SettingsControllerImpl].
@@ -49,11 +51,13 @@ class SettingsControllerImplFamily extends Family<SettingsModel> {
   const SettingsControllerImplFamily();
 
   /// See also [SettingsControllerImpl].
-  SettingsControllerImplProvider call(
-    bool darkMode,
-  ) {
+  SettingsControllerImplProvider call({
+    required SettingsPersistenceService settingsPersistenceService,
+    required NavigationService navigationService,
+  }) {
     return SettingsControllerImplProvider(
-      darkMode,
+      settingsPersistenceService: settingsPersistenceService,
+      navigationService: navigationService,
     );
   }
 
@@ -62,7 +66,8 @@ class SettingsControllerImplFamily extends Family<SettingsModel> {
     covariant SettingsControllerImplProvider provider,
   ) {
     return call(
-      provider.darkMode,
+      settingsPersistenceService: provider.settingsPersistenceService,
+      navigationService: provider.navigationService,
     );
   }
 
@@ -85,10 +90,13 @@ class SettingsControllerImplFamily extends Family<SettingsModel> {
 class SettingsControllerImplProvider extends AutoDisposeNotifierProviderImpl<
     SettingsControllerImpl, SettingsModel> {
   /// See also [SettingsControllerImpl].
-  SettingsControllerImplProvider(
-    bool darkMode,
-  ) : this._internal(
-          () => SettingsControllerImpl()..darkMode = darkMode,
+  SettingsControllerImplProvider({
+    required SettingsPersistenceService settingsPersistenceService,
+    required NavigationService navigationService,
+  }) : this._internal(
+          () => SettingsControllerImpl()
+            ..settingsPersistenceService = settingsPersistenceService
+            ..navigationService = navigationService,
           from: settingsControllerImplProvider,
           name: r'settingsControllerImplProvider',
           debugGetCreateSourceHash:
@@ -98,7 +106,8 @@ class SettingsControllerImplProvider extends AutoDisposeNotifierProviderImpl<
           dependencies: SettingsControllerImplFamily._dependencies,
           allTransitiveDependencies:
               SettingsControllerImplFamily._allTransitiveDependencies,
-          darkMode: darkMode,
+          settingsPersistenceService: settingsPersistenceService,
+          navigationService: navigationService,
         );
 
   SettingsControllerImplProvider._internal(
@@ -108,17 +117,20 @@ class SettingsControllerImplProvider extends AutoDisposeNotifierProviderImpl<
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.darkMode,
+    required this.settingsPersistenceService,
+    required this.navigationService,
   }) : super.internal();
 
-  final bool darkMode;
+  final SettingsPersistenceService settingsPersistenceService;
+  final NavigationService navigationService;
 
   @override
   SettingsModel runNotifierBuild(
     covariant SettingsControllerImpl notifier,
   ) {
     return notifier.build(
-      darkMode,
+      settingsPersistenceService: settingsPersistenceService,
+      navigationService: navigationService,
     );
   }
 
@@ -127,13 +139,16 @@ class SettingsControllerImplProvider extends AutoDisposeNotifierProviderImpl<
     return ProviderOverride(
       origin: this,
       override: SettingsControllerImplProvider._internal(
-        () => create()..darkMode = darkMode,
+        () => create()
+          ..settingsPersistenceService = settingsPersistenceService
+          ..navigationService = navigationService,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        darkMode: darkMode,
+        settingsPersistenceService: settingsPersistenceService,
+        navigationService: navigationService,
       ),
     );
   }
@@ -147,13 +162,15 @@ class SettingsControllerImplProvider extends AutoDisposeNotifierProviderImpl<
   @override
   bool operator ==(Object other) {
     return other is SettingsControllerImplProvider &&
-        other.darkMode == darkMode;
+        other.settingsPersistenceService == settingsPersistenceService &&
+        other.navigationService == navigationService;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, darkMode.hashCode);
+    hash = _SystemHash.combine(hash, settingsPersistenceService.hashCode);
+    hash = _SystemHash.combine(hash, navigationService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -161,8 +178,11 @@ class SettingsControllerImplProvider extends AutoDisposeNotifierProviderImpl<
 
 mixin SettingsControllerImplRef
     on AutoDisposeNotifierProviderRef<SettingsModel> {
-  /// The parameter `darkMode` of this provider.
-  bool get darkMode;
+  /// The parameter `settingsPersistenceService` of this provider.
+  SettingsPersistenceService get settingsPersistenceService;
+
+  /// The parameter `navigationService` of this provider.
+  NavigationService get navigationService;
 }
 
 class _SettingsControllerImplProviderElement
@@ -171,7 +191,11 @@ class _SettingsControllerImplProviderElement
   _SettingsControllerImplProviderElement(super.provider);
 
   @override
-  bool get darkMode => (origin as SettingsControllerImplProvider).darkMode;
+  SettingsPersistenceService get settingsPersistenceService =>
+      (origin as SettingsControllerImplProvider).settingsPersistenceService;
+  @override
+  NavigationService get navigationService =>
+      (origin as SettingsControllerImplProvider).navigationService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
