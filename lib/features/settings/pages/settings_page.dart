@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/settings/controller/implementation/settings_providers.dart';
 import 'package:nodocs/features/settings/controller/settings_controller.dart';
@@ -27,9 +26,8 @@ class SettingsPage extends ConsumerWidget {
         title: TitleWithButton(
           title: 'Settings',
           icon: Icons.arrow_back_ios,
-          onButtonClick: () {
-            GoRouter.of(context).go(NavigationServiceRoutes.home);
-          },
+          onButtonClick: () =>
+              controller.goBack(Uri(path: NavigationServiceRoutes.home)),
         ),
         centerTitle: true,
       ),
@@ -50,7 +48,8 @@ class SettingsPage extends ConsumerWidget {
               SettingsTile(
                 title: 'Text recognition language',
                 onPressed: () {
-                  GoRouter.of(context).go(NavigationServiceRoutes.ocrLanguage);
+                  controller
+                      .goToPage(Uri(path: NavigationServiceRoutes.ocrLanguage));
                 },
                 leading: Icons.language_outlined,
                 trailing: Icon(
@@ -89,18 +88,19 @@ class SettingsPage extends ConsumerWidget {
           NavigationButton(
             buttonText: 'Home',
             buttonIcon: Icons.home_outlined,
-            onPressed: () => {},
+            onPressed: () =>
+                controller.goBack(Uri(path: NavigationServiceRoutes.home)),
           ),
           NavigationButton(
-              buttonText: 'Scan Document',
-              buttonIcon: Icons.camera_alt_outlined,
-              onPressed: () {
-              }),
+            buttonText: 'Scan Document',
+            buttonIcon: Icons.camera_alt_outlined,
+            onPressed: () =>
+                controller.goToPage(Uri(path: NavigationServiceRoutes.scan)),
+          ),
           NavigationButton(
               buttonText: 'Settings',
               buttonIcon: Icons.settings_outlined,
-              onPressed: () {
-              }),
+              onPressed: () {}),
         ],
       ),
     );
