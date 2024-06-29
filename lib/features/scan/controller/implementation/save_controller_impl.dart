@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart'as http;
 import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
-import 'package:nodocs/features/filesystem/services/file_system_access/implementation/file_system_service.dart';
+import 'package:nodocs/features/filesystem/services/file_system_access/implementation/file_system_service_impl.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/save_controller.dart';

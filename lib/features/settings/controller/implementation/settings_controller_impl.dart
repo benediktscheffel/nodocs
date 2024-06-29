@@ -23,4 +23,9 @@ class SettingsControllerImpl extends _$SettingsControllerImpl
         settings: state.settings.copyWith(darkMode: !state.settings.darkMode));
     settingsPersistenceService.saveDarkMode(state.settings.darkMode);
   }
+
+  @override
+  void goToPage(final Uri? uri) {
+    navigationService.push(uri.toString());
+  }
 }
