@@ -1,25 +1,34 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 abstract class SaveController {
+  // Model
+  void init(final List<String> imagePaths);
+  void clear();
 
-  String getImagePathById(final int id);
-
+  // Image
+  List<Widget> getImageWidgets();
   void setCurrentSliderIndex(final int index);
+  int getCurrentSliderIndex();
+  XFile getSelectedImageFile();
+  List<String> getImagePaths();
+  void setEditedImage(final String path);
+  Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context);
+  void toggleCamera();
+  bool getCameraState();
 
+  // Tags
+  Set<String> getTags();
+
+  // Document/OCR
   Future<void> checkInternetConnection();
   Future<void> savePDF(final pdf);
-  Future<void> pollAndSaveDocument(final String location, final String accessToken);
-  Future<String> retrieveAccessToken();
-  Future<String> uploadAsset(final pw.Document pdf, final String accessToken);
-  Future<String> ocrDocument(final String assetID, final String accessToken);
-  Future<pw.Document> createPDF(final Set<String> imagePaths);
-  Future<Map<String, dynamic>> getStatusAndDownloadUri(final String location, final String accessToken);
+  Future<pw.Document> createPDF();
+  Future<void> handleDocumentOCR();
 
-  void showErrorDuringOcrDialog(final BuildContext context);
-  void showErrorInternetDialog(final BuildContext context);
-  void handleDocumentOCR(final BuildContext context, final Set<String> paths);
-  void setSelectedImagePath(final String path);
+  // Navigation
   void goToPage(final Uri uri);
   void goBack();
 }

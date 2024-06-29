@@ -1,26 +1,23 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nodocs/config/config_parameters.dart';
-import 'package:nodocs/features/navigation/navigation_service_routes.dart';
+import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_box_last_image.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_button.dart';
 
 class ScanCameraFooter extends StatelessWidget {
+  final ValueChanged<String> onImageSelected;
   final VoidCallback onTakePhoto;
+  final VoidCallback onLastImageTapped;
+  final List<String> imagePaths;
 
-  const ScanCameraFooter({super.key, required this.onTakePhoto});
+  const ScanCameraFooter({super.key, required this.onTakePhoto, required this.imagePaths, required this.onImageSelected, required this.onLastImageTapped});
 
   Future<void> _pickImage(final BuildContext context) async {
     final XFile? pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null && context.mounted) {
-      GoRouter.of(context).push(Uri(
-              path: NavigationServiceRoutes.crop,
-              queryParameters: <String, String>{'path': pickedFile.path})
-          .toString());
+      onImageSelected.call(pickedFile.path);
     }
   }
 
@@ -28,14 +25,10 @@ class ScanCameraFooter extends StatelessWidget {
   Widget build(final BuildContext context) {
     final List<Widget> row = <Widget>[
       ScanBoxLastImage(
-        // TODO replace the image path with the actual latest image
-        img: Image.file(
-          File(
-              '${ConfigParameters.fileSystemPath}/collection1/annie-spratt-_dAnK9GJvdY-unsplash.jpg'),
-        ),
-        scanCounter: 6,
+        imgPath: ImageService.getLatestImagePath(imagePaths),
+        scanCounter: imagePaths.length,
         onTap: () {
-          GoRouter.of(context).push(NavigationServiceRoutes.save);
+          onLastImageTapped.call();
         },
       ),
       ScanCameraButton(

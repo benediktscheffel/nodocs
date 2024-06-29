@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
+import 'package:nodocs/features/scan/controller/crop_controller.dart';
+import 'package:nodocs/features/scan/controller/implementation/crop_provider.dart';
 import 'package:nodocs/features/scan/widgets/scan_crop.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
@@ -8,12 +11,13 @@ import 'package:nodocs/widgets/navigation_button.dart';
 
 import 'package:nodocs/widgets/title_with_button.dart';
 
-class CropPage extends StatelessWidget {
-  final String path;
-  const CropPage({super.key, required this.path});
+class CropPage extends ConsumerWidget {
+  final List<String> imagePaths;
+  const CropPage({super.key, required this.imagePaths});
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final CropController controller = ref.watch(cropControllerProvider);
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +45,7 @@ class CropPage extends StatelessWidget {
       body: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          ScanCrop(path: path,),
+          ScanCrop(imagePaths: imagePaths),
         ],
       ),
       bottomNavigationBar: NavigationBox(buttons: <Widget>[
@@ -53,11 +57,16 @@ class CropPage extends StatelessWidget {
             builder: (final BuildContext context) =>
               ConfirmationDialog(
                 onConfirm: (){
-                  // TODO delete photo
-                  GoRouter.of(context).go(NavigationServiceRoutes.scan);
+                  controller.removeLastImageFromImagePaths();
+                  controller.goToPage(Uri(
+                    path: NavigationServiceRoutes.scan,
+                    queryParameters: <String, List<String>>{
+                      'path': controller.getImagePaths(),
+                    }));
+                  controller.clear();
                 },
                 onCancel: (){
-                  Navigator.pop(context);
+                  controller.goBack();
                 },
                 header: 'Retake this scan?',
                 notificationText: 'Are you sure you want to retake the scan of the current page without saving?',
@@ -68,16 +77,24 @@ class CropPage extends StatelessWidget {
           buttonText: 'Keep Scanning',
           buttonIcon: Icons.arrow_forward_outlined,
           onPressed: () {
-            // TODO Save image under documents path
-            GoRouter.of(context).go(NavigationServiceRoutes.scan);
+            controller.goToPage(Uri(
+                path: NavigationServiceRoutes.scan,
+                queryParameters: <String, List<String>>{
+                  'path': controller.getImagePaths(),
+                }));
+            controller.clear();
           },
         ),
         NavigationButton(
           buttonText: 'Save Document',
           buttonIcon: Icons.save_outlined,
           onPressed: () {
-            // TODO Forward image paths to SavePage
-            GoRouter.of(context).go(NavigationServiceRoutes.save);
+            controller.goToPage(Uri(
+                path: NavigationServiceRoutes.save,
+                queryParameters: <String, List<String>>{
+                  'path': controller.getImagePaths(),
+                }));
+            controller.clear();
           },
         ),
       ]),

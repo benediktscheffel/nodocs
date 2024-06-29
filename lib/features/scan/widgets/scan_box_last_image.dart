@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ScanBoxLastImage extends StatelessWidget {
-  final Image? img;
+  final String imgPath;
   final int scanCounter;
   final VoidCallback onTap;
-  const ScanBoxLastImage({super.key, required this.img, required this.scanCounter, required this.onTap});
+  const ScanBoxLastImage({super.key, required this.imgPath, required this.scanCounter, required this.onTap});
 
   @override
   Widget build(final BuildContext context) {
-    if (img != null) {
+    if (imgPath != '') {
       return Image(
-        image: img!.image,
+        image: FileImage(File(imgPath)),
         frameBuilder: (final BuildContext context, final Widget child, final int? frame, final bool? wasSynchronouslyLoaded) {
           const TextStyle textStyle = TextStyle(
             color: Colors.white,
@@ -37,7 +39,7 @@ class ScanBoxLastImage extends StatelessWidget {
                   children: <Widget>[
                     Center(
                       child: Image(
-                        image: img!.image,
+                        image: FileImage(File(imgPath)),
                         fit: BoxFit.contain,
                       ),
                     ),

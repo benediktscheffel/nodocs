@@ -3,24 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/scan/controller/implementation/save_provider.dart';
 import 'package:nodocs/features/scan/controller/save_controller.dart';
-import 'package:nodocs/features/scan/model/save_model.dart';
 
-typedef OnPageSelect = void Function(String path);
 class ScanCarousel extends ConsumerWidget {
-  final OnPageSelect onPageSelect;
+  final List<String> imagePaths;
 
-  const ScanCarousel({super.key, required this.onPageSelect});
+  const ScanCarousel({super.key, required this.imagePaths});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    SaveController saveController = ref.read(saveControllerProvider);
-    SaveModel model = ref.watch(saveModelProvider);
+    SaveController saveController = ref.watch(saveControllerProvider);
     final CarouselController carouselController = CarouselController();
     return Column(
       children: <Widget>[
-        if (model.imageSliders.isNotEmpty)
+        if (saveController.getImageWidgets().isNotEmpty)
           CarouselSlider(
-            items: model.imageSliders.toList(),
+            items: saveController.getImageWidgets(),
             carouselController: carouselController,
             options: CarouselOptions(
               height: 300,
@@ -30,14 +27,13 @@ class ScanCarousel extends ConsumerWidget {
               enlargeCenterPage: true,
               onPageChanged: (final int index, final CarouselPageChangedReason reason) {
                 saveController.setCurrentSliderIndex(index);
-                onPageSelect(saveController.getImagePathById(index));
               }
             ),
           ),
-        if (model.imagePaths.isNotEmpty)
+        if (imagePaths.isNotEmpty)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: model.imagePaths.toList().asMap().entries.map((final MapEntry<int, String> entry) {
+            children: imagePaths.asMap().entries.map((final MapEntry<int, String> entry) {
               return GestureDetector(
                 onTap: () {
                   carouselController.animateToPage(entry.key);
@@ -51,7 +47,7 @@ class ScanCarousel extends ConsumerWidget {
                     color: (Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : Colors.black)
-                        .withOpacity(model.currentSliderIndex == entry.key ? 0.9 : 0.4)),
+                        .withOpacity(saveController.getCurrentSliderIndex() == entry.key ? 0.9 : 0.4)),
                 ),
               );
             }).toList(),
