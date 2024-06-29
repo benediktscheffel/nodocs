@@ -4,9 +4,11 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 abstract class SaveController {
+  // Model
   void init(final List<String> imagePaths);
   void clear();
 
+  // Image
   List<Widget> getImageWidgets();
   void setCurrentSliderIndex(final int index);
   int getCurrentSliderIndex();
@@ -17,20 +19,16 @@ abstract class SaveController {
   void toggleCamera();
   bool getCameraState();
 
+  // Tags
   Set<String> getTags();
 
+  // Document/OCR
   Future<void> checkInternetConnection();
   Future<void> savePDF(final pdf);
-  Future<void> pollAndSaveDocument(final String location, final String accessToken);
-  Future<String> retrieveAccessToken();
-  Future<String> uploadAsset(final pw.Document pdf, final String accessToken);
-  Future<String> ocrDocument(final String assetID, final String accessToken);
-  Future<pw.Document> createPDF(final List<String> imagePaths);
-  Future<Map<String, dynamic>> getStatusAndDownloadUri(final String location, final String accessToken);
+  Future<pw.Document> createPDF();
+  Future<void> handleDocumentOCR();
 
-  void showErrorDuringOcrDialog(final BuildContext context);
-  void showErrorInternetDialog(final BuildContext context);
-  void handleDocumentOCR(final BuildContext context, final List<String> paths);
+  // Navigation
   void goToPage(final Uri uri);
   void goBack();
 }

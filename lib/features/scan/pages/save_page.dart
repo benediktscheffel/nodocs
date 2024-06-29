@@ -2,7 +2,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/implementation/save_provider.dart';
@@ -20,6 +19,7 @@ import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
+import 'package:pdf/src/widgets/document.dart';
 
 class SavePage extends ConsumerStatefulWidget {
   final List<String> imagePaths;
@@ -161,25 +161,48 @@ class _SavePageState extends ConsumerState<SavePage> {
               NavigationButton(
                   buttonText: 'Save',
                   buttonIcon: Icons.save_outlined,
-                  onPressed: () async {
+                  onPressed: () {
                     // TODO Write Tags to Database and Save PDF in selected folder
-                    controller.savePDF(
-                        (await controller.createPDF(controller.getImagePaths())).save());
+                    controller.createPDF().then((final Document pdf) {
+                      controller.savePDF(pdf.save()).then((final _) {
+                        controller.goToPage(
+                            Uri(path: NavigationServiceRoutes.home));
+                      }).catchError((final _) {
+                        showErrorDuringPdfSaveDialog(controller);
+                      });
+                    }).catchError((final _) {
+                      showErrorDuringPdfSaveDialog(controller);
+                    });
+                    showDialog<String>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (final BuildContext context) {
+                        return const ScanOcrLoadingDialog();
+                      },
+                    );
                   }
               ),
               NavigationButton(
                   buttonText: 'OCR & Save',
                   buttonIcon: Icons.document_scanner_outlined,
                   onPressed: () {
-                    // TODO Write Tags to Database and Save PDF in selected folder
+                    controller.checkInternetConnection().then((final _) {
+                      controller.handleDocumentOCR().then((final _) {
+                        controller.goToPage(
+                            Uri(path: NavigationServiceRoutes.home));
+                      }).catchError((final _) {
+                        showErrorDuringOcrDialog(controller);
+                      });
+                    }).catchError((final _) {
+                      showErrorInternetDialog(controller);
+                    });
                     showDialog<String>(
                       context: context,
+                      barrierDismissible: false,
                       builder: (final BuildContext context) {
-                        controller.handleDocumentOCR(context, controller.getImagePaths());
                         return const ScanOcrLoadingDialog();
                       },
                     );
-                    // await captureAndCreatePDF(XFile(selectedImagePath));
                   }
               ),
             ],
@@ -232,5 +255,62 @@ class _SavePageState extends ConsumerState<SavePage> {
         );
       }
     });
+  }
+
+  void showErrorDuringPdfSaveDialog(final SaveController controller) {
+    showDialog<String>(
+      context: context,
+      builder: (final _) {
+        return ConfirmationDialog(
+          onConfirm: () {
+            controller.goBack();
+            controller.goBack();
+          },
+          onCancel: () {},
+          header: "Something went wrong!",
+          notificationText: "Something went wrong during the save process.\nPlease try again!",
+          cancelText: "",
+          confirmText: "OK",
+        );
+      },
+    );
+  }
+
+  void showErrorDuringOcrDialog(final SaveController controller) {
+    showDialog<String>(
+      context: context,
+      builder: (final _) {
+        return ConfirmationDialog(
+          onConfirm: () {
+            controller.goBack();
+            controller.goBack();
+          },
+          onCancel: (){},
+          header: "Something went wrong!",
+          notificationText: "Something went wrong during the OCR process.\nPlease try again or save without OCR",
+          cancelText: "",
+          confirmText: "OK",
+        );
+      },
+    );
+  }
+
+  void showErrorInternetDialog(final SaveController controller) {
+    showDialog<String>(
+      context: context,
+      builder: (final _) {
+        return ConfirmationDialog(
+          onConfirm: () {
+            controller.goBack();
+            controller.goBack();
+          },
+          onCancel: (){},
+          header: "Please check your internet connection!",
+          notificationText: "An internet connection is required to process the document.",
+          cancelText: "",
+          confirmText: "OK",
+        );
+      },
+    );
   }
 }
