@@ -30,7 +30,7 @@ class SettingsSharedPreferencesPersistenceService
   }
 
   @override
-  Future<void> saveDarkMode(final bool darkMode) async {
-    _sharedPreferences.setBool('darkMode', darkMode);
+  Future<void> saveBool(final String key, final bool value) async {
+    _sharedPreferences.setBool(key, value);
   }
 }

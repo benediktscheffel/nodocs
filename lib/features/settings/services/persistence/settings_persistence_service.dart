@@ -5,7 +5,7 @@ import 'package:nodocs/features/settings/model/settings_model.dart';
 abstract class SettingsPersistenceService {
   Future<void> init();
 
-  Settings loadSettings();
+  Settings  loadSettings();
   
-  Future<void> saveDarkMode(final bool darkMode);
+  Future<void> saveBool(final String key, final bool value);
 }
