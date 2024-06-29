@@ -29,6 +29,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   SaveModel build({
     required final FileSystemServiceImpl fileSystemService,
     required final NavigationService navigationService,
+    required final OcrService ocrService,
   }) {
     return const SaveModel(
       tags: <String>{
@@ -90,10 +91,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   @override
   Future<void> handleDocumentOCR() async {
     final pw.Document originalPdf = await createPDF();
-    final String accessToken = await OcrService.retrieveAccessToken();
-    final String assetID = await OcrService.uploadAsset(originalPdf, accessToken);
-    final String location = await OcrService.ocrDocument(assetID, accessToken);
-    final Uint8List ocrPdf = await OcrService.pollDocument(location, accessToken, _log);
+    final Uint8List ocrPdf = await ocrService.ocrDocument(originalPdf, _log);
     await savePDF(ocrPdf);
   }
 

@@ -7,7 +7,7 @@ part of 'save_controller_impl.dart';
 // **************************************************************************
 
 String _$saveControllerImplHash() =>
-    r'36700c8b1a528e8068c8b4b4138bd5b60bdeb6ed';
+    r'9f4ac76d60191b43c46a962b08faa2dfca065f0a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,10 +34,12 @@ abstract class _$SaveControllerImpl
     extends BuildlessAutoDisposeNotifier<SaveModel> {
   late final FileSystemServiceImpl fileSystemService;
   late final NavigationService navigationService;
+  late final OcrService ocrService;
 
   SaveModel build({
     required FileSystemServiceImpl fileSystemService,
     required NavigationService navigationService,
+    required OcrService ocrService,
   });
 }
 
@@ -54,10 +56,12 @@ class SaveControllerImplFamily extends Family<SaveModel> {
   SaveControllerImplProvider call({
     required FileSystemServiceImpl fileSystemService,
     required NavigationService navigationService,
+    required OcrService ocrService,
   }) {
     return SaveControllerImplProvider(
       fileSystemService: fileSystemService,
       navigationService: navigationService,
+      ocrService: ocrService,
     );
   }
 
@@ -68,6 +72,7 @@ class SaveControllerImplFamily extends Family<SaveModel> {
     return call(
       fileSystemService: provider.fileSystemService,
       navigationService: provider.navigationService,
+      ocrService: provider.ocrService,
     );
   }
 
@@ -93,10 +98,12 @@ class SaveControllerImplProvider
   SaveControllerImplProvider({
     required FileSystemServiceImpl fileSystemService,
     required NavigationService navigationService,
+    required OcrService ocrService,
   }) : this._internal(
           () => SaveControllerImpl()
             ..fileSystemService = fileSystemService
-            ..navigationService = navigationService,
+            ..navigationService = navigationService
+            ..ocrService = ocrService,
           from: saveControllerImplProvider,
           name: r'saveControllerImplProvider',
           debugGetCreateSourceHash:
@@ -108,6 +115,7 @@ class SaveControllerImplProvider
               SaveControllerImplFamily._allTransitiveDependencies,
           fileSystemService: fileSystemService,
           navigationService: navigationService,
+          ocrService: ocrService,
         );
 
   SaveControllerImplProvider._internal(
@@ -119,10 +127,12 @@ class SaveControllerImplProvider
     required super.from,
     required this.fileSystemService,
     required this.navigationService,
+    required this.ocrService,
   }) : super.internal();
 
   final FileSystemServiceImpl fileSystemService;
   final NavigationService navigationService;
+  final OcrService ocrService;
 
   @override
   SaveModel runNotifierBuild(
@@ -131,6 +141,7 @@ class SaveControllerImplProvider
     return notifier.build(
       fileSystemService: fileSystemService,
       navigationService: navigationService,
+      ocrService: ocrService,
     );
   }
 
@@ -141,7 +152,8 @@ class SaveControllerImplProvider
       override: SaveControllerImplProvider._internal(
         () => create()
           ..fileSystemService = fileSystemService
-          ..navigationService = navigationService,
+          ..navigationService = navigationService
+          ..ocrService = ocrService,
         from: from,
         name: null,
         dependencies: null,
@@ -149,6 +161,7 @@ class SaveControllerImplProvider
         debugGetCreateSourceHash: null,
         fileSystemService: fileSystemService,
         navigationService: navigationService,
+        ocrService: ocrService,
       ),
     );
   }
@@ -163,7 +176,8 @@ class SaveControllerImplProvider
   bool operator ==(Object other) {
     return other is SaveControllerImplProvider &&
         other.fileSystemService == fileSystemService &&
-        other.navigationService == navigationService;
+        other.navigationService == navigationService &&
+        other.ocrService == ocrService;
   }
 
   @override
@@ -171,6 +185,7 @@ class SaveControllerImplProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, fileSystemService.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
+    hash = _SystemHash.combine(hash, ocrService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -182,6 +197,9 @@ mixin SaveControllerImplRef on AutoDisposeNotifierProviderRef<SaveModel> {
 
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
+
+  /// The parameter `ocrService` of this provider.
+  OcrService get ocrService;
 }
 
 class _SaveControllerImplProviderElement
@@ -195,6 +213,9 @@ class _SaveControllerImplProviderElement
   @override
   NavigationService get navigationService =>
       (origin as SaveControllerImplProvider).navigationService;
+  @override
+  OcrService get ocrService =>
+      (origin as SaveControllerImplProvider).ocrService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
