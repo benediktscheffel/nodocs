@@ -24,7 +24,11 @@ samples, guidance on mobile development, and a full API reference.
 
 ```
 dart run build_runner build
+```
 
+#### Regenerate splash screens
+```
+dart run flutter_native_splash:create
 ```
 
 #### Regenerate icon files
