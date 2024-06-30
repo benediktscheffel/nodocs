@@ -101,10 +101,6 @@ class SettingsPage extends ConsumerWidget {
             onPressed: () =>
                 controller.goToPage(Uri(path: NavigationServiceRoutes.scan)),
           ),
-          NavigationButton(
-              buttonText: 'Settings',
-              buttonIcon: Icons.settings_outlined,
-              onPressed: () {}),
         ],
       ),
     );
