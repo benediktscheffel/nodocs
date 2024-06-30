@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/settings/controller/implementation/settings_providers.dart';
 import 'package:nodocs/features/settings/controller/text_recognition_language_controller.dart';

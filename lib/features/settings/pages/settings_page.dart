@@ -35,15 +35,6 @@ class SettingsPage extends ConsumerWidget {
           SettingsContainer(
             collectionItems: <SettingsTile>[
               SettingsTile(
-                title: 'Run text recognition',
-                onPressed: () {},
-                leading: Icons.text_snippet_outlined,
-                trailing: SwitchButton(
-                  value: false,
-                  onChanged: (final bool value) {},
-                ),
-              ),
-              SettingsTile(
                 title: 'Text recognition language',
                 onPressed: () {
                   controller
@@ -70,15 +61,6 @@ class SettingsPage extends ConsumerWidget {
                   onChanged: (final bool value) {
                     controller.toggleDarkMode();
                   },
-                ),
-              ),
-              SettingsTile(
-                title: 'Text size',
-                onPressed: () {},
-                leading: Icons.text_fields_outlined,
-                trailing: Icon(
-                  Icons.arrow_right_outlined,
-                  color: theme.colorScheme.onSecondary,
                 ),
               ),
             ],
