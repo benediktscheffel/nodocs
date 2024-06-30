@@ -1,7 +1,7 @@
 import 'package:nodocs/config/service_locator.dart';
+import 'package:nodocs/features/settings/services/persistence/database/database.dart';
 import 'package:nodocs/features/settings/services/persistence/settings_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings_shared_preferences_persistence_service.g.dart';
 
@@ -12,30 +12,37 @@ SettingsPersistenceService settingsPersistenceService(
 
 class SettingsSharedPreferencesPersistenceService
     implements SettingsPersistenceService {
-  late final SharedPreferences _sharedPreferences;
+  late final Database _database;
 
   @override
   Future<void> init() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
+    _database = getIt<Database>();
+    await _database.init();
   }
 
   @override
-  Future<void> saveBool(final String key, final bool value) async {
-    _sharedPreferences.setBool(key, value);
+  bool loadDarkMode() {
+    return _database.loadBool(SettingsKeys.darkMode);
   }
 
   @override
-  bool loadBool(final String key) {
-    return _sharedPreferences.getBool(key) ?? false;
+  String loadTextRecognitionLanguage() {
+    return _database.loadString(SettingsKeys.textRecognitionLanguage) ??
+        'de-DE';
   }
 
   @override
-  String? loadString(final String key) {
-    return _sharedPreferences.getString(key) ?? null;
+  Future<void> saveDarkMode(final bool darkMode) async {
+    await _database.saveBool(SettingsKeys.darkMode, darkMode);
   }
 
   @override
-  Future<void> saveString(final String key, final String value) async {
-    _sharedPreferences.setString(key, value);
+  Future<void> saveTextRecognitionLanguage(final String language) {
+    return _database.saveString(SettingsKeys.textRecognitionLanguage, language);
   }
+}
+
+class SettingsKeys {
+  static const String darkMode = 'darkMode';
+  static const String textRecognitionLanguage = 'textRecognitionLanguage';
 }

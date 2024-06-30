@@ -21,7 +21,7 @@ class SettingsControllerImpl extends _$SettingsControllerImpl
   void toggleDarkMode() {
     state = state.copyWith(
         settings: state.settings.copyWith(darkMode: !state.settings.darkMode));
-    settingsPersistenceService.saveBool('darkMode', state.settings.darkMode);
+    settingsPersistenceService.saveDarkMode(state.settings.darkMode);
   }
 
   @override
@@ -35,6 +35,6 @@ class SettingsControllerImpl extends _$SettingsControllerImpl
   }
 
   Settings _initializeSettings() {
-    return Settings(darkMode: settingsPersistenceService.loadBool('darkMode'));
+    return Settings(darkMode: settingsPersistenceService.loadDarkMode());
   }
 }

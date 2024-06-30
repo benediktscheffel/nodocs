@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'text_recognition_language_contoller_impl.dart';
+part of 'text_recognition_language_controller_impl.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$textRecognitionLanguageContollerImplHash() =>
-    r'b89397580ba61c5e741d30c134666bdf9464f710';
+String _$textRecognitionLanguageControllerImplHash() =>
+    r'1496103a5de9294eb2cd3480553657bf5276de7c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,7 +30,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$TextRecognitionLanguageContollerImpl
+abstract class _$TextRecognitionLanguageControllerImpl
     extends BuildlessAutoDisposeNotifier<TextRecognitionLanguageModel> {
   late final SettingsPersistenceService settingsPersistenceService;
   late final NavigationService navigationService;
@@ -41,31 +41,31 @@ abstract class _$TextRecognitionLanguageContollerImpl
   });
 }
 
-/// See also [TextRecognitionLanguageContollerImpl].
-@ProviderFor(TextRecognitionLanguageContollerImpl)
-const textRecognitionLanguageContollerImplProvider =
-    TextRecognitionLanguageContollerImplFamily();
+/// See also [TextRecognitionLanguageControllerImpl].
+@ProviderFor(TextRecognitionLanguageControllerImpl)
+const textRecognitionLanguageControllerImplProvider =
+    TextRecognitionLanguageControllerImplFamily();
 
-/// See also [TextRecognitionLanguageContollerImpl].
-class TextRecognitionLanguageContollerImplFamily
+/// See also [TextRecognitionLanguageControllerImpl].
+class TextRecognitionLanguageControllerImplFamily
     extends Family<TextRecognitionLanguageModel> {
-  /// See also [TextRecognitionLanguageContollerImpl].
-  const TextRecognitionLanguageContollerImplFamily();
+  /// See also [TextRecognitionLanguageControllerImpl].
+  const TextRecognitionLanguageControllerImplFamily();
 
-  /// See also [TextRecognitionLanguageContollerImpl].
-  TextRecognitionLanguageContollerImplProvider call({
+  /// See also [TextRecognitionLanguageControllerImpl].
+  TextRecognitionLanguageControllerImplProvider call({
     required SettingsPersistenceService settingsPersistenceService,
     required NavigationService navigationService,
   }) {
-    return TextRecognitionLanguageContollerImplProvider(
+    return TextRecognitionLanguageControllerImplProvider(
       settingsPersistenceService: settingsPersistenceService,
       navigationService: navigationService,
     );
   }
 
   @override
-  TextRecognitionLanguageContollerImplProvider getProviderOverride(
-    covariant TextRecognitionLanguageContollerImplProvider provider,
+  TextRecognitionLanguageControllerImplProvider getProviderOverride(
+    covariant TextRecognitionLanguageControllerImplProvider provider,
   ) {
     return call(
       settingsPersistenceService: provider.settingsPersistenceService,
@@ -85,36 +85,36 @@ class TextRecognitionLanguageContollerImplFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'textRecognitionLanguageContollerImplProvider';
+  String? get name => r'textRecognitionLanguageControllerImplProvider';
 }
 
-/// See also [TextRecognitionLanguageContollerImpl].
-class TextRecognitionLanguageContollerImplProvider
+/// See also [TextRecognitionLanguageControllerImpl].
+class TextRecognitionLanguageControllerImplProvider
     extends AutoDisposeNotifierProviderImpl<
-        TextRecognitionLanguageContollerImpl, TextRecognitionLanguageModel> {
-  /// See also [TextRecognitionLanguageContollerImpl].
-  TextRecognitionLanguageContollerImplProvider({
+        TextRecognitionLanguageControllerImpl, TextRecognitionLanguageModel> {
+  /// See also [TextRecognitionLanguageControllerImpl].
+  TextRecognitionLanguageControllerImplProvider({
     required SettingsPersistenceService settingsPersistenceService,
     required NavigationService navigationService,
   }) : this._internal(
-          () => TextRecognitionLanguageContollerImpl()
+          () => TextRecognitionLanguageControllerImpl()
             ..settingsPersistenceService = settingsPersistenceService
             ..navigationService = navigationService,
-          from: textRecognitionLanguageContollerImplProvider,
-          name: r'textRecognitionLanguageContollerImplProvider',
+          from: textRecognitionLanguageControllerImplProvider,
+          name: r'textRecognitionLanguageControllerImplProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$textRecognitionLanguageContollerImplHash,
+                  : _$textRecognitionLanguageControllerImplHash,
           dependencies:
-              TextRecognitionLanguageContollerImplFamily._dependencies,
-          allTransitiveDependencies: TextRecognitionLanguageContollerImplFamily
+              TextRecognitionLanguageControllerImplFamily._dependencies,
+          allTransitiveDependencies: TextRecognitionLanguageControllerImplFamily
               ._allTransitiveDependencies,
           settingsPersistenceService: settingsPersistenceService,
           navigationService: navigationService,
         );
 
-  TextRecognitionLanguageContollerImplProvider._internal(
+  TextRecognitionLanguageControllerImplProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -130,7 +130,7 @@ class TextRecognitionLanguageContollerImplProvider
 
   @override
   TextRecognitionLanguageModel runNotifierBuild(
-    covariant TextRecognitionLanguageContollerImpl notifier,
+    covariant TextRecognitionLanguageControllerImpl notifier,
   ) {
     return notifier.build(
       settingsPersistenceService: settingsPersistenceService,
@@ -140,10 +140,10 @@ class TextRecognitionLanguageContollerImplProvider
 
   @override
   Override overrideWith(
-      TextRecognitionLanguageContollerImpl Function() create) {
+      TextRecognitionLanguageControllerImpl Function() create) {
     return ProviderOverride(
       origin: this,
-      override: TextRecognitionLanguageContollerImplProvider._internal(
+      override: TextRecognitionLanguageControllerImplProvider._internal(
         () => create()
           ..settingsPersistenceService = settingsPersistenceService
           ..navigationService = navigationService,
@@ -159,14 +159,14 @@ class TextRecognitionLanguageContollerImplProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<TextRecognitionLanguageContollerImpl,
+  AutoDisposeNotifierProviderElement<TextRecognitionLanguageControllerImpl,
       TextRecognitionLanguageModel> createElement() {
-    return _TextRecognitionLanguageContollerImplProviderElement(this);
+    return _TextRecognitionLanguageControllerImplProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is TextRecognitionLanguageContollerImplProvider &&
+    return other is TextRecognitionLanguageControllerImplProvider &&
         other.settingsPersistenceService == settingsPersistenceService &&
         other.navigationService == navigationService;
   }
@@ -181,7 +181,7 @@ class TextRecognitionLanguageContollerImplProvider
   }
 }
 
-mixin TextRecognitionLanguageContollerImplRef
+mixin TextRecognitionLanguageControllerImplRef
     on AutoDisposeNotifierProviderRef<TextRecognitionLanguageModel> {
   /// The parameter `settingsPersistenceService` of this provider.
   SettingsPersistenceService get settingsPersistenceService;
@@ -190,19 +190,19 @@ mixin TextRecognitionLanguageContollerImplRef
   NavigationService get navigationService;
 }
 
-class _TextRecognitionLanguageContollerImplProviderElement
+class _TextRecognitionLanguageControllerImplProviderElement
     extends AutoDisposeNotifierProviderElement<
-        TextRecognitionLanguageContollerImpl, TextRecognitionLanguageModel>
-    with TextRecognitionLanguageContollerImplRef {
-  _TextRecognitionLanguageContollerImplProviderElement(super.provider);
+        TextRecognitionLanguageControllerImpl, TextRecognitionLanguageModel>
+    with TextRecognitionLanguageControllerImplRef {
+  _TextRecognitionLanguageControllerImplProviderElement(super.provider);
 
   @override
   SettingsPersistenceService get settingsPersistenceService =>
-      (origin as TextRecognitionLanguageContollerImplProvider)
+      (origin as TextRecognitionLanguageControllerImplProvider)
           .settingsPersistenceService;
   @override
   NavigationService get navigationService =>
-      (origin as TextRecognitionLanguageContollerImplProvider)
+      (origin as TextRecognitionLanguageControllerImplProvider)
           .navigationService;
 }
 // ignore_for_file: type=lint

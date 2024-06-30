@@ -9,7 +9,7 @@ import 'package:nodocs/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'settings_controller_impl.dart';
-import 'text_recognition_language_contoller_impl.dart';
+import 'text_recognition_language_controller_impl.dart';
 
 part 'settings_providers.g.dart';
 
@@ -39,7 +39,7 @@ SettingsModel settingsModel(final SettingsModelRef ref) =>
 TextRecognitionLanguageController textRecognitionLanguageController(
         final TextRecognitionLanguageControllerRef ref) =>
     ref.watch(
-      textRecognitionLanguageContollerImplProvider(
+      textRecognitionLanguageControllerImplProvider(
         settingsPersistenceService:
             ref.watch(settingsPersistenceServiceProvider),
         navigationService: ref.watch(settingsNavigationServiceProvider),
@@ -49,7 +49,7 @@ TextRecognitionLanguageController textRecognitionLanguageController(
 @riverpod
 TextRecognitionLanguageModel textRecognitionLanguageModel(
         final TextRecognitionLanguageModelRef ref) =>
-    ref.watch(textRecognitionLanguageContollerImplProvider(
+    ref.watch(textRecognitionLanguageControllerImplProvider(
       settingsPersistenceService: ref.watch(settingsPersistenceServiceProvider),
       navigationService: ref.watch(settingsNavigationServiceProvider),
     ));

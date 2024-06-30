@@ -5,11 +5,11 @@ import 'package:nodocs/features/settings/model/text_recognition_language_model.d
 import 'package:nodocs/features/settings/services/persistence/settings_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'text_recognition_language_contoller_impl.g.dart';
+part 'text_recognition_language_controller_impl.g.dart';
 
 @riverpod
-class TextRecognitionLanguageContollerImpl
-    extends _$TextRecognitionLanguageContollerImpl
+class TextRecognitionLanguageControllerImpl
+    extends _$TextRecognitionLanguageControllerImpl
     implements TextRecognitionLanguageController {
   @override
   TextRecognitionLanguageModel build(
@@ -17,8 +17,7 @@ class TextRecognitionLanguageContollerImpl
       required final NavigationService navigationService}) {
     return TextRecognitionLanguageModel(
         selectedLanguageCode:
-            settingsPersistenceService.loadString('textRecognitionLanguage') ??
-                'en-GB',
+            settingsPersistenceService.loadTextRecognitionLanguage(),
         languages: Languages.getSortedLanguages());
   }
 
@@ -30,6 +29,6 @@ class TextRecognitionLanguageContollerImpl
   @override
   void setTextRecognitionLanguage(final String language) {
     state = state.copyWith(selectedLanguageCode: language);
-    settingsPersistenceService.saveString('textRecognitionLanguage', language);
+    settingsPersistenceService.saveTextRecognitionLanguage(language);
   }
 }
