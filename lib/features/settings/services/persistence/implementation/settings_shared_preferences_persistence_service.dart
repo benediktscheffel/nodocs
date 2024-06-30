@@ -1,7 +1,6 @@
 import 'package:nodocs/features/settings/services/persistence/implementation/database/database.dart';
 import 'package:nodocs/features/settings/services/persistence/settings_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
 import 'database/shared_preferences_database.dart';
 
 part 'settings_shared_preferences_persistence_service.g.dart';
@@ -33,7 +32,7 @@ class SettingsSharedPreferencesPersistenceService
   @override
   String loadTextRecognitionLanguage() {
     return _database.loadString(SettingsKeys.textRecognitionLanguage) ??
-        'de-DE';
+        'en-GB';
   }
 
   @override
