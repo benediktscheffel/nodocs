@@ -33,7 +33,8 @@ class HomePage extends ConsumerWidget {
         centerTitle: true,
       ),
       body: LayoutBuilder(
-        builder: (final BuildContext context, final BoxConstraints constraints) {
+        builder:
+            (final BuildContext context, final BoxConstraints constraints) {
           return SingleChildScrollView(
             reverse: true,
             child: ConstrainedBox(
@@ -43,7 +44,8 @@ class HomePage extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     CollectionContainer(
-                      children: _buildCollectionTiles(controller.getCollectionNodes(), controller),
+                      children: _buildCollectionTiles(
+                          controller.getCollectionNodes(), controller),
                     ),
                     const SearchBox(),
                   ],
@@ -53,7 +55,6 @@ class HomePage extends ConsumerWidget {
           );
         },
       ),
-
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
           NavigationButton(
@@ -113,6 +114,7 @@ class HomePage extends ConsumerWidget {
                 goBack: controller.goBackTwice,
                 initialText: node.displayName,
               ),
+              onAdd: () {},
             ),
             children: _buildCollectionTiles(node.children, controller),
           ),
