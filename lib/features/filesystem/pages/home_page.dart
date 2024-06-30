@@ -20,7 +20,10 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final HomeController controller = ref.read(homeControllerProvider);
-    ref.watch(homeModelProvider);
+    final HomeModel model = ref.watch(homeModelProvider);
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((final _) => controller.updateState());
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +48,7 @@ class HomePage extends ConsumerWidget {
                   children: <Widget>[
                     CollectionContainer(
                       children: _buildCollectionTiles(
-                          controller.getCollectionNodes(), controller),
+                          model.collectionNodes, controller),
                     ),
                     const SearchBox(),
                   ],
@@ -98,13 +101,16 @@ class HomePage extends ConsumerWidget {
             contextMenu: CollectionTileDialog(
               contextPath: node.path,
               onShare: () => controller.shareFile(node.path, node.displayName),
-              onAdd: () => controller.addFile(node.path),
+              onAdd: () {
+                controller.addFile(node.path);
+                controller.goBack();
+              },
               deleteDialog: ConfirmationDialog(
-                onConfirm: () => <void>{
-                  controller.deleteCollectionOrFile(node.path),
-                  controller.goBackTwice()
+                onConfirm: () {
+                  controller.deleteCollectionOrFile(node.path);
+                  controller.goBackTwice();
                 },
-                onCancel: () => controller.goBackTwice,
+                onCancel: () => controller.goBackTwice(),
                 header: 'Confirm Deletion',
                 notificationText:
                     'Are you sure you want to delete \'${node.displayName}\'?',

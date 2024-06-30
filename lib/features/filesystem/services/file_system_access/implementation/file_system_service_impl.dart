@@ -17,13 +17,27 @@ class FileSystemServiceImpl implements FileSystemService {
 
   @override
   Future<FileSystemEntity>? deleteCollectionOrFile(final String path) {
-    _log.d('deleting $path');
     if (path.isEmpty) {
       return null;
     }
-    final Directory entity = Directory(path);
-    if (entity.existsSync()) {
-      return entity.delete(recursive: true);
+    if (path.endsWith('.pdf')) {
+      return _deletePdfFile(path);
+    }
+    return _deleteCollection(path);
+  }
+
+  Future<FileSystemEntity>? _deleteCollection(final String path) {
+    final Directory directory = Directory(path);
+    if (directory.existsSync()) {
+      return directory.delete(recursive: true);
+    }
+    return null;
+  }
+
+  Future<FileSystemEntity>? _deletePdfFile(final String path) {
+    final File file = File(path);
+    if (file.existsSync()) {
+      return file.delete();
     }
     return null;
   }
