@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 typedef SearchTapCallback = void Function(Object item);
@@ -55,11 +57,10 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
       builder: (final BuildContext context) {
         return AlertDialog(
           insetPadding: const EdgeInsets.all(0),
-          title: const Text('Search Result'),
-          content: const SizedBox(
+          title: Text(LocaleKeys.pdf_viewer_search_alert_dialog_header.tr()),
+          content: SizedBox(
               width: 328.0,
-              child: Text(
-                  'No more occurrences found. Would you like to continue to search from the beginning?')),
+              child: Text(LocaleKeys.pdf_viewer_search_alert_dialog_body.tr())),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -69,7 +70,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
                 Navigator.of(context).pop();
               },
               child: Text(
-                'YES',
+                LocaleKeys.pdf_viewer_search_alert_dialog_yes.tr(),
                 style: TextStyle(
                     color: const Color(0x00000000).withOpacity(0.87),
                     fontFamily: 'Roboto',
@@ -89,7 +90,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
                 Navigator.of(context).pop();
               },
               child: Text(
-                'NO',
+                LocaleKeys.pdf_viewer_search_alert_dialog_no.tr(),
                 style: TextStyle(
                     color: const Color(0x00000000).withOpacity(0.87),
                     fontFamily: 'Roboto',
@@ -136,7 +137,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
             controller: _editingController,
             decoration: InputDecoration(
               border: InputBorder.none,
-              hintText: 'Find...',
+              hintText: LocaleKeys.pdf_viewer_search_toolbar_hint_text.tr(),
               hintStyle: TextStyle(color: theme.colorScheme.onSecondary.withOpacity(0.34)),
             ),
             onChanged: (final String text) {
@@ -243,7 +244,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
                     fontSize: 16),
               ),
               Text(
-                ' of ',
+                LocaleKeys.pdf_viewer_search_toolbar_of.tr(),
                 style: TextStyle(
                     color: theme.colorScheme.onSecondary,
                     fontSize: 16),

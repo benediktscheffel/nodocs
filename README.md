@@ -35,3 +35,8 @@ dart run flutter_native_splash:create
 ```
 flutter pub run flutter_launcher_icons
 ```
+
+#### Regenerate translation keys
+```
+dart run easy_localization:generate -S assets/translations -f keys -O lib/gen -o locale_keys.g.dart
+```

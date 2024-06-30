@@ -1,0 +1,195 @@
+{
+  "general" : {
+    "confirmation_dialog": {
+      "cancel": "Abbrechen",
+      "confirm": "Akzeptieren"
+    }
+  },
+  "home": {
+    "new_collection": "Neue Sammlung",
+    "scan_document": "Scanne Dokument",
+    "settings": "Einstellungen",
+    "collection_tile": {
+      "rename": "Umbenennen",
+      "share" : "Teilen",
+      "upload": "Datei hochladen",
+      "delete": "Löschen",
+      "delete_dialog": {
+        "header": "Bestätige Löschung",
+        "notification_text": "Wollen Sie wirklich folgendes Element löschen: "
+      },
+      "rename_dialog": {
+        "header_text": "Umbenennen",
+        "hint_text": "Bennene Sammlung/Datei neu",
+        "cancel": "Abbrechen",
+        "confirm": "Übernehmen"
+      }
+    },
+    "search": {
+      "message": "Suche",
+      "hint_text": "Dokumente, Tags oder Sammlungen"
+    },
+    "collection_create_dialog": {
+      "header": "Erstelle eine neue Sammlung",
+      "hintText": "Neue Sammlung",
+      "cancel": "Abbrechen",
+      "confirm": "Erstellen"
+    }
+  },
+  "pdf_viewer": {
+    "no_result": "Kein Ergebnis",
+    "navigation": {
+      "edit_tags": "Tags Bearbeiten",
+      "home": "Home",
+      "search": "Suche"
+    },
+    "search": {
+      "alert_dialog": {
+        "header": "Suchergebnisse",
+        "body": "Keine weiteren Treffer! Möchten Sie mit der Suche von vorne beginnen?",
+        "yes": "JA",
+        "no": "NEIN"
+      },
+      "toolbar": {
+        "hint_text": "Suche...",
+        "of": " von "
+      }
+    },
+    "tags": {
+      "dialog": {
+        "header": "Tags Bearbeiten",
+        "save": "Speichern",
+        "input_hint_text": "Erstelle neuen Tag"
+      }
+    }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "ocr" : {
+      "run_text_recognition": "Mit Texterkennung laufen",
+      "text_recognition_language": "Sprache der Texterkennung",
+      "languages": {
+        "daDK": "Dänisch",
+        "ltLT": "Litauisch",
+        "slSI": "Slowenisch",
+        "elGR": "Griechisch (modern)",
+        "ruRU": "Russisch",
+        "enUS": "Englisch (Vereinigte Staaten)",
+        "zhHK": "Chinesisch (Hongkong)",
+        "huHU": "Ungarisch",
+        "etEE": "Estnisch",
+        "ptBR": "Portugiesisch",
+        "ukUA": "Ukrainisch",
+        "nbNO": "Norwegisch Bokmål",
+        "plPL": "Polnisch",
+        "lvLV": "Lettisch",
+        "fiFI": "Finnisch",
+        "jaJP": "Japanisch",
+        "esES": "Spanisch",
+        "bgBG": "Bulgarisch",
+        "enGB": "Englisch (Vereinigtes Königreich)",
+        "csCZ": "Tschechisch",
+        "mtMT": "Maltesisch",
+        "deDE": "Deutsch (Deutschland)",
+        "hrHR": "Kroatisch",
+        "skSK": "Slowakisch",
+        "srSR": "Serbisch",
+        "caCA": "Katalanisch",
+        "mkMK": "Mazedonisch",
+        "koKR": "Koreanisch",
+        "deCH": "Deutsch (Schweiz)",
+        "nlNL": "Niederländisch",
+        "zhCN": "Chinesisch (China)",
+        "svSE": "Schwedisch",
+        "itIT": "Italienisch",
+        "noNO": "Norwegisch",
+        "trTR": "Türkisch",
+        "frFR": "Französisch",
+        "roRO": "Rumänisch"
+      }
+    },
+    "appearance": {
+      "dark_mode": "Dunkelmodus",
+      "text_size": "Textgröße"
+    }
+  },
+  "scan": {
+    "footer": {
+      "scan_document": "Scanne Dokument"
+    },
+    "discard_dialog": {
+      "header": "Diesen Scan verwerfen?",
+      "body": "Sind Sie sich sicher, dass Sie diesen Scan ohne zu speichern verwerfen möchten? Dabei werden alle Seiten des momentanen Scan gelöscht."
+    }
+  },
+  "crop": {
+    "title": "Scan Zuschneiden",
+    "scan_action_button_text": "Zuschneiden",
+    "discard_dialog": {
+      "header": "Diesen Scan verwerfen?",
+      "body": "Sind Sie sich sicher, dass Sie diesen Scan ohne zu speichern verwerfen möchten? Dabei werden alle Seiten des momentanen Scan gelöscht."
+    },
+    "retake_dialog": {
+      "header": "Diesen Seite neu aufnehmen?",
+      "body": "Sind Sie sich sicher, dass Sie diese Seite ohne zu speichern erneut aufnehmen möchten?"
+    },
+    "navigation": {
+      "retake_photo": "Erneut Aufnehmen",
+      "keep_scanning": "Nächste Seite",
+      "save_document": "Dokument speichern"
+    },
+    "service": {
+      "cropper": "Zuschneidewerkzeug"
+    }
+  },
+  "save": {
+    "default_title": "Titel des Dokuments",
+    "tag_dropdown": {
+      "label": "Tags Auswählen"
+    },
+    "collection_dropdown": {
+      "label": "Sammlung Auswählen"
+    },
+    "carousel": {
+      "page": "Seite"
+    },
+    "action_buttons": {
+      "crop_again": "Neu Zuschneiden",
+      "retake": "Neu Aufnehmen"
+    },
+    "navigation": {
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "ocr_save": "OCR & Speichern"
+    },
+    "retake_dialog": {
+      "header": "Diesen Seite neu aufnehmen?",
+      "body": "Sind Sie sich sicher, dass Sie diese Seite ohne zu speichern erneut aufnehmen möchten?"
+    },
+    "cancel_dialog": {
+      "header": "Diesen Scan abbrechen?",
+      "body": "Sind Sie sich sicher, dass Sie diesen Scan ohne zu speichern verwerfen möchten? Dabei werden alle Seiten des momentanen Scan gelöscht."
+    },
+    "ocr_loading_dialog": {
+      "header": "Bitte warten Sie einen Moment...",
+      "stay_connected": "Bitte bleiben Sie mit dem Internet verbunden\nbis das Dokument verarbeitet wurde."
+    },
+    "error_dialogs": {
+      "save": {
+        "header": "Etwas ist schief gelaufen!",
+        "notification_text": "Etwas lief schief während des Speichervorgangs.\nBitte versuchen Sie es erneut!",
+        "confirm": "OK"
+      },
+      "ocr": {
+        "header": "Etwas ist schief gelaufen!",
+        "notification_text": "Etwas lief schief während des OCR-Vorgangs.\nBitte versuchen Sie es erneut oder speichern Sie ohne OCR!",
+        "confirm": "OK"
+      },
+      "internet": {
+        "header": "Bitte überprüfen Sie ihre Internetverbindung!",
+        "notification_text": "Eine Internetverbindung ist notwendig um das Dokument zu verarbeiten.",
+        "confirm": "OK"
+      }
+    }
+  }
+}

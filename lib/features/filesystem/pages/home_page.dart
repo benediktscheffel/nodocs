@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
@@ -8,6 +9,7 @@ import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart
 import 'package:nodocs/features/filesystem/widgets/collection_rename_dialog.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_tile.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/widgets/collection_tile_dialog.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
@@ -30,6 +32,7 @@ class HomePage extends ConsumerWidget {
               fontSize: 17,
             )),
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -47,13 +50,13 @@ class HomePage extends ConsumerWidget {
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
           NavigationButton(
-            buttonText: 'New Collection',
+            buttonText: LocaleKeys.home_new_collection.tr(),
             buttonIcon: Icons.add_outlined,
             onPressed: () => _showCreateCollectionModal(
                 context, controller.createCollection(), controller.goBack),
           ),
           NavigationButton(
-              buttonText: 'Scan Document',
+              buttonText: LocaleKeys.home_scan_document.tr(),
               buttonIcon: Icons.camera_alt_outlined,
               onPressed: () {
                 controller.goToPage(Uri(
@@ -63,7 +66,7 @@ class HomePage extends ConsumerWidget {
                     }));
               }),
           NavigationButton(
-              buttonText: 'Settings',
+              buttonText: LocaleKeys.home_settings.tr(),
               buttonIcon: Icons.settings_outlined,
               onPressed: () {
                 controller
@@ -94,9 +97,8 @@ class HomePage extends ConsumerWidget {
                   controller.goBackTwice()
                 },
                 onCancel: () => controller.goBackTwice,
-                header: 'Confirm Deletion',
-                notificationText:
-                    'Are you sure you want to delete \'${node.displayName}\'?',
+                header: LocaleKeys.home_collection_tile_delete_dialog_header.tr(),
+                notificationText: '${LocaleKeys.home_collection_tile_delete_dialog_header.tr()}\'${node.displayName}\'?',
               ),
               renameDialog: CollectionRenameDialog(
                 onSave: controller.renameCollectionOrFile(node.path),

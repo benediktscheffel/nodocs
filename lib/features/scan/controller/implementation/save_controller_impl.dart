@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:logger/logger.dart';
@@ -14,6 +15,7 @@ import 'package:nodocs/features/scan/services/crop_service.dart';
 import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/services/ocr_service.dart';
 import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/util/logging/log.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -38,7 +40,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
       imagePaths: <String>[],
       toggleCamera: false,
       savePath: '',
-      title: 'Title of Document',
+      title: '',
     );
   }
 
@@ -53,7 +55,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
       imagePaths: imagePaths,
       toggleCamera: false,
       savePath: rootDirectory,
-      title: 'Title of Document',
+      title: LocaleKeys.save_default_title.tr(),
     );
   }
 

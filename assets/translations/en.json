@@ -1,0 +1,195 @@
+{
+  "general" : {
+    "confirmation_dialog": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  },
+  "home": {
+    "new_collection": "New Collection",
+    "scan_document": "Scan Document",
+    "settings": "Settings",
+    "collection_tile": {
+      "rename": "Rename",
+      "share" : "Share",
+      "upload": "Upload File",
+      "delete": "Delete",
+      "delete_dialog": {
+        "header": "Confirm Deletion",
+        "notification_text": "Are you sure you want to delete "
+      },
+      "rename_dialog": {
+        "header_text": "Rename",
+        "hint_text": "Rename Collection/File",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      }
+    },
+    "search": {
+      "message": "Search",
+      "hint_text": "Documents, Tags or Collections"
+    },
+    "collection_create_dialog": {
+      "header": "Create a new Collection",
+      "hintText": "New Collection",
+      "cancel": "Cancel",
+      "confirm": "Create"
+    }
+  },
+  "pdf_viewer": {
+    "no_result": "No result",
+    "navigation": {
+      "edit_tags": "Edit Tags",
+      "home": "Home",
+      "search": "Search"
+    },
+    "search": {
+      "alert_dialog": {
+        "header": "Search Result",
+        "body": "No more occurrences found. Would you like to continue to search from the beginning?",
+        "yes": "YES",
+        "no": "NO"
+      },
+      "toolbar": {
+        "hint_text": "Find...",
+        "of": " of "
+      }
+    },
+    "tags": {
+      "dialog": {
+        "header": "Edit Tags",
+        "save": "Save",
+        "input_hint_text": "Create new Tag"
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "ocr" : {
+      "run_text_recognition": "Run text recognition",
+      "text_recognition_language": "Text recognition language",
+      "languages": {
+        "daDK": "Danish",
+        "ltLT": "Lithuanian",
+        "slSI": "Slovene",
+        "elGR": "Greek (modern)",
+        "ruRU": "Russian",
+        "enUS": "English (United States)",
+        "zhHK": "Chinese (Hong Kong)",
+        "huHU": "Hungarian",
+        "etEE": "Estonian",
+        "ptBR": "Portuguese",
+        "ukUA": "Ukrainian",
+        "nbNO": "Norwegian Bokmål",
+        "plPL": "Polish",
+        "lvLV": "Latvian",
+        "fiFI": "Finnish",
+        "jaJP": "Japanese",
+        "esES": "Spanish",
+        "bgBG": "Bulgarian",
+        "enGB": "English (United Kingdom)",
+        "csCZ": "Czech",
+        "mtMT": "Maltese",
+        "deDE": "German (Germany)",
+        "hrHR": "Croatian",
+        "skSK": "Slovak",
+        "srSR": "Serbian",
+        "caCA": "Catalan",
+        "mkMK": "Macedonian",
+        "koKR": "Korean",
+        "deCH": "German (Switzerland)",
+        "nlNL": "Dutch",
+        "zhCN": "Chinese (China)",
+        "svSE": "Swedish",
+        "itIT": "Italian",
+        "noNO": "Norwegian",
+        "trTR": "Turkish",
+        "frFR": "French",
+        "roRO": "Romanian"
+      }
+    },
+    "appearance": {
+      "dark_mode": "DarkMode",
+      "text_size": "Text size"
+    }
+  },
+  "scan": {
+    "footer": {
+      "scan_document": "Scan Document"
+    },
+    "discard_dialog": {
+      "header": "Discard this scan?",
+      "body": "Are you sure you want to discard this scan without saving? This will discard all pages of this scan."
+    }
+  },
+  "crop": {
+    "title": "Crop Scan",
+    "scan_action_button_text": "Crop",
+    "discard_dialog": {
+      "header": "Discard this scan?",
+      "body": "Are you sure you want to discard this scan without saving? This will discard all pages of this scan."
+    },
+    "retake_dialog": {
+      "header": "Retake this scan?",
+      "body": "Are you sure you want to retake the scan of the current page without saving?"
+    },
+    "navigation": {
+      "retake_photo": "Retake Photo",
+      "keep_scanning": "Keep Scanning",
+      "save_document": "Save Document"
+    },
+    "service": {
+      "cropper": "Cropper"
+    }
+  },
+  "save": {
+    "default_title": "Title of Document",
+    "tag_dropdown": {
+      "label": "Select Tags"
+    },
+    "collection_dropdown": {
+      "label": "Select Collection"
+    },
+    "carousel": {
+      "page": "Page"
+    },
+    "action_buttons": {
+      "crop_again": "Crop Again",
+      "retake": "Retake"
+    },
+    "navigation": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "ocr_save": "OCR & Save"
+    },
+    "retake_dialog": {
+      "header": "Retake this scan?",
+      "body": "Are you sure you want to retake the scan of the current page without saving?"
+    },
+    "cancel_dialog": {
+      "header": "Cancel this scan?",
+      "body": "Are you sure you want to discard this scan without saving? This will discard all pages of this scan."
+    },
+    "ocr_loading_dialog": {
+      "header": "Please wait a moment...",
+      "stay_connected": "Please stay connected to the internet\nuntil the document has been processed."
+    },
+    "error_dialogs": {
+      "save": {
+        "header": "Something went wrong!",
+        "notification_text": "Something went wrong during the save process.\nPlease try again!",
+        "confirm": "OK"
+      },
+      "ocr": {
+        "header": "Something went wrong!",
+        "notification_text": "Something went wrong during the OCR process.\nPlease try again or save without OCR",
+        "confirm": "OK"
+      },
+      "internet": {
+        "header": "Please check your internet connection!",
+        "notification_text": "An internet connection is required to process the document.",
+        "confirm": "OK"
+      }
+    }
+  }
+}

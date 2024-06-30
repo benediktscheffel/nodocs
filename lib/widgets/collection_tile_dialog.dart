@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class CollectionTileDialog extends StatelessWidget {
   final String contextPath;
@@ -35,14 +37,14 @@ class CollectionTileDialog extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 trailing: Icon(Icons.edit, color: colorScheme.onPrimary),
-                title: Text('Rename',
+                title: Text(LocaleKeys.home_collection_tile_rename.tr(),
                     style: TextStyle(color: colorScheme.onPrimary)),
                 onTap: () => _showRenameDialog(context),
               ),
               ListTile(
                 trailing:
                     Icon(Icons.ios_share_sharp, color: colorScheme.onPrimary),
-                title: Text('Share',
+                title: Text(LocaleKeys.home_collection_tile_share.tr(),
                     style: TextStyle(color: colorScheme.onPrimary)),
                 onTap: onShare,
               ),
@@ -53,8 +55,8 @@ class CollectionTileDialog extends StatelessWidget {
               ),
               ListTile(
                 trailing: const Icon(Icons.delete, color: Colors.redAccent),
-                title: const Text('Delete',
-                    style: TextStyle(color: Colors.redAccent)),
+                title: Text(LocaleKeys.home_collection_tile_delete.tr(),
+                    style: const TextStyle(color: Colors.redAccent)),
                 onTap: () => _showConfirmDeletionDialog(context),
               ),
             ],

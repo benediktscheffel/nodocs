@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import 'package:nodocs/features/settings/controller/text_recognition_language_co
 import 'package:nodocs/features/settings/model/text_recognition_language_model.dart';
 import 'package:nodocs/features/settings/widgets/settings_container.dart';
 import 'package:nodocs/features/settings/widgets/settings_tile.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
 class TextRecognitionLanguagePage extends ConsumerWidget {
@@ -25,7 +27,7 @@ class TextRecognitionLanguagePage extends ConsumerWidget {
         automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
         title: TitleWithButton(
-          title: 'Text recognition language',
+          title: LocaleKeys.settings_ocr_text_recognition_language.tr(),
           icon: Icons.arrow_back_ios,
           onButtonClick: () {
             GoRouter.of(context).go(NavigationServiceRoutes.settings);
@@ -40,7 +42,7 @@ class TextRecognitionLanguagePage extends ConsumerWidget {
               collectionItems: model.languages.entries
                   .map(
                     (final MapEntry<String, String> entry) => SettingsTile(
-                      title: entry.value,
+                      title: entry.value.tr(),
                       onPressed: () {
                         controller.setTextRecognitionLanguage(entry.key);
                       },

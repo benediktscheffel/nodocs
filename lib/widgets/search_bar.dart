@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 
 class SearchBox extends StatelessWidget {
@@ -43,7 +45,7 @@ class SearchBox extends StatelessWidget {
                 },
                 trailing: <Widget>[
                   Tooltip(
-                    message: 'Search',
+                    message: LocaleKeys.home_search_message.tr(),
                     child: IconButton(
                       icon: const Icon(Icons.search),
                       onPressed: () {
@@ -52,7 +54,7 @@ class SearchBox extends StatelessWidget {
                     ),
                   )
                 ],
-                hintText: 'Documents, Tags or Collections',
+                hintText: LocaleKeys.home_search_hint_text.tr(),
                 hintStyle: WidgetStateProperty.all<TextStyle>(
                   const TextStyle(
                     color: Colors.grey,
