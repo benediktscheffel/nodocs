@@ -96,7 +96,6 @@ class HomePage extends ConsumerWidget {
                 path: NavigationServiceRoutes.pdfViewer,
                 queryParameters: <String, String>{'path': node.path})),
             dialog: CollectionTileDialog(
-              contextName: node.displayName,
               contextPath: node.path,
               onShare: () => controller.shareFile(node.path, node.displayName),
               deleteDialog: ConfirmationDialog(

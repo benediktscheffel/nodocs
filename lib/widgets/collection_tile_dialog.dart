@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class CollectionTileDialog extends StatelessWidget {
   final String contextPath;
-  final String contextName;
   final VoidCallback onShare;
   final VoidCallback onAdd;
   final Widget deleteDialog;
@@ -12,7 +11,6 @@ class CollectionTileDialog extends StatelessWidget {
     super.key,
     required this.onShare,
     required this.contextPath,
-    required this.contextName,
     required this.deleteDialog,
     required this.renameDialog,
     required this.onAdd,
