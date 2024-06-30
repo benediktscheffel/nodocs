@@ -72,11 +72,6 @@ class HomeControllerImpl extends _$HomeControllerImpl
   }
 
   @override
-  List<CollectionNode> getCollectionNodes() {
-    return state.collectionNodes;
-  }
-
-  @override
   void shareFile(final String path, final String fileName) {
     if (path.endsWith('.pdf')) {
       fileShareService.shareFile(path);
