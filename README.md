@@ -20,16 +20,9 @@ samples, guidance on mobile development, and a full API reference.
 
 ### Useful commands
 
-#### Activate Build Runner
-
-```
-flutter pub global activate build_runner
-
-```
-
 #### Regenerate generated sources
 
 ```
-flutter pub run build_runner build
+dart run build_runner build
 
 ```

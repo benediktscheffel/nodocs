@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 
 class SwitchButton extends StatefulWidget {
   final ValueChanged<bool> onChanged;
+  final bool value;
 
-  const SwitchButton({super.key, required this.onChanged});
+  const SwitchButton({
+    super.key,
+    required this.onChanged,
+    required this.value,
+  });
 
   @override
   State<SwitchButton> createState() => _SwitchButtonState();
 }
 
 class _SwitchButtonState extends State<SwitchButton> {
-  bool _value = false;
+  late bool _value;
 
   @override
   Widget build(final BuildContext context) {
@@ -26,7 +31,12 @@ class _SwitchButtonState extends State<SwitchButton> {
       activeColor: colorScheme.onSecondary,
       inactiveThumbColor: Colors.grey,
       inactiveTrackColor: Colors.white,
-
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _value = widget.value;
   }
 }

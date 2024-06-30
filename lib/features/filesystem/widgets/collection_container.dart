@@ -16,10 +16,10 @@ class CollectionContainer extends StatelessWidget {
         child: Container(
             padding: const EdgeInsets.all(2),
             margin: const EdgeInsets.all(23),
-            decoration: BoxDecoration(
+            decoration: children.isNotEmpty? BoxDecoration(
               color: theme.colorScheme.secondary,
               borderRadius: BorderRadius.circular(16),
-            ),
+            ): null,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
