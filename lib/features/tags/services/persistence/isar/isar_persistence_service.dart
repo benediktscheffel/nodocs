@@ -185,4 +185,14 @@ class IsarPersistenceService extends PersistenceService {
         .toList();
     return isar.writeTxn(() => isar.fileDOs.putAll(filesToUpdate));
   }
+
+  @override
+  List<String> loadAllTags() {
+    return isar.tagDOs
+        .filter()
+        .nameIsNotEmpty()
+        .findAllSync()
+        .map((final TagDO tag) => (tag.name))
+        .toList();
+  }
 }

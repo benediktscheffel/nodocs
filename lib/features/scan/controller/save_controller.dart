@@ -6,7 +6,6 @@ import 'package:pdf/widgets.dart' as pw;
 abstract class SaveController {
   // Model
   void init(final List<String> imagePaths);
-  void clear();
 
   // Image
   List<Widget> getImageWidgets();
@@ -20,7 +19,8 @@ abstract class SaveController {
   bool getCameraState();
 
   // Tags
-  Set<String> getTags();
+  List<String> getTags();
+  void toggleTag(final String tag);
 
   // Document/OCR
   Future<void> checkInternetConnection();
@@ -31,4 +31,11 @@ abstract class SaveController {
   // Navigation
   void goToPage(final Uri uri);
   void goBack();
+
+  // Filesystem
+  String getTitle();
+  void setTitle(final String title);
+  String getDirectory();
+  void setDirectory(final String dir);
+
 }

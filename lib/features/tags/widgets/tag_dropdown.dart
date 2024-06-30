@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nodocs/features/tags/widgets/tag_chip_dropdown.dart';
 
 class TagDropdown extends StatefulWidget {
-  final Set<String> tags;
+  final List<String> tags;
+  final ValueChanged<String> onSelectionChange;
 
-  const TagDropdown({super.key, required this.tags});
+  const TagDropdown({super.key, required this.tags, required this.onSelectionChange});
 
   @override
   State<StatefulWidget> createState() => TagDropdownState();
@@ -12,9 +13,9 @@ class TagDropdown extends StatefulWidget {
 
 class TagDropdownState extends State<TagDropdown> {
   OverlayEntry? _dropdownOverlayEntry;
-  Set<String> _selectedTags = <String>{};
+  List<String> _selectedTags = <String>[];
 
-  late Set<String> _tags;
+  late List<String> _tags;
 
   final LayerLink _layerLink = LayerLink();
   final ScrollController _dropdownScrollController = ScrollController(
@@ -26,7 +27,7 @@ class TagDropdownState extends State<TagDropdown> {
   void initState() {
     super.initState();
     _tags = widget.tags;
-    _selectedTags = <String>{};
+    _selectedTags = <String>[];
   }
 
   @override
@@ -60,6 +61,7 @@ class TagDropdownState extends State<TagDropdown> {
   }
 
   void _updateSelectedTags(final String tag) {
+    widget.onSelectionChange.call(tag);
     if (_selectedTags.contains(tag)) {
       _selectedTags.remove(tag);
     } else {

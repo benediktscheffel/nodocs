@@ -53,7 +53,7 @@ final ocrServiceProvider = AutoDisposeProvider<OcrServiceImpl>.internal(
 );
 
 typedef OcrServiceRef = AutoDisposeProviderRef<OcrServiceImpl>;
-String _$saveControllerHash() => r'c83d6f24618826d42b69ffe8b97c2bf110b7d29e';
+String _$saveControllerHash() => r'bcb3faaf9f3943aedc639f6bd2de0733fe3e73d4';
 
 /// See also [saveController].
 @ProviderFor(saveController)
@@ -68,7 +68,7 @@ final saveControllerProvider = AutoDisposeProvider<SaveController>.internal(
 );
 
 typedef SaveControllerRef = AutoDisposeProviderRef<SaveController>;
-String _$saveModelHash() => r'5edb400826155921377f724c2bdc45b6616fee5d';
+String _$saveModelHash() => r'baea2e8899bba50e0c87fe8026051dfd6442100d';
 
 /// See also [saveModel].
 @ProviderFor(saveModel)
