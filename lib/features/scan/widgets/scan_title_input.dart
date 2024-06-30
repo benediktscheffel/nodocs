@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 
 class ScanTitleInput extends StatefulWidget {
-  const ScanTitleInput({super.key});
+  final String initialTitle;
+  final ValueChanged<String> onTitleChanged;
+  const ScanTitleInput({super.key, required this.initialTitle, required this.onTitleChanged});
 
   @override
   State<StatefulWidget> createState() => _ScanTitleInputState();
 }
 
 class _ScanTitleInputState extends State<ScanTitleInput> {
-  final TextEditingController _controller = TextEditingController(
-      text: 'Title of Document'
-  );
+  late TextEditingController _controller;
   final FocusNode _focusNode = FocusNode();
   bool _isTyping = false;
 
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController(
+        text: widget.initialTitle
+    );
     _focusNode.addListener(() {
       setState(() {
         _isTyping = _focusNode.hasFocus;
       });
+    });
+    _controller.addListener(() {
+      widget.onTitleChanged.call(_controller.text);
     });
   }
 

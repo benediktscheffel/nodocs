@@ -20,7 +20,6 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final HomeController controller = ref.read(homeControllerProvider);
-    final HomeModel model = ref.watch(homeModelProvider);
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +37,7 @@ class HomePage extends ConsumerWidget {
           children: <Widget>[
             CollectionContainer(
                 children:
-                    _buildCollectionTiles(model.collectionNodes, controller)),
+                    _buildCollectionTiles(controller.getCollectionNodes(), controller)),
             const SearchBox(),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 
 abstract class HomeController {
   void goToPage(final Uri uri);
@@ -11,4 +12,6 @@ abstract class HomeController {
   void deleteCollectionOrFile(final String path);
 
   Function(String) renameCollectionOrFile(final String path);
+
+  List<CollectionNode> getCollectionNodes();
 }

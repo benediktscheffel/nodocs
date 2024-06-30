@@ -3,12 +3,13 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
-import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_chip_dropdown.dart';
 import 'package:nodocs/util/logging/log.dart';
 
 class CollectionDropdown extends StatefulWidget {
-  const CollectionDropdown({super.key});
+  final String initialDirectory;
+  final ValueChanged<String> onPathChanged;
+  const CollectionDropdown({super.key, required this.initialDirectory, required this.onPathChanged});
 
   @override
   State<StatefulWidget> createState() => CollectionDropdownState();
@@ -20,8 +21,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
   final Logger _log = getLogger();
 
   List<Directory> _directories = <Directory>[];
-  final String _projectRootAbsolutePath = ConfigParameters.fileSystemPath;
-  String _currentAbsolutePath = ConfigParameters.fileSystemPath;
+  late final String _projectRootAbsolutePath = widget.initialDirectory;
+  late String _currentAbsolutePath;
   String _currentRelativePath = '/';
 
 
@@ -35,7 +36,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
   @override
   void initState() {
     super.initState();
-    _currentAbsolutePath = ConfigParameters.fileSystemPath;
+    _currentAbsolutePath = widget.initialDirectory;
     _currentRelativePath = '/';
     _listDirectories();
   }
@@ -136,6 +137,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                           onTap: () {
                             setState(() {
                               _currentAbsolutePath = entryDir.path;
+                              widget.onPathChanged.call(_currentAbsolutePath);
                               _currentRelativePath = '/${_currentAbsolutePath.split(_projectRootAbsolutePath).last}';
                               _listDirectories();
                               _updateDropdown();
@@ -172,6 +174,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                           onTap: (){
                             setState(() {
                               _currentAbsolutePath = backDir.path;
+                              widget.onPathChanged.call(_currentAbsolutePath);
                               _currentRelativePath = '$_currentAbsolutePath/' == _projectRootAbsolutePath
                                   ? '/'
                                   : '/${_currentAbsolutePath.split(_projectRootAbsolutePath).last}';

@@ -19,7 +19,7 @@ import 'package:nodocs/widgets/dropdown_with_label.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
-import 'package:pdf/src/widgets/document.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class SavePage extends ConsumerStatefulWidget {
   final List<String> imagePaths;
@@ -56,7 +56,12 @@ class _SavePageState extends ConsumerState<SavePage> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: theme.colorScheme.primary,
-            title: const ScanTitleInput(),
+            title: ScanTitleInput(
+              initialTitle: controller.getTitle(),
+              onTitleChanged: (final String title) {
+                controller.setTitle(title);
+              },
+            ),
             centerTitle: true,
           ),
           body: ListView(
@@ -74,17 +79,25 @@ class _SavePageState extends ConsumerState<SavePage> {
                       child: DropdownWithLabel(
                         dropdown: TagDropdown(
                           tags: controller.getTags(),
+                          onSelectionChange: (final String tag) {
+                            controller.toggleTag(tag);
+                          },
                         ),
                         label: "Select Tags",
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
+                    Padding(
+                      padding: const EdgeInsets.only(
                         left: 16,
                         right: 16,
                       ),
                       child: DropdownWithLabel(
-                        dropdown: CollectionDropdown(),
+                        dropdown: CollectionDropdown(
+                          initialDirectory: controller.getDirectory(),
+                          onPathChanged: (final String dir) {
+                            controller.setDirectory(dir);
+                          },
+                        ),
                         label: "Select Folder",
                       ),
                     ),
@@ -163,7 +176,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                   buttonIcon: Icons.save_outlined,
                   onPressed: () {
                     // TODO Write Tags to Database and Save PDF in selected folder
-                    controller.createPDF().then((final Document pdf) {
+                    controller.createPDF().then((final pw.Document pdf) {
                       controller.savePDF(pdf.save()).then((final _) {
                         controller.goToPage(
                             Uri(path: NavigationServiceRoutes.home));

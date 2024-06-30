@@ -7,4 +7,6 @@ abstract class FileSystemService {
 
   Future<FileSystemEntity>? renameCollectionOrFile(
       final String oldPath, final String newName);
+
+  String getRootDirectory();
 }

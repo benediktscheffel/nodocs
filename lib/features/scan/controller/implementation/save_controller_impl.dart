@@ -5,7 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:logger/logger.dart';
-import 'package:nodocs/features/filesystem/services/file_system_access/implementation/file_system_service.dart';
+import 'package:nodocs/features/filesystem/services/file_system_access/implementation/file_system_service_impl.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/scan/controller/save_controller.dart';
 import 'package:nodocs/features/scan/model/save_model.dart';
@@ -13,8 +13,8 @@ import 'package:nodocs/features/scan/services/carousel_service.dart';
 import 'package:nodocs/features/scan/services/crop_service.dart';
 import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/services/ocr_service.dart';
+import 'package:nodocs/features/tags/services/persistence/persistence_service.dart';
 import 'package:nodocs/util/logging/log.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -30,50 +30,31 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     required final FileSystemServiceImpl fileSystemService,
     required final NavigationService navigationService,
     required final OcrService ocrService,
+    required final PersistenceService persistenceService,
   }) {
     return const SaveModel(
-      tags: <String>{
-        "Tag1",
-        "Tag2",
-        "Tag3",
-        "Tag4",
-        "Tag5",
-        "Tag6",
-        "Tag7",
-        "Tag8",
-        "Tag9",
-        "Tag10",
-      },
+      tags: <String, bool>{},
       currentSliderIndex: 0,
       imagePaths: <String>[],
       toggleCamera: false,
+      savePath: '',
+      title: 'Title of Document',
     );
   }
 
   @override
   void init(final List<String> imagePaths) {
-    state = state.copyWith(imagePaths: imagePaths);
-  }
-
-  @override
-  void clear() {
-       state = state.copyWith(
-         tags: <String>{
-           "Tag1",
-           "Tag2",
-           "Tag3",
-           "Tag4",
-           "Tag5",
-           "Tag6",
-           "Tag7",
-           "Tag8",
-           "Tag9",
-           "Tag10",
-         },
-         currentSliderIndex: 0,
-         imagePaths: <String>[],
-         toggleCamera: false,
-       );
+    final List<String> tags = persistenceService.loadAllTags();
+    tags.sort();
+    final String rootDirectory = fileSystemService.getRootDirectory();
+    state = state.copyWith(
+      tags: <String, bool>{ for (final String tag in tags) tag : false },
+      currentSliderIndex: 0,
+      imagePaths: imagePaths,
+      toggleCamera: false,
+      savePath: rootDirectory,
+      title: 'Title of Document',
+    );
   }
 
   @override
@@ -97,12 +78,13 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
 
   @override
   Future<void> savePDF(final pdf) async {
-    final Directory directory = await getApplicationDocumentsDirectory();
-    // TODO take directory from dropdown selection
-    final String path = '${directory.path}/.pdf';
+    final String path = '${state.savePath}/${state.title}.pdf';
     final File output = File(path);
     await output.writeAsBytes(await pdf);
     _log.i("Document saved at: $path");
+    await persistenceService.insertFile(path);
+    await persistenceService.addTagsToFile(path, _getSelectedTags());
+    _log.i("Tags saved to Database");
   }
 
   @override
@@ -155,8 +137,8 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   }
 
   @override
-  Set<String> getTags() {
-    return state.tags;
+  List<String> getTags() {
+    return state.tags.keys.toList();
   }
 
   @override
@@ -191,5 +173,41 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   @override
   bool getCameraState() {
     return state.toggleCamera;
+  }
+
+  @override
+  String getTitle() {
+    return state.title;
+  }
+
+  @override
+  void setTitle(final String title) {
+    state = state.copyWith(title: title);
+  }
+
+  @override
+  String getDirectory() {
+    return state.savePath;
+  }
+
+  @override
+  void setDirectory(final String dir) {
+    state = state.copyWith(savePath: dir);
+  }
+
+  List<String> _getSelectedTags() {
+    return state.tags.entries
+        .where((final MapEntry<String, bool> entry) => entry.value)
+        .map((final MapEntry<String, bool> entry) => entry.key)
+        .toList();
+  }
+
+  @override
+  void toggleTag(final String tag) {
+    final bool currentState = state.tags[tag]!;
+    Map<String, bool> updatedTags = Map<String, bool>.from(state.tags);
+    updatedTags[tag] = !currentState;
+    _log.i("$tag is ${!currentState} now");
+    state = state.copyWith(tags: updatedTags);
   }
 }

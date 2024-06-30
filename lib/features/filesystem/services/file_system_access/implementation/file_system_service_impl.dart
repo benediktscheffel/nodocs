@@ -67,4 +67,9 @@ class FileSystemServiceImpl implements FileSystemService {
   String _nameToPdf(final String name) {
     return name.endsWith('.pdf') ? name : '$name.pdf';
   }
+
+  @override
+  String getRootDirectory() {
+    return ConfigParameters.fileSystemPath;
+  }
 }

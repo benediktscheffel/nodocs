@@ -65,4 +65,9 @@ class HomeControllerImpl extends _$HomeControllerImpl
             : persistenceService.updateFilesInCollection(path, file.path))
         .then((final _) => updateState(CollectionNodeBuilder.build()));
   }
+
+  @override
+  List<CollectionNode> getCollectionNodes() {
+    return state.collectionNodes;
+  }
 }
