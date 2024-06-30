@@ -70,7 +70,7 @@ class CollectionTileDialog extends StatelessWidget {
       listTiles.add(
         ListTile(
           trailing: Icon(Icons.add, color: colorScheme.onPrimary),
-          title: Text('Add', style: TextStyle(color: colorScheme.onPrimary)),
+          title: Text('Add File', style: TextStyle(color: colorScheme.onPrimary)),
           onTap: onAdd,
         ),
       );

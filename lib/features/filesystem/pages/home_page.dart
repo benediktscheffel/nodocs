@@ -95,9 +95,10 @@ class HomePage extends ConsumerWidget {
             onTapPdf: () => controller.goToPage(Uri(
                 path: NavigationServiceRoutes.pdfViewer,
                 queryParameters: <String, String>{'path': node.path})),
-            dialog: CollectionTileDialog(
+            contextMenu: CollectionTileDialog(
               contextPath: node.path,
               onShare: () => controller.shareFile(node.path, node.displayName),
+              onAdd: () => controller.addFile(node.path),
               deleteDialog: ConfirmationDialog(
                 onConfirm: () => <void>{
                   controller.deleteCollectionOrFile(node.path),
@@ -113,7 +114,6 @@ class HomePage extends ConsumerWidget {
                 goBack: controller.goBackTwice,
                 initialText: node.displayName,
               ),
-              onAdd: () {},
             ),
             children: _buildCollectionTiles(node.children, controller),
           ),

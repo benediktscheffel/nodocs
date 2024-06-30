@@ -17,4 +17,6 @@ abstract class HomeController {
 
   void shareFile(final String path, final String fileName);
 
+  Future<void> addFile(final String collectionPath);
+
 }

@@ -54,6 +54,22 @@ final fileShareServiceProvider = AutoDisposeProvider<FileShareService>.internal(
 );
 
 typedef FileShareServiceRef = AutoDisposeProviderRef<FileShareService>;
+String _$filePickerServiceHash() => r'4b3f908e74d0c5c43c11684e3dad3f1c1065693b';
+
+/// See also [filePickerService].
+@ProviderFor(filePickerService)
+final filePickerServiceProvider =
+    AutoDisposeProvider<FilePickerService>.internal(
+  filePickerService,
+  name: r'filePickerServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$filePickerServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FilePickerServiceRef = AutoDisposeProviderRef<FilePickerService>;
 String _$homeControllerHash() => r'7ee6f1ae5f3dc5f818730e35ee18c2df6852cb58';
 
 /// See also [homeController].
