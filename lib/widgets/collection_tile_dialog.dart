@@ -69,8 +69,10 @@ class CollectionTileDialog extends StatelessWidget {
     if (!contextPath.endsWith('.pdf')) {
       listTiles.add(
         ListTile(
-          trailing: Icon(Icons.add, color: colorScheme.onPrimary),
-          title: Text('Add File', style: TextStyle(color: colorScheme.onPrimary)),
+          trailing:
+              Icon(Icons.upload_file_outlined, color: colorScheme.onPrimary),
+          title: Text('Upload File',
+              style: TextStyle(color: colorScheme.onPrimary)),
           onTap: onAdd,
         ),
       );
