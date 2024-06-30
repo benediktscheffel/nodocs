@@ -103,11 +103,11 @@ class HomePage extends ConsumerWidget {
                 controller.goBack();
               },
               deleteDialog: ConfirmationDialog(
-                onConfirm: () => <void>{
-                  controller.deleteCollectionOrFile(node.path),
-                  controller.goBackTwice()
+                onConfirm: () {
+                  controller.deleteCollectionOrFile(node.path);
+                  controller.goBackTwice();
                 },
-                onCancel: () => controller.goBackTwice,
+                onCancel: () => controller.goBackTwice(),
                 header: 'Confirm Deletion',
                 notificationText:
                     'Are you sure you want to delete \'${node.displayName}\'?',
