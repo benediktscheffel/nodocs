@@ -43,7 +43,7 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
     return Theme(
       data: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
-          selectionColor: const Color(0x4C2196F3),
+          selectionColor: theme.textSelectionTheme.selectionColor,
           selectionHandleColor: theme.colorScheme.secondary,
           cursorColor: theme.colorScheme.onPrimary,
         ),
