@@ -32,19 +32,28 @@ class HomePage extends ConsumerWidget {
             )),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              CollectionContainer(
-                  children:
-                      _buildCollectionTiles(controller.getCollectionNodes(), controller)),
-              const SearchBox(),
-            ],
-          ),
-        ),
+      body: LayoutBuilder(
+        builder: (final BuildContext context, final BoxConstraints constraints) {
+          return SingleChildScrollView(
+            reverse: true,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    CollectionContainer(
+                      children: _buildCollectionTiles(controller.getCollectionNodes(), controller),
+                    ),
+                    const SearchBox(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
+
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
           NavigationButton(
