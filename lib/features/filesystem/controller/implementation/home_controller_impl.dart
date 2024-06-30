@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
 import 'package:nodocs/features/filesystem/model/home_model/collection_node_builder.dart';
+import 'package:nodocs/features/filesystem/services/file_share/file_share_service.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
@@ -17,6 +18,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
     required final FileSystemService fileSystemService,
     required final NavigationService navigationService,
     required final PersistenceService persistenceService,
+    required final FileShareService fileShareService,
   }) {
     return HomeModel(collectionNodes: CollectionNodeBuilder.build());
   }
@@ -69,5 +71,14 @@ class HomeControllerImpl extends _$HomeControllerImpl
   @override
   List<CollectionNode> getCollectionNodes() {
     return state.collectionNodes;
+  }
+
+  @override
+  void shareFile(final String path, final String fileName) {
+    if (path.endsWith('.pdf')) {
+      fileShareService.shareFile(path);
+    } else {
+      fileShareService.shareCollection(path, fileName);
+    }
   }
 }

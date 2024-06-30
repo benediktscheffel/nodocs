@@ -87,7 +87,7 @@ class HomePage extends ConsumerWidget {
             dialog: CollectionTileDialog(
               contextName: node.displayName,
               contextPath: node.path,
-              onShare: () {},
+              onShare: () => controller.shareFile(node.path, node.displayName),
               deleteDialog: ConfirmationDialog(
                 onConfirm: () => <void>{
                   controller.deleteCollectionOrFile(node.path),

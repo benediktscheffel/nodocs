@@ -39,7 +39,22 @@ final fileSystemServiceProvider =
 );
 
 typedef FileSystemServiceRef = AutoDisposeProviderRef<FileSystemService>;
-String _$homeControllerHash() => r'0207fe8884317de8415e7e0e67d80801fa9b01b2';
+String _$fileShareServiceHash() => r'a2a7c09f25318a6f49c46c39e146dd7913d5461b';
+
+/// See also [fileShareService].
+@ProviderFor(fileShareService)
+final fileShareServiceProvider = AutoDisposeProvider<FileShareService>.internal(
+  fileShareService,
+  name: r'fileShareServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fileShareServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FileShareServiceRef = AutoDisposeProviderRef<FileShareService>;
+String _$homeControllerHash() => r'7ee6f1ae5f3dc5f818730e35ee18c2df6852cb58';
 
 /// See also [homeController].
 @ProviderFor(homeController)
@@ -54,7 +69,7 @@ final homeControllerProvider = AutoDisposeProvider<HomeController>.internal(
 );
 
 typedef HomeControllerRef = AutoDisposeProviderRef<HomeController>;
-String _$homeModelHash() => r'dfc2fe10575d6fb29599ab8d08e012c47c83d3a7';
+String _$homeModelHash() => r'd1d859fe970ceca335ea0a420c56526e92e33b74';
 
 /// See also [homeModel].
 @ProviderFor(homeModel)

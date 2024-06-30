@@ -14,4 +14,7 @@ abstract class HomeController {
   Function(String) renameCollectionOrFile(final String path);
 
   List<CollectionNode> getCollectionNodes();
+
+  void shareFile(final String path, final String fileName);
+
 }
