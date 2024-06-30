@@ -25,15 +25,16 @@ class HomeControllerImpl extends _$HomeControllerImpl
     return HomeModel(collectionNodes: CollectionNodeBuilder.build());
   }
 
-  void updateState(final List<CollectionNode> collectionNodes) {
-    state = state.copyWith(collectionNodes: collectionNodes);
+  @override
+  void updateState() {
+    state = state.copyWith(collectionNodes: CollectionNodeBuilder.build());
   }
 
   @override
   Function(String) createCollection() {
     return (final String fileName) => fileSystemService
         .createCollection(fileName)!
-        .then((final _) => updateState(CollectionNodeBuilder.build()));
+        .then((final _) => updateState());
   }
 
   @override
@@ -41,7 +42,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
     fileSystemService
         .deleteCollectionOrFile(path)!
         .then((final FileSystemEntity _) => persistenceService.deleteFile(path))
-        .then((final _) => updateState(CollectionNodeBuilder.build()));
+        .then((final _) => updateState());
   }
 
   @override
@@ -67,7 +68,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
         .then((final FileSystemEntity file) => file.path.endsWith('.pdf')
             ? persistenceService.updateFile(path, file.path)
             : persistenceService.updateFilesInCollection(path, file.path))
-        .then((final _) => updateState(CollectionNodeBuilder.build()));
+        .then((final _) => updateState());
   }
 
   @override
@@ -90,6 +91,6 @@ class HomeControllerImpl extends _$HomeControllerImpl
       if (file != null) {
         persistenceService.insertFile(file.path);
       }
-    }).then((final _) => updateState(CollectionNodeBuilder.build()));
+    }).then((final _) => updateState());
   }
 }

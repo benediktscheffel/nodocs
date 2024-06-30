@@ -1,6 +1,8 @@
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 
 abstract class HomeController {
+  void updateState();
+
   void goToPage(final Uri uri);
 
   void goBack();
