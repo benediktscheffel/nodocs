@@ -64,6 +64,7 @@ dependencies:
   shared_preferences: ^2.2.3
   share_plus: ^9.0.0
   archive: ^3.6.1
+  file_picker: ^8.0.5
 
 dev_dependencies:
   isar_generator: ^3.1.0+1

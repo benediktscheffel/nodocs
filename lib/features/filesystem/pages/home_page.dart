@@ -20,6 +20,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final HomeController controller = ref.read(homeControllerProvider);
+    ref.watch(homeModelProvider);
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -31,18 +32,28 @@ class HomePage extends ConsumerWidget {
             )),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              CollectionContainer(
-                  children:
-                      _buildCollectionTiles(controller.getCollectionNodes(), controller)),
-              const SearchBox(),
-            ],
-          ),
-        ),
+      body: LayoutBuilder(
+        builder:
+            (final BuildContext context, final BoxConstraints constraints) {
+          return SingleChildScrollView(
+            reverse: true,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    CollectionContainer(
+                      children: _buildCollectionTiles(
+                          controller.getCollectionNodes(), controller),
+                    ),
+                    const SearchBox(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
@@ -84,10 +95,10 @@ class HomePage extends ConsumerWidget {
             onTapPdf: () => controller.goToPage(Uri(
                 path: NavigationServiceRoutes.pdfViewer,
                 queryParameters: <String, String>{'path': node.path})),
-            dialog: CollectionTileDialog(
-              contextName: node.displayName,
+            contextMenu: CollectionTileDialog(
               contextPath: node.path,
               onShare: () => controller.shareFile(node.path, node.displayName),
+              onAdd: () => controller.addFile(node.path),
               deleteDialog: ConfirmationDialog(
                 onConfirm: () => <void>{
                   controller.deleteCollectionOrFile(node.path),

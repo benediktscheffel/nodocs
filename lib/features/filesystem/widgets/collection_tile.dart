@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CollectionTile extends StatefulWidget {
   final bool isPdf;
   final String title;
-  final Widget dialog;
+  final Widget contextMenu;
   final VoidCallback onTapPdf;
   final List<CollectionTile> children;
 
@@ -14,7 +14,7 @@ class CollectionTile extends StatefulWidget {
     super.key,
     required this.isPdf,
     required this.title,
-    required this.dialog,
+    required this.contextMenu,
     required this.onTapPdf,
     required this.children,
   });
@@ -28,7 +28,7 @@ class _CollectionTileState extends State<CollectionTile> {
     showModalBottomSheet(
         context: context,
         builder: (final BuildContext context) {
-          return widget.dialog;
+          return widget.contextMenu;
         });
   }
 

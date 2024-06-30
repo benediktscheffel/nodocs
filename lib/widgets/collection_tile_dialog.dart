@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CollectionTileDialog extends StatelessWidget {
   final String contextPath;
-  final String contextName;
   final VoidCallback onShare;
+  final VoidCallback onAdd;
   final Widget deleteDialog;
   final Widget renameDialog;
 
@@ -11,9 +11,9 @@ class CollectionTileDialog extends StatelessWidget {
     super.key,
     required this.onShare,
     required this.contextPath,
-    required this.contextName,
     required this.deleteDialog,
     required this.renameDialog,
+    required this.onAdd,
   });
 
   @override
@@ -32,32 +32,7 @@ class CollectionTileDialog extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                trailing: Icon(Icons.edit, color: colorScheme.onPrimary),
-                title: Text('Rename',
-                    style: TextStyle(color: colorScheme.onPrimary)),
-                onTap: () => _showRenameDialog(context),
-              ),
-              ListTile(
-                trailing:
-                    Icon(Icons.ios_share_sharp, color: colorScheme.onPrimary),
-                title: Text('Share',
-                    style: TextStyle(color: colorScheme.onPrimary)),
-                onTap: onShare,
-              ),
-              Divider(
-                color: colorScheme.onPrimary,
-                height: 1,
-                thickness: 2,
-              ),
-              ListTile(
-                trailing: const Icon(Icons.delete, color: Colors.redAccent),
-                title: const Text('Delete',
-                    style: TextStyle(color: Colors.redAccent)),
-                onTap: () => _showConfirmDeletionDialog(context),
-              ),
-            ],
+            children: _buildListTiles(context, colorScheme),
           ),
         ),
       ),
@@ -74,5 +49,49 @@ class CollectionTileDialog extends StatelessWidget {
     showDialog<String>(
         context: context,
         builder: (final BuildContext context) => renameDialog);
+  }
+
+  List<Widget> _buildListTiles(
+      final BuildContext context, final ColorScheme colorScheme) {
+    List<Widget> listTiles = <Widget>[
+      ListTile(
+        trailing: Icon(Icons.edit, color: colorScheme.onPrimary),
+        title: Text('Rename', style: TextStyle(color: colorScheme.onPrimary)),
+        onTap: () => _showRenameDialog(context),
+      ),
+      ListTile(
+        trailing: Icon(Icons.ios_share_sharp, color: colorScheme.onPrimary),
+        title: Text('Share', style: TextStyle(color: colorScheme.onPrimary)),
+        onTap: onShare,
+      ),
+    ];
+
+    if (!contextPath.endsWith('.pdf')) {
+      listTiles.add(
+        ListTile(
+          trailing:
+              Icon(Icons.upload_file_outlined, color: colorScheme.onPrimary),
+          title: Text('Upload File',
+              style: TextStyle(color: colorScheme.onPrimary)),
+          onTap: onAdd,
+        ),
+      );
+    }
+    listTiles.addAll(
+      <Widget>[
+        Divider(
+          color: colorScheme.onPrimary,
+          height: 1,
+          thickness: 2,
+        ),
+        ListTile(
+          trailing: const Icon(Icons.delete, color: Colors.redAccent),
+          title:
+              const Text('Delete', style: TextStyle(color: Colors.redAccent)),
+          onTap: () => _showConfirmDeletionDialog(context),
+        ),
+      ],
+    );
+    return listTiles;
   }
 }
