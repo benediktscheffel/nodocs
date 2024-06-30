@@ -26,3 +26,8 @@ samples, guidance on mobile development, and a full API reference.
 dart run build_runner build
 
 ```
+
+#### Regenerate icon files
+```
+flutter pub run flutter_launcher_icons
+```
