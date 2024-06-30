@@ -25,8 +25,10 @@ class PdfViewerPage extends ConsumerWidget {
     final PdfViewerController controller =
         ref.read(pdfViewerControllerProvider);
     final PdfViewerModel model = ref.watch(pdfViewerModelProvider);
+    WidgetsBinding.instance.addPostFrameCallback((final _) {
+      controller.updateTags(controller.loadTags(path));
+    });
     controller.initSearchKey();
-    controller.updateTags(controller.loadTags(path));
     return Scaffold(
       appBar: model.showToolbar
           ? AppBar(
