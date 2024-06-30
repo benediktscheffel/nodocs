@@ -7,8 +7,6 @@ import 'package:nodocs/features/settings/model/settings_model.dart';
 import 'package:nodocs/features/settings/widgets/settings_container.dart';
 import 'package:nodocs/features/settings/widgets/settings_tile.dart';
 import 'package:nodocs/widgets/button_switch.dart';
-import 'package:nodocs/widgets/navigation_box.dart';
-import 'package:nodocs/widgets/navigation_button.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -84,22 +82,6 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
             ],
-          ),
-        ],
-      ),
-      bottomNavigationBar: NavigationBox(
-        buttons: <Widget>[
-          NavigationButton(
-            buttonText: 'Home',
-            buttonIcon: Icons.home_outlined,
-            onPressed: () =>
-                controller.goBack(Uri(path: NavigationServiceRoutes.home)),
-          ),
-          NavigationButton(
-            buttonText: 'Scan Document',
-            buttonIcon: Icons.camera_alt_outlined,
-            onPressed: () =>
-                controller.goToPage(Uri(path: NavigationServiceRoutes.scan)),
           ),
         ],
       ),
