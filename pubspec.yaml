@@ -1,5 +1,5 @@
 name: nodocs
-description: "A new Flutter project."
+description: NoDocs
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -64,6 +64,7 @@ dependencies:
   shared_preferences: ^2.2.3
   share_plus: ^9.0.0
   archive: ^3.6.1
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   isar_generator: ^3.1.0+1
@@ -124,3 +125,19 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: "#B9D6F2"
+  image: "assets/images/logo_1152x1152_light.png"
+  # icon_background_color: "#0353A4"
+  color_dark: "#061A40"
+  image_dark: "assets/images/logo_1152x1152_dark.png"
+  # icon_background_color_dark: "#0353A4"
+  android_12:
+    color: "#B9D6F2"
+    image: "assets/images/logo_1152x1152_light.png"
+    # icon_background_color: "#0353A4"
+    color_dark: "#061A40"
+    image_dark: "assets/images/logo_1152x1152_dark.png"
+    # icon_background_color_dark: "#0353A4"
+
+  android_gravity: top
