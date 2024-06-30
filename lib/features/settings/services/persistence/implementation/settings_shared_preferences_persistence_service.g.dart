@@ -7,7 +7,7 @@ part of 'settings_shared_preferences_persistence_service.dart';
 // **************************************************************************
 
 String _$settingsPersistenceServiceHash() =>
-    r'2aaf49151f3013a94093452afe8a378f5f919c69';
+    r'b83755b1fe63f85e9606fd827904c10d07504a79';
 
 /// See also [settingsPersistenceService].
 @ProviderFor(settingsPersistenceService)
