@@ -28,7 +28,7 @@ class TextRecognitionLanguagePage extends ConsumerWidget {
           title: 'Text recognition language',
           icon: Icons.arrow_back_ios,
           onButtonClick: () {
-            GoRouter.of(context).go(NavigationServiceRoutes.settings);
+            controller.goBack(Uri(path: NavigationServiceRoutes.settings));
           },
         ),
         centerTitle: true,
