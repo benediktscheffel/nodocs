@@ -20,6 +20,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final HomeController controller = ref.read(homeControllerProvider);
+    ref.watch(homeModelProvider);
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
