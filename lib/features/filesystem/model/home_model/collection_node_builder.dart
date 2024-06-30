@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:fpdart/fpdart.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
 
