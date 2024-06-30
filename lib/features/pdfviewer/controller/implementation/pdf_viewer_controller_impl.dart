@@ -54,7 +54,7 @@ class PdfViewerControllerImpl extends _$PdfViewerControllerImpl
                           .map((final (String, bool) t) => t.$1)
                           .toList())
                   .then((final _) {
-                loadTags(filePath);
+                updateTags(loadTags(filePath));
               }));
     };
   }
@@ -77,7 +77,7 @@ class PdfViewerControllerImpl extends _$PdfViewerControllerImpl
   }
 
   @override
-  void loadTags(final String filePath) {
+  List<Tag> loadTags(final String filePath) {
     final List<Tag> tags = persistenceService
         .loadTags(filePath)
         .map((final (String, bool) tag) => Tag(name: tag.$1, selected: tag.$2))
@@ -91,7 +91,7 @@ class PdfViewerControllerImpl extends _$PdfViewerControllerImpl
       }
       return 1;
     });
-    updateTags(tags);
+    return tags;
   }
 
   @override

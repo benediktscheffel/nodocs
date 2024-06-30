@@ -16,7 +16,7 @@ abstract class PdfViewerController {
 
   void toggleScrollHead(final bool showScrollHead);
 
-  void loadTags(final String filePath);
+  List<Tag> loadTags(final String filePath);
 
   Function(List<(String, bool)>) syncTagsWithDatabase(final String filePath);
 

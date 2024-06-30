@@ -61,6 +61,7 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   flutter_cache_manager: ^3.3.2
   cached_network_image: ^3.3.1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   isar_generator: ^3.1.0+1

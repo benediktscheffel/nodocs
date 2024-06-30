@@ -31,15 +31,17 @@ class HomePage extends ConsumerWidget {
             )),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            CollectionContainer(
-                children:
-                    _buildCollectionTiles(controller.getCollectionNodes(), controller)),
-            const SearchBox(),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              CollectionContainer(
+                  children:
+                      _buildCollectionTiles(controller.getCollectionNodes(), controller)),
+              const SearchBox(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: NavigationBox(
