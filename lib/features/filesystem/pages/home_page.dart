@@ -27,6 +27,7 @@ class HomePage extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
         title: Text("NoDocs",
             style: TextStyle(

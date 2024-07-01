@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
-import 'package:nodocs/util/logging/log.dart';
 
 class FileSystemServiceImpl implements FileSystemService {
-  final Logger _log = getLogger();
 
   @override
   Future<Directory>? createCollection(final String name) {
