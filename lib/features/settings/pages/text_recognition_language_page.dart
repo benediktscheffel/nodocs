@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/settings/controller/implementation/settings_providers.dart';
 import 'package:nodocs/features/settings/controller/text_recognition_language_controller.dart';
@@ -30,7 +29,7 @@ class TextRecognitionLanguagePage extends ConsumerWidget {
           title: LocaleKeys.settings_ocr_text_recognition_language.tr(),
           icon: Icons.arrow_back_ios,
           onButtonClick: () {
-            GoRouter.of(context).go(NavigationServiceRoutes.settings);
+            controller.goBack(Uri(path: NavigationServiceRoutes.settings));
           },
         ),
         centerTitle: true,

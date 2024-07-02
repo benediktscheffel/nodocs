@@ -37,15 +37,6 @@ class SettingsPage extends ConsumerWidget {
           SettingsContainer(
             collectionItems: <SettingsTile>[
               SettingsTile(
-                title: LocaleKeys.settings_ocr_run_text_recognition.tr(),
-                onPressed: () {},
-                leading: Icons.text_snippet_outlined,
-                trailing: SwitchButton(
-                  value: false,
-                  onChanged: (final bool value) {},
-                ),
-              ),
-              SettingsTile(
                 title: LocaleKeys.settings_ocr_text_recognition_language.tr(),
                 onPressed: () {
                   controller
@@ -72,15 +63,6 @@ class SettingsPage extends ConsumerWidget {
                   onChanged: (final bool value) {
                     controller.toggleDarkMode();
                   },
-                ),
-              ),
-              SettingsTile(
-                title: LocaleKeys.settings_appearance_text_size.tr(),
-                onPressed: () {},
-                leading: Icons.text_fields_outlined,
-                trailing: Icon(
-                  Icons.arrow_right_outlined,
-                  color: theme.colorScheme.onSecondary,
                 ),
               ),
             ],

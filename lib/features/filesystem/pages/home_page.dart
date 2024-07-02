@@ -22,9 +22,14 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final HomeController controller = ref.read(homeControllerProvider);
+    final HomeModel model = ref.watch(homeModelProvider);
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((final _) => controller.updateState());
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
         title: Text("NoDocs",
             style: TextStyle(
@@ -32,20 +37,29 @@ class HomePage extends ConsumerWidget {
               fontSize: 17,
             )),
         centerTitle: true,
-        automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              CollectionContainer(
-                  children:
-                      _buildCollectionTiles(controller.getCollectionNodes(), controller)),
-              const SearchBox(),
-            ],
-          ),
-        ),
+      body: LayoutBuilder(
+        builder:
+            (final BuildContext context, final BoxConstraints constraints) {
+          return SingleChildScrollView(
+            reverse: true,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    CollectionContainer(
+                      children: _buildCollectionTiles(
+                          model.collectionNodes, controller),
+                    ),
+                    const SearchBox(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
@@ -87,14 +101,17 @@ class HomePage extends ConsumerWidget {
             onTapPdf: () => controller.goToPage(Uri(
                 path: NavigationServiceRoutes.pdfViewer,
                 queryParameters: <String, String>{'path': node.path})),
-            dialog: CollectionTileDialog(
-              contextName: node.displayName,
+            contextMenu: CollectionTileDialog(
               contextPath: node.path,
               onShare: () => controller.shareFile(node.path, node.displayName),
+              onAdd: () {
+                controller.addFile(node.path);
+                controller.goBack();
+              },
               deleteDialog: ConfirmationDialog(
-                onConfirm: () => <void>{
-                  controller.deleteCollectionOrFile(node.path),
-                  controller.goBackTwice()
+                onConfirm: () {
+                  controller.deleteCollectionOrFile(node.path);
+                  controller.goBackTwice();
                 },
                 onCancel: () => controller.goBackTwice,
                 header: LocaleKeys.home_collection_tile_delete_dialog_header.tr(),

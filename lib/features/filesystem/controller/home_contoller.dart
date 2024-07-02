@@ -1,6 +1,6 @@
-import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
-
 abstract class HomeController {
+  void updateState();
+
   void goToPage(final Uri uri);
 
   void goBack();
@@ -13,8 +13,7 @@ abstract class HomeController {
 
   Function(String) renameCollectionOrFile(final String path);
 
-  List<CollectionNode> getCollectionNodes();
-
   void shareFile(final String path, final String fileName);
 
+  Future<void> addFile(final String collectionPath);
 }

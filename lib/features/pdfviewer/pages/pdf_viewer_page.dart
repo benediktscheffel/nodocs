@@ -9,8 +9,6 @@ import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
 import 'package:nodocs/features/tags/widgets/tag_chip_container.dart';
 import 'package:nodocs/features/tags/widgets/tag_dialog.dart';
 import 'package:nodocs/gen/locale_keys.g.dart';
-import 'package:nodocs/widgets/navigation_box.dart';
-import 'package:nodocs/widgets/navigation_button.dart';
 
 class PdfViewerPage extends ConsumerWidget {
   final String path;
@@ -27,11 +25,15 @@ class PdfViewerPage extends ConsumerWidget {
     final PdfViewerController controller =
         ref.read(pdfViewerControllerProvider);
     final PdfViewerModel model = ref.watch(pdfViewerModelProvider);
+    WidgetsBinding.instance.addPostFrameCallback((final _) {
+      controller.updateTags(controller.loadTags(path));
+    });
     controller.initSearchKey();
-    controller.updateTags(controller.loadTags(path));
     return Scaffold(
       appBar: model.showToolbar
           ? AppBar(
+              iconTheme: IconThemeData(color: theme.colorScheme.onPrimary),
+              automaticallyImplyLeading: false,
               flexibleSpace: SafeArea(
                 child: PdfSearchToolbar(
                   key: controller.searchKey,
@@ -49,16 +51,15 @@ class PdfViewerPage extends ConsumerWidget {
                   },
                 ),
               ),
-              automaticallyImplyLeading: false,
-              backgroundColor: theme.colorScheme.secondary,
+              backgroundColor: theme.colorScheme.primary,
             )
           : AppBar(
+              iconTheme: IconThemeData(color: theme.colorScheme.onPrimary),
               title: Text(
                 path.split('/').last.replaceAll('.pdf', ''),
-                style: TextStyle(color: theme.colorScheme.onSecondary),
+                style: TextStyle(color: theme.colorScheme.onPrimary),
               ),
-              automaticallyImplyLeading: false,
-              backgroundColor: theme.colorScheme.secondary,
+              backgroundColor: theme.colorScheme.primary,
             ),
       body: Stack(
         children: <Widget>[
@@ -99,42 +100,73 @@ class PdfViewerPage extends ConsumerWidget {
           )
         ],
       ),
-      bottomNavigationBar: NavigationBox(
-        buttons: <Widget>[
-          NavigationButton(
-            buttonText: LocaleKeys.pdf_viewer_navigation_edit_tags.tr(),
-            buttonIcon: Icons.edit_outlined,
-            onPressed: () => showDialog<String>(
-              context: context,
-              builder: (final BuildContext context) => TagDialog(
-                saveTags: controller.syncTagsWithDatabase(path),
-                goBack: controller.closeDialog,
-                tagChipContainer: TagChipContainer(
-                  tagData: model.tags
-                      .map((final Tag tag) => (tag.name, tag.selected))
-                      .toList(),
+      floatingActionButton: Builder(
+        builder: (final BuildContext context) {
+          return FloatingActionButton(
+            elevation: 12,
+            onPressed: () => _showContextMenu(context, controller, model),
+            backgroundColor: theme.colorScheme.primary,
+            foregroundColor: theme.colorScheme.onPrimary,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: const Icon(Icons.menu),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showContextMenu(final BuildContext context,
+      final PdfViewerController controller, final PdfViewerModel model) async {
+    final RenderBox overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
+    final RenderBox button = context.findRenderObject() as RenderBox;
+    final Offset position =
+        button.localToGlobal(Offset.zero, ancestor: overlay);
+    final Size buttonSize = button.size;
+    await showMenu(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      context: context,
+      position: RelativeRect.fromLTRB(
+        position.dx,
+        position.dy - 2.3 * buttonSize.height,
+        overlay.size.width - (position.dx + buttonSize.width),
+        overlay.size.height - position.dy,
+      ),
+      items: <PopupMenuItem<ListTile>>[
+        PopupMenuItem<ListTile>(
+          child: ListTile(
+            leading: const Icon(Icons.edit_outlined),
+            title: Text(LocaleKeys.pdf_viewer_navigation_edit_tags.tr()),
+            onTap: () {
+              Navigator.pop(context);
+              showDialog<String>(
+                context: context,
+                builder: (final BuildContext context) => TagDialog(
+                  saveTags: controller.syncTagsWithDatabase(path),
+                  goBack: controller.closeDialog,
+                  tagChipContainer: TagChipContainer(
+                    tagData: model.tags
+                        .map((final Tag tag) => (tag.name, tag.selected))
+                        .toList(),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          NavigationButton(
-            buttonText: LocaleKeys.pdf_viewer_navigation_home.tr(),
-            buttonIcon: Icons.home_outlined,
-            onPressed: () {
-              controller.disposeSearchKey();
-              controller.goBack();
+              );
             },
           ),
-          NavigationButton(
-              buttonText: LocaleKeys.pdf_viewer_navigation_search.tr(),
-              buttonIcon: Icons.search,
-              onPressed: () {
-                controller.toggleScrollHead(false);
-                controller.toggleToolbar(true);
-                controller.ensureHistoryEntry(context);
-              }),
-        ],
-      ),
+        ),
+        PopupMenuItem<ListTile>(
+          child: ListTile(
+            leading: const Icon(Icons.search),
+            title: Text(LocaleKeys.pdf_viewer_navigation_search.tr()),
+            onTap: () {
+              Navigator.pop(context);
+              controller.toggleScrollHead(false);
+              controller.toggleToolbar(true);
+              controller.ensureHistoryEntry(context);
+            },
+          ),
+        ),
+      ],
     );
   }
 }

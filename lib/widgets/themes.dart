@@ -22,7 +22,7 @@ class Themes {
     ),
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: Colors.white,
-      selectionColor: Color(0xFF0353A4),
+      selectionColor: Color(0x4C2196F3),
       selectionHandleColor: Colors.white,
     ),
     buttonTheme: const ButtonThemeData(
@@ -53,7 +53,7 @@ class Themes {
     ),
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: Colors.black,
-      selectionColor: Color(0xFF0353A4),
+      selectionColor: Color(0x4C2196F3),
       selectionHandleColor: Colors.black,
     ),
     buttonTheme: const ButtonThemeData(

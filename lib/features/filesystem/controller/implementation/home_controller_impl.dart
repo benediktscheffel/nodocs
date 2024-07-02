@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
 import 'package:nodocs/features/filesystem/model/home_model/collection_node_builder.dart';
+import 'package:nodocs/features/filesystem/services/file_picker/file_picker_service.dart';
 import 'package:nodocs/features/filesystem/services/file_share/file_share_service.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/filesystem/model/home_model/home_model.dart';
@@ -19,19 +20,21 @@ class HomeControllerImpl extends _$HomeControllerImpl
     required final NavigationService navigationService,
     required final PersistenceService persistenceService,
     required final FileShareService fileShareService,
+    required final FilePickerService filePickerService,
   }) {
     return HomeModel(collectionNodes: CollectionNodeBuilder.build());
   }
 
-  void updateState(final List<CollectionNode> collectionNodes) {
-    state = state.copyWith(collectionNodes: collectionNodes);
+  @override
+  void updateState() {
+    state = state.copyWith(collectionNodes: CollectionNodeBuilder.build());
   }
 
   @override
   Function(String) createCollection() {
     return (final String fileName) => fileSystemService
         .createCollection(fileName)!
-        .then((final _) => updateState(CollectionNodeBuilder.build()));
+        .then((final _) => updateState());
   }
 
   @override
@@ -39,7 +42,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
     fileSystemService
         .deleteCollectionOrFile(path)!
         .then((final FileSystemEntity _) => persistenceService.deleteFile(path))
-        .then((final _) => updateState(CollectionNodeBuilder.build()));
+        .then((final _) => updateState());
   }
 
   @override
@@ -65,12 +68,7 @@ class HomeControllerImpl extends _$HomeControllerImpl
         .then((final FileSystemEntity file) => file.path.endsWith('.pdf')
             ? persistenceService.updateFile(path, file.path)
             : persistenceService.updateFilesInCollection(path, file.path))
-        .then((final _) => updateState(CollectionNodeBuilder.build()));
-  }
-
-  @override
-  List<CollectionNode> getCollectionNodes() {
-    return state.collectionNodes;
+        .then((final _) => updateState());
   }
 
   @override
@@ -80,5 +78,14 @@ class HomeControllerImpl extends _$HomeControllerImpl
     } else {
       fileShareService.shareCollection(path, fileName);
     }
+  }
+
+  @override
+  Future<void> addFile(final String collectionPath) async {
+    filePickerService.pickFile(collectionPath).then((final File? file) {
+      if (file != null) {
+        persistenceService.insertFile(file.path);
+      }
+    }).then((final _) => updateState());
   }
 }
