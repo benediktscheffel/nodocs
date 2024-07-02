@@ -9,6 +9,9 @@
       "apology": "Wir entschuldigen uns für die Unannehmlichkeiten!",
       "announce": "Der folgende Fehler ist aufgetreten:",
       "try_again": "Erneut versuchen"
+    },
+    "image_with_loading": {
+      "error_loading_image": "Fehler beim Laden des Bildes"
     }
   },
   "home": {

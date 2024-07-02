@@ -9,6 +9,9 @@
       "apology": "We are sorry for the inconveniences!",
       "announce": "The following error has occurred:",
       "try_again": "Try Again"
+    },
+    "image_with_loading": {
+      "error_loading_image": "Error loading image"
     }
   },
   "home": {

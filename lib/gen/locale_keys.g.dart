@@ -9,6 +9,8 @@ abstract class  LocaleKeys {
   static const general_error_handler_announce = 'general.error_handler.announce';
   static const general_error_handler_try_again = 'general.error_handler.try_again';
   static const general_error_handler = 'general.error_handler';
+  static const general_image_with_loading_error_loading_image = 'general.image_with_loading.error_loading_image';
+  static const general_image_with_loading = 'general.image_with_loading';
   static const general = 'general';
   static const home_new_collection = 'home.new_collection';
   static const home_scan_document = 'home.scan_document';

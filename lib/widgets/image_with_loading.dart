@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class ImageWithLoading extends StatelessWidget {
   final String imagePath;
@@ -22,7 +24,7 @@ class ImageWithLoading extends StatelessWidget {
             )
           );
         } else if (snapshot.hasError) {
-          throw Exception('Error loading image');
+          throw Exception(LocaleKeys.general_image_with_loading_error_loading_image.tr());
         } else {
           return Image.asset(imagePath);
         }
