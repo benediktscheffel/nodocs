@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'package:logger/logger.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
-import 'package:nodocs/util/logging/log.dart';
 
 class FileSystemServiceImpl implements FileSystemService {
-  final Logger _log = getLogger();
 
   @override
   Future<Directory>? createCollection(final String name) {
@@ -17,13 +14,27 @@ class FileSystemServiceImpl implements FileSystemService {
 
   @override
   Future<FileSystemEntity>? deleteCollectionOrFile(final String path) {
-    _log.d('deleting $path');
     if (path.isEmpty) {
       return null;
     }
-    final Directory entity = Directory(path);
-    if (entity.existsSync()) {
-      return entity.delete(recursive: true);
+    if (path.endsWith('.pdf')) {
+      return _deletePdfFile(path);
+    }
+    return _deleteCollection(path);
+  }
+
+  Future<FileSystemEntity>? _deleteCollection(final String path) {
+    final Directory directory = Directory(path);
+    if (directory.existsSync()) {
+      return directory.delete(recursive: true);
+    }
+    return null;
+  }
+
+  Future<FileSystemEntity>? _deletePdfFile(final String path) {
+    final File file = File(path);
+    if (file.existsSync()) {
+      return file.delete();
     }
     return null;
   }

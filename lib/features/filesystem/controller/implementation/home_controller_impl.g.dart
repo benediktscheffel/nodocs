@@ -7,7 +7,7 @@ part of 'home_controller_impl.dart';
 // **************************************************************************
 
 String _$homeControllerImplHash() =>
-    r'f919289e23f336a18312972909c962b5f54b559f';
+    r'711bf4d0f46393d3a5b0fc0aee54dde3c872a4e9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -35,11 +35,15 @@ abstract class _$HomeControllerImpl
   late final FileSystemService fileSystemService;
   late final NavigationService navigationService;
   late final PersistenceService persistenceService;
+  late final FileShareService fileShareService;
+  late final FilePickerService filePickerService;
 
   HomeModel build({
     required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required PersistenceService persistenceService,
+    required FileShareService fileShareService,
+    required FilePickerService filePickerService,
   });
 }
 
@@ -57,11 +61,15 @@ class HomeControllerImplFamily extends Family<HomeModel> {
     required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required PersistenceService persistenceService,
+    required FileShareService fileShareService,
+    required FilePickerService filePickerService,
   }) {
     return HomeControllerImplProvider(
       fileSystemService: fileSystemService,
       navigationService: navigationService,
       persistenceService: persistenceService,
+      fileShareService: fileShareService,
+      filePickerService: filePickerService,
     );
   }
 
@@ -73,6 +81,8 @@ class HomeControllerImplFamily extends Family<HomeModel> {
       fileSystemService: provider.fileSystemService,
       navigationService: provider.navigationService,
       persistenceService: provider.persistenceService,
+      fileShareService: provider.fileShareService,
+      filePickerService: provider.filePickerService,
     );
   }
 
@@ -99,11 +109,15 @@ class HomeControllerImplProvider
     required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required PersistenceService persistenceService,
+    required FileShareService fileShareService,
+    required FilePickerService filePickerService,
   }) : this._internal(
           () => HomeControllerImpl()
             ..fileSystemService = fileSystemService
             ..navigationService = navigationService
-            ..persistenceService = persistenceService,
+            ..persistenceService = persistenceService
+            ..fileShareService = fileShareService
+            ..filePickerService = filePickerService,
           from: homeControllerImplProvider,
           name: r'homeControllerImplProvider',
           debugGetCreateSourceHash:
@@ -116,6 +130,8 @@ class HomeControllerImplProvider
           fileSystemService: fileSystemService,
           navigationService: navigationService,
           persistenceService: persistenceService,
+          fileShareService: fileShareService,
+          filePickerService: filePickerService,
         );
 
   HomeControllerImplProvider._internal(
@@ -128,11 +144,15 @@ class HomeControllerImplProvider
     required this.fileSystemService,
     required this.navigationService,
     required this.persistenceService,
+    required this.fileShareService,
+    required this.filePickerService,
   }) : super.internal();
 
   final FileSystemService fileSystemService;
   final NavigationService navigationService;
   final PersistenceService persistenceService;
+  final FileShareService fileShareService;
+  final FilePickerService filePickerService;
 
   @override
   HomeModel runNotifierBuild(
@@ -142,6 +162,8 @@ class HomeControllerImplProvider
       fileSystemService: fileSystemService,
       navigationService: navigationService,
       persistenceService: persistenceService,
+      fileShareService: fileShareService,
+      filePickerService: filePickerService,
     );
   }
 
@@ -153,7 +175,9 @@ class HomeControllerImplProvider
         () => create()
           ..fileSystemService = fileSystemService
           ..navigationService = navigationService
-          ..persistenceService = persistenceService,
+          ..persistenceService = persistenceService
+          ..fileShareService = fileShareService
+          ..filePickerService = filePickerService,
         from: from,
         name: null,
         dependencies: null,
@@ -162,6 +186,8 @@ class HomeControllerImplProvider
         fileSystemService: fileSystemService,
         navigationService: navigationService,
         persistenceService: persistenceService,
+        fileShareService: fileShareService,
+        filePickerService: filePickerService,
       ),
     );
   }
@@ -177,7 +203,9 @@ class HomeControllerImplProvider
     return other is HomeControllerImplProvider &&
         other.fileSystemService == fileSystemService &&
         other.navigationService == navigationService &&
-        other.persistenceService == persistenceService;
+        other.persistenceService == persistenceService &&
+        other.fileShareService == fileShareService &&
+        other.filePickerService == filePickerService;
   }
 
   @override
@@ -186,6 +214,8 @@ class HomeControllerImplProvider
     hash = _SystemHash.combine(hash, fileSystemService.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
     hash = _SystemHash.combine(hash, persistenceService.hashCode);
+    hash = _SystemHash.combine(hash, fileShareService.hashCode);
+    hash = _SystemHash.combine(hash, filePickerService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -200,6 +230,12 @@ mixin HomeControllerImplRef on AutoDisposeNotifierProviderRef<HomeModel> {
 
   /// The parameter `persistenceService` of this provider.
   PersistenceService get persistenceService;
+
+  /// The parameter `fileShareService` of this provider.
+  FileShareService get fileShareService;
+
+  /// The parameter `filePickerService` of this provider.
+  FilePickerService get filePickerService;
 }
 
 class _HomeControllerImplProviderElement
@@ -216,6 +252,12 @@ class _HomeControllerImplProviderElement
   @override
   PersistenceService get persistenceService =>
       (origin as HomeControllerImplProvider).persistenceService;
+  @override
+  FileShareService get fileShareService =>
+      (origin as HomeControllerImplProvider).fileShareService;
+  @override
+  FilePickerService get filePickerService =>
+      (origin as HomeControllerImplProvider).filePickerService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

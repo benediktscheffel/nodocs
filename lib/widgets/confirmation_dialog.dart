@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/widgets/dialog_box.dart';
 
 class ConfirmationDialog extends StatelessWidget {
@@ -42,7 +44,7 @@ class ConfirmationDialog extends StatelessWidget {
           TextButton(
             onPressed: onCancel,
             child: Text(
-              cancelText == null ? 'Cancel' : cancelText!,
+              cancelText == null ? LocaleKeys.general_confirmation_dialog_cancel.tr() : cancelText!,
               textAlign: TextAlign.right,
               style: TextStyle(
                 color: colorScheme.onPrimaryContainer,
@@ -53,7 +55,7 @@ class ConfirmationDialog extends StatelessWidget {
           TextButton(
             onPressed: onConfirm,
             child: Text(
-              confirmText == null ? 'Confirm' : confirmText!,
+              confirmText == null ? LocaleKeys.general_confirmation_dialog_confirm.tr() : confirmText!,
               textAlign: TextAlign.right,
               style: TextStyle(
                 color: colorScheme.onPrimaryContainer,

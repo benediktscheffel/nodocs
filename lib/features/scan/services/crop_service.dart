@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class CropService {
   static Future<CroppedFile?> cropImage(final ThemeData theme, final XFile? pickedFile, final BuildContext context) async {
@@ -11,13 +13,13 @@ class CropService {
         compressQuality: 100,
         uiSettings: <PlatformUiSettings>[
           AndroidUiSettings(
-              toolbarTitle: 'Cropper',
+              toolbarTitle: LocaleKeys.crop_service_cropper.tr(),
               toolbarColor: theme.colorScheme.secondary,
               toolbarWidgetColor: theme.colorScheme.onSecondary,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: false),
           IOSUiSettings(
-            title: 'Cropper',
+            title: LocaleKeys.crop_service_cropper.tr(),
           ),
           WebUiSettings(
             context: context,

@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_chip_dropdown.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/util/logging/log.dart';
 
 class CollectionDropdown extends StatefulWidget {
@@ -53,7 +55,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
         }
       }
     } catch (e) {
-        _log.e('Error listing directories: $e');
+       throw Exception(LocaleKeys.save_error_screens_listing_directories_exception_message.tr() + e.toString());
     }
 
     setState(() {

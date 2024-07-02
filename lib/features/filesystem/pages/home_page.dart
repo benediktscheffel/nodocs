@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/filesystem/controller/home_contoller.dart';
@@ -8,6 +9,7 @@ import 'package:nodocs/features/filesystem/widgets/collection_create_dialog.dart
 import 'package:nodocs/features/filesystem/widgets/collection_rename_dialog.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_tile.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/widgets/collection_tile_dialog.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
@@ -20,9 +22,14 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final HomeController controller = ref.read(homeControllerProvider);
+    final HomeModel model = ref.watch(homeModelProvider);
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((final _) => controller.updateState());
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
         title: Text("NoDocs",
             style: TextStyle(
@@ -31,29 +38,39 @@ class HomePage extends ConsumerWidget {
             )),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              CollectionContainer(
-                  children:
-                      _buildCollectionTiles(controller.getCollectionNodes(), controller)),
-              const SearchBox(),
-            ],
-          ),
-        ),
+      body: LayoutBuilder(
+        builder:
+            (final BuildContext context, final BoxConstraints constraints) {
+          return SingleChildScrollView(
+            reverse: true,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    CollectionContainer(
+                      children: _buildCollectionTiles(
+                          model.collectionNodes, controller),
+                    ),
+                    const SearchBox(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
           NavigationButton(
-            buttonText: 'New Collection',
+            buttonText: LocaleKeys.home_new_collection.tr(),
             buttonIcon: Icons.add_outlined,
             onPressed: () => _showCreateCollectionModal(
                 context, controller.createCollection(), controller.goBack),
           ),
           NavigationButton(
-              buttonText: 'Scan Document',
+              buttonText: LocaleKeys.home_scan_document.tr(),
               buttonIcon: Icons.camera_alt_outlined,
               onPressed: () {
                 controller.goToPage(Uri(
@@ -63,7 +80,7 @@ class HomePage extends ConsumerWidget {
                     }));
               }),
           NavigationButton(
-              buttonText: 'Settings',
+              buttonText: LocaleKeys.home_settings.tr(),
               buttonIcon: Icons.settings_outlined,
               onPressed: () {
                 controller
@@ -84,19 +101,21 @@ class HomePage extends ConsumerWidget {
             onTapPdf: () => controller.goToPage(Uri(
                 path: NavigationServiceRoutes.pdfViewer,
                 queryParameters: <String, String>{'path': node.path})),
-            dialog: CollectionTileDialog(
-              contextName: node.displayName,
+            contextMenu: CollectionTileDialog(
               contextPath: node.path,
-              onShare: () {},
+              onShare: () => controller.shareFile(node.path, node.displayName),
+              onAdd: () {
+                controller.addFile(node.path);
+                controller.goBack();
+              },
               deleteDialog: ConfirmationDialog(
-                onConfirm: () => <void>{
-                  controller.deleteCollectionOrFile(node.path),
-                  controller.goBackTwice()
+                onConfirm: () {
+                  controller.deleteCollectionOrFile(node.path);
+                  controller.goBackTwice();
                 },
                 onCancel: () => controller.goBackTwice,
-                header: 'Confirm Deletion',
-                notificationText:
-                    'Are you sure you want to delete \'${node.displayName}\'?',
+                header: LocaleKeys.home_collection_tile_delete_dialog_header.tr(),
+                notificationText: '${LocaleKeys.home_collection_tile_delete_dialog_header.tr()}\'${node.displayName}\'?',
               ),
               renameDialog: CollectionRenameDialog(
                 onSave: controller.renameCollectionOrFile(node.path),

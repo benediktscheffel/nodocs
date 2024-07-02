@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -13,6 +14,7 @@ import 'package:nodocs/features/scan/widgets/scan_carousel.dart';
 import 'package:nodocs/features/scan/widgets/scan_ocr_loading_dialog.dart';
 import 'package:nodocs/features/scan/widgets/scan_title_input.dart';
 import 'package:nodocs/features/tags/widgets/tag_dropdown.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/providers/camera_provider.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/dropdown_with_label.dart';
@@ -83,7 +85,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                             controller.toggleTag(tag);
                           },
                         ),
-                        label: "Select Tags",
+                        label: LocaleKeys.save_tag_dropdown_label.tr(),
                       ),
                     ),
                     Padding(
@@ -98,7 +100,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                             controller.setDirectory(dir);
                           },
                         ),
-                        label: "Select Folder",
+                        label: LocaleKeys.save_collection_dropdown_label.tr(),
                       ),
                     ),
                     const SizedBox(height: 5,),
@@ -110,7 +112,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                       buttons: <Widget>[
                         ScanActionButton(
                           buttonIcon: Icons.crop_free_outlined,
-                          buttonText: 'Crop Again',
+                          buttonText: LocaleKeys.save_action_buttons_crop_again.tr(),
                           onPressed: () async {
                             if (!mounted) return;
                             final XFile pickedImage = controller.getSelectedImageFile();
@@ -123,7 +125,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                         ),
                         ScanActionButton(
                           buttonIcon: Icons.flip_camera_ios_outlined,
-                          buttonText: 'Retake',
+                          buttonText: LocaleKeys.save_action_buttons_retake.tr(),
                           onPressed: () =>
                               showDialog<String>(
                                 context: context,
@@ -137,9 +139,9 @@ class _SavePageState extends ConsumerState<SavePage> {
                                         onCancel: () {
                                           controller.goBack();
                                         },
-                                        header: 'Retake this scan?',
-                                        notificationText:
-                                        'Are you sure you want to retake the scan of the current page without saving?'),
+                                        header: LocaleKeys.save_retake_dialog_header.tr(),
+                                        notificationText: LocaleKeys.save_retake_dialog_body.tr()
+                                    ),
                               ),
                         ),
                       ],
@@ -152,7 +154,7 @@ class _SavePageState extends ConsumerState<SavePage> {
           bottomNavigationBar: NavigationBox(
             buttons: <Widget>[
               NavigationButton(
-                buttonText: 'Cancel',
+                buttonText: LocaleKeys.save_navigation_cancel.tr(),
                 buttonIcon: Icons.cancel_outlined,
                 onPressed: () =>
                     showDialog<String>(
@@ -166,16 +168,15 @@ class _SavePageState extends ConsumerState<SavePage> {
                               onCancel: () {
                                 controller.goBack();
                               },
-                              header: 'Cancel this scan?',
-                              notificationText:
-                              'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'),
+                              header: LocaleKeys.save_cancel_dialog_header.tr(),
+                              notificationText: LocaleKeys.save_cancel_dialog_body.tr()
+                          ),
                     ),
               ),
               NavigationButton(
-                  buttonText: 'Save',
+                  buttonText: LocaleKeys.save_navigation_save.tr(),
                   buttonIcon: Icons.save_outlined,
                   onPressed: () {
-                    // TODO Write Tags to Database and Save PDF in selected folder
                     controller.createPDF().then((final pw.Document pdf) {
                       controller.savePDF(pdf.save()).then((final _) {
                         controller.goToPage(
@@ -196,7 +197,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                   }
               ),
               NavigationButton(
-                  buttonText: 'OCR & Save',
+                  buttonText: LocaleKeys.save_navigation_ocr_save.tr(),
                   buttonIcon: Icons.document_scanner_outlined,
                   onPressed: () {
                     controller.checkInternetConnection().then((final _) {
@@ -280,10 +281,10 @@ class _SavePageState extends ConsumerState<SavePage> {
             controller.goBack();
           },
           onCancel: () {},
-          header: "Something went wrong!",
-          notificationText: "Something went wrong during the save process.\nPlease try again!",
+          header: LocaleKeys.save_error_dialogs_save_header.tr(),
+          notificationText: LocaleKeys.save_error_dialogs_save_notification_text.tr(),
           cancelText: "",
-          confirmText: "OK",
+          confirmText: LocaleKeys.save_error_dialogs_save_confirm.tr(),
         );
       },
     );
@@ -299,10 +300,10 @@ class _SavePageState extends ConsumerState<SavePage> {
             controller.goBack();
           },
           onCancel: (){},
-          header: "Something went wrong!",
-          notificationText: "Something went wrong during the OCR process.\nPlease try again or save without OCR",
+          header: LocaleKeys.save_error_dialogs_ocr_header.tr(),
+          notificationText: LocaleKeys.save_error_dialogs_ocr_notification_text.tr(),
           cancelText: "",
-          confirmText: "OK",
+          confirmText: LocaleKeys.save_error_dialogs_ocr_confirm.tr(),
         );
       },
     );
@@ -318,10 +319,10 @@ class _SavePageState extends ConsumerState<SavePage> {
             controller.goBack();
           },
           onCancel: (){},
-          header: "Please check your internet connection!",
-          notificationText: "An internet connection is required to process the document.",
+          header: LocaleKeys.save_error_dialogs_internet_header.tr(),
+          notificationText: LocaleKeys.save_error_dialogs_internet_notification_text.tr(),
           cancelText: "",
-          confirmText: "OK",
+          confirmText: LocaleKeys.save_error_dialogs_internet_confirm.tr(),
         );
       },
     );

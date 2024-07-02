@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class ScanOcrLoadingDialog extends StatelessWidget  {
   const ScanOcrLoadingDialog({super.key});
@@ -13,7 +15,7 @@ class ScanOcrLoadingDialog extends StatelessWidget  {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Text(
-              'Please wait a moment...',
+              LocaleKeys.save_ocr_loading_dialog_header.tr(),
               style: TextStyle(
                 color: theme.colorScheme.onPrimary,
                 fontSize: 24,
@@ -23,7 +25,7 @@ class ScanOcrLoadingDialog extends StatelessWidget  {
               color: theme.colorScheme.onPrimary,
             ),
             Text(
-              'Please stay connected to the internet\nuntil the document has been processed.',
+              LocaleKeys.save_ocr_loading_dialog_stay_connected.tr(),
               style: TextStyle(
                 color: theme.colorScheme.onPrimary,
                 fontSize: 16,

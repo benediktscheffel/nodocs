@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -8,6 +9,7 @@ import 'package:nodocs/features/scan/controller/crop_controller.dart';
 import 'package:nodocs/features/scan/controller/implementation/crop_provider.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button_container.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class ScanCrop extends ConsumerStatefulWidget {
   final List<String> imagePaths;
@@ -95,7 +97,7 @@ class _ScanCropState extends ConsumerState<ScanCrop> {
               buttons: <Widget>[
                 ScanActionButton(
                   buttonIcon: Icons.crop_outlined,
-                  buttonText: 'Crop',
+                  buttonText: LocaleKeys.crop_scan_action_button_text.tr(),
                   onPressed: () async {
                     final XFile? pickedImage = controller.getPickedImage();
                     if (pickedImage == null) return;
