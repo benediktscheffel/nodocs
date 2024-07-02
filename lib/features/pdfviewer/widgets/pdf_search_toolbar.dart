@@ -114,7 +114,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
           child: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: theme.colorScheme.onSecondary,
+              color: theme.colorScheme.onPrimary,
               size: 24,
             ),
             onPressed: () {
@@ -128,7 +128,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
         Flexible(
           child: TextFormField(
             style: TextStyle(
-                color: theme.colorScheme.onSecondary, fontSize: 16),
+                color: theme.colorScheme.onPrimary, fontSize: 16),
             enableInteractiveSelection: false,
             focusNode: focusNode,
             keyboardType: TextInputType.text,
@@ -137,7 +137,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Find...',
-              hintStyle: TextStyle(color: theme.colorScheme.onSecondary.withOpacity(0.34)),
+              hintStyle: TextStyle(color: theme.colorScheme.onPrimary.withOpacity(0.34)),
             ),
             onChanged: (final String text) {
               if (_editingController.text.isNotEmpty) {
@@ -201,7 +201,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
             child: IconButton(
               icon: Icon(
                 Icons.clear,
-                color: theme.colorScheme.onSecondary,
+                color: theme.colorScheme.onPrimary,
                 size: 24,
               ),
               onPressed: () {
@@ -239,19 +239,19 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
               Text(
                 '${_pdfTextSearchResult.currentInstanceIndex}',
                 style: TextStyle(
-                    color: theme.colorScheme.onSecondary,
+                    color: theme.colorScheme.onPrimary,
                     fontSize: 16),
               ),
               Text(
                 ' of ',
                 style: TextStyle(
-                    color: theme.colorScheme.onSecondary,
+                    color: theme.colorScheme.onPrimary,
                     fontSize: 16),
               ),
               Text(
                 '${_pdfTextSearchResult.totalInstanceCount}',
                 style: TextStyle(
-                    color: theme.colorScheme.onSecondary,
+                    color: theme.colorScheme.onPrimary,
                     fontSize: 16),
               ),
               Material(
@@ -259,7 +259,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
                 child: IconButton(
                   icon: Icon(
                     Icons.navigate_before,
-                    color: theme.colorScheme.onSecondary,
+                    color: theme.colorScheme.onPrimary,
                     size: 24,
                   ),
                   onPressed: () {
@@ -276,7 +276,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
                 child: IconButton(
                   icon: Icon(
                     Icons.navigate_next,
-                    color: theme.colorScheme.onSecondary,
+                    color: theme.colorScheme.onPrimary,
                     size: 24,
                   ),
                   onPressed: () {
