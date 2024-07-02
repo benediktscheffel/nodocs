@@ -1,5 +1,5 @@
 name: nodocs
-description: "A new Flutter project."
+description: NoDocs
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -65,6 +65,9 @@ dependencies:
   share_plus: ^9.0.0
   archive: ^3.6.1
   file_picker: ^8.0.5
+  flutter_native_splash: ^2.4.0
+  flutter_launcher_icons: ^0.13.1
+  easy_localization: ^3.0.7
 
 dev_dependencies:
   isar_generator: ^3.1.0+1
@@ -97,7 +100,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/translations/
     - config.env
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -125,3 +130,35 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: "#B9D6F2"
+  image: "assets/images/logo_1152x1152_light.png"
+  # icon_background_color: "#0353A4"
+  color_dark: "#061A40"
+  image_dark: "assets/images/logo_1152x1152_dark.png"
+  # icon_background_color_dark: "#0353A4"
+  android_12:
+    color: "#B9D6F2"
+    image: "assets/images/logo_1152x1152_light.png"
+    # icon_background_color: "#0353A4"
+    color_dark: "#061A40"
+    image_dark: "assets/images/logo_1152x1152_dark.png"
+    # icon_background_color_dark: "#0353A4"
+
+  android_gravity: top
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#B9D6F2"
+  adaptive_icon_monochrome: "assets/images/logo.png"
+  adaptive_icon_foreground: "assets/images/logo.png"
+  background_color_ios: "#B9D6F2"
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/images/logo.png"
+    background_color: "#B9D6F2"
+    theme_color: "#B9D6F2"

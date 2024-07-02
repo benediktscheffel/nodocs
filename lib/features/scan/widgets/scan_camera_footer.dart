@@ -1,9 +1,11 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_box_last_image.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_button.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class ScanCameraFooter extends StatelessWidget {
   final ValueChanged<String> onImageSelected;
@@ -56,9 +58,9 @@ class ScanCameraFooter extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                'Scan Document',
-                style: TextStyle(
+              Text(
+                LocaleKeys.scan_footer_scan_document.tr(),
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                 ),

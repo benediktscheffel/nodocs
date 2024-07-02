@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
@@ -6,6 +7,7 @@ import 'package:nodocs/features/settings/controller/settings_controller.dart';
 import 'package:nodocs/features/settings/model/settings_model.dart';
 import 'package:nodocs/features/settings/widgets/settings_container.dart';
 import 'package:nodocs/features/settings/widgets/settings_tile.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/widgets/button_switch.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
@@ -22,7 +24,7 @@ class SettingsPage extends ConsumerWidget {
         automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
         title: TitleWithButton(
-          title: 'Settings',
+          title: LocaleKeys.settings_title.tr(),
           icon: Icons.arrow_back_ios,
           onButtonClick: () =>
               controller.goBack(Uri(path: NavigationServiceRoutes.home)),
@@ -35,7 +37,7 @@ class SettingsPage extends ConsumerWidget {
           SettingsContainer(
             collectionItems: <SettingsTile>[
               SettingsTile(
-                title: 'Text recognition language',
+                title: LocaleKeys.settings_ocr_text_recognition_language.tr(),
                 onPressed: () {
                   controller
                       .goToPage(Uri(path: NavigationServiceRoutes.ocrLanguage));
@@ -51,7 +53,7 @@ class SettingsPage extends ConsumerWidget {
           SettingsContainer(
             collectionItems: <SettingsTile>[
               SettingsTile(
-                title: 'DarkMode',
+                title: LocaleKeys.settings_appearance_dark_mode.tr(),
                 onPressed: () {},
                 leading: Icons.dark_mode_outlined,
                 trailing: SwitchButton(

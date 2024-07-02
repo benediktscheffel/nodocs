@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/tags/widgets/tag_chip_container.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/widgets/dialog_box.dart';
 
 class TagDialog extends StatelessWidget {
@@ -18,7 +20,7 @@ class TagDialog extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return DialogBox(
-      headerText: 'Edit Tags',
+      headerText: LocaleKeys.pdf_viewer_tags_dialog_header.tr(),
       body: <Widget>[
         tagChipContainer,
       ],
@@ -31,7 +33,7 @@ class TagDialog extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Text(
-                'Save',
+                LocaleKeys.pdf_viewer_tags_dialog_save.tr(),
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     color: theme.colorScheme.onPrimaryContainer,

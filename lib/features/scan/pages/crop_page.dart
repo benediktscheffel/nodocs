@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +6,7 @@ import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/crop_controller.dart';
 import 'package:nodocs/features/scan/controller/implementation/crop_provider.dart';
 import 'package:nodocs/features/scan/widgets/scan_crop.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
@@ -24,7 +26,7 @@ class CropPage extends ConsumerWidget {
         automaticallyImplyLeading: false,
         backgroundColor: theme.colorScheme.primary,
         title: TitleWithButton(
-          title: "Crop Scan",
+          title: LocaleKeys.crop_title.tr(),
           icon: Icons.home_outlined,
           onButtonClick: () => showDialog<String>(
             context: context,
@@ -36,8 +38,8 @@ class CropPage extends ConsumerWidget {
                 onCancel: (){
                   Navigator.pop(context);
                 },
-                header: 'Discard this scan?',
-                notificationText: 'Are you sure you want to discard this scan without saving? This will discard all pages of this scan.'
+                header: LocaleKeys.crop_discard_dialog_header.tr(),
+                notificationText: LocaleKeys.crop_discard_dialog_body.tr()
               ),
           ),
         ),
@@ -50,7 +52,7 @@ class CropPage extends ConsumerWidget {
       ),
       bottomNavigationBar: NavigationBox(buttons: <Widget>[
         NavigationButton(
-          buttonText: 'Retake Photo',
+          buttonText: LocaleKeys.crop_navigation_retake_photo.tr(),
           buttonIcon: Icons.flip_camera_ios_outlined,
           onPressed: () => showDialog<String>(
             context: context,
@@ -68,13 +70,13 @@ class CropPage extends ConsumerWidget {
                 onCancel: (){
                   controller.goBack();
                 },
-                header: 'Retake this scan?',
-                notificationText: 'Are you sure you want to retake the scan of the current page without saving?',
+                header: LocaleKeys.crop_retake_dialog_header.tr(),
+                notificationText: LocaleKeys.crop_retake_dialog_body.tr(),
               ),
           ),
         ),
         NavigationButton(
-          buttonText: 'Keep Scanning',
+          buttonText: LocaleKeys.crop_navigation_keep_scanning.tr(),
           buttonIcon: Icons.arrow_forward_outlined,
           onPressed: () {
             controller.goToPage(Uri(
@@ -86,7 +88,7 @@ class CropPage extends ConsumerWidget {
           },
         ),
         NavigationButton(
-          buttonText: 'Save Document',
+          buttonText: LocaleKeys.crop_navigation_save_document.tr(),
           buttonIcon: Icons.save_outlined,
           onPressed: () {
             controller.goToPage(Uri(

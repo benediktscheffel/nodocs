@@ -24,5 +24,19 @@ samples, guidance on mobile development, and a full API reference.
 
 ```
 dart run build_runner build
+```
 
+#### Regenerate splash screens
+```
+dart run flutter_native_splash:create
+```
+
+#### Regenerate icon files
+```
+flutter pub run flutter_launcher_icons
+```
+
+#### Regenerate translation keys
+```
+dart run easy_localization:generate -S assets/translations -f keys -O lib/gen -o locale_keys.g.dart
 ```

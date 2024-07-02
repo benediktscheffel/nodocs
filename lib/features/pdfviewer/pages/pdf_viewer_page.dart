@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/pdfviewer/controller/implementation/pdf_viewer_providers.dart';
@@ -7,6 +8,7 @@ import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart';
 import 'package:nodocs/features/pdfviewer/widgets/pdf_viewer.dart';
 import 'package:nodocs/features/tags/widgets/tag_chip_container.dart';
 import 'package:nodocs/features/tags/widgets/tag_dialog.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class PdfViewerPage extends ConsumerWidget {
   final String path;
@@ -83,10 +85,10 @@ class PdfViewerPage extends ConsumerWidget {
                         Radius.circular(16.0),
                       ),
                     ),
-                    child: const Text(
-                      'No result',
+                    child: Text(
+                      LocaleKeys.pdf_viewer_no_result.tr(),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 16,
                           color: Colors.white),
@@ -134,7 +136,7 @@ class PdfViewerPage extends ConsumerWidget {
         PopupMenuItem<ListTile>(
           child: ListTile(
             leading: const Icon(Icons.edit_outlined),
-            title: const Text('Edit Tags'),
+            title: Text(LocaleKeys.pdf_viewer_navigation_edit_tags.tr()),
             onTap: () {
               Navigator.pop(context);
               showDialog<String>(
@@ -155,7 +157,7 @@ class PdfViewerPage extends ConsumerWidget {
         PopupMenuItem<ListTile>(
           child: ListTile(
             leading: const Icon(Icons.search),
-            title: const Text('Search'),
+            title: Text(LocaleKeys.pdf_viewer_navigation_search.tr()),
             onTap: () {
               Navigator.pop(context);
               controller.toggleScrollHead(false);

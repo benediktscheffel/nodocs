@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class CarouselService {
   static List<Widget> buildImageWidgets(final List<String> imagePaths) {
@@ -48,7 +50,7 @@ class CarouselService {
                   horizontal: 20.0,
                 ),
                 child: Text(
-                  'Page ${imagePaths.indexOf(path) + 1}',
+                  '${LocaleKeys.save_carousel_page.tr()} ${imagePaths.indexOf(path) + 1}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,

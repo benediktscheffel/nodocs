@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class TagInput extends StatefulWidget {
   final Function(String) addTag;
@@ -35,7 +37,7 @@ class TagInputState extends State<TagInput> {
       controller: controller,
       decoration: InputDecoration(
         prefix: const Text('# '),
-        hintText: 'Create new Tag',
+        hintText: LocaleKeys.pdf_viewer_tags_dialog_input_hint_text.tr(),
         suffixIcon: isTextEmpty
             ? null
             : IconButton(
