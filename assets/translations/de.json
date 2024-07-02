@@ -3,6 +3,12 @@
     "confirmation_dialog": {
       "cancel": "Abbrechen",
       "confirm": "Akzeptieren"
+    },
+    "error_handler": {
+      "title": "Ups, ein Fehler ist aufgetreten!",
+      "apology": "Wir entschuldigen uns für die Unannehmlichkeiten!",
+      "announce": "Der folgende Fehler ist aufgetreten:",
+      "try_again": "Erneut versuchen"
     }
   },
   "home": {
@@ -34,6 +40,11 @@
       "hintText": "Neue Sammlung",
       "cancel": "Abbrechen",
       "confirm": "Erstellen"
+    },
+    "error_screens": {
+      "sharing_exception": {
+        "message": "Fehler beim Teilen der Sammlung: "
+      }
     }
   },
   "pdf_viewer": {
@@ -120,6 +131,17 @@
     "discard_dialog": {
       "header": "Diesen Scan verwerfen?",
       "body": "Sind Sie sich sicher, dass Sie diesen Scan ohne zu speichern verwerfen möchten? Dabei werden alle Seiten des momentanen Scan gelöscht."
+    },
+    "error_screens": {
+      "camera_exception": {
+        "message": "Kamerafehler: "
+      },
+      "init_camera_exception": {
+        "message": "Fehler beim initialisieren der Kamera: "
+      },
+      "no_cameras_exception": {
+        "message": "Keine Kameras verfügbar"
+      }
     }
   },
   "crop": {
@@ -189,6 +211,11 @@
         "header": "Bitte überprüfen Sie ihre Internetverbindung!",
         "notification_text": "Eine Internetverbindung ist notwendig um das Dokument zu verarbeiten.",
         "confirm": "OK"
+      }
+    },
+    "error_screens": {
+      "listing_directories_exception": {
+        "message": "Fehler beim auflisten der Sammlungen: "
       }
     }
   }

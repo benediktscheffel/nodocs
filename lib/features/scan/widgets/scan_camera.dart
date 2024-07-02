@@ -1,9 +1,11 @@
 import 'package:camera/camera.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/features/scan/services/camera_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_footer.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:nodocs/util/logging/log.dart';
 
 // ConsumerStatefulWidget because the CameraController is very difficult to handle inside riverpod providers
@@ -39,13 +41,13 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
         }
       } catch (e) {
         if (e is CameraException) {
-          _log.e('Camera error: ${e.description}');
+          throw Exception(LocaleKeys.scan_error_screens_camera_exception_message.tr() + (e.description ?? ''));
         } else {
-          _log.e('Error initializing camera: $e');
+          throw Exception(LocaleKeys.scan_error_screens_init_camera_exception_message.tr() + e.toString());
         }
       }
     } else {
-      _log.e('No cameras available');
+      throw Exception(LocaleKeys.scan_error_screens_no_cameras_exception_message.tr());
     }
   }
 

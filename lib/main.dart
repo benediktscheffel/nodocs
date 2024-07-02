@@ -6,6 +6,7 @@ import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/settings/controller/implementation/settings_providers.dart';
 import 'package:nodocs/features/settings/model/settings_model.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/isar_persistence_service.dart';
+import 'package:nodocs/page/error_handler.dart';
 import 'package:nodocs/widgets/themes.dart';
 import 'config/service_locator.dart';
 import 'features/settings/services/persistence/implementation/settings_shared_preferences_persistence_service.dart';
@@ -33,7 +34,7 @@ Future<void> main() async {
           fallbackLocale: ConfigParameters.fallbackLocale,
           useOnlyLangCode: true,
           child: Builder(
-            builder: (final BuildContext context) => const MyApp(),
+            builder: (final BuildContext context) => const ErrorHandler(child: MyApp()),
           ),
         ),
       ),

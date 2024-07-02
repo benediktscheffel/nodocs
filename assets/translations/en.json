@@ -3,6 +3,12 @@
     "confirmation_dialog": {
       "cancel": "Cancel",
       "confirm": "Confirm"
+    },
+    "error_handler": {
+      "title": "Oops, an error occurred!",
+      "apology": "We are sorry for the inconveniences!",
+      "announce": "The following error has occurred:",
+      "try_again": "Try Again"
     }
   },
   "home": {
@@ -34,6 +40,11 @@
       "hintText": "New Collection",
       "cancel": "Cancel",
       "confirm": "Create"
+    },
+    "error_screens": {
+      "sharing_exception": {
+        "message": "Error while sharing collection: "
+      }
     }
   },
   "pdf_viewer": {
@@ -120,6 +131,17 @@
     "discard_dialog": {
       "header": "Discard this scan?",
       "body": "Are you sure you want to discard this scan without saving? This will discard all pages of this scan."
+    },
+    "error_screens": {
+      "camera_exception": {
+        "message": "Camera error: "
+      },
+      "init_camera_exception": {
+        "message": "Error initializing camera: "
+      },
+      "no_cameras_exception": {
+        "message": "No cameras available"
+      }
     }
   },
   "crop": {
@@ -189,6 +211,11 @@
         "header": "Please check your internet connection!",
         "notification_text": "An internet connection is required to process the document.",
         "confirm": "OK"
+      }
+    },
+    "error_screens": {
+      "listing_directories_exception": {
+        "message": "Error on listing the collections: "
       }
     }
   }

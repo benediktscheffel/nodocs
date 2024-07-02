@@ -4,6 +4,11 @@ abstract class  LocaleKeys {
   static const general_confirmation_dialog_cancel = 'general.confirmation_dialog.cancel';
   static const general_confirmation_dialog_confirm = 'general.confirmation_dialog.confirm';
   static const general_confirmation_dialog = 'general.confirmation_dialog';
+  static const general_error_handler_title = 'general.error_handler.title';
+  static const general_error_handler_apology = 'general.error_handler.apology';
+  static const general_error_handler_announce = 'general.error_handler.announce';
+  static const general_error_handler_try_again = 'general.error_handler.try_again';
+  static const general_error_handler = 'general.error_handler';
   static const general = 'general';
   static const home_new_collection = 'home.new_collection';
   static const home_scan_document = 'home.scan_document';
@@ -29,6 +34,9 @@ abstract class  LocaleKeys {
   static const home_collection_create_dialog_cancel = 'home.collection_create_dialog.cancel';
   static const home_collection_create_dialog_confirm = 'home.collection_create_dialog.confirm';
   static const home_collection_create_dialog = 'home.collection_create_dialog';
+  static const home_error_screens_sharing_exception_message = 'home.error_screens.sharing_exception.message';
+  static const home_error_screens_sharing_exception = 'home.error_screens.sharing_exception';
+  static const home_error_screens = 'home.error_screens';
   static const home = 'home';
   static const pdf_viewer_no_result = 'pdf_viewer.no_result';
   static const pdf_viewer_navigation_edit_tags = 'pdf_viewer.navigation.edit_tags';
@@ -101,6 +109,13 @@ abstract class  LocaleKeys {
   static const scan_discard_dialog_header = 'scan.discard_dialog.header';
   static const scan_discard_dialog_body = 'scan.discard_dialog.body';
   static const scan_discard_dialog = 'scan.discard_dialog';
+  static const scan_error_screens_camera_exception_message = 'scan.error_screens.camera_exception.message';
+  static const scan_error_screens_camera_exception = 'scan.error_screens.camera_exception';
+  static const scan_error_screens_init_camera_exception_message = 'scan.error_screens.init_camera_exception.message';
+  static const scan_error_screens_init_camera_exception = 'scan.error_screens.init_camera_exception';
+  static const scan_error_screens_no_cameras_exception_message = 'scan.error_screens.no_cameras_exception.message';
+  static const scan_error_screens_no_cameras_exception = 'scan.error_screens.no_cameras_exception';
+  static const scan_error_screens = 'scan.error_screens';
   static const scan = 'scan';
   static const crop_title = 'crop.title';
   static const crop_scan_action_button_text = 'crop.scan_action_button_text';
@@ -153,6 +168,9 @@ abstract class  LocaleKeys {
   static const save_error_dialogs_internet_confirm = 'save.error_dialogs.internet.confirm';
   static const save_error_dialogs_internet = 'save.error_dialogs.internet';
   static const save_error_dialogs = 'save.error_dialogs';
+  static const save_error_screens_listing_directories_exception_message = 'save.error_screens.listing_directories_exception.message';
+  static const save_error_screens_listing_directories_exception = 'save.error_screens.listing_directories_exception';
+  static const save_error_screens = 'save.error_screens';
   static const save = 'save';
 
 }
