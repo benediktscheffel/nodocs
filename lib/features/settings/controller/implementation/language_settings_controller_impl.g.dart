@@ -1,0 +1,205 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'language_settings_controller_impl.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$languageSettingsControllerImplHash() =>
+    r'743ff3aaee892aa59d824748d9baaa9e107fb004';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+abstract class _$LanguageSettingsControllerImpl
+    extends BuildlessAutoDisposeNotifier<LanguageSettingsModel> {
+  late final SettingsPersistenceService settingsPersistenceService;
+  late final NavigationService navigationService;
+
+  LanguageSettingsModel build({
+    required SettingsPersistenceService settingsPersistenceService,
+    required NavigationService navigationService,
+  });
+}
+
+/// See also [LanguageSettingsControllerImpl].
+@ProviderFor(LanguageSettingsControllerImpl)
+const languageSettingsControllerImplProvider =
+    LanguageSettingsControllerImplFamily();
+
+/// See also [LanguageSettingsControllerImpl].
+class LanguageSettingsControllerImplFamily
+    extends Family<LanguageSettingsModel> {
+  /// See also [LanguageSettingsControllerImpl].
+  const LanguageSettingsControllerImplFamily();
+
+  /// See also [LanguageSettingsControllerImpl].
+  LanguageSettingsControllerImplProvider call({
+    required SettingsPersistenceService settingsPersistenceService,
+    required NavigationService navigationService,
+  }) {
+    return LanguageSettingsControllerImplProvider(
+      settingsPersistenceService: settingsPersistenceService,
+      navigationService: navigationService,
+    );
+  }
+
+  @override
+  LanguageSettingsControllerImplProvider getProviderOverride(
+    covariant LanguageSettingsControllerImplProvider provider,
+  ) {
+    return call(
+      settingsPersistenceService: provider.settingsPersistenceService,
+      navigationService: provider.navigationService,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'languageSettingsControllerImplProvider';
+}
+
+/// See also [LanguageSettingsControllerImpl].
+class LanguageSettingsControllerImplProvider
+    extends AutoDisposeNotifierProviderImpl<LanguageSettingsControllerImpl,
+        LanguageSettingsModel> {
+  /// See also [LanguageSettingsControllerImpl].
+  LanguageSettingsControllerImplProvider({
+    required SettingsPersistenceService settingsPersistenceService,
+    required NavigationService navigationService,
+  }) : this._internal(
+          () => LanguageSettingsControllerImpl()
+            ..settingsPersistenceService = settingsPersistenceService
+            ..navigationService = navigationService,
+          from: languageSettingsControllerImplProvider,
+          name: r'languageSettingsControllerImplProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$languageSettingsControllerImplHash,
+          dependencies: LanguageSettingsControllerImplFamily._dependencies,
+          allTransitiveDependencies:
+              LanguageSettingsControllerImplFamily._allTransitiveDependencies,
+          settingsPersistenceService: settingsPersistenceService,
+          navigationService: navigationService,
+        );
+
+  LanguageSettingsControllerImplProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.settingsPersistenceService,
+    required this.navigationService,
+  }) : super.internal();
+
+  final SettingsPersistenceService settingsPersistenceService;
+  final NavigationService navigationService;
+
+  @override
+  LanguageSettingsModel runNotifierBuild(
+    covariant LanguageSettingsControllerImpl notifier,
+  ) {
+    return notifier.build(
+      settingsPersistenceService: settingsPersistenceService,
+      navigationService: navigationService,
+    );
+  }
+
+  @override
+  Override overrideWith(LanguageSettingsControllerImpl Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: LanguageSettingsControllerImplProvider._internal(
+        () => create()
+          ..settingsPersistenceService = settingsPersistenceService
+          ..navigationService = navigationService,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        settingsPersistenceService: settingsPersistenceService,
+        navigationService: navigationService,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeNotifierProviderElement<LanguageSettingsControllerImpl,
+      LanguageSettingsModel> createElement() {
+    return _LanguageSettingsControllerImplProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LanguageSettingsControllerImplProvider &&
+        other.settingsPersistenceService == settingsPersistenceService &&
+        other.navigationService == navigationService;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, settingsPersistenceService.hashCode);
+    hash = _SystemHash.combine(hash, navigationService.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin LanguageSettingsControllerImplRef
+    on AutoDisposeNotifierProviderRef<LanguageSettingsModel> {
+  /// The parameter `settingsPersistenceService` of this provider.
+  SettingsPersistenceService get settingsPersistenceService;
+
+  /// The parameter `navigationService` of this provider.
+  NavigationService get navigationService;
+}
+
+class _LanguageSettingsControllerImplProviderElement
+    extends AutoDisposeNotifierProviderElement<LanguageSettingsControllerImpl,
+        LanguageSettingsModel> with LanguageSettingsControllerImplRef {
+  _LanguageSettingsControllerImplProviderElement(super.provider);
+
+  @override
+  SettingsPersistenceService get settingsPersistenceService =>
+      (origin as LanguageSettingsControllerImplProvider)
+          .settingsPersistenceService;
+  @override
+  NavigationService get navigationService =>
+      (origin as LanguageSettingsControllerImplProvider).navigationService;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
