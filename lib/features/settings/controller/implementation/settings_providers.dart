@@ -1,7 +1,10 @@
 import 'package:nodocs/features/navigation/implementation/go_router_navigation_service.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
+import 'package:nodocs/features/settings/controller/implementation/language_settings_controller_impl.dart';
+import 'package:nodocs/features/settings/controller/language_settings_controller.dart';
 import 'package:nodocs/features/settings/controller/settings_controller.dart';
 import 'package:nodocs/features/settings/controller/text_recognition_language_controller.dart';
+import 'package:nodocs/features/settings/model/language_settings_model.dart';
 import 'package:nodocs/features/settings/model/settings_model.dart';
 import 'package:nodocs/features/settings/model/text_recognition_language_model.dart';
 import 'package:nodocs/features/settings/services/persistence/implementation/settings_shared_preferences_persistence_service.dart';
@@ -53,3 +56,25 @@ TextRecognitionLanguageModel textRecognitionLanguageModel(
       settingsPersistenceService: ref.watch(settingsPersistenceServiceProvider),
       navigationService: ref.watch(settingsNavigationServiceProvider),
     ));
+
+@riverpod
+LanguageSettingsController languageSettingsController(
+        final LanguageSettingsControllerRef ref) =>
+    ref.watch(
+      languageSettingsControllerImplProvider(
+        settingsPersistenceService:
+            ref.watch(settingsPersistenceServiceProvider),
+        navigationService: ref.watch(settingsNavigationServiceProvider),
+      ).notifier,
+    );
+
+@riverpod
+LanguageSettingsModel languageSettingsModel(
+        final LanguageSettingsModelRef ref) =>
+    ref.watch(
+      languageSettingsControllerImplProvider(
+        settingsPersistenceService:
+            ref.watch(settingsPersistenceServiceProvider),
+        navigationService: ref.watch(settingsNavigationServiceProvider),
+      ),
+    );

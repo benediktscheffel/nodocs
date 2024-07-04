@@ -22,6 +22,9 @@ Future<void> main() async {
   await providerContainer.read(persistenceServiceProvider).init();
   await providerContainer.read(settingsPersistenceServiceProvider).init();
 
+  String appLanguage =
+  providerContainer.read(settingsPersistenceServiceProvider).loadAppLanguage();
+
   await dotenv.load(fileName: "config.env");
 
   runApp(
@@ -33,6 +36,7 @@ Future<void> main() async {
           path: ConfigParameters.translationsPath,
           fallbackLocale: ConfigParameters.fallbackLocale,
           useOnlyLangCode: true,
+          startLocale: Locale(appLanguage),
           child: Builder(
             builder: (final BuildContext context) => const ErrorHandler(child: MyApp()),
           ),

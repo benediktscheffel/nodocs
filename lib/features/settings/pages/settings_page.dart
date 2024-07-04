@@ -37,6 +37,18 @@ class SettingsPage extends ConsumerWidget {
           SettingsContainer(
             collectionItems: <SettingsTile>[
               SettingsTile(
+                title: LocaleKeys.settings_app_language.tr(),
+                onPressed: () {
+                  controller
+                      .goToPage(Uri(path: NavigationServiceRoutes.languageSettings));
+                },
+                leading: Icons.language_outlined,
+                trailing: Icon(
+                  Icons.arrow_right_outlined,
+                  color: theme.colorScheme.onSecondary,
+                ),
+              ),
+              SettingsTile(
                 title: LocaleKeys.settings_ocr_text_recognition_language.tr(),
                 onPressed: () {
                   controller

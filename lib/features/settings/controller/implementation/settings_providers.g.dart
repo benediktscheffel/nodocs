@@ -92,5 +92,41 @@ final textRecognitionLanguageModelProvider =
 
 typedef TextRecognitionLanguageModelRef
     = AutoDisposeProviderRef<TextRecognitionLanguageModel>;
+String _$languageSettingsControllerHash() =>
+    r'3f5ce68b2c18e43ce19e090e2c07c6d0de67ab26';
+
+/// See also [languageSettingsController].
+@ProviderFor(languageSettingsController)
+final languageSettingsControllerProvider =
+    AutoDisposeProvider<LanguageSettingsController>.internal(
+  languageSettingsController,
+  name: r'languageSettingsControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$languageSettingsControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LanguageSettingsControllerRef
+    = AutoDisposeProviderRef<LanguageSettingsController>;
+String _$languageSettingsModelHash() =>
+    r'bb3af1143ef055d32c205bee581b088c7e9874ea';
+
+/// See also [languageSettingsModel].
+@ProviderFor(languageSettingsModel)
+final languageSettingsModelProvider =
+    AutoDisposeProvider<LanguageSettingsModel>.internal(
+  languageSettingsModel,
+  name: r'languageSettingsModelProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$languageSettingsModelHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LanguageSettingsModelRef
+    = AutoDisposeProviderRef<LanguageSettingsModel>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

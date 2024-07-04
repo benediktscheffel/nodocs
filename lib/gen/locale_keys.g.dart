@@ -61,6 +61,7 @@ abstract class  LocaleKeys {
   static const pdf_viewer_tags = 'pdf_viewer.tags';
   static const pdf_viewer = 'pdf_viewer';
   static const settings_title = 'settings.title';
+  static const settings_app_language = 'settings.app_language';
   static const settings_ocr_run_text_recognition = 'settings.ocr.run_text_recognition';
   static const settings_ocr_text_recognition_language = 'settings.ocr.text_recognition_language';
   static const settings_ocr_languages_daDK = 'settings.ocr.languages.daDK';

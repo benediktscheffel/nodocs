@@ -79,6 +79,7 @@
   },
   "settings": {
     "title": "Settings",
+    "app_language": "App language",
     "ocr" : {
       "run_text_recognition": "Run text recognition",
       "text_recognition_language": "Text recognition language",

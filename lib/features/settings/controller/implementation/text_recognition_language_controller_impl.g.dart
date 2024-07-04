@@ -7,7 +7,7 @@ part of 'text_recognition_language_controller_impl.dart';
 // **************************************************************************
 
 String _$textRecognitionLanguageControllerImplHash() =>
-    r'59ace54e4ae419c0b756cab0b27a9a94a9bdb2a5';
+    r'c1cb1e59826956e8c051211b5394e4a203f8998e';
 
 /// Copied from Dart SDK
 class _SystemHash {

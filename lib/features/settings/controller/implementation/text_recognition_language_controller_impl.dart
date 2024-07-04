@@ -18,7 +18,7 @@ class TextRecognitionLanguageControllerImpl
     return TextRecognitionLanguageModel(
         selectedLanguageCode:
             settingsPersistenceService.loadTextRecognitionLanguage(),
-        languages: Languages.getSortedLanguages());
+        languages: Languages.getSortedOCRLanguages());
   }
 
   @override

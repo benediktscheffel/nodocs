@@ -70,7 +70,7 @@ final filePickerServiceProvider =
 );
 
 typedef FilePickerServiceRef = AutoDisposeProviderRef<FilePickerService>;
-String _$homeControllerHash() => r'7ee6f1ae5f3dc5f818730e35ee18c2df6852cb58';
+String _$homeControllerHash() => r'b71102bbc903b49bb6e63c28dbbf1579b2c3cea9';
 
 /// See also [homeController].
 @ProviderFor(homeController)
@@ -85,7 +85,7 @@ final homeControllerProvider = AutoDisposeProvider<HomeController>.internal(
 );
 
 typedef HomeControllerRef = AutoDisposeProviderRef<HomeController>;
-String _$homeModelHash() => r'd1d859fe970ceca335ea0a420c56526e92e33b74';
+String _$homeModelHash() => r'6f502816d26f6fa831a677f94978f8c799993f6f';
 
 /// See also [homeModel].
 @ProviderFor(homeModel)
