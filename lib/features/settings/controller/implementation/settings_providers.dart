@@ -1,3 +1,4 @@
+import 'package:nodocs/config/service_locator.dart';
 import 'package:nodocs/features/navigation/implementation/go_router_navigation_service.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/settings/controller/implementation/language_settings_controller_impl.dart';
@@ -7,6 +8,7 @@ import 'package:nodocs/features/settings/controller/text_recognition_language_co
 import 'package:nodocs/features/settings/model/language_settings_model.dart';
 import 'package:nodocs/features/settings/model/settings_model.dart';
 import 'package:nodocs/features/settings/model/text_recognition_language_model.dart';
+import 'package:nodocs/features/settings/services/language/language_evaluation_service.dart';
 import 'package:nodocs/features/settings/services/persistence/implementation/settings_shared_preferences_persistence_service.dart';
 import 'package:nodocs/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,6 +22,11 @@ part 'settings_providers.g.dart';
 NavigationService settingsNavigationService(
         final SettingsNavigationServiceRef ref) =>
     GoRouterNavigationService(goRouter: ref.read(goRouterProvider));
+
+@riverpod
+LanguageEvaluationService languageEvaluationService(
+        final LanguageEvaluationServiceRef ref) =>
+    getIt<LanguageEvaluationService>();
 
 @riverpod
 SettingsController settingsController(final SettingsControllerRef ref) =>
@@ -65,6 +72,7 @@ LanguageSettingsController languageSettingsController(
         settingsPersistenceService:
             ref.watch(settingsPersistenceServiceProvider),
         navigationService: ref.watch(settingsNavigationServiceProvider),
+        languageEvaluationService: ref.watch(languageEvaluationServiceProvider),
       ).notifier,
     );
 
@@ -76,5 +84,6 @@ LanguageSettingsModel languageSettingsModel(
         settingsPersistenceService:
             ref.watch(settingsPersistenceServiceProvider),
         navigationService: ref.watch(settingsNavigationServiceProvider),
+        languageEvaluationService: ref.watch(languageEvaluationServiceProvider),
       ),
     );

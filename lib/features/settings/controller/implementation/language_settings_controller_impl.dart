@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
-import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/settings/controller/language_settings_controller.dart';
 import 'package:nodocs/features/settings/model/language_settings_model.dart';
 import 'package:nodocs/features/settings/model/languages.dart';
+import 'package:nodocs/features/settings/services/language/language_evaluation_service.dart';
 import 'package:nodocs/features/settings/services/persistence/settings_persistence_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,6 +18,7 @@ class LanguageSettingsControllerImpl extends _$LanguageSettingsControllerImpl
   LanguageSettingsModel build({
     required final SettingsPersistenceService settingsPersistenceService,
     required final NavigationService navigationService,
+    required final LanguageEvaluationService languageEvaluationService,
   }) {
     return LanguageSettingsModel(
         selectedLanguageCode: settingsPersistenceService.loadAppLanguage(),
@@ -33,13 +33,8 @@ class LanguageSettingsControllerImpl extends _$LanguageSettingsControllerImpl
   @override
   void setLanguage(final String language, final BuildContext context) {
     if (language == "system") {
-      Iterable<Locale> locale = ConfigParameters.supportedLocales.filter(
-          (final Locale local) =>
-              local.languageCode ==
-              WidgetsBinding.instance.platformDispatcher.locale.languageCode);
-      locale.isEmpty
-          ? context.setLocale(ConfigParameters.fallbackLocale)
-          : context.setLocale(locale.first);
+      context.setLocale(languageEvaluationService.getSupportedLanguage(
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode));
     } else {
       context.setLocale(Locale(language));
     }

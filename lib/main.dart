@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/settings/controller/implementation/settings_providers.dart';
 import 'package:nodocs/features/settings/model/settings_model.dart';
+import 'package:nodocs/features/settings/services/language/language_evaluation_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/isar_persistence_service.dart';
 import 'package:nodocs/page/error_handler.dart';
 import 'package:nodocs/widgets/themes.dart';
@@ -26,7 +26,6 @@ Future<void> main() async {
   final String appLanguage = providerContainer
       .read(settingsPersistenceServiceProvider)
       .loadAppLanguage();
-
   await dotenv.load(fileName: "config.env");
 
   runApp(
@@ -39,12 +38,9 @@ Future<void> main() async {
           fallbackLocale: ConfigParameters.fallbackLocale,
           useOnlyLangCode: true,
           startLocale: appLanguage == "system"
-              ? ConfigParameters.supportedLocales
-                  .filter((final Locale locale) =>
-                      locale.languageCode ==
-                      WidgetsBinding
-                          .instance.platformDispatcher.locale.languageCode)
-                  .first
+              ? getIt<LanguageEvaluationService>().getSupportedLanguage(
+                  WidgetsBinding
+                      .instance.platformDispatcher.locale.languageCode)
               : Locale(appLanguage),
           child: Builder(
             builder: (final BuildContext context) =>

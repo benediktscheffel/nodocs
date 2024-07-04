@@ -24,6 +24,24 @@ final settingsNavigationServiceProvider =
 
 typedef SettingsNavigationServiceRef
     = AutoDisposeProviderRef<NavigationService>;
+String _$languageEvaluationServiceHash() =>
+    r'69c368f5bdfed5bf46d8059a8bfb3650dca1d6cf';
+
+/// See also [languageEvaluationService].
+@ProviderFor(languageEvaluationService)
+final languageEvaluationServiceProvider =
+    AutoDisposeProvider<LanguageEvaluationService>.internal(
+  languageEvaluationService,
+  name: r'languageEvaluationServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$languageEvaluationServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LanguageEvaluationServiceRef
+    = AutoDisposeProviderRef<LanguageEvaluationService>;
 String _$settingsControllerHash() =>
     r'98a2245b55cf0255791f7022849c271805af6eeb';
 
@@ -93,7 +111,7 @@ final textRecognitionLanguageModelProvider =
 typedef TextRecognitionLanguageModelRef
     = AutoDisposeProviderRef<TextRecognitionLanguageModel>;
 String _$languageSettingsControllerHash() =>
-    r'3f5ce68b2c18e43ce19e090e2c07c6d0de67ab26';
+    r'841eead85d412b79d3fe609ddbc2974e3f0bc1f3';
 
 /// See also [languageSettingsController].
 @ProviderFor(languageSettingsController)

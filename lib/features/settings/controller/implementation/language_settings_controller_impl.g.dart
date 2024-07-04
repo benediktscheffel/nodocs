@@ -7,7 +7,7 @@ part of 'language_settings_controller_impl.dart';
 // **************************************************************************
 
 String _$languageSettingsControllerImplHash() =>
-    r'743ff3aaee892aa59d824748d9baaa9e107fb004';
+    r'ff31fc46e427d7c57a7a5a57a1f08d7277c925f2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,10 +34,12 @@ abstract class _$LanguageSettingsControllerImpl
     extends BuildlessAutoDisposeNotifier<LanguageSettingsModel> {
   late final SettingsPersistenceService settingsPersistenceService;
   late final NavigationService navigationService;
+  late final LanguageEvaluationService languageEvaluationService;
 
   LanguageSettingsModel build({
     required SettingsPersistenceService settingsPersistenceService,
     required NavigationService navigationService,
+    required LanguageEvaluationService languageEvaluationService,
   });
 }
 
@@ -56,10 +58,12 @@ class LanguageSettingsControllerImplFamily
   LanguageSettingsControllerImplProvider call({
     required SettingsPersistenceService settingsPersistenceService,
     required NavigationService navigationService,
+    required LanguageEvaluationService languageEvaluationService,
   }) {
     return LanguageSettingsControllerImplProvider(
       settingsPersistenceService: settingsPersistenceService,
       navigationService: navigationService,
+      languageEvaluationService: languageEvaluationService,
     );
   }
 
@@ -70,6 +74,7 @@ class LanguageSettingsControllerImplFamily
     return call(
       settingsPersistenceService: provider.settingsPersistenceService,
       navigationService: provider.navigationService,
+      languageEvaluationService: provider.languageEvaluationService,
     );
   }
 
@@ -96,10 +101,12 @@ class LanguageSettingsControllerImplProvider
   LanguageSettingsControllerImplProvider({
     required SettingsPersistenceService settingsPersistenceService,
     required NavigationService navigationService,
+    required LanguageEvaluationService languageEvaluationService,
   }) : this._internal(
           () => LanguageSettingsControllerImpl()
             ..settingsPersistenceService = settingsPersistenceService
-            ..navigationService = navigationService,
+            ..navigationService = navigationService
+            ..languageEvaluationService = languageEvaluationService,
           from: languageSettingsControllerImplProvider,
           name: r'languageSettingsControllerImplProvider',
           debugGetCreateSourceHash:
@@ -111,6 +118,7 @@ class LanguageSettingsControllerImplProvider
               LanguageSettingsControllerImplFamily._allTransitiveDependencies,
           settingsPersistenceService: settingsPersistenceService,
           navigationService: navigationService,
+          languageEvaluationService: languageEvaluationService,
         );
 
   LanguageSettingsControllerImplProvider._internal(
@@ -122,10 +130,12 @@ class LanguageSettingsControllerImplProvider
     required super.from,
     required this.settingsPersistenceService,
     required this.navigationService,
+    required this.languageEvaluationService,
   }) : super.internal();
 
   final SettingsPersistenceService settingsPersistenceService;
   final NavigationService navigationService;
+  final LanguageEvaluationService languageEvaluationService;
 
   @override
   LanguageSettingsModel runNotifierBuild(
@@ -134,6 +144,7 @@ class LanguageSettingsControllerImplProvider
     return notifier.build(
       settingsPersistenceService: settingsPersistenceService,
       navigationService: navigationService,
+      languageEvaluationService: languageEvaluationService,
     );
   }
 
@@ -144,7 +155,8 @@ class LanguageSettingsControllerImplProvider
       override: LanguageSettingsControllerImplProvider._internal(
         () => create()
           ..settingsPersistenceService = settingsPersistenceService
-          ..navigationService = navigationService,
+          ..navigationService = navigationService
+          ..languageEvaluationService = languageEvaluationService,
         from: from,
         name: null,
         dependencies: null,
@@ -152,6 +164,7 @@ class LanguageSettingsControllerImplProvider
         debugGetCreateSourceHash: null,
         settingsPersistenceService: settingsPersistenceService,
         navigationService: navigationService,
+        languageEvaluationService: languageEvaluationService,
       ),
     );
   }
@@ -166,7 +179,8 @@ class LanguageSettingsControllerImplProvider
   bool operator ==(Object other) {
     return other is LanguageSettingsControllerImplProvider &&
         other.settingsPersistenceService == settingsPersistenceService &&
-        other.navigationService == navigationService;
+        other.navigationService == navigationService &&
+        other.languageEvaluationService == languageEvaluationService;
   }
 
   @override
@@ -174,6 +188,7 @@ class LanguageSettingsControllerImplProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, settingsPersistenceService.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
+    hash = _SystemHash.combine(hash, languageEvaluationService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -186,6 +201,9 @@ mixin LanguageSettingsControllerImplRef
 
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
+
+  /// The parameter `languageEvaluationService` of this provider.
+  LanguageEvaluationService get languageEvaluationService;
 }
 
 class _LanguageSettingsControllerImplProviderElement
@@ -200,6 +218,10 @@ class _LanguageSettingsControllerImplProviderElement
   @override
   NavigationService get navigationService =>
       (origin as LanguageSettingsControllerImplProvider).navigationService;
+  @override
+  LanguageEvaluationService get languageEvaluationService =>
+      (origin as LanguageSettingsControllerImplProvider)
+          .languageEvaluationService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
