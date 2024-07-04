@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/search/controller/implementation/search_result_providers.dart';
 import 'package:nodocs/features/search/controller/search_result_controller.dart';
 import 'package:nodocs/features/search/widgets/search_result_tile.dart';
@@ -97,14 +98,22 @@ class SearchBox extends ConsumerWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: paths.length,
                           itemBuilder: (final BuildContext context, final int index) {
+                            final String path = paths[index];
+                            final String fileName = path.split('/').last.split('.pdf').first;
                             return SearchResultTile(
-                              isNameResult: true,
-                              isTagResult: false,
-                              isTextResult: false,
-                              title: paths[index].split('/').last.split('.pdf').first,
-                              onTapPdf: () {},
-                              path: paths[index],
-                              children: const <SearchResultTile>[],
+                              title: fileName,
+                              onTapPdf: () {
+                                searchResultController.goToPage(
+                                  Uri(
+                                    path: NavigationServiceRoutes.pdfViewer,
+                                    queryParameters: <String, String>{'path': paths[index]}
+                                  )
+                                );
+                              },
+                              path: path,
+                              textCount: searchResultController.getCountOfTextOccurrences(path),
+                              tags: searchResultController.getTags(path),
+                              searchString: controller.text,
                             );
                           }
                         );

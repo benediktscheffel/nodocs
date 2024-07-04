@@ -28,7 +28,10 @@ class SearchResultControllerImpl extends _$SearchResultControllerImpl implements
   Future<void> _setTagResults(final String search, final List<String> pdfPaths) async {
     Map<String, List<String>> tagResults = <String, List<String>>{};
     for (final String path in pdfPaths) {
-      final List<String> tags = persistenceService.loadTags(path).map((final (String, bool) tag) => tag.$1).toList();
+      final List<String> tags = persistenceService.loadTags(path)
+          .where((final (String, bool) tag) => tag.$2 && tag.$1.contains(search))
+          .map((final (String, bool) tag) => tag.$1)
+          .toList();
       if (tags.isNotEmpty) {
         tagResults[path] = tags;
       }
@@ -75,5 +78,15 @@ class SearchResultControllerImpl extends _$SearchResultControllerImpl implements
   @override
   void goToPage(final Uri uri) {
     navigationService.push(uri.toString());
+  }
+
+  @override
+  int getCountOfTextOccurrences(final String path) {
+    return state.textResults[path] ?? 0;
+  }
+
+  @override
+  List<String> getTags(final String path) {
+    return state.tagResults[path] ?? <String>[];
   }
 }
