@@ -26,27 +26,38 @@ class SettingsSharedPreferencesPersistenceService
 
   @override
   bool loadDarkMode() {
-    return _database.loadBool(SettingsKeys.darkMode);
+    return _database.loadBool(_SettingsKeys.darkMode);
   }
 
   @override
   String loadTextRecognitionLanguage() {
-    return _database.loadString(SettingsKeys.textRecognitionLanguage) ??
+    return _database.loadString(_SettingsKeys.textRecognitionLanguage) ??
         'en-GB';
   }
 
   @override
   Future<void> saveDarkMode(final bool darkMode) async {
-    await _database.saveBool(SettingsKeys.darkMode, darkMode);
+    await _database.saveBool(_SettingsKeys.darkMode, darkMode);
   }
 
   @override
   Future<void> saveTextRecognitionLanguage(final String language) {
-    return _database.saveString(SettingsKeys.textRecognitionLanguage, language);
+    return _database.saveString(_SettingsKeys.textRecognitionLanguage, language);
+  }
+
+  @override
+  String loadAppLanguage() {
+    return _database.loadString(_SettingsKeys.appLanguage) ?? 'en';
+  }
+
+  @override
+  Future<void> saveAppLanguage(final String language) async {
+    return _database.saveString(_SettingsKeys.appLanguage, language);
   }
 }
 
-class SettingsKeys {
+class _SettingsKeys {
   static const String darkMode = 'darkMode';
   static const String textRecognitionLanguage = 'textRecognitionLanguage';
+  static const String appLanguage = 'appLanguage';
 }

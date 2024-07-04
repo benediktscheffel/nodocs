@@ -29,3 +29,7 @@ analyzer:
     discarded_futures: warning
     lines_longer_than_80_chars: warning
     unused_import: warning
+
+  exclude:
+    - lib/gen/**
+    - lib/features/tags/services/persistence/isar/tables/tag_tables.g.dart

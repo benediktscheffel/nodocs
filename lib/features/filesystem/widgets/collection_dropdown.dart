@@ -3,10 +3,8 @@ import 'dart:math' as math;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/web.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_chip_dropdown.dart';
 import 'package:nodocs/gen/locale_keys.g.dart';
-import 'package:nodocs/util/logging/log.dart';
 
 class CollectionDropdown extends StatefulWidget {
   final String initialDirectory;
@@ -20,7 +18,6 @@ class CollectionDropdown extends StatefulWidget {
 class CollectionDropdownState extends State<CollectionDropdown> {
   OverlayEntry? _dropdownOverlay;
 
-  final Logger _log = getLogger();
 
   List<Directory> _directories = <Directory>[];
   late final String _projectRootAbsolutePath = widget.initialDirectory;

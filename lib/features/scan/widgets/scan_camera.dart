@@ -2,11 +2,9 @@ import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:nodocs/features/scan/services/camera_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_footer.dart';
 import 'package:nodocs/gen/locale_keys.g.dart';
-import 'package:nodocs/util/logging/log.dart';
 
 // ConsumerStatefulWidget because the CameraController is very difficult to handle inside riverpod providers
 class ScanCamera extends ConsumerStatefulWidget {
@@ -25,7 +23,6 @@ class ScanCamera extends ConsumerStatefulWidget {
 
 class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObserver {
   late CameraController _cameraController;
-  final Logger _log = getLogger();
 
   Future<void> setCameraAndController() async {
     if (widget.cameraList.isNotEmpty) {
@@ -155,7 +152,7 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
               }
             },
             imagePaths: widget.imagePaths,
-            onImageSelected: (String path) {
+            onImageSelected: (final String path) {
               widget.onImageSelected(path);
             },
             onLastImageTapped: () {

@@ -1,5 +1,5 @@
 {
-  "general" : {
+  "general": {
     "confirmation_dialog": {
       "cancel": "Abbrechen",
       "confirm": "Akzeptieren"
@@ -20,7 +20,7 @@
     "settings": "Einstellungen",
     "collection_tile": {
       "rename": "Umbenennen",
-      "share" : "Teilen",
+      "share": "Teilen",
       "upload": "Datei hochladen",
       "delete": "Löschen",
       "delete_dialog": {
@@ -79,7 +79,13 @@
   },
   "settings": {
     "title": "Einstellungen",
-    "ocr" : {
+    "app_language": "App Sprache",
+    "app_languages": {
+      "system": "System Sprache",
+      "en": "Englisch",
+      "de": "Deutsch"
+    },
+    "ocr": {
       "run_text_recognition": "Mit Texterkennung laufen",
       "text_recognition_language": "Sprache der Texterkennung",
       "languages": {
