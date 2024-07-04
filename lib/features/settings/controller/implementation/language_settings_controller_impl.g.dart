@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'text_recognition_language_controller_impl.dart';
+part of 'language_settings_controller_impl.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$textRecognitionLanguageControllerImplHash() =>
-    r'c1cb1e59826956e8c051211b5394e4a203f8998e';
+String _$languageSettingsControllerImplHash() =>
+    r'ff31fc46e427d7c57a7a5a57a1f08d7277c925f2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,46 +30,51 @@ class _SystemHash {
   }
 }
 
-abstract class _$TextRecognitionLanguageControllerImpl
-    extends BuildlessAutoDisposeNotifier<TextRecognitionLanguageModel> {
+abstract class _$LanguageSettingsControllerImpl
+    extends BuildlessAutoDisposeNotifier<LanguageSettingsModel> {
   late final SettingsPersistenceService settingsPersistenceService;
   late final NavigationService navigationService;
+  late final LanguageEvaluationService languageEvaluationService;
 
-  TextRecognitionLanguageModel build({
+  LanguageSettingsModel build({
     required SettingsPersistenceService settingsPersistenceService,
     required NavigationService navigationService,
+    required LanguageEvaluationService languageEvaluationService,
   });
 }
 
-/// See also [TextRecognitionLanguageControllerImpl].
-@ProviderFor(TextRecognitionLanguageControllerImpl)
-const textRecognitionLanguageControllerImplProvider =
-    TextRecognitionLanguageControllerImplFamily();
+/// See also [LanguageSettingsControllerImpl].
+@ProviderFor(LanguageSettingsControllerImpl)
+const languageSettingsControllerImplProvider =
+    LanguageSettingsControllerImplFamily();
 
-/// See also [TextRecognitionLanguageControllerImpl].
-class TextRecognitionLanguageControllerImplFamily
-    extends Family<TextRecognitionLanguageModel> {
-  /// See also [TextRecognitionLanguageControllerImpl].
-  const TextRecognitionLanguageControllerImplFamily();
+/// See also [LanguageSettingsControllerImpl].
+class LanguageSettingsControllerImplFamily
+    extends Family<LanguageSettingsModel> {
+  /// See also [LanguageSettingsControllerImpl].
+  const LanguageSettingsControllerImplFamily();
 
-  /// See also [TextRecognitionLanguageControllerImpl].
-  TextRecognitionLanguageControllerImplProvider call({
+  /// See also [LanguageSettingsControllerImpl].
+  LanguageSettingsControllerImplProvider call({
     required SettingsPersistenceService settingsPersistenceService,
     required NavigationService navigationService,
+    required LanguageEvaluationService languageEvaluationService,
   }) {
-    return TextRecognitionLanguageControllerImplProvider(
+    return LanguageSettingsControllerImplProvider(
       settingsPersistenceService: settingsPersistenceService,
       navigationService: navigationService,
+      languageEvaluationService: languageEvaluationService,
     );
   }
 
   @override
-  TextRecognitionLanguageControllerImplProvider getProviderOverride(
-    covariant TextRecognitionLanguageControllerImplProvider provider,
+  LanguageSettingsControllerImplProvider getProviderOverride(
+    covariant LanguageSettingsControllerImplProvider provider,
   ) {
     return call(
       settingsPersistenceService: provider.settingsPersistenceService,
       navigationService: provider.navigationService,
+      languageEvaluationService: provider.languageEvaluationService,
     );
   }
 
@@ -85,36 +90,38 @@ class TextRecognitionLanguageControllerImplFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'textRecognitionLanguageControllerImplProvider';
+  String? get name => r'languageSettingsControllerImplProvider';
 }
 
-/// See also [TextRecognitionLanguageControllerImpl].
-class TextRecognitionLanguageControllerImplProvider
-    extends AutoDisposeNotifierProviderImpl<
-        TextRecognitionLanguageControllerImpl, TextRecognitionLanguageModel> {
-  /// See also [TextRecognitionLanguageControllerImpl].
-  TextRecognitionLanguageControllerImplProvider({
+/// See also [LanguageSettingsControllerImpl].
+class LanguageSettingsControllerImplProvider
+    extends AutoDisposeNotifierProviderImpl<LanguageSettingsControllerImpl,
+        LanguageSettingsModel> {
+  /// See also [LanguageSettingsControllerImpl].
+  LanguageSettingsControllerImplProvider({
     required SettingsPersistenceService settingsPersistenceService,
     required NavigationService navigationService,
+    required LanguageEvaluationService languageEvaluationService,
   }) : this._internal(
-          () => TextRecognitionLanguageControllerImpl()
+          () => LanguageSettingsControllerImpl()
             ..settingsPersistenceService = settingsPersistenceService
-            ..navigationService = navigationService,
-          from: textRecognitionLanguageControllerImplProvider,
-          name: r'textRecognitionLanguageControllerImplProvider',
+            ..navigationService = navigationService
+            ..languageEvaluationService = languageEvaluationService,
+          from: languageSettingsControllerImplProvider,
+          name: r'languageSettingsControllerImplProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$textRecognitionLanguageControllerImplHash,
-          dependencies:
-              TextRecognitionLanguageControllerImplFamily._dependencies,
-          allTransitiveDependencies: TextRecognitionLanguageControllerImplFamily
-              ._allTransitiveDependencies,
+                  : _$languageSettingsControllerImplHash,
+          dependencies: LanguageSettingsControllerImplFamily._dependencies,
+          allTransitiveDependencies:
+              LanguageSettingsControllerImplFamily._allTransitiveDependencies,
           settingsPersistenceService: settingsPersistenceService,
           navigationService: navigationService,
+          languageEvaluationService: languageEvaluationService,
         );
 
-  TextRecognitionLanguageControllerImplProvider._internal(
+  LanguageSettingsControllerImplProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -123,30 +130,33 @@ class TextRecognitionLanguageControllerImplProvider
     required super.from,
     required this.settingsPersistenceService,
     required this.navigationService,
+    required this.languageEvaluationService,
   }) : super.internal();
 
   final SettingsPersistenceService settingsPersistenceService;
   final NavigationService navigationService;
+  final LanguageEvaluationService languageEvaluationService;
 
   @override
-  TextRecognitionLanguageModel runNotifierBuild(
-    covariant TextRecognitionLanguageControllerImpl notifier,
+  LanguageSettingsModel runNotifierBuild(
+    covariant LanguageSettingsControllerImpl notifier,
   ) {
     return notifier.build(
       settingsPersistenceService: settingsPersistenceService,
       navigationService: navigationService,
+      languageEvaluationService: languageEvaluationService,
     );
   }
 
   @override
-  Override overrideWith(
-      TextRecognitionLanguageControllerImpl Function() create) {
+  Override overrideWith(LanguageSettingsControllerImpl Function() create) {
     return ProviderOverride(
       origin: this,
-      override: TextRecognitionLanguageControllerImplProvider._internal(
+      override: LanguageSettingsControllerImplProvider._internal(
         () => create()
           ..settingsPersistenceService = settingsPersistenceService
-          ..navigationService = navigationService,
+          ..navigationService = navigationService
+          ..languageEvaluationService = languageEvaluationService,
         from: from,
         name: null,
         dependencies: null,
@@ -154,21 +164,23 @@ class TextRecognitionLanguageControllerImplProvider
         debugGetCreateSourceHash: null,
         settingsPersistenceService: settingsPersistenceService,
         navigationService: navigationService,
+        languageEvaluationService: languageEvaluationService,
       ),
     );
   }
 
   @override
-  AutoDisposeNotifierProviderElement<TextRecognitionLanguageControllerImpl,
-      TextRecognitionLanguageModel> createElement() {
-    return _TextRecognitionLanguageControllerImplProviderElement(this);
+  AutoDisposeNotifierProviderElement<LanguageSettingsControllerImpl,
+      LanguageSettingsModel> createElement() {
+    return _LanguageSettingsControllerImplProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is TextRecognitionLanguageControllerImplProvider &&
+    return other is LanguageSettingsControllerImplProvider &&
         other.settingsPersistenceService == settingsPersistenceService &&
-        other.navigationService == navigationService;
+        other.navigationService == navigationService &&
+        other.languageEvaluationService == languageEvaluationService;
   }
 
   @override
@@ -176,34 +188,40 @@ class TextRecognitionLanguageControllerImplProvider
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, settingsPersistenceService.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
+    hash = _SystemHash.combine(hash, languageEvaluationService.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin TextRecognitionLanguageControllerImplRef
-    on AutoDisposeNotifierProviderRef<TextRecognitionLanguageModel> {
+mixin LanguageSettingsControllerImplRef
+    on AutoDisposeNotifierProviderRef<LanguageSettingsModel> {
   /// The parameter `settingsPersistenceService` of this provider.
   SettingsPersistenceService get settingsPersistenceService;
 
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
+
+  /// The parameter `languageEvaluationService` of this provider.
+  LanguageEvaluationService get languageEvaluationService;
 }
 
-class _TextRecognitionLanguageControllerImplProviderElement
-    extends AutoDisposeNotifierProviderElement<
-        TextRecognitionLanguageControllerImpl, TextRecognitionLanguageModel>
-    with TextRecognitionLanguageControllerImplRef {
-  _TextRecognitionLanguageControllerImplProviderElement(super.provider);
+class _LanguageSettingsControllerImplProviderElement
+    extends AutoDisposeNotifierProviderElement<LanguageSettingsControllerImpl,
+        LanguageSettingsModel> with LanguageSettingsControllerImplRef {
+  _LanguageSettingsControllerImplProviderElement(super.provider);
 
   @override
   SettingsPersistenceService get settingsPersistenceService =>
-      (origin as TextRecognitionLanguageControllerImplProvider)
+      (origin as LanguageSettingsControllerImplProvider)
           .settingsPersistenceService;
   @override
   NavigationService get navigationService =>
-      (origin as TextRecognitionLanguageControllerImplProvider)
-          .navigationService;
+      (origin as LanguageSettingsControllerImplProvider).navigationService;
+  @override
+  LanguageEvaluationService get languageEvaluationService =>
+      (origin as LanguageSettingsControllerImplProvider)
+          .languageEvaluationService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -7,6 +7,7 @@ import 'package:nodocs/features/pdfviewer/pages/pdf_viewer_page.dart';
 import 'package:nodocs/features/scan/pages/crop_page.dart';
 import 'package:nodocs/features/scan/pages/save_page.dart';
 import 'package:nodocs/features/scan/pages/scan_page.dart';
+import 'package:nodocs/features/settings/pages/language_settings_page.dart';
 import 'package:nodocs/features/settings/pages/settings_page.dart';
 import 'package:nodocs/features/settings/pages/text_recognition_language_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -43,33 +44,37 @@ GoRouter goRouter(final GoRouterRef ref) => GoRouter(
         GoRoute(
           path: NavigationServiceRoutes.crop,
           builder: (final BuildContext context, final GoRouterState state) {
-            final List<String> imagePaths = state.uri.queryParametersAll['path']!;
+            final List<String> imagePaths =
+                state.uri.queryParametersAll['path']!;
             return CropPage(imagePaths: imagePaths);
           },
         ),
         GoRoute(
           path: NavigationServiceRoutes.save,
           builder: (final BuildContext context, final GoRouterState state) {
-            final List<String> imagePaths = state.uri.queryParametersAll['path']!;
+            final List<String> imagePaths =
+                state.uri.queryParametersAll['path']!;
             return SavePage(imagePaths: imagePaths);
           },
         ),
         GoRoute(
-          path: NavigationServiceRoutes.scan,
-          builder: (final BuildContext context, final GoRouterState state) {
-            final List<String> imagePaths = state.uri.queryParametersAll['path'] ?? <String>[];
-            return ScanPage(imagePaths: imagePaths);
-          }
-        ),
+            path: NavigationServiceRoutes.scan,
+            builder: (final BuildContext context, final GoRouterState state) {
+              final List<String> imagePaths =
+                  state.uri.queryParametersAll['path'] ?? <String>[];
+              return ScanPage(imagePaths: imagePaths);
+            }),
         GoRoute(
             path: NavigationServiceRoutes.settings,
             builder: (final BuildContext context, final __) =>
-                const SettingsPage()
-        ),
+                const SettingsPage()),
         GoRoute(
             path: NavigationServiceRoutes.ocrLanguage,
             builder: (final BuildContext context, final __) =>
-                const TextRecognitionLanguagePage()
-        ),
+                const TextRecognitionLanguagePage()),
+        GoRoute(
+            path: NavigationServiceRoutes.languageSettings,
+            builder: (final BuildContext context, final __) =>
+                const LanguageSettingsPage()),
       ],
     );

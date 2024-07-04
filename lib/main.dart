@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/settings/controller/implementation/settings_providers.dart';
 import 'package:nodocs/features/settings/model/settings_model.dart';
+import 'package:nodocs/features/settings/services/language/language_evaluation_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/isar_persistence_service.dart';
 import 'package:nodocs/page/error_handler.dart';
 import 'package:nodocs/widgets/themes.dart';
@@ -22,6 +23,9 @@ Future<void> main() async {
   await providerContainer.read(persistenceServiceProvider).init();
   await providerContainer.read(settingsPersistenceServiceProvider).init();
 
+  final String appLanguage = providerContainer
+      .read(settingsPersistenceServiceProvider)
+      .loadAppLanguage();
   await dotenv.load(fileName: "config.env");
 
   runApp(
@@ -33,8 +37,14 @@ Future<void> main() async {
           path: ConfigParameters.translationsPath,
           fallbackLocale: ConfigParameters.fallbackLocale,
           useOnlyLangCode: true,
+          startLocale: appLanguage == "system"
+              ? getIt<LanguageEvaluationService>().getSupportedLanguage(
+                  WidgetsBinding
+                      .instance.platformDispatcher.locale.languageCode)
+              : Locale(appLanguage),
           child: Builder(
-            builder: (final BuildContext context) => const ErrorHandler(child: MyApp()),
+            builder: (final BuildContext context) =>
+                const ErrorHandler(child: MyApp()),
           ),
         ),
       ),

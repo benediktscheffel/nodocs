@@ -1,6 +1,12 @@
 import 'package:nodocs/gen/locale_keys.g.dart';
 
 class Languages {
+  static final Map<String, String> appLanguages = <String, String>{
+    "system": LocaleKeys.settings_app_languages_system,
+    "de": LocaleKeys.settings_app_languages_de,
+    "en": LocaleKeys.settings_app_languages_en,
+  };
+
   static final Map<String, String> languages = <String, String>{
     "da-DK": LocaleKeys.settings_ocr_languages_daDK,
     "lt-LT": LocaleKeys.settings_ocr_languages_ltLT,
@@ -41,8 +47,15 @@ class Languages {
     "ro-RO": LocaleKeys.settings_ocr_languages_roRO
   };
 
-  static Map<String, String> getSortedLanguages() {
+  static Map<String, String> getSortedOCRLanguages() {
     return Map<String, String>.fromEntries(languages.entries.toList()
+      ..sort((final MapEntry<String, String> e1,
+              final MapEntry<String, String> e2) =>
+          e1.value.compareTo(e2.value)));
+  }
+
+  static Map<String, String> getSortedAppLanguages() {
+    return Map<String, String>.fromEntries(appLanguages.entries.toList()
       ..sort((final MapEntry<String, String> e1,
               final MapEntry<String, String> e2) =>
           e1.value.compareTo(e2.value)));
