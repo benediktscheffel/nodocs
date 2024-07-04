@@ -14,7 +14,7 @@ import 'package:nodocs/widgets/collection_tile_dialog.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/navigation_box.dart';
 import 'package:nodocs/widgets/navigation_button.dart';
-import 'package:nodocs/widgets/search_bar.dart';
+import 'package:nodocs/features/search/widgets/search_bar.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
