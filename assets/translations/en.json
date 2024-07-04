@@ -80,6 +80,11 @@
   "settings": {
     "title": "Settings",
     "app_language": "App language",
+    "app_languages": {
+      "system": "System language",
+      "en": "English",
+      "de": "German"
+    },
     "ocr" : {
       "run_text_recognition": "Run text recognition",
       "text_recognition_language": "Text recognition language",

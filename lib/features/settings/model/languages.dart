@@ -2,9 +2,9 @@ import 'package:nodocs/gen/locale_keys.g.dart';
 
 class Languages {
   static final Map<String, String> appLanguages = <String, String>{
-    "de-DE": "Deutsch",
-    "en-US": "English",
-
+    "system": LocaleKeys.settings_app_languages_system,
+    "de": LocaleKeys.settings_app_languages_de,
+    "en": LocaleKeys.settings_app_languages_en,
   };
 
   static final Map<String, String> languages = <String, String>{

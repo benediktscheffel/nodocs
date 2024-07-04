@@ -1,3 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/settings/controller/language_settings_controller.dart';
 import 'package:nodocs/features/settings/model/language_settings_model.dart';
@@ -26,8 +29,9 @@ class LanguageSettingsControllerImpl extends _$LanguageSettingsControllerImpl
   }
 
   @override
-  void setLanguage(final String language) {
+  void setLanguage(final String language, final BuildContext context) {
     state = state.copyWith(selectedLanguageCode: language);
+    context.setLocale(Locale(language));
     settingsPersistenceService.saveAppLanguage(language);
   }
 }

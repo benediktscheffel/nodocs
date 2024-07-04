@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/settings/controller/implementation/settings_providers.dart';
 import 'package:nodocs/features/settings/model/settings_model.dart';
@@ -22,8 +25,9 @@ Future<void> main() async {
   await providerContainer.read(persistenceServiceProvider).init();
   await providerContainer.read(settingsPersistenceServiceProvider).init();
 
-  String appLanguage =
-  providerContainer.read(settingsPersistenceServiceProvider).loadAppLanguage();
+  final String appLanguage = providerContainer
+      .read(settingsPersistenceServiceProvider)
+      .loadAppLanguage();
 
   await dotenv.load(fileName: "config.env");
 
@@ -36,9 +40,17 @@ Future<void> main() async {
           path: ConfigParameters.translationsPath,
           fallbackLocale: ConfigParameters.fallbackLocale,
           useOnlyLangCode: true,
-          startLocale: Locale(appLanguage),
+          startLocale: appLanguage == "system"
+              ? ConfigParameters.supportedLocales
+                  .filter((final Locale locale) =>
+                      locale.languageCode ==
+                      WidgetsBinding
+                          .instance.platformDispatcher.locale.languageCode)
+                  .first
+              : Locale(appLanguage),
           child: Builder(
-            builder: (final BuildContext context) => const ErrorHandler(child: MyApp()),
+            builder: (final BuildContext context) =>
+                const ErrorHandler(child: MyApp()),
           ),
         ),
       ),

@@ -1,16 +1,13 @@
 
 import 'package:archive/archive_io.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:logger/logger.dart';
 import 'package:nodocs/features/filesystem/services/file_share/file_share_service.dart';
 import 'package:nodocs/gen/locale_keys.g.dart';
-import 'package:nodocs/util/logging/log.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:io';
 
 class FileShareServiceImpl implements FileShareService {
-  static final Logger _log = getLogger();
 
   @override
   Future<void> shareCollection(final String path, final String name) async {
