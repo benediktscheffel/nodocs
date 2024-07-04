@@ -36,7 +36,7 @@
     },
     "search": {
       "message": "Suche",
-      "hint_text": "Dokumente, Tags oder Sammlungen",
+      "hint_text": "Dokumente, Tags oder Texte in Dokumenten",
       "no_matches_found": "Keine Treffer!",
       "matches_found": "{count} Treffer {suffixString}"
     },
