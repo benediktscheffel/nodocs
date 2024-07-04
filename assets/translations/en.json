@@ -36,7 +36,9 @@
     },
     "search": {
       "message": "Search",
-      "hint_text": "Documents, Tags or Collections"
+      "hint_text": "Documents, Tags or Collections",
+      "no_matches_found": "No matches found!",
+      "matches_found": "{count} matches found {suffixString}"
     },
     "collection_create_dialog": {
       "header": "Create a new Collection",

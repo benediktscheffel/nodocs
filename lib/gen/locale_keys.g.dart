@@ -30,6 +30,8 @@ abstract class  LocaleKeys {
   static const home_collection_tile = 'home.collection_tile';
   static const home_search_message = 'home.search.message';
   static const home_search_hint_text = 'home.search.hint_text';
+  static const home_search_no_matches_found = 'home.search.no_matches_found';
+  static const home_search_matches_found = 'home.search.matches_found';
   static const home_search = 'home.search';
   static const home_collection_create_dialog_header = 'home.collection_create_dialog.header';
   static const home_collection_create_dialog_hintText = 'home.collection_create_dialog.hintText';

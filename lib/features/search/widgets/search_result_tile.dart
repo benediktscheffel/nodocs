@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/gen/locale_keys.g.dart';
 
 class SearchResultTile extends StatelessWidget {
   final int textCount;
@@ -34,12 +36,23 @@ class SearchResultTile extends StatelessWidget {
             ),
           subtitle: Row(
             children: <Widget>[
-              Text('$textCount matches found ${tags.isNotEmpty ? '|' : ''}'),
+              Text(
+                LocaleKeys.home_search_matches_found.tr(
+                  namedArgs: <String, String>{
+                    'count': '$textCount',
+                    'suffixString': tags.isNotEmpty ? '|' : ''
+                  }
+                ),
+                style: TextStyle(color: theme.colorScheme.onPrimary)
+              ),
               ...tags.map((final String tag) {
                 List<TextSpan> tagSpans = parseMarkedText(markFirstOccurrence(tag, searchString));
                 return Row(
                   children: <Widget>[
-                  const Text(' #'),
+                  Text(
+                    ' #',
+                    style: TextStyle(color: theme.colorScheme.onPrimary),
+                  ),
                   RichText(
                     text: TextSpan(
                       style: TextStyle(color: theme.colorScheme.onPrimary),
@@ -48,7 +61,7 @@ class SearchResultTile extends StatelessWidget {
                   ),
                   ],
                 );
-              })
+              }),
             ],
           ),
           leading:

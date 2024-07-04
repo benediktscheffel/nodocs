@@ -83,13 +83,9 @@ class SearchBox extends ConsumerWidget {
                             color: theme.colorScheme.onPrimary,
                           )
                         );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text('Error: ${snapshot.error}')
-                        );
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return const Center(
-                          child: Text('No Matches!')
+                        return Center(
+                          child: Text(LocaleKeys.home_search_no_matches_found.tr())
                         );
                       } else {
                         List<String> paths = snapshot.data!;
