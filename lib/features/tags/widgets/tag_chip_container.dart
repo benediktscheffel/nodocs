@@ -15,8 +15,9 @@ class TagChipContainer extends StatefulWidget {
 class _TagChipContainerState extends State<TagChipContainer> {
   @override
   Widget build(final BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 85.0,
+      height: size.height * 0.0873,
       child: Scrollbar(
         thumbVisibility: true,
         child: ListView(
@@ -29,6 +30,7 @@ class _TagChipContainerState extends State<TagChipContainer> {
               clipBehavior: Clip.hardEdge,
               children: widget.tagData
                   .map((final (String, bool) tag) => TagChip(
+                        heightOfParent: size.height * 0.0873,
                         tagName: tag.$1,
                         tagState: tag.$2,
                         onSelected: (final bool value) {
