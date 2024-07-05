@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class FileSystemServiceImpl implements FileSystemService {
 
@@ -82,5 +84,28 @@ class FileSystemServiceImpl implements FileSystemService {
   @override
   String getRootDirectory() {
     return ConfigParameters.fileSystemPath;
+  }
+
+  @override
+  Future<int> getCountOfTextOccurrencesInPdf(final String path, final String text) async {
+    PdfDocument document = PdfDocument(inputBytes: await _readDocumentData(path));
+    PdfTextExtractor extractor = PdfTextExtractor(document);
+    List<MatchedItem> findResult = extractor.findText(<String>[text]);
+    document.dispose();
+    return findResult.length;
+  }
+
+  Future<Uint8List> _readDocumentData(final String path) async {
+    return File(path).readAsBytes();
+  }
+
+  @override
+  Future<List<String>> getAllPdfPaths() async {
+    final Directory directory = Directory(getRootDirectory());
+    final List<FileSystemEntity> entities = await directory.list(recursive: true, followLinks: false).toList();
+    return entities
+        .where((final FileSystemEntity entity) => entity is File && entity.path.endsWith('.pdf'))
+        .map((final FileSystemEntity entity) => entity.path)
+        .toList();
   }
 }

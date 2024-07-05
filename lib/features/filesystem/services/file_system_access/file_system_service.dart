@@ -9,4 +9,8 @@ abstract class FileSystemService {
       final String oldPath, final String newName);
 
   String getRootDirectory();
+
+  Future<int> getCountOfTextOccurrencesInPdf(final String path, final String text);
+
+  Future<List<String>> getAllPdfPaths();
 }
