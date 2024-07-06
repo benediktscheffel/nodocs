@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nodocs/gen/locale_keys.g.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -11,11 +10,14 @@ class PdfSearchToolbar extends StatefulWidget {
     super.key,
     required this.controller,
     required this.onTap,
+    required this.goBack,
     this.showTooltip = true,
   });
+
   final bool showTooltip;
   final PdfViewerController? controller;
   final SearchTapCallback? onTap;
+  final VoidCallback goBack;
 
   @override
   State<PdfSearchToolbar> createState() => PdfSearchToolbarState();
@@ -28,7 +30,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
 
   final TextEditingController _editingController = TextEditingController();
 
-  PdfTextSearchResult _pdfTextSearchResult = PdfTextSearchResult();
+  late PdfTextSearchResult _pdfTextSearchResult;
 
   FocusNode? focusNode;
 
@@ -37,72 +39,21 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
     super.initState();
     focusNode = FocusNode();
     focusNode?.requestFocus();
+    _pdfTextSearchResult = PdfTextSearchResult();
   }
 
   @override
   void dispose() {
     focusNode?.dispose();
     _pdfTextSearchResult.removeListener(() {});
+    _editingController.dispose();
+    _pdfTextSearchResult.dispose();
     super.dispose();
   }
 
   void clearSearch() {
     _isSearchInitiated = false;
     _pdfTextSearchResult.clear();
-  }
-
-  void _showSearchAlertDialog(final BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (final BuildContext context) {
-        return AlertDialog(
-          insetPadding: const EdgeInsets.all(0),
-          title: Text(LocaleKeys.pdf_viewer_search_alert_dialog_header.tr()),
-          content: SizedBox(
-              width: 328.0,
-              child: Text(LocaleKeys.pdf_viewer_search_alert_dialog_body.tr())),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _pdfTextSearchResult.nextInstance();
-                });
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                LocaleKeys.pdf_viewer_search_alert_dialog_yes.tr(),
-                style: TextStyle(
-                    color: const Color(0x00000000).withOpacity(0.87),
-                    fontFamily: 'Roboto',
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.none),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _pdfTextSearchResult.clear();
-                  _editingController.clear();
-                  _isSearchInitiated = false;
-                  focusNode?.requestFocus();
-                });
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                LocaleKeys.pdf_viewer_search_alert_dialog_no.tr(),
-                style: TextStyle(
-                    color: const Color(0x00000000).withOpacity(0.87),
-                    fontFamily: 'Roboto',
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.none),
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -120,16 +71,14 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
             ),
             onPressed: () {
               widget.onTap?.call('Cancel Search');
-              _isSearchInitiated = false;
-              _editingController.clear();
+              clearSearch();
               _pdfTextSearchResult.clear();
             },
           ),
         ),
         Flexible(
           child: TextFormField(
-            style: TextStyle(
-                color: theme.colorScheme.onPrimary, fontSize: 16),
+            style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 16),
             enableInteractiveSelection: false,
             focusNode: focusNode,
             keyboardType: TextInputType.text,
@@ -138,50 +87,17 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: LocaleKeys.pdf_viewer_search_toolbar_hint_text.tr(),
-              hintStyle: TextStyle(color: theme.colorScheme.onPrimary.withOpacity(0.34)),
+              hintStyle: TextStyle(
+                  color: theme.colorScheme.onPrimary.withOpacity(0.34)),
             ),
-            onChanged: (final String text) {
-              if (_editingController.text.isNotEmpty) {
-                if (kIsWeb) {
-                  _pdfTextSearchResult =
-                      widget.controller!.searchText(_editingController.text);
-                  if (_pdfTextSearchResult.totalInstanceCount == 0) {
-                    widget.onTap?.call('noResultFound');
-                  }
-                  setState(() {});
-                } else {
-                  _isSearchInitiated = true;
-                  _pdfTextSearchResult =
-                      widget.controller!.searchText(_editingController.text);
-                  _pdfTextSearchResult.addListener(() {
-                    if (super.mounted) {
-                      setState(() {});
-                    }
-                    if (!_pdfTextSearchResult.hasResult &&
-                        _pdfTextSearchResult.isSearchCompleted) {
-                      widget.onTap?.call('noResultFound');
-                    }
-                  });
-                }
-              } else {
-                _pdfTextSearchResult.clear();
-                widget.controller!.clearSelection();
-                _isSearchInitiated = false;
-                setState(() {});
-              }
-            },
-            onFieldSubmitted: (final String value) {
-              if (kIsWeb) {
-                _pdfTextSearchResult =
-                    widget.controller!.searchText(_editingController.text);
-                if (_pdfTextSearchResult.totalInstanceCount == 0) {
-                  widget.onTap?.call('noResultFound');
-                }
-                setState(() {});
-              } else {
+            onChanged: (final String text) async {
+              widget.controller!.clearSelection();
+              clearSearch();
+
+              if (text.isNotEmpty) {
                 _isSearchInitiated = true;
-                _pdfTextSearchResult =
-                    widget.controller!.searchText(_editingController.text);
+                // Start a new search with the updated text
+                _pdfTextSearchResult = widget.controller!.searchText(text);
                 _pdfTextSearchResult.addListener(() {
                   if (super.mounted) {
                     setState(() {});
@@ -191,6 +107,28 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
                     widget.onTap?.call('noResultFound');
                   }
                 });
+                setState(() {});
+              } else {
+                setState(() {});
+              }
+            },
+            onFieldSubmitted: (final String text) {
+              _isSearchInitiated = true;
+              if (text.isNotEmpty) {
+                _pdfTextSearchResult = widget.controller!.searchText(text);
+                _pdfTextSearchResult.addListener(() {
+                  if (super.mounted) {
+                    setState(() {});
+                  }
+                  if (!_pdfTextSearchResult.hasResult &&
+                      _pdfTextSearchResult.isSearchCompleted) {
+                    widget.onTap?.call('noResultFound');
+                  }
+                });
+              } else {
+                clearSearch();
+                widget.controller!.clearSelection();
+                setState(() {});
               }
             },
           ),
@@ -208,9 +146,8 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
               onPressed: () {
                 setState(() {
                   _editingController.clear();
-                  _pdfTextSearchResult.clear();
                   widget.controller!.clearSelection();
-                  _isSearchInitiated = false;
+                  clearSearch();
                   focusNode!.requestFocus();
                 });
                 widget.onTap!.call('Clear Text');
@@ -221,7 +158,7 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
         ),
         Visibility(
           visible:
-          !_pdfTextSearchResult.isSearchCompleted && _isSearchInitiated,
+              !_pdfTextSearchResult.isSearchCompleted && _isSearchInitiated,
           child: Padding(
             padding: const EdgeInsets.only(right: 10),
             child: SizedBox(
@@ -239,21 +176,18 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
             children: <Widget>[
               Text(
                 '${_pdfTextSearchResult.currentInstanceIndex}',
-                style: TextStyle(
-                    color: theme.colorScheme.onPrimary,
-                    fontSize: 16),
+                style:
+                    TextStyle(color: theme.colorScheme.onPrimary, fontSize: 16),
               ),
               Text(
                 LocaleKeys.pdf_viewer_search_toolbar_of.tr(),
-                style: TextStyle(
-                    color: theme.colorScheme.onPrimary,
-                    fontSize: 16),
+                style:
+                    TextStyle(color: theme.colorScheme.onPrimary, fontSize: 16),
               ),
               Text(
                 '${_pdfTextSearchResult.totalInstanceCount}',
-                style: TextStyle(
-                    color: theme.colorScheme.onPrimary,
-                    fontSize: 16),
+                style:
+                    TextStyle(color: theme.colorScheme.onPrimary, fontSize: 16),
               ),
               Material(
                 color: Colors.transparent,
@@ -282,16 +216,8 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
                   ),
                   onPressed: () {
                     setState(() {
-                      if (_pdfTextSearchResult.currentInstanceIndex ==
-                          _pdfTextSearchResult.totalInstanceCount &&
-                          _pdfTextSearchResult.currentInstanceIndex != 0 &&
-                          _pdfTextSearchResult.totalInstanceCount != 0 &&
-                          _pdfTextSearchResult.isSearchCompleted) {
-                        _showSearchAlertDialog(context);
-                      } else {
-                        widget.controller!.clearSelection();
-                        _pdfTextSearchResult.nextInstance();
-                      }
+                      widget.controller!.clearSelection();
+                      _pdfTextSearchResult.nextInstance();
                     });
                     widget.onTap!.call('Next Instance');
                   },
