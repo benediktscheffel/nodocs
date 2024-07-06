@@ -60,12 +60,6 @@
       "search": "Suche"
     },
     "search": {
-      "alert_dialog": {
-        "header": "Suchergebnisse",
-        "body": "Keine weiteren Treffer! Möchten Sie mit der Suche von vorne beginnen?",
-        "yes": "JA",
-        "no": "NEIN"
-      },
       "toolbar": {
         "hint_text": "Suche...",
         "of": " von "
