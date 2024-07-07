@@ -65,7 +65,7 @@ When long pressing a collection you will have those options:</br>
 - Clicking the `Upload File` button will allow you to upload a file from your file system into the collection.</br>
 - Clicking the `Delete` button will open up a confirmation dialog. Warning! If you click on `Confirm` this will delete all files and collections inside the collection. As always cancel with `Cancel`.
 #### PDF File Context Menu
-When long pressing a collection you will have those options:</br>
+When long pressing a PDF you will have those options:</br>
 ![home](assets/documentation/user_guide/ContextMenuFile.jpg)</br></br>
 - Clicking `Rename` will allow you to rename the document as described above.
 - Clicking `Share` will allow you to share the PDF document.
