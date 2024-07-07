@@ -90,27 +90,8 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
               hintStyle: TextStyle(
                   color: theme.colorScheme.onPrimary.withOpacity(0.34)),
             ),
-            onChanged: (final String text) async {
-              widget.controller!.clearSelection();
-              clearSearch();
-
-              if (text.isNotEmpty) {
-                _isSearchInitiated = true;
-                // Start a new search with the updated text
-                _pdfTextSearchResult = widget.controller!.searchText(text);
-                _pdfTextSearchResult.addListener(() {
-                  if (super.mounted) {
-                    setState(() {});
-                  }
-                  if (!_pdfTextSearchResult.hasResult &&
-                      _pdfTextSearchResult.isSearchCompleted) {
-                    widget.onTap?.call('noResultFound');
-                  }
-                });
-                setState(() {});
-              } else {
-                setState(() {});
-              }
+            onChanged: (final _) async {
+              setState(() {});
             },
             onFieldSubmitted: (final String text) {
               _isSearchInitiated = true;
