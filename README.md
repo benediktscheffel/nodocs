@@ -66,7 +66,7 @@ When long pressing a collection you will have those options:</br>
 - Clicking the `Delete` button will open up a confirmation dialog. Warning! If you click on `Confirm` this will delete all files and collections inside the collection. As always cancel with `Cancel`.
 #### PDF File Context Menu
 When long pressing a collection you will have those options:</br>
-![img.png](img.png)![home](assets/documentation/user_guide/ContextMenuFile.jpg)</br></br>
+![home](assets/documentation/user_guide/ContextMenuFile.jpg)</br></br>
 - Clicking `Rename` will allow you to rename the document as described above.
 - Clicking `Share` will allow you to share the PDF document.
 - Clicking `Delete` will delete the document. That also works the same way as for collections.
