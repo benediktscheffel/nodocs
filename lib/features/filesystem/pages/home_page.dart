@@ -115,7 +115,7 @@ class HomePage extends ConsumerWidget {
                 },
                 onCancel: () => controller.goBackTwice(),
                 header: LocaleKeys.home_collection_tile_delete_dialog_header.tr(),
-                notificationText: '${LocaleKeys.home_collection_tile_delete_dialog_header.tr()}\'${node.displayName}\'?',
+                notificationText: '${LocaleKeys.home_collection_tile_delete_dialog_header.tr()} \'${node.displayName}\'?',
               ),
               renameDialog: CollectionRenameDialog(
                 onSave: controller.renameCollectionOrFile(node.path),
