@@ -1,20 +1,41 @@
 # nodocs
 
-A Flutter Project to scan documents and manage them.
+Nodocs is a flutter app to scan documents and manage them.
+It provides functionality to scan documents and store them as pdf.
+With OCR it makes the pdf searchable for text.
+The documents are maneged in folders. The user can navigate through the folders and open the pdfs.
+The app also provides a search function to search for pdfs by name, tags or text.
 
-## Getting Started
+## About NoDocs
+The app is scoped to help unstructured people or people who want to save time to 
+manage their documents. It provides a simple workflow to store and manage documents.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+### Store Documents
+To store documents the app provides a feature to scan paper documents and store them as pdf.
+The process of scanning a document is structured in a way that the user can scan multiple pages.
+Per page the user can choose to crop the image before saving it. 
+When saving a document, the user can set the title, tags and the destination folder.
+The saved document is processed with OCR to make it searchable for text. <br>
+The tags are used to categorize the documents and make them easier to find.  <br>
+Another option to add a document is to upload a pdf from the device. On the home screen the 
+user can open a context menu for a collection by long pressing on it. 
+In the context menu the user can choose to upload a pdf to the selected collection.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Manage Documents and Collections
+The documents are stored in collections. The collections are displayed on the home page,
+so the user has fast access to them when opening the app. 
+The user can navigate through the collections and open the pdfs.
+The user can also search for documents by name, tags or text.
+On the home page the user can also create new collections. 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### View Documents
+The app provides a pdf viewer to view the documents.
+The pdf viewer allows to search for text in the document.
+Inside the pdf viewer the user can also edit the tags of a document.
 
+
+#### Which persona with which characteristics benefits from the app
 
 ## Development
 
