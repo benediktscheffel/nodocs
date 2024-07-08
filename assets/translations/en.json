@@ -79,7 +79,8 @@
     "app_languages": {
       "system": "System language",
       "en": "English",
-      "de": "German"
+      "de": "German",
+      "zh": "Saxonian"
     },
     "ocr" : {
       "run_text_recognition": "Run text recognition",

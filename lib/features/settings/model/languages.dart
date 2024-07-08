@@ -5,6 +5,7 @@ class Languages {
     "system": LocaleKeys.settings_app_languages_system,
     "de": LocaleKeys.settings_app_languages_de,
     "en": LocaleKeys.settings_app_languages_en,
+    "zh": LocaleKeys.settings_app_languages_zh,
   };
 
   static final Map<String, String> languages = <String, String>{

@@ -1,0 +1,228 @@
+{
+  "general": {
+    "confirmation_dialog": {
+      "cancel": "Uffehern",
+      "confirm": "Bis är is ok."
+    },
+    "error_handler": {
+      "title": "Nu is doch eckernart greist!",
+      "apology": "Wir dutn uns entschuldn fü de Umstände!",
+      "announce": "Dr folchene Fehla ischt passiert:",
+      "try_again": "Nochmol versuchn"
+    },
+    "image_with_loading": {
+      "error_loading_image": "Fehler bein Lodn vom Bild"
+    }
+  },
+  "home": {
+    "new_collection": "Neie Zusammelung",
+    "scan_document": "Scanne Dokment",
+    "settings": "Eischdellungen",
+    "collection_tile": {
+      "rename": "Iberschdubm",
+      "share": "Umme",
+      "upload": "Datei rauflade",
+      "delete": "Löschn",
+      "delete_dialog": {
+        "header": "Bestätische Löschung",
+        "notification_text": "Willste das in Hinnern löschen: "
+      },
+      "rename_dialog": {
+        "header_text": "Iberschdubm",
+        "hint_text": "Bennene de Sammlung/Datei wieder anners",
+        "cancel": "Uffehern",
+        "confirm": "Iwwernemme"
+      }
+    },
+    "search": {
+      "message": "Fuhorschung",
+      "hint_text": "Dokumänte, Tags oder Text in de Dokumänte",
+      "no_matches_found": "Keene Treffa!",
+      "matches_found": "{count} Treffa {suffixString}"
+    },
+    "collection_create_dialog": {
+      "header": "Mach nei'n neie Haufen",
+      "hintText": "Neie Haufn",
+      "cancel": "Uffehern",
+      "confirm": "Basteln"
+    },
+    "error_screens": {
+      "sharing_exception": {
+        "message": "Fehler beim Deelen der Sammlung: "
+      }
+    }
+  },
+  "pdf_viewer": {
+    "no_result": "Nuchts drin",
+    "navigation": {
+      "edit_tags": "Tags Bearede",
+      "home": "Daheeme",
+      "search": "Fuhorschung"
+    },
+    "search": {
+      "toolbar": {
+        "hint_text": "Fuhorschung...",
+        "of": " vun "
+      }
+    },
+    "tags": {
+      "dialog": {
+        "header": "Tags Bearede",
+        "save": "Uffbewahren",
+        "input_hint_text": "Mach mol en neie Tag"
+      }
+    }
+  },
+  "settings": {
+    "title": "Eischdellungen",
+    "app_language": "App Schbroch",
+    "app_languages": {
+      "system": "System Schbroch",
+      "en": "Innglisch",
+      "de": "Deitsch",
+      "zh": "Sägsch"
+    },
+    "ocr": {
+      "run_text_recognition": "Miet Texterkennung laufen",
+      "text_recognition_language": "Schbroch vun dr Texterkennung",
+      "languages": {
+        "daDK": "Dänisch",
+        "ltLT": "Litauisch",
+        "slSI": "Slowenisch",
+        "elGR": "Griechisch (modern)",
+        "ruRU": "Russisch",
+        "enUS": "Englisch (Vereinigte Staaten)",
+        "zhHK": "Chinesisch (Hongkong)",
+        "huHU": "Ungarisch",
+        "etEE": "Estnisch",
+        "ptBR": "Portugiesisch",
+        "ukUA": "Ukrainisch",
+        "nbNO": "Norwegisch Bokmål",
+        "plPL": "Polnisch",
+        "lvLV": "Lettisch",
+        "fiFI": "Finnisch",
+        "jaJP": "Japanisch",
+        "esES": "Spanisch",
+        "bgBG": "Bulgarisch",
+        "enGB": "Englisch (Vereinigtes Königreich)",
+        "csCZ": "Tschechisch",
+        "mtMT": "Maltesisch",
+        "deDE": "Deutsch (Deutschland)",
+        "hrHR": "Kroatisch",
+        "skSK": "Slowakisch",
+        "srSR": "Serbisch",
+        "caCA": "Katalanisch",
+        "mkMK": "Mazedonisch",
+        "koKR": "Koreanisch",
+        "deCH": "Deutsch (Schweiz)",
+        "nlNL": "Niederländisch",
+        "zhCN": "Chinesisch (China)",
+        "svSE": "Schwedisch",
+        "itIT": "Italienisch",
+        "noNO": "Norwegisch",
+        "trTR": "Türkisch",
+        "frFR": "Französisch",
+        "roRO": "Rumänisch"
+      }
+    },
+    "appearance": {
+      "dark_mode": "Dunkelemood",
+      "text_size": "Schriftgrüß"
+    }
+  },
+  "scan": {
+    "footer": {
+      "scan_document": "Dokumänte scann'n"
+    },
+    "discard_dialog": {
+      "header": "Den Scan weggammln?",
+      "body": "Sinnse sich siecher, dassse den Scan ohne abspeichern druffe abfleje wolln? Dabie verschwindn alle Seitn vom aktuellen Scan."
+    },
+    "error_screens": {
+      "camera_exception": {
+        "message": "Kammarausfoll: "
+      },
+      "init_camera_exception": {
+        "message": "Fehler bein initialisier'n von dor Kamera: "
+      },
+      "no_cameras_exception": {
+        "message": "Keene Kameras da"
+      }
+    }
+  },
+  "crop": {
+    "title": "Scan Zuschneidn",
+    "scan_action_button_text": "Zuschneidn",
+    "discard_dialog": {
+      "header": "Den Scan weggammln?",
+      "body": "Sinnse sich siecher, dassse den Scan ohne abspeichern druffe abfleje wolln? Dabie verschwindn alle Seitn vom aktuellen Scan."
+    },
+    "retake_dialog": {
+      "header": "De Seite nochmol aufneehm?",
+      "body": "Sinnse sich sicher, dassse diese Siede ohne zu speichern wiedr uffnehme wolle?"
+    },
+    "navigation": {
+      "retake_photo": "Neudraff uffnehmen",
+      "keep_scanning": "Naächstn Siedl",
+      "save_document": "Dokument abresichern"
+    },
+    "service": {
+      "cropper": "Zuschneidewarkzeugzeusch"
+    }
+  },
+  "save": {
+    "default_title": "Obazei vom Dokumnt",
+    "tag_dropdown": {
+      "label": "Tags Uuswähln"
+    },
+    "collection_dropdown": {
+      "label": "Sammlung Uuswähln"
+    },
+    "carousel": {
+      "page": "Sait"
+    },
+    "action_buttons": {
+      "crop_again": "Nei Zuschniedn",
+      "retake": " Nei uffnehm"
+    },
+    "navigation": {
+      "cancel": "Uffehern",
+      "save": "Uffbewahren",
+      "ocr_save": "OCR & Uffbewahren"
+    },
+    "retake_dialog": {
+      "header": "Dei Seit nochmol enriefe?",
+      "body": "Sinnse sich sicher, dassse diese Siede ohne zu speichern wiedr uffnehme wolle?"
+    },
+    "cancel_dialog": {
+      "header": "Diesen Scan abbrechen?",
+      "body": "Sinnse sich siecher, dassse den Scan ohne abspeichern druffe abfleje wolln? Dabie verschwindn alle Seitn vom aktuellen Scan."
+    },
+    "ocr_loading_dialog": {
+      "header": "Net lang warten, nu...",
+      "stay_connected": "Bitte bleim Se mitm Internet verbunde, \nbis dos Dokumnt ausgewart ward."
+    },
+    "error_dialogs": {
+      "save": {
+        "header": "Da lief wos schief!",
+        "notification_text": "Irgendwas isch schiefgelaufen beim Speichervorgang.\nProbiern Se's doch nochmal!",
+        "confirm": "Alles klor"
+      },
+      "ocr": {
+        "header": "Da lief wos schief!",
+        "notification_text": "Irgendwas isch schiefgange beim OCR-Vorgang.\nBrobierts nochmal oder speichert ohne OCR!",
+        "confirm": "Alles klor"
+      },
+      "internet": {
+        "header": "Prüf mal dei Innernetverbindung, bitte!",
+        "notification_text": "Eine Internetverbindung ist notwendig um das Dokument zu verarbeiten.",
+        "confirm": "OK"
+      }
+    },
+    "error_screens": {
+      "listing_directories_exception": {
+        "message": " Fehler beim Ufflistn von de Sammlungn: "
+      }
+    }
+  }
+}
