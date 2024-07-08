@@ -49,6 +49,7 @@ class PdfViewerPage extends ConsumerWidget {
                       controller.showToast();
                     }
                   },
+                  goBack: () => controller.goBack(),
                 ),
               ),
               backgroundColor: theme.colorScheme.primary,
@@ -107,7 +108,8 @@ class PdfViewerPage extends ConsumerWidget {
             onPressed: () => _showContextMenu(context, controller, model),
             backgroundColor: theme.colorScheme.primary,
             foregroundColor: theme.colorScheme.onPrimary,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             child: const Icon(Icons.menu),
           );
         },

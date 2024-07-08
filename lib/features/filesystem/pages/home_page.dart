@@ -113,7 +113,7 @@ class HomePage extends ConsumerWidget {
                   controller.deleteCollectionOrFile(node.path);
                   controller.goBackTwice();
                 },
-                onCancel: () => controller.goBackTwice,
+                onCancel: () => controller.goBackTwice(),
                 header: LocaleKeys.home_collection_tile_delete_dialog_header.tr(),
                 notificationText: '${LocaleKeys.home_collection_tile_delete_dialog_header.tr()} \'${node.displayName}\'?',
               ),

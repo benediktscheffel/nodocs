@@ -60,12 +60,6 @@
       "search": "Search"
     },
     "search": {
-      "alert_dialog": {
-        "header": "Search Result",
-        "body": "No more occurrences found. Would you like to continue to search from the beginning?",
-        "yes": "YES",
-        "no": "NO"
-      },
       "toolbar": {
         "hint_text": "Find...",
         "of": " of "
