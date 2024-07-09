@@ -1,66 +1,57 @@
-# nodocs
+# NoDocs
 
-Nodocs is a flutter app to scan documents and manage them.
-It provides functionality to scan documents and store them as pdf.
-With OCR it makes the pdf searchable for text.
-The documents are maneged in folders. The user can navigate through the folders and open the pdfs.
-The app also provides a search function to search for pdfs by name, tags or text.
+NoDocs is a Flutter app designed to scan, store, and manage documents efficiently.
+It allows users to scan documents and save them as PDFs, making the content searchable using
+Optical Character Recognition (OCR). Users can organize their documents in folders and utilize
+a powerful search function to find PDFs by name, tags, or text content.
 
-## About NoDocs
-The app is scoped to help unstructured people or people who want to save time to 
-manage their documents. It provides a simple workflow to store and manage documents.
+## Abstract
+NoDocs is a document management app that simplifies the process of scanning, storing,
+and organizing documents. By leveraging OCR technology, it makes PDFs searchable, enhancing
+productivity and reducing the time spent on managing paperwork.
 
+## Detailed Description
+NoDocs provides a comprehensive solution for managing documents. Users can scan physical documents or
+upload existing PDFs, categorize them with tags, and store them in organized folders.
+The app's OCR functionality ensures that all stored documents are searchable by text, making
+it easy to retrieve information quickly. Additionally, NoDocs offers an intuitive interface for
+navigating through collections and viewing documents.
+
+### Problem Solved
+NoDocs addresses the common challenge of managing physical and digital documents. It reduces the
+clutter of paper documents, helps organize digital files, and saves time by making documents easily
+searchable. This streamlines the document management process for users who struggle with
+disorganization or want to enhance their productivity.
+
+### Target Persona
+NoDocs is ideal for individuals who:
+- Struggle with managing physical and digital documents
+- Want to save time and increase efficiency in document retrieval
+- Need a simple and effective way to organize and categorize documents
+
+## Main Features
 
 ### Store Documents
-To store documents the app provides a feature to scan paper documents and store them as pdf.
-The process of scanning a document is structured in a way that the user can scan multiple pages.
-Per page the user can choose to crop the image before saving it. 
-When saving a document, the user can set the title, tags and the destination folder.
-The saved document is processed with OCR to make it searchable for text. <br>
-The tags are used to categorize the documents and make them easier to find.  <br>
-Another option to add a document is to upload a pdf from the device. On the home screen the 
-user can open a context menu for a collection by long pressing on it. 
-In the context menu the user can choose to upload a pdf to the selected collection.
+- **Scan Paper Documents**: NoDocs allows users to scan multiple pages of physical documents and save them as PDFs.
+Users can crop each page before saving and add titles, tags, and choose destination folders.
+- **Upload PDFs**: Users can upload existing PDFs from their device. By long-pressing a collection on
+the home screen, users can access a context menu to upload PDFs directly to the selected collection.
+- **OCR Processing**: Scanned documents can be processed with OCR to make the text within them searchable.
 
 ### Manage Documents and Collections
-The documents are stored in collections. The collections are displayed on the home page,
-so the user has fast access to them when opening the app. 
-The user can navigate through the collections and open the pdfs.
-The user can also search for documents by name, tags or text.
-On the home page the user can also create new collections. 
+- **Organize in Collections**: Documents are stored in collections, displayed prominently on
+the home screen for quick access.
+- **Navigate and Search**: Users can navigate through collections or use the search function to
+find documents by name, tags, or text content.
 
 ### View Documents
-The app provides a pdf viewer to view the documents.
-The pdf viewer allows to search for text in the document.
-Inside the pdf viewer the user can also edit the tags of a document.
+- **PDF Viewer**: NoDocs includes a built-in PDF viewer that supports text search within documents.
+- **Edit Tags**: Within the PDF viewer, users can edit existing tags or add new tags to documents,
+ensuring documents remain well-organized and easily searchable.
 
+By offering these features, NoDocs streamlines the document management process, making it a 
+valuable tool for anyone looking to efficiently handle their paperwork and digital documents.
 
-#### Which persona with which characteristics benefits from the app
-
-## Development
-
-### Useful commands
-
-#### Regenerate generated sources
-
-```
-dart run build_runner build
-```
-
-#### Regenerate splash screens
-```
-dart run flutter_native_splash:create
-```
-
-#### Regenerate icon files
-```
-flutter pub run flutter_launcher_icons
-```
-
-#### Regenerate translation keys
-```
-dart run easy_localization:generate -S assets/translations -f keys -O lib/gen -o locale_keys.g.dart
-```
 # Architecture
 The app is build with the MVCs paradigm. Each page has their own controller and model. All controllers use additional services.
 Those are the views, their controllers, their models, their services and the databases used for this project.
@@ -280,3 +271,28 @@ You can save the document as a OCR'ed PDF there. This will take a few seconds an
 ## Settings Page
 To get on this page you have to be on the Home Page before.
 On this page you can set the Appearance of the app (DarkMode), the App Language and the Text recognition language for the OCR.
+
+## Development
+
+### Useful commands
+
+#### Regenerate generated sources
+
+```
+dart run build_runner build
+```
+
+#### Regenerate splash screens
+```
+dart run flutter_native_splash:create
+```
+
+#### Regenerate icon files
+```
+flutter pub run flutter_launcher_icons
+```
+
+#### Regenerate translation keys
+```
+dart run easy_localization:generate -S assets/translations -f keys -O lib/gen -o locale_keys.g.dart
+```
