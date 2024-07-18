@@ -78,11 +78,15 @@ class SearchBox extends ConsumerWidget {
                     future: _debouncedSearch(searchResultController, controller),
                     builder: (final BuildContext context, final AsyncSnapshot<List<String>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: theme.colorScheme.onPrimary,
-                          )
-                        );
+                        final MediaQueryData mediaQueryData = MediaQuery.of(context);
+                          return SizedBox(
+                            height: mediaQueryData.size.height * 0.55,
+                              width: mediaQueryData.size.width,
+                              child: Center(
+                              child: CircularProgressIndicator(
+                                color: theme.colorScheme.onPrimary,
+                              )
+                          ));
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                         return Center(
                           child: Text(LocaleKeys.home_search_no_matches_found.tr())
