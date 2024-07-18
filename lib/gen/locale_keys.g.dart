@@ -47,11 +47,6 @@ abstract class  LocaleKeys {
   static const pdf_viewer_navigation_home = 'pdf_viewer.navigation.home';
   static const pdf_viewer_navigation_search = 'pdf_viewer.navigation.search';
   static const pdf_viewer_navigation = 'pdf_viewer.navigation';
-  static const pdf_viewer_search_alert_dialog_header = 'pdf_viewer.search.alert_dialog.header';
-  static const pdf_viewer_search_alert_dialog_body = 'pdf_viewer.search.alert_dialog.body';
-  static const pdf_viewer_search_alert_dialog_yes = 'pdf_viewer.search.alert_dialog.yes';
-  static const pdf_viewer_search_alert_dialog_no = 'pdf_viewer.search.alert_dialog.no';
-  static const pdf_viewer_search_alert_dialog = 'pdf_viewer.search.alert_dialog';
   static const pdf_viewer_search_toolbar_hint_text = 'pdf_viewer.search.toolbar.hint_text';
   static const pdf_viewer_search_toolbar_of = 'pdf_viewer.search.toolbar.of';
   static const pdf_viewer_search_toolbar = 'pdf_viewer.search.toolbar';
@@ -67,6 +62,7 @@ abstract class  LocaleKeys {
   static const settings_app_languages_system = 'settings.app_languages.system';
   static const settings_app_languages_en = 'settings.app_languages.en';
   static const settings_app_languages_de = 'settings.app_languages.de';
+  static const settings_app_languages_zh = 'settings.app_languages.zh';
   static const settings_app_languages = 'settings.app_languages';
   static const settings_ocr_run_text_recognition = 'settings.ocr.run_text_recognition';
   static const settings_ocr_text_recognition_language = 'settings.ocr.text_recognition_language';
