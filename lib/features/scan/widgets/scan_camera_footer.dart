@@ -12,8 +12,9 @@ class ScanCameraFooter extends StatelessWidget {
   final VoidCallback onTakePhoto;
   final VoidCallback onLastImageTapped;
   final List<String> imagePaths;
+  final double orientationAngle;
 
-  const ScanCameraFooter({super.key, required this.onTakePhoto, required this.imagePaths, required this.onImageSelected, required this.onLastImageTapped});
+  const ScanCameraFooter({super.key, required this.onTakePhoto, required this.imagePaths, required this.onImageSelected, required this.onLastImageTapped, required this.orientationAngle});
 
   Future<void> _pickImage(final BuildContext context) async {
     final XFile? pickedFile =
@@ -26,55 +27,70 @@ class ScanCameraFooter extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final List<Widget> row = <Widget>[
-      ScanBoxLastImage(
-        imgPath: ImageService.getLatestImagePath(imagePaths),
-        scanCounter: imagePaths.length,
-        onTap: () {
-          onLastImageTapped.call();
-        },
+      Transform.rotate(
+        angle: orientationAngle,
+        child: ScanBoxLastImage(
+          imgPath: ImageService.getLatestImagePath(imagePaths),
+          scanCounter: imagePaths.length,
+          onTap: () {
+            onLastImageTapped.call();
+          },
+        ),
       ),
-      ScanCameraButton(
-        onAnimationEnd: () {
-          onTakePhoto.call();
-        },
+      Transform.rotate(
+        angle: orientationAngle,
+        child: Column(
+          children: <Widget>[
+            Text(
+              LocaleKeys.scan_footer_scan_document.tr(),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ScanCameraButton(
+              onAnimationEnd: () {
+                onTakePhoto.call();
+              },
+            ),
+          ],
+        ),
       ),
       InkWell(
         onTap: () {
           _pickImage(context);
         },
-        child: const Icon(
-          Icons.photo_library_outlined,
-          color: Colors.white,
+        child: Transform.rotate(
+          angle: orientationAngle,
+          child: const Icon(
+            Icons.photo_library_outlined,
+            color: Colors.white,
+          ),
         ),
       ),
     ];
 
     return Container(
-        height: 150,
-        decoration: const BoxDecoration(
-          color: Color(0x77000000),
-        ),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      height: 150,
+      decoration: const BoxDecoration(
+        color: Color(0x77000000),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Flex(
+            direction: Axis.horizontal,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                LocaleKeys.scan_footer_scan_document.tr(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Flex(
-                direction: Axis.horizontal,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: row
-                    .map((final Widget rowItem) => Expanded(child: rowItem))
-                    .toList(),
-              )
-            ]));
+            children: row
+                .map((final Widget rowItem) => Expanded(child: rowItem))
+                .toList(),
+          ),
+        ],
+      ),
+    );
   }
 }

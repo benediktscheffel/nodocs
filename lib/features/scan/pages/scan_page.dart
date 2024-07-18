@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/implementation/scan_provider.dart';
@@ -11,12 +12,32 @@ import 'package:nodocs/providers/camera_provider.dart';
 import 'package:nodocs/widgets/confirmation_dialog.dart';
 import 'package:nodocs/widgets/title_with_button.dart';
 
-class ScanPage extends ConsumerWidget {
+class ScanPage extends ConsumerStatefulWidget {
   final List<String> imagePaths;
+
   const ScanPage({super.key, required this.imagePaths});
 
   @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
+  ConsumerState<ScanPage> createState() => _ScanPageState();
+}
+
+class _ScanPageState extends ConsumerState<ScanPage> {
+  double orientationAngle = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations(
+        <DeviceOrientation>[DeviceOrientation.portraitUp]
+    );
+  }
+
+  void clear() {
+    SystemChrome.setPreferredOrientations(<DeviceOrientation>[]);
+  }
+
+  @override
+  Widget build(final BuildContext context) {
     final ScanController scanController = ref.watch(scanControllerProvider);
     final AsyncValue<List<CameraDescription>> cameraListAsyncValue = ref.watch(cameraProvider);
     return Scaffold(
@@ -32,6 +53,7 @@ class ScanPage extends ConsumerWidget {
               ConfirmationDialog(
                 onConfirm: (){
                   scanController.goToPage(Uri(path: NavigationServiceRoutes.home));
+                  clear();
                 },
                 onCancel: (){
                   scanController.goBack();
@@ -40,6 +62,7 @@ class ScanPage extends ConsumerWidget {
                 notificationText: LocaleKeys.scan_discard_dialog_body.tr()
               ),
           ),
+          orientationAngle: orientationAngle,
         ),
       ),
       body: cameraListAsyncValue.when(
@@ -48,30 +71,38 @@ class ScanPage extends ConsumerWidget {
             return const Center(child: Text('No camera found'));
           }
           return ScanCamera(
-            imagePaths: imagePaths,
+            imagePaths: widget.imagePaths,
             cameraList: cameras,
             onPhoto: (final XFile image) {
               final List<String> images = scanController.addToImagePaths(
-                imagePaths,
+                widget.imagePaths,
                 image.path,
               );
               scanController.goToPage(Uri(
                 path: NavigationServiceRoutes.crop,
                 queryParameters: <String, List<String>> {'path': images},
               ));
+              clear();
             },
             onImageSelected: (final String path) {
-              List<String> images = scanController.addToImagePaths(imagePaths, path);
+              List<String> images = scanController.addToImagePaths(widget.imagePaths, path);
               scanController.goToPage(Uri(
                   path: NavigationServiceRoutes.crop,
                   queryParameters: <String, List<String>>{
                     'path': images
                   }));
+              clear();
             },
             onLastImageTapped: () {
               scanController.goToPage(Uri(
                   path: NavigationServiceRoutes.save,
-                  queryParameters: <String, List<String>>{'path': imagePaths}));
+                  queryParameters: <String, List<String>>{'path': widget.imagePaths}));
+              clear();
+            },
+            onOrientationAngleChanged: (final double orientation) {
+              setState(() {
+                orientationAngle = orientation;
+              });
             },
           );
         },
@@ -80,7 +111,9 @@ class ScanPage extends ConsumerWidget {
             color: Theme.of(context).colorScheme.onPrimary,
           )
         ),
-        error: (final Object err, final StackTrace stack) => Center(child: Text('Error: $err')),
+        error: (final Object err, final StackTrace stack) {
+          return Center(child: Text('$err'));
+        }
       ),
     );
   }
