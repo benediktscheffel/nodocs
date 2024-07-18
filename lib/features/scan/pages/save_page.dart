@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
@@ -232,8 +233,12 @@ class _SavePageState extends ConsumerState<SavePage> {
               title: 'Retake Photo',
               icon: Icons.arrow_back_ios_new_outlined,
               onButtonClick: () {
-                controller.toggleCamera();
-                setState(() {});
+                setState(() {
+                  controller.toggleCamera();
+                  SystemChrome.setPreferredOrientations(
+                      <DeviceOrientation>[]
+                  );
+                });
               },
             ),
             centerTitle: true,
@@ -243,6 +248,9 @@ class _SavePageState extends ConsumerState<SavePage> {
               if (cameras.isEmpty) {
                 return const Center(child: Text('No camera found'));
               }
+              SystemChrome.setPreferredOrientations(
+                  <DeviceOrientation>[DeviceOrientation.portraitUp]
+              );
               return ScanCamera(
                 imagePaths: const <String>[],
                 cameraList: cameras,
@@ -257,6 +265,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                   setState(() {});
                 },
                 onLastImageTapped: () {},
+                onOrientationAngleChanged: (final double value) {  },
               );
             },
             loading: () => Center(
