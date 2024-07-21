@@ -48,27 +48,4 @@ class GoRouterNavigationService extends NavigationService {
   void replaceWithNamed(final Uri uri) {
     _router.replace(uri.toString());
   }
-
-  @override
-  TaskEither<Object, Option<T>> showPopup<T>(
-      final Widget popup, {
-        final bool canBePoppedViaBackGesture = true,
-      }) =>
-      optionOf(_router.routerDelegate.navigatorKey.currentContext).fold(
-            () => TaskEither<Object, Option<T>>(
-              () async =>
-              left('Error when searching for context - navigation service'),
-        ),
-            (final BuildContext context) => TaskEither<Object, Option<T>>.tryCatch(
-              () async => optionOf(
-            await showDialog<T>(
-              context: context,
-              builder: (final _) => PopScope(
-                child: popup,
-              ),
-            ),
-          ),
-              (final Object error, final _) => error,
-        ),
-      );
 }
