@@ -74,12 +74,12 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   @override
   Future<void> handleDocumentOCR() async {
     final pw.Document originalPdf = await createPDF();
-    final Uint8List ocrPdf = await ocrService.ocrDocument(originalPdf, _log);
+    final Future<Uint8List> ocrPdf = ocrService.ocrDocument(originalPdf, _log);
     await savePDF(ocrPdf);
   }
 
   @override
-  Future<void> savePDF(final pdf) async {
+  Future<void> savePDF(final Future<Uint8List> pdf) async {
     final String path = '${state.savePath}/${state.title}.pdf';
     final File output = File(path);
     await output.writeAsBytes(await pdf);
