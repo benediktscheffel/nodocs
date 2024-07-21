@@ -7,7 +7,7 @@ part of 'save_controller_impl.dart';
 // **************************************************************************
 
 String _$saveControllerImplHash() =>
-    r'70a94a756a0bb55a32c5a3fd7f42e61f5c402ad7';
+    r'cd90891ca7122b6dcc409c671e6e1b814056fc7b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,7 +32,7 @@ class _SystemHash {
 
 abstract class _$SaveControllerImpl
     extends BuildlessAutoDisposeNotifier<SaveModel> {
-  late final FileSystemServiceImpl fileSystemService;
+  late final FileSystemService fileSystemService;
   late final NavigationService navigationService;
   late final OcrService ocrService;
   late final CropService cropService;
@@ -41,7 +41,7 @@ abstract class _$SaveControllerImpl
   late final PersistenceService persistenceService;
 
   SaveModel build({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required OcrService ocrService,
     required CropService cropService,
@@ -62,7 +62,7 @@ class SaveControllerImplFamily extends Family<SaveModel> {
 
   /// See also [SaveControllerImpl].
   SaveControllerImplProvider call({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required OcrService ocrService,
     required CropService cropService,
@@ -116,7 +116,7 @@ class SaveControllerImplProvider
     extends AutoDisposeNotifierProviderImpl<SaveControllerImpl, SaveModel> {
   /// See also [SaveControllerImpl].
   SaveControllerImplProvider({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required OcrService ocrService,
     required CropService cropService,
@@ -166,7 +166,7 @@ class SaveControllerImplProvider
     required this.persistenceService,
   }) : super.internal();
 
-  final FileSystemServiceImpl fileSystemService;
+  final FileSystemService fileSystemService;
   final NavigationService navigationService;
   final OcrService ocrService;
   final CropService cropService;
@@ -253,7 +253,7 @@ class SaveControllerImplProvider
 
 mixin SaveControllerImplRef on AutoDisposeNotifierProviderRef<SaveModel> {
   /// The parameter `fileSystemService` of this provider.
-  FileSystemServiceImpl get fileSystemService;
+  FileSystemService get fileSystemService;
 
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
@@ -280,7 +280,7 @@ class _SaveControllerImplProviderElement
   _SaveControllerImplProviderElement(super.provider);
 
   @override
-  FileSystemServiceImpl get fileSystemService =>
+  FileSystemService get fileSystemService =>
       (origin as SaveControllerImplProvider).fileSystemService;
   @override
   NavigationService get navigationService =>
