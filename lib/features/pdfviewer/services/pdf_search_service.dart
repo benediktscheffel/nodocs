@@ -8,9 +8,7 @@ class PdfSearchService {
   LocalHistoryEntry? historyEntry;
   late GlobalKey<PdfSearchToolbarState>? textSearchKey;
 
-  PdfSearchService() {
-    controller = PdfViewerController();
-  }
+  PdfSearchService(this.controller);
 
   void ensureHistoryEntry(final BuildContext context) {
     if (historyEntry == null) {

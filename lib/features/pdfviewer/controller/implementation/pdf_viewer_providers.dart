@@ -1,3 +1,4 @@
+import 'package:nodocs/config/service_locator.dart';
 import 'package:nodocs/features/navigation/implementation/go_router_navigation_service.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/pdfviewer/controller/implementation/pdf_viewer_controller_impl.dart';
@@ -12,7 +13,7 @@ part 'pdf_viewer_providers.g.dart';
 
 @riverpod
 PdfSearchService pdfSearchService(final PdfSearchServiceRef ref) =>
-    PdfSearchService();
+    getIt<PdfSearchService>();
 
 @riverpod
 NavigationService pdfViewerNavigationService(
