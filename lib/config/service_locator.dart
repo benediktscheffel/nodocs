@@ -5,6 +5,7 @@ import 'package:nodocs/features/filesystem/services/file_picker/file_picker_serv
 import 'package:nodocs/features/filesystem/services/file_picker/implementation/file_picker_adapter_impl.dart';
 import 'package:nodocs/features/filesystem/services/file_picker/implementation/file_picker_service_impl.dart';
 import 'package:nodocs/features/filesystem/services/file_share/file_share_service.dart';
+import 'package:nodocs/features/filesystem/services/file_share/implementation/file_share_adapter_impl.dart';
 import 'package:nodocs/features/filesystem/services/file_share/implementation/file_share_service_impl.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/implementation/file_system_service_impl.dart';
@@ -19,7 +20,7 @@ void setupServiceLocator() {
   getIt.registerSingleton<FileSystemService>(FileSystemServiceImpl());
   getIt.registerSingleton<HomeController>(HomeControllerImpl());
   getIt.registerSingleton<PersistenceService>(IsarPersistenceService());
-  getIt.registerSingleton<FileShareService>(FileShareServiceImpl());
+  getIt.registerSingleton<FileShareService>(FileShareServiceImpl(FileShareAdapterImpl()));
   getIt.registerSingleton<FilePickerService>(FilePickerServiceImpl(FilePickerAdapterImpl()));
   getIt.registerSingleton<LanguageEvaluationService>(
       LanguageEvaluationServiceImpl());
