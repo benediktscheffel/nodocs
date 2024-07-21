@@ -32,6 +32,9 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     required final FileSystemServiceImpl fileSystemService,
     required final NavigationService navigationService,
     required final OcrService ocrService,
+    required final CropService cropService,
+    required final ImageService imageService,
+    required final CarouselService carouselService,
     required final PersistenceService persistenceService,
   }) {
     return const SaveModel(
@@ -125,7 +128,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
 
   @override
   List<Widget> getImageWidgets() {
-    return CarouselService.buildImageWidgets(state.imagePaths);
+    return carouselService.buildImageWidgets(state.imagePaths);
   }
 
   @override
@@ -158,13 +161,13 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   void setEditedImage(final String path) {
     String pathToReplace = _getImagePathById(state.currentSliderIndex);
     state = state.copyWith(
-        imagePaths: ImageService.replaceImagePath(
+        imagePaths: imageService.replaceImagePath(
             pathToReplace, path, state.imagePaths));
   }
 
   @override
   Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context) {
-    return CropService.cropImage(theme, pickedFile, context);
+    return cropService.cropImage(theme, pickedFile, context);
   }
 
   @override
@@ -211,5 +214,10 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     updatedTags[tag] = !currentState;
     _log.i("$tag is ${!currentState} now");
     state = state.copyWith(tags: updatedTags);
+  }
+
+  @override
+  String getLatestImagePath() {
+    return imageService.getLatestImagePath(state.imagePaths);
   }
 }

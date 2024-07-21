@@ -28,8 +28,7 @@ class _ScanPageState extends ConsumerState<ScanPage> {
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations(
-        <DeviceOrientation>[DeviceOrientation.portraitUp]
-    );
+        <DeviceOrientation>[DeviceOrientation.portraitUp]);
   }
 
   void clear() {
@@ -39,7 +38,8 @@ class _ScanPageState extends ConsumerState<ScanPage> {
   @override
   Widget build(final BuildContext context) {
     final ScanController scanController = ref.watch(scanControllerProvider);
-    final AsyncValue<List<CameraDescription>> cameraListAsyncValue = ref.watch(cameraProvider);
+    final AsyncValue<List<CameraDescription>> cameraListAsyncValue =
+        ref.watch(cameraProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -49,72 +49,72 @@ class _ScanPageState extends ConsumerState<ScanPage> {
           icon: Icons.home_outlined,
           onButtonClick: () => showDialog<String>(
             context: context,
-            builder: (final BuildContext context) =>
-              ConfirmationDialog(
-                onConfirm: (){
-                  scanController.goToPage(Uri(path: NavigationServiceRoutes.home));
+            builder: (final BuildContext context) => ConfirmationDialog(
+                onConfirm: () {
+                  scanController
+                      .goToPage(Uri(path: NavigationServiceRoutes.home));
                   clear();
                 },
-                onCancel: (){
+                onCancel: () {
                   scanController.goBack();
                 },
                 header: LocaleKeys.scan_discard_dialog_header.tr(),
-                notificationText: LocaleKeys.scan_discard_dialog_body.tr()
-              ),
+                notificationText: LocaleKeys.scan_discard_dialog_body.tr()),
           ),
           orientationAngle: orientationAngle,
         ),
       ),
       body: cameraListAsyncValue.when(
-        data: (final List<CameraDescription> cameras) {
-          if (cameras.isEmpty) {
-            return const Center(child: Text('No camera found'));
-          }
-          return ScanCamera(
-            imagePaths: widget.imagePaths,
-            cameraList: cameras,
-            onPhoto: (final XFile image) {
-              final List<String> images = scanController.addToImagePaths(
-                widget.imagePaths,
-                image.path,
-              );
-              scanController.goToPage(Uri(
-                path: NavigationServiceRoutes.crop,
-                queryParameters: <String, List<String>> {'path': images},
-              ));
-              clear();
-            },
-            onImageSelected: (final String path) {
-              List<String> images = scanController.addToImagePaths(widget.imagePaths, path);
-              scanController.goToPage(Uri(
+          data: (final List<CameraDescription> cameras) {
+            if (cameras.isEmpty) {
+              return const Center(child: Text('No camera found'));
+            }
+            return ScanCamera(
+              imagePaths: widget.imagePaths,
+              cameraList: cameras,
+              onPhoto: (final XFile image) {
+                final List<String> images = scanController.addToImagePaths(
+                  widget.imagePaths,
+                  image.path,
+                );
+                scanController.goToPage(Uri(
                   path: NavigationServiceRoutes.crop,
-                  queryParameters: <String, List<String>>{
-                    'path': images
-                  }));
-              clear();
-            },
-            onLastImageTapped: () {
-              scanController.goToPage(Uri(
-                  path: NavigationServiceRoutes.save,
-                  queryParameters: <String, List<String>>{'path': widget.imagePaths}));
-              clear();
-            },
-            onOrientationAngleChanged: (final double orientation) {
-              setState(() {
-                orientationAngle = orientation;
-              });
-            },
-          );
-        },
-        loading: () => Center(
-          child: CircularProgressIndicator(
-            color: Theme.of(context).colorScheme.onPrimary,
-          )
-        ),
-        error: (final Object err, final StackTrace stack) {
-          return Center(child: Text('$err'));
-        }
-      ),
+                  queryParameters: <String, List<String>>{'path': images},
+                ));
+                clear();
+              },
+              onImageSelected: (final String path) {
+                List<String> images =
+                    scanController.addToImagePaths(widget.imagePaths, path);
+                scanController.goToPage(Uri(
+                    path: NavigationServiceRoutes.crop,
+                    queryParameters: <String, List<String>>{'path': images}));
+                clear();
+              },
+              onLastImageTapped: () {
+                scanController.goToPage(Uri(
+                    path: NavigationServiceRoutes.save,
+                    queryParameters: <String, List<String>>{
+                      'path': widget.imagePaths
+                    }));
+                clear();
+              },
+              onOrientationAngleChanged: (final double orientation) {
+                setState(() {
+                  orientationAngle = orientation;
+                });
+              },
+              latestImagePath:
+                  scanController.getLatestImagePath(widget.imagePaths),
+            );
+          },
+          loading: () => Center(
+                  child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.onPrimary,
+              )),
+          error: (final Object err, final StackTrace stack) {
+            return Center(child: Text('$err'));
+          }),
     );
   }
 }

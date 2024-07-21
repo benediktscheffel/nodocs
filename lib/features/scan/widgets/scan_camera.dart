@@ -19,6 +19,7 @@ class ScanCamera extends ConsumerStatefulWidget {
   final ValueChanged<String> onImageSelected;
   final VoidCallback onLastImageTapped;
   final ValueChanged<double> onOrientationAngleChanged;
+  final String latestImagePath;
 
   const ScanCamera(
       {super.key,
@@ -27,7 +28,8 @@ class ScanCamera extends ConsumerStatefulWidget {
       required this.onPhoto,
       required this.onImageSelected,
       required this.onLastImageTapped,
-      required this.onOrientationAngleChanged});
+      required this.onOrientationAngleChanged,
+      required this.latestImagePath});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ScanCameraState();
@@ -189,6 +191,7 @@ class _ScanCameraState extends ConsumerState<ScanCamera>
               widget.onLastImageTapped();
             },
             orientationAngle: _rotationAngle,
+            latestImagePath: widget.latestImagePath,
           ),
         ),
       ],

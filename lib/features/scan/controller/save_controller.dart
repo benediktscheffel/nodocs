@@ -19,6 +19,7 @@ abstract class SaveController {
   Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context);
   void toggleCamera();
   bool getCameraState();
+  String getLatestImagePath();
 
   // Tags
   List<String> getTags();

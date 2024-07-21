@@ -6,7 +6,7 @@ part of 'pdf_viewer_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pdfSearchServiceHash() => r'60ae3383e84c68c17cf996585e0d2f4b41de14fc';
+String _$pdfSearchServiceHash() => r'd4da056b8f9ef9e9e64da7db7664d944c63f9972';
 
 /// See also [pdfSearchService].
 @ProviderFor(pdfSearchService)

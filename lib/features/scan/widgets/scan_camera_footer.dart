@@ -1,8 +1,6 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_box_last_image.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_button.dart';
 import 'package:nodocs/gen/locale_keys.g.dart';
@@ -12,9 +10,17 @@ class ScanCameraFooter extends StatelessWidget {
   final VoidCallback onTakePhoto;
   final VoidCallback onLastImageTapped;
   final List<String> imagePaths;
+  final String latestImagePath;
   final double orientationAngle;
 
-  const ScanCameraFooter({super.key, required this.onTakePhoto, required this.imagePaths, required this.onImageSelected, required this.onLastImageTapped, required this.orientationAngle});
+  const ScanCameraFooter(
+      {super.key,
+      required this.onTakePhoto,
+      required this.imagePaths,
+      required this.onImageSelected,
+      required this.onLastImageTapped,
+      required this.orientationAngle,
+      required this.latestImagePath});
 
   Future<void> _pickImage(final BuildContext context) async {
     final XFile? pickedFile =
@@ -30,7 +36,7 @@ class ScanCameraFooter extends StatelessWidget {
       Transform.rotate(
         angle: orientationAngle,
         child: ScanBoxLastImage(
-          imgPath: ImageService.getLatestImagePath(imagePaths),
+          imgPath: latestImagePath,
           scanCounter: imagePaths.length,
           onTap: () {
             onLastImageTapped.call();

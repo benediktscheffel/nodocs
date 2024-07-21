@@ -266,6 +266,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                 },
                 onLastImageTapped: () {},
                 onOrientationAngleChanged: (final double value) {  },
+                latestImagePath: controller.getLatestImagePath(),
               );
             },
             loading: () => Center(

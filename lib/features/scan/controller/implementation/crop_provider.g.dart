@@ -23,7 +23,35 @@ final cropNavigationServiceProvider =
 );
 
 typedef CropNavigationServiceRef = AutoDisposeProviderRef<NavigationService>;
-String _$cropControllerHash() => r'18d33b2e92101b19ee0d62dc15fd91ce17d6a050';
+String _$cropServiceHash() => r'cdc9f927b673e4b21ee022219ad07f4efa691ff9';
+
+/// See also [cropService].
+@ProviderFor(cropService)
+final cropServiceProvider = AutoDisposeProvider<CropService>.internal(
+  cropService,
+  name: r'cropServiceProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$cropServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CropServiceRef = AutoDisposeProviderRef<CropService>;
+String _$imageServiceHash() => r'd2a325d074948287ad7fb80712c6a3c429db530a';
+
+/// See also [imageService].
+@ProviderFor(imageService)
+final imageServiceProvider = AutoDisposeProvider<ImageService>.internal(
+  imageService,
+  name: r'imageServiceProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$imageServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ImageServiceRef = AutoDisposeProviderRef<ImageService>;
+String _$cropControllerHash() => r'b12cc10911a53503d0fe5853f4a69f8a0ff1e9ee';
 
 /// See also [cropController].
 @ProviderFor(cropController)
@@ -38,7 +66,7 @@ final cropControllerProvider = AutoDisposeProvider<CropController>.internal(
 );
 
 typedef CropControllerRef = AutoDisposeProviderRef<CropController>;
-String _$cropModelHash() => r'c510d3e96df055d6fb001e63dddf3cece7b69668';
+String _$cropModelHash() => r'8c9472d4d6acd16ae0ce7a8ebd55b5d9df505cd3';
 
 /// See also [cropModel].
 @ProviderFor(cropModel)
