@@ -5,15 +5,13 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:flutter/material.dart' as _i3;
-import 'package:fpdart/fpdart.dart' as _i7;
+import 'package:flutter/cupertino.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i8;
 import 'package:nodocs/features/navigation/navigation_service.dart' as _i6;
 import 'package:nodocs/features/pdfviewer/services/pdf_search_service.dart'
-    as _i9;
+    as _i7;
 import 'package:nodocs/features/pdfviewer/widgets/pdf_search_toolbar.dart'
-    as _i10;
+    as _i8;
 import 'package:nodocs/features/tags/services/persistence/persistence_service.dart'
     as _i4;
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart' as _i2;
@@ -285,33 +283,12 @@ class MockNavigationService extends _i1.Mock implements _i6.NavigationService {
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  _i7.TaskEither<Object, _i7.Option<T>> showPopup<T>(
-    _i3.Widget? popup, {
-    bool? canBePoppedViaBackGesture,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #showPopup,
-          [popup],
-          {#canBePoppedViaBackGesture: canBePoppedViaBackGesture},
-        ),
-        returnValue: _i8.dummyValue<_i7.TaskEither<Object, _i7.Option<T>>>(
-          this,
-          Invocation.method(
-            #showPopup,
-            [popup],
-            {#canBePoppedViaBackGesture: canBePoppedViaBackGesture},
-          ),
-        ),
-      ) as _i7.TaskEither<Object, _i7.Option<T>>);
 }
 
 /// A class which mocks [PdfSearchService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPdfSearchService extends _i1.Mock implements _i9.PdfSearchService {
+class MockPdfSearchService extends _i1.Mock implements _i7.PdfSearchService {
   MockPdfSearchService() {
     _i1.throwOnMissingStub(this);
   }
@@ -344,8 +321,7 @@ class MockPdfSearchService extends _i1.Mock implements _i9.PdfSearchService {
       );
 
   @override
-  set textSearchKey(
-          _i3.GlobalKey<_i10.PdfSearchToolbarState>? _textSearchKey) =>
+  set textSearchKey(_i3.GlobalKey<_i8.PdfSearchToolbarState>? _textSearchKey) =>
       super.noSuchMethod(
         Invocation.setter(
           #textSearchKey,
@@ -355,13 +331,13 @@ class MockPdfSearchService extends _i1.Mock implements _i9.PdfSearchService {
       );
 
   @override
-  _i3.GlobalKey<_i10.PdfSearchToolbarState> get key => (super.noSuchMethod(
+  _i3.GlobalKey<_i8.PdfSearchToolbarState> get key => (super.noSuchMethod(
         Invocation.getter(#key),
-        returnValue: _FakeGlobalKey_1<_i10.PdfSearchToolbarState>(
+        returnValue: _FakeGlobalKey_1<_i8.PdfSearchToolbarState>(
           this,
           Invocation.getter(#key),
         ),
-      ) as _i3.GlobalKey<_i10.PdfSearchToolbarState>);
+      ) as _i3.GlobalKey<_i8.PdfSearchToolbarState>);
 
   @override
   _i2.PdfViewerController get pdfViewerController => (super.noSuchMethod(

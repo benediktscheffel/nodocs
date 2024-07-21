@@ -6,15 +6,13 @@
 import 'dart:async' as _i3;
 import 'dart:io' as _i4;
 
-import 'package:flutter/material.dart' as _i8;
-import 'package:fpdart/fpdart.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart'
     as _i2;
 import 'package:nodocs/features/navigation/navigation_service.dart' as _i6;
 import 'package:nodocs/features/tags/services/persistence/persistence_service.dart'
-    as _i9;
+    as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -159,34 +157,13 @@ class MockNavigationService extends _i1.Mock implements _i6.NavigationService {
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  _i7.TaskEither<Object, _i7.Option<T>> showPopup<T>(
-    _i8.Widget? popup, {
-    bool? canBePoppedViaBackGesture,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #showPopup,
-          [popup],
-          {#canBePoppedViaBackGesture: canBePoppedViaBackGesture},
-        ),
-        returnValue: _i5.dummyValue<_i7.TaskEither<Object, _i7.Option<T>>>(
-          this,
-          Invocation.method(
-            #showPopup,
-            [popup],
-            {#canBePoppedViaBackGesture: canBePoppedViaBackGesture},
-          ),
-        ),
-      ) as _i7.TaskEither<Object, _i7.Option<T>>);
 }
 
 /// A class which mocks [PersistenceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPersistenceService extends _i1.Mock
-    implements _i9.PersistenceService {
+    implements _i7.PersistenceService {
   MockPersistenceService() {
     _i1.throwOnMissingStub(this);
   }

@@ -5,25 +5,24 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 import 'dart:io' as _i4;
-import 'dart:typed_data' as _i10;
+import 'dart:typed_data' as _i8;
 
-import 'package:flutter/material.dart' as _i8;
-import 'package:fpdart/fpdart.dart' as _i7;
-import 'package:image_cropper/image_cropper.dart' as _i14;
-import 'package:image_picker/image_picker.dart' as _i15;
-import 'package:logger/logger.dart' as _i12;
+import 'package:flutter/material.dart' as _i13;
+import 'package:image_cropper/image_cropper.dart' as _i12;
+import 'package:image_picker/image_picker.dart' as _i14;
+import 'package:logger/logger.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i5;
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart'
     as _i2;
 import 'package:nodocs/features/navigation/navigation_service.dart' as _i6;
-import 'package:nodocs/features/scan/services/carousel_service.dart' as _i17;
-import 'package:nodocs/features/scan/services/crop_service.dart' as _i13;
-import 'package:nodocs/features/scan/services/image_service.dart' as _i16;
-import 'package:nodocs/features/scan/services/ocr_service.dart' as _i9;
+import 'package:nodocs/features/scan/services/carousel_service.dart' as _i16;
+import 'package:nodocs/features/scan/services/crop_service.dart' as _i11;
+import 'package:nodocs/features/scan/services/image_service.dart' as _i15;
+import 'package:nodocs/features/scan/services/ocr_service.dart' as _i7;
 import 'package:nodocs/features/tags/services/persistence/persistence_service.dart'
-    as _i18;
-import 'package:pdf/widgets.dart' as _i11;
+    as _i17;
+import 'package:pdf/widgets.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -168,41 +167,20 @@ class MockNavigationService extends _i1.Mock implements _i6.NavigationService {
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  _i7.TaskEither<Object, _i7.Option<T>> showPopup<T>(
-    _i8.Widget? popup, {
-    bool? canBePoppedViaBackGesture,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #showPopup,
-          [popup],
-          {#canBePoppedViaBackGesture: canBePoppedViaBackGesture},
-        ),
-        returnValue: _i5.dummyValue<_i7.TaskEither<Object, _i7.Option<T>>>(
-          this,
-          Invocation.method(
-            #showPopup,
-            [popup],
-            {#canBePoppedViaBackGesture: canBePoppedViaBackGesture},
-          ),
-        ),
-      ) as _i7.TaskEither<Object, _i7.Option<T>>);
 }
 
 /// A class which mocks [OcrService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockOcrService extends _i1.Mock implements _i9.OcrService {
+class MockOcrService extends _i1.Mock implements _i7.OcrService {
   MockOcrService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i10.Uint8List> ocrDocument(
-    _i11.Document? pdf,
-    _i12.Logger? log,
+  _i3.Future<_i8.Uint8List> ocrDocument(
+    _i9.Document? pdf,
+    _i10.Logger? log,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -212,23 +190,23 @@ class MockOcrService extends _i1.Mock implements _i9.OcrService {
             log,
           ],
         ),
-        returnValue: _i3.Future<_i10.Uint8List>.value(_i10.Uint8List(0)),
-      ) as _i3.Future<_i10.Uint8List>);
+        returnValue: _i3.Future<_i8.Uint8List>.value(_i8.Uint8List(0)),
+      ) as _i3.Future<_i8.Uint8List>);
 }
 
 /// A class which mocks [CropService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCropService extends _i1.Mock implements _i13.CropService {
+class MockCropService extends _i1.Mock implements _i11.CropService {
   MockCropService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i14.CroppedFile?> cropImage(
-    _i8.ThemeData? theme,
-    _i15.XFile? pickedFile,
-    _i8.BuildContext? context,
+  _i3.Future<_i12.CroppedFile?> cropImage(
+    _i13.ThemeData? theme,
+    _i14.XFile? pickedFile,
+    _i13.BuildContext? context,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -239,14 +217,14 @@ class MockCropService extends _i1.Mock implements _i13.CropService {
             context,
           ],
         ),
-        returnValue: _i3.Future<_i14.CroppedFile?>.value(),
-      ) as _i3.Future<_i14.CroppedFile?>);
+        returnValue: _i3.Future<_i12.CroppedFile?>.value(),
+      ) as _i3.Future<_i12.CroppedFile?>);
 }
 
 /// A class which mocks [ImageService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockImageService extends _i1.Mock implements _i16.ImageService {
+class MockImageService extends _i1.Mock implements _i15.ImageService {
   MockImageService() {
     _i1.throwOnMissingStub(this);
   }
@@ -314,27 +292,27 @@ class MockImageService extends _i1.Mock implements _i16.ImageService {
 /// A class which mocks [CarouselService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCarouselService extends _i1.Mock implements _i17.CarouselService {
+class MockCarouselService extends _i1.Mock implements _i16.CarouselService {
   MockCarouselService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  List<_i8.Widget> buildImageWidgets(List<String>? imagePaths) =>
+  List<_i13.Widget> buildImageWidgets(List<String>? imagePaths) =>
       (super.noSuchMethod(
         Invocation.method(
           #buildImageWidgets,
           [imagePaths],
         ),
-        returnValue: <_i8.Widget>[],
-      ) as List<_i8.Widget>);
+        returnValue: <_i13.Widget>[],
+      ) as List<_i13.Widget>);
 }
 
 /// A class which mocks [PersistenceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPersistenceService extends _i1.Mock
-    implements _i18.PersistenceService {
+    implements _i17.PersistenceService {
   MockPersistenceService() {
     _i1.throwOnMissingStub(this);
   }

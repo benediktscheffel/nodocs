@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/go_router.dart';
