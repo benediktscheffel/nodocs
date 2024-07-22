@@ -140,7 +140,7 @@ class PdfViewerPage extends ConsumerWidget {
             leading: const Icon(Icons.edit_outlined),
             title: Text(LocaleKeys.pdf_viewer_navigation_edit_tags.tr()),
             onTap: () {
-              Navigator.pop(context);
+              controller.goBack();
               showDialog<String>(
                 context: context,
                 builder: (final BuildContext context) => TagDialog(
@@ -161,7 +161,7 @@ class PdfViewerPage extends ConsumerWidget {
             leading: const Icon(Icons.search),
             title: Text(LocaleKeys.pdf_viewer_navigation_search.tr()),
             onTap: () {
-              Navigator.pop(context);
+              controller.goBack();
               controller.toggleScrollHead(false);
               controller.toggleToolbar(true);
               controller.ensureHistoryEntry(context);
