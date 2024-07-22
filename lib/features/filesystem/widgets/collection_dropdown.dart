@@ -9,7 +9,12 @@ import 'package:nodocs/gen/locale_keys.g.dart';
 class CollectionDropdown extends StatefulWidget {
   final String initialDirectory;
   final ValueChanged<String> onPathChanged;
-  const CollectionDropdown({super.key, required this.initialDirectory, required this.onPathChanged});
+
+  const CollectionDropdown({
+    super.key,
+    required this.initialDirectory,
+    required this.onPathChanged,
+  });
 
   @override
   State<StatefulWidget> createState() => CollectionDropdownState();
@@ -135,7 +140,9 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              _currentAbsolutePath = entryDir.path;
+                              if (entryDir != null) {
+                                _currentAbsolutePath = entryDir.path;
+                              }
                               widget.onPathChanged.call(_currentAbsolutePath);
                               _currentRelativePath = '/${_currentAbsolutePath.split(_projectRootAbsolutePath).last}';
                               _listDirectories();
@@ -151,7 +158,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    entryDir!.path.split('/').last,
+                                    entryDir == null ? "":
+                                    entryDir.path.split('/').last,
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: theme.colorScheme.onTertiaryContainer,
