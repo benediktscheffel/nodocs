@@ -32,6 +32,7 @@ class ScanCameraFooter extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     final List<Widget> row = <Widget>[
       Transform.rotate(
         angle: orientationAngle,
@@ -49,13 +50,13 @@ class ScanCameraFooter extends StatelessWidget {
           children: <Widget>[
             Text(
               LocaleKeys.scan_footer_scan_document.tr(),
-              style: const TextStyle(
+              style:  TextStyle(
                 color: Colors.white,
-                fontSize: 14,
+                fontSize: size.height * 0.0153,
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: size.height * 0.012,
             ),
             Semantics(
               identifier: 'scan_camera_button',

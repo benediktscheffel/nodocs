@@ -27,12 +27,13 @@ class ScanCameraButtonState extends State<ScanCameraButton> with TickerProviderS
 
   @override
   Widget build(final BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     if (animate) {
-      return const Center(
+      return  Center(
         child: SizedBox(
-          height: 65,
-          width: 65,
-          child: CircularProgressIndicator(
+          height: size.height * 0.073,
+          width: size.height * 0.073,
+          child: const CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
             strokeWidth: 5,
           ),
@@ -47,10 +48,10 @@ class ScanCameraButtonState extends State<ScanCameraButton> with TickerProviderS
             });
             _toggleAnimation();
           },
-          child: const SizedBox(
-            height: 65,
-            width: 65,
-            child: CircularProgressIndicator(
+          child: SizedBox(
+            height: size.height * 0.073,
+            width: size.height * 0.073,
+            child: const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               value: 1,
               strokeWidth: 5,

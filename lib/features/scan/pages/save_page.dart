@@ -51,6 +51,8 @@ class _SavePageState extends ConsumerState<SavePage> {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final SaveController controller = ref.watch(saveControllerProvider);
+    final Size size = MediaQuery.of(context).size;
+
     return FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder:
@@ -109,14 +111,14 @@ class _SavePageState extends ConsumerState<SavePage> {
                                 LocaleKeys.save_collection_dropdown_label.tr(),
                           ),
                         ),
-                        const SizedBox(
-                          height: 5,
+                         SizedBox(
+                          height: size.height * 0.008,
                         ),
                         ScanCarousel(
                           imagePaths: controller.getImagePaths(),
                         ),
-                        const SizedBox(
-                          height: 5,
+                        SizedBox(
+                          height: size.height * 0.008,
                         ),
                         ScanActionButtonContainer(
                           buttons: <Widget>[
