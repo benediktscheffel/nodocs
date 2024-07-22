@@ -9,6 +9,7 @@ class DropdownWithLabel extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -19,7 +20,7 @@ class DropdownWithLabel extends StatelessWidget {
             fontSize: 14,
           ),
         ),
-        const SizedBox(height: 8,),
+        SizedBox(height: size.height * 0.0082,),
         dropdown,
       ],
     );
