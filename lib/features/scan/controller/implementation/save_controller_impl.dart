@@ -122,6 +122,11 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     navigationService.pop();
   }
 
+  @override
+  void goBackHome() {
+    navigationService.clearStack();
+  }
+
   String _getImagePathById(final int id) {
     return (id >= 0 && state.imagePaths.length > id) ? state.imagePaths.elementAt(id) : '';
   }

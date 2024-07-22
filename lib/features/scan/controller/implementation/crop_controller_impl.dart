@@ -89,4 +89,9 @@ class CropControllerImpl extends _$CropControllerImpl implements CropController 
     _log.i("replace ${state.imagePaths.last}");
     state = state.copyWith(imagePaths: imageService.replaceImagePath(state.imagePaths.last, newPath, state.imagePaths));
   }
+
+  @override
+  void goBackHome() {
+    navigationService.clearStack();
+  }
 }

@@ -34,6 +34,7 @@ abstract class SaveController {
   // Navigation
   void goToPage(final Uri uri);
   void goBack();
+  void goBackHome();
 
   // Filesystem
   String getTitle();

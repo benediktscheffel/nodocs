@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
-import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/implementation/save_provider.dart';
 import 'package:nodocs/features/scan/controller/save_controller.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
@@ -111,7 +110,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                                 LocaleKeys.save_collection_dropdown_label.tr(),
                           ),
                         ),
-                         SizedBox(
+                        SizedBox(
                           height: size.height * 0.008,
                         ),
                         ScanCarousel(
@@ -180,8 +179,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                       builder: (final BuildContext context) =>
                           ConfirmationDialog(
                               onConfirm: () {
-                                controller.goToPage(
-                                    Uri(path: NavigationServiceRoutes.home));
+                                controller.goBackHome();
                               },
                               onCancel: () {
                                 controller.goBack();
@@ -199,8 +197,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                         onPressed: () {
                           controller.createPDF().then((final pw.Document pdf) {
                             controller.savePDF(pdf.save()).then((final _) {
-                              controller.goToPage(
-                                  Uri(path: NavigationServiceRoutes.home));
+                              controller.goBackHome();
                             }).catchError((final _) {
                               showErrorDuringPdfSaveDialog(controller);
                             });
@@ -224,8 +221,7 @@ class _SavePageState extends ConsumerState<SavePage> {
                         onPressed: () {
                           controller.checkInternetConnection().then((final _) {
                             controller.handleDocumentOCR().then((final _) {
-                              controller.goToPage(
-                                  Uri(path: NavigationServiceRoutes.home));
+                              controller.goBackHome();
                             }).catchError((final _) {
                               showErrorDuringOcrDialog(controller);
                             });

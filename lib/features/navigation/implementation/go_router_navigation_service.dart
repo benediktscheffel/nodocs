@@ -46,4 +46,11 @@ class GoRouterNavigationService extends NavigationService {
   void replaceWithNamed(final Uri uri) {
     _router.replace(uri.toString());
   }
+
+  @override
+  void clearStack() {
+    while (_router.canPop()) {
+      _router.pop();
+    }
+  }
 }

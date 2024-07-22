@@ -56,4 +56,9 @@ class ScanControllerImpl extends _$ScanControllerImpl
     _log.i("Going back");
     navigationService.pop();
   }
+
+  @override
+  void goBackHome() {
+    navigationService.clearStack();
+  }
 }
