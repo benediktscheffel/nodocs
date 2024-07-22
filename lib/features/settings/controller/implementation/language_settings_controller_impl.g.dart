@@ -7,7 +7,7 @@ part of 'language_settings_controller_impl.dart';
 // **************************************************************************
 
 String _$languageSettingsControllerImplHash() =>
-    r'ff31fc46e427d7c57a7a5a57a1f08d7277c925f2';
+    r'320b38388e0927da2ac406f753e18576ffd39c89';
 
 /// Copied from Dart SDK
 class _SystemHash {

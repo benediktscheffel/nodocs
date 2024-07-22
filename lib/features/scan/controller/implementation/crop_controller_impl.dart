@@ -20,6 +20,8 @@ class CropControllerImpl extends _$CropControllerImpl implements CropController 
   @override
   CropModel build({
     required final NavigationService navigationService,
+    required final CropService cropService,
+    required final ImageService imageService,
   }) {
     return const CropModel(
       imagePaths: <String>[],
@@ -79,12 +81,12 @@ class CropControllerImpl extends _$CropControllerImpl implements CropController 
 
   @override
   Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context) {
-    return CropService.cropImage(theme, pickedFile, context);
+    return cropService.cropImage(theme, pickedFile, context);
   }
 
   @override
   void replaceImagePath(final String newPath) {
     _log.i("replace ${state.imagePaths.last}");
-    state = state.copyWith(imagePaths: ImageService.replaceImagePath(state.imagePaths.last, newPath, state.imagePaths));
+    state = state.copyWith(imagePaths: imageService.replaceImagePath(state.imagePaths.last, newPath, state.imagePaths));
   }
 }

@@ -60,12 +60,6 @@
       "search": "Suche"
     },
     "search": {
-      "alert_dialog": {
-        "header": "Suchergebnisse",
-        "body": "Keine weiteren Treffer! Möchten Sie mit der Suche von vorne beginnen?",
-        "yes": "JA",
-        "no": "NEIN"
-      },
       "toolbar": {
         "hint_text": "Suche...",
         "of": " von "
@@ -85,7 +79,8 @@
     "app_languages": {
       "system": "System Sprache",
       "en": "Englisch",
-      "de": "Deutsch"
+      "de": "Deutsch",
+      "zh": "Sächsisch"
     },
     "ocr": {
       "run_text_recognition": "Mit Texterkennung laufen",
@@ -163,7 +158,7 @@
       "body": "Sind Sie sich sicher, dass Sie diesen Scan ohne zu speichern verwerfen möchten? Dabei werden alle Seiten des momentanen Scan gelöscht."
     },
     "retake_dialog": {
-      "header": "Diesen Seite neu aufnehmen?",
+      "header": "Diese Seite neu aufnehmen?",
       "body": "Sind Sie sich sicher, dass Sie diese Seite ohne zu speichern erneut aufnehmen möchten?"
     },
     "navigation": {
@@ -196,7 +191,7 @@
       "ocr_save": "OCR & Speichern"
     },
     "retake_dialog": {
-      "header": "Diesen Seite neu aufnehmen?",
+      "header": "Diese Seite neu aufnehmen?",
       "body": "Sind Sie sich sicher, dass Sie diese Seite ohne zu speichern erneut aufnehmen möchten?"
     },
     "cancel_dialog": {

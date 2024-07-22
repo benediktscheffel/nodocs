@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CollectionInput extends StatefulWidget {
-  const CollectionInput(
-      {super.key, required this.controller, required this.hintText});
+  const CollectionInput({
+    super.key,
+    required this.controller,
+    required this.hintText,
+  });
 
   final TextEditingController controller;
   final String hintText;

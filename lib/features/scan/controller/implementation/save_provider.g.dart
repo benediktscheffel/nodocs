@@ -53,7 +53,50 @@ final ocrServiceProvider = AutoDisposeProvider<OcrServiceImpl>.internal(
 );
 
 typedef OcrServiceRef = AutoDisposeProviderRef<OcrServiceImpl>;
-String _$saveControllerHash() => r'bcb3faaf9f3943aedc639f6bd2de0733fe3e73d4';
+String _$cropServiceHash() => r'cdc9f927b673e4b21ee022219ad07f4efa691ff9';
+
+/// See also [cropService].
+@ProviderFor(cropService)
+final cropServiceProvider = AutoDisposeProvider<CropService>.internal(
+  cropService,
+  name: r'cropServiceProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$cropServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CropServiceRef = AutoDisposeProviderRef<CropService>;
+String _$carouselServiceHash() => r'276786da91a4f4772959b64bea1f62a05296eece';
+
+/// See also [carouselService].
+@ProviderFor(carouselService)
+final carouselServiceProvider = AutoDisposeProvider<CarouselService>.internal(
+  carouselService,
+  name: r'carouselServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$carouselServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CarouselServiceRef = AutoDisposeProviderRef<CarouselService>;
+String _$imageServiceHash() => r'd2a325d074948287ad7fb80712c6a3c429db530a';
+
+/// See also [imageService].
+@ProviderFor(imageService)
+final imageServiceProvider = AutoDisposeProvider<ImageService>.internal(
+  imageService,
+  name: r'imageServiceProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$imageServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ImageServiceRef = AutoDisposeProviderRef<ImageService>;
+String _$saveControllerHash() => r'eda75c95302fd22ffc08da16ee3534ee6a696cca';
 
 /// See also [saveController].
 @ProviderFor(saveController)
@@ -68,7 +111,7 @@ final saveControllerProvider = AutoDisposeProvider<SaveController>.internal(
 );
 
 typedef SaveControllerRef = AutoDisposeProviderRef<SaveController>;
-String _$saveModelHash() => r'baea2e8899bba50e0c87fe8026051dfd6442100d';
+String _$saveModelHash() => r'98312310edfc5eb2b7f6837087626c0decfc9381';
 
 /// See also [saveModel].
 @ProviderFor(saveModel)

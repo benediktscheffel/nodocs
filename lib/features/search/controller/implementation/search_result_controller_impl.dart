@@ -1,4 +1,3 @@
-import 'package:logger/logger.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/search/controller/search_result_controller.dart';
@@ -9,7 +8,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'search_result_controller_impl.g.dart';
 @riverpod
 class SearchResultControllerImpl extends _$SearchResultControllerImpl implements SearchResultController {
-  final Logger _log = Logger();
 
   @override
   SearchResultModel build({

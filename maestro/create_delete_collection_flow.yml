@@ -1,0 +1,15 @@
+appId: com.example.nodocs
+---
+- clearState
+- launchApp
+- tapOn:
+    id: new_collection
+- inputText: TestCollection
+- tapOn: Create
+- assertVisible: TestCollection
+- longPressOn:
+      text: TestCollection
+- assertVisible: Delete
+- tapOn: Delete
+- tapOn: Confirm
+- assertNotVisible: TestCollection

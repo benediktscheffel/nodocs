@@ -111,7 +111,7 @@ final textRecognitionLanguageModelProvider =
 typedef TextRecognitionLanguageModelRef
     = AutoDisposeProviderRef<TextRecognitionLanguageModel>;
 String _$languageSettingsControllerHash() =>
-    r'841eead85d412b79d3fe609ddbc2974e3f0bc1f3';
+    r'275cd2ef7047fbe83985d5e7440c33003e78b73c';
 
 /// See also [languageSettingsController].
 @ProviderFor(languageSettingsController)
@@ -129,7 +129,7 @@ final languageSettingsControllerProvider =
 typedef LanguageSettingsControllerRef
     = AutoDisposeProviderRef<LanguageSettingsController>;
 String _$languageSettingsModelHash() =>
-    r'bb3af1143ef055d32c205bee581b088c7e9874ea';
+    r'82b82f83959bb800b2ddd00898fef8e7fa11c314';
 
 /// See also [languageSettingsModel].
 @ProviderFor(languageSettingsModel)

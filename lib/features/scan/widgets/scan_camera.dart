@@ -1,7 +1,12 @@
+import 'dart:async';
+import 'dart:math' as math;
+
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:nodocs/features/scan/services/camera_service.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera_footer.dart';
 import 'package:nodocs/gen/locale_keys.g.dart';
@@ -13,16 +18,31 @@ class ScanCamera extends ConsumerStatefulWidget {
   final ValueChanged<XFile> onPhoto;
   final ValueChanged<String> onImageSelected;
   final VoidCallback onLastImageTapped;
+  final ValueChanged<double> onOrientationAngleChanged;
+  final String latestImagePath;
 
   const ScanCamera(
-      {super.key, required this.imagePaths, required this.cameraList, required this.onPhoto, required this.onImageSelected, required this.onLastImageTapped});
+      {super.key,
+      required this.imagePaths,
+      required this.cameraList,
+      required this.onPhoto,
+      required this.onImageSelected,
+      required this.onLastImageTapped,
+      required this.onOrientationAngleChanged,
+      required this.latestImagePath});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ScanCameraState();
 }
 
-class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObserver {
+class _ScanCameraState extends ConsumerState<ScanCamera>
+    with WidgetsBindingObserver {
   late CameraController _cameraController;
+  late StreamSubscription<NativeDeviceOrientation> _orientationSubscription;
+  double _rotationAngle = 0.0;
+
+  double height = 0.0;
+  double width = 0.0;
 
   Future<void> setCameraAndController() async {
     if (widget.cameraList.isNotEmpty) {
@@ -31,6 +51,7 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
         ResolutionPreset.high,
         enableAudio: false,
       );
+      _cameraController.lockCaptureOrientation(DeviceOrientation.portraitUp);
       try {
         await _cameraController.initialize();
         if (mounted) {
@@ -38,21 +59,26 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
         }
       } catch (e) {
         if (e is CameraException) {
-          throw Exception(LocaleKeys.scan_error_screens_camera_exception_message.tr() + (e.description ?? ''));
+          throw Exception(
+              LocaleKeys.scan_error_screens_camera_exception_message.tr() +
+                  (e.description ?? ''));
         } else {
-          throw Exception(LocaleKeys.scan_error_screens_init_camera_exception_message.tr() + e.toString());
+          throw Exception(
+              LocaleKeys.scan_error_screens_init_camera_exception_message.tr() +
+                  e.toString());
         }
       }
     } else {
-      throw Exception(LocaleKeys.scan_error_screens_no_cameras_exception_message.tr());
+      throw Exception(
+          LocaleKeys.scan_error_screens_no_cameras_exception_message.tr());
     }
   }
 
   Widget _cameraNotAvailable(final BuildContext context) {
     return Center(
-        child: CircularProgressIndicator(
-          color: Theme.of(context).colorScheme.onPrimary,
-        )
+      child: CircularProgressIndicator(
+        color: Theme.of(context).colorScheme.onPrimary,
+      )
     );
   }
 
@@ -62,12 +88,35 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
     WidgetsFlutterBinding.ensureInitialized();
     WidgetsBinding.instance.addObserver(this);
     setCameraAndController();
+
+    _orientationSubscription = NativeDeviceOrientationCommunicator()
+        .onOrientationChanged(useSensor: true)
+        .listen(_handleOrientationChange);
+  }
+
+  void _handleOrientationChange(final NativeDeviceOrientation orientation) {
+    setState(() {
+      switch (orientation) {
+        case NativeDeviceOrientation.portraitUp:
+          _rotationAngle = 0;
+        case NativeDeviceOrientation.landscapeRight:
+          _rotationAngle = -math.pi / 2;
+        case NativeDeviceOrientation.portraitDown:
+          _rotationAngle = math.pi;
+        case NativeDeviceOrientation.landscapeLeft:
+          _rotationAngle = math.pi / 2;
+        default:
+          _rotationAngle = 0;
+      }
+      widget.onOrientationAngleChanged.call(_rotationAngle);
+    });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _cameraController.dispose();
+    _orientationSubscription.cancel();
     super.dispose();
   }
 
@@ -90,10 +139,6 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
       return _cameraNotAvailable(context);
     }
 
-    double height = 0.0;
-    double width = 0.0;
-
-    // portrait
     if (renderBox.size.width < renderBox.size.height) {
       height = CameraService.calculatePortraitHeight(
         _cameraController.value.aspectRatio,
@@ -106,19 +151,6 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
         height,
       );
     }
-    // landscape
-    else {
-      width = CameraService.calculateLandscapeWidth(
-        _cameraController.value.aspectRatio,
-        renderBox.size.width,
-        renderBox.size.height,
-      );
-      height = CameraService.calculateLandscapeHeight(
-        _cameraController.value.aspectRatio,
-        width,
-        renderBox.size.height,
-      );
-    }
 
     return Stack(
       children: <Widget>[
@@ -127,8 +159,8 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
           children: <Widget>[
             Center(
               child: SizedBox(
-                height: renderBox.size.height,
-                width: renderBox.size.width,
+                height: height,
+                width: width,
                 child: AspectRatio(
                   aspectRatio: _cameraController.value.aspectRatio,
                   child: CameraPreview(_cameraController),
@@ -158,6 +190,8 @@ class _ScanCameraState extends ConsumerState<ScanCamera> with WidgetsBindingObse
             onLastImageTapped: () {
               widget.onLastImageTapped();
             },
+            orientationAngle: _rotationAngle,
+            latestImagePath: widget.latestImagePath,
           ),
         ),
       ],
