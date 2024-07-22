@@ -7,7 +7,7 @@ part of 'crop_controller_impl.dart';
 // **************************************************************************
 
 String _$cropControllerImplHash() =>
-    r'f0ddb137d7d9ea87b50b9d7f19bc77491afaf0ae';
+    r'46de7e1098abfb7f6ede687ff199b82623710ea0';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,9 +33,13 @@ class _SystemHash {
 abstract class _$CropControllerImpl
     extends BuildlessAutoDisposeNotifier<CropModel> {
   late final NavigationService navigationService;
+  late final CropService cropService;
+  late final ImageService imageService;
 
   CropModel build({
     required NavigationService navigationService,
+    required CropService cropService,
+    required ImageService imageService,
   });
 }
 
@@ -51,9 +55,13 @@ class CropControllerImplFamily extends Family<CropModel> {
   /// See also [CropControllerImpl].
   CropControllerImplProvider call({
     required NavigationService navigationService,
+    required CropService cropService,
+    required ImageService imageService,
   }) {
     return CropControllerImplProvider(
       navigationService: navigationService,
+      cropService: cropService,
+      imageService: imageService,
     );
   }
 
@@ -63,6 +71,8 @@ class CropControllerImplFamily extends Family<CropModel> {
   ) {
     return call(
       navigationService: provider.navigationService,
+      cropService: provider.cropService,
+      imageService: provider.imageService,
     );
   }
 
@@ -87,8 +97,13 @@ class CropControllerImplProvider
   /// See also [CropControllerImpl].
   CropControllerImplProvider({
     required NavigationService navigationService,
+    required CropService cropService,
+    required ImageService imageService,
   }) : this._internal(
-          () => CropControllerImpl()..navigationService = navigationService,
+          () => CropControllerImpl()
+            ..navigationService = navigationService
+            ..cropService = cropService
+            ..imageService = imageService,
           from: cropControllerImplProvider,
           name: r'cropControllerImplProvider',
           debugGetCreateSourceHash:
@@ -99,6 +114,8 @@ class CropControllerImplProvider
           allTransitiveDependencies:
               CropControllerImplFamily._allTransitiveDependencies,
           navigationService: navigationService,
+          cropService: cropService,
+          imageService: imageService,
         );
 
   CropControllerImplProvider._internal(
@@ -109,9 +126,13 @@ class CropControllerImplProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.navigationService,
+    required this.cropService,
+    required this.imageService,
   }) : super.internal();
 
   final NavigationService navigationService;
+  final CropService cropService;
+  final ImageService imageService;
 
   @override
   CropModel runNotifierBuild(
@@ -119,6 +140,8 @@ class CropControllerImplProvider
   ) {
     return notifier.build(
       navigationService: navigationService,
+      cropService: cropService,
+      imageService: imageService,
     );
   }
 
@@ -127,13 +150,18 @@ class CropControllerImplProvider
     return ProviderOverride(
       origin: this,
       override: CropControllerImplProvider._internal(
-        () => create()..navigationService = navigationService,
+        () => create()
+          ..navigationService = navigationService
+          ..cropService = cropService
+          ..imageService = imageService,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         navigationService: navigationService,
+        cropService: cropService,
+        imageService: imageService,
       ),
     );
   }
@@ -147,13 +175,17 @@ class CropControllerImplProvider
   @override
   bool operator ==(Object other) {
     return other is CropControllerImplProvider &&
-        other.navigationService == navigationService;
+        other.navigationService == navigationService &&
+        other.cropService == cropService &&
+        other.imageService == imageService;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
+    hash = _SystemHash.combine(hash, cropService.hashCode);
+    hash = _SystemHash.combine(hash, imageService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -162,6 +194,12 @@ class CropControllerImplProvider
 mixin CropControllerImplRef on AutoDisposeNotifierProviderRef<CropModel> {
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
+
+  /// The parameter `cropService` of this provider.
+  CropService get cropService;
+
+  /// The parameter `imageService` of this provider.
+  ImageService get imageService;
 }
 
 class _CropControllerImplProviderElement
@@ -172,6 +210,12 @@ class _CropControllerImplProviderElement
   @override
   NavigationService get navigationService =>
       (origin as CropControllerImplProvider).navigationService;
+  @override
+  CropService get cropService =>
+      (origin as CropControllerImplProvider).cropService;
+  @override
+  ImageService get imageService =>
+      (origin as CropControllerImplProvider).imageService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

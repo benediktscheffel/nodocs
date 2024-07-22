@@ -1,16 +1,20 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:logger/logger.dart';
+import 'package:nodocs/features/filesystem/services/file_picker/file_picker_adapter.dart';
 import 'package:nodocs/features/filesystem/services/file_picker/file_picker_service.dart';
 import 'package:nodocs/util/logging/log.dart';
 import 'package:path/path.dart' as p;
 
 class FilePickerServiceImpl implements FilePickerService {
+  final FilePickerAdapter _filePickerAdapter;
   static final Logger _log = getLogger();
+
+  FilePickerServiceImpl(this._filePickerAdapter);
 
   @override
   Future<File?> pickFile(final String collectionPath) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await _filePickerAdapter.pickFiles(
       type: FileType.custom,
       allowedExtensions: <String>['pdf'],
     );

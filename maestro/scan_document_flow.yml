@@ -1,0 +1,18 @@
+appId: com.example.nodocs
+---
+- clearState
+- launchApp
+- tapOn:
+    id: scan_document
+- tapOn:
+    id: scan_camera_button
+- tapOn:
+    id: save_document_button
+- tapOn:
+    id: save_title_input
+- inputText:
+    text: TestDocument
+- hideKeyboard
+- tapOn:
+    id: save_document_button
+- assertVisible: TestDocument

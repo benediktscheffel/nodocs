@@ -47,7 +47,6 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
     focusNode?.dispose();
     _pdfTextSearchResult.removeListener(() {});
     _editingController.dispose();
-    _pdfTextSearchResult.dispose();
     super.dispose();
   }
 

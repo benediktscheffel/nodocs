@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class ScanTitleInput extends StatefulWidget {
   final String initialTitle;
   final ValueChanged<String> onTitleChanged;
-  const ScanTitleInput({super.key, required this.initialTitle, required this.onTitleChanged});
+
+  const ScanTitleInput(
+      {super.key, required this.initialTitle, required this.onTitleChanged});
 
   @override
   State<StatefulWidget> createState() => _ScanTitleInputState();
@@ -17,10 +19,14 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(
-        text: widget.initialTitle
-    );
+    _controller = TextEditingController(text: widget.initialTitle);
     _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        _controller.selection = TextSelection(
+          baseOffset: 0,
+          extentOffset: _controller.text.length,
+        );
+      }
       setState(() {
         _isTyping = _focusNode.hasFocus;
       });
@@ -74,15 +80,17 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: _isTyping ? null : IconButton(
-              onPressed: () {
-                _focusNode.requestFocus();
-              },
-              icon: Icon(
-                Icons.edit_outlined,
-                color: theme.colorScheme.onPrimary,
-              ),
-            ),
+            child: _isTyping
+                ? null
+                : IconButton(
+                    onPressed: () {
+                      _focusNode.requestFocus();
+                    },
+                    icon: Icon(
+                      Icons.edit_outlined,
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                  ),
           ),
         ],
       ),
@@ -108,7 +116,8 @@ class DottedUnderlinePainter extends CustomPainter {
     double startX = 0.0;
 
     while (startX < size.width) {
-      canvas.drawLine(Offset(startX, size.height), Offset(startX + dashWidth, size.height), paint);
+      canvas.drawLine(Offset(startX, size.height),
+          Offset(startX + dashWidth, size.height), paint);
       startX += dashWidth + dashSpace;
     }
   }

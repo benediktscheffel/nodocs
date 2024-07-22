@@ -9,32 +9,35 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'scan_controller_impl.g.dart';
 
 @riverpod
-class ScanControllerImpl extends _$ScanControllerImpl implements ScanController {
+class ScanControllerImpl extends _$ScanControllerImpl
+    implements ScanController {
   final Logger _log = getLogger();
 
   @override
   ScanModel build({
     required final NavigationService navigationService,
+    required final ImageService imageService,
   }) {
     return const ScanModel();
   }
 
   @override
-  List<String> addToImagePaths(final List<String> imagePaths, final String path) {
+  List<String> addToImagePaths(
+      final List<String> imagePaths, final String path) {
     _log.i("adding image: $path");
-    return ImageService.addToImagePaths(imagePaths, path);
+    return imageService.addToImagePaths(imagePaths, path);
   }
 
   @override
   List<String> removeFromImagePaths(final List<String> imagePaths) {
     _log.i("removing image");
-    return ImageService.removeFromImagePaths(imagePaths);
+    return imageService.removeFromImagePaths(imagePaths);
   }
 
   @override
   String getLatestImagePath(final List<String> imagePaths) {
     _log.i("getting image");
-    return ImageService.getLatestImagePath(imagePaths);
+    return imageService.getLatestImagePath(imagePaths);
   }
 
   @override

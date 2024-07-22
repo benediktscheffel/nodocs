@@ -7,7 +7,7 @@ part of 'scan_controller_impl.dart';
 // **************************************************************************
 
 String _$scanControllerImplHash() =>
-    r'94ac8b1755b5e2d3615aac536402f950a6c56f0e';
+    r'9a0f2e8db6facb89cb2cafd5e476d3d37118a252';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,9 +33,11 @@ class _SystemHash {
 abstract class _$ScanControllerImpl
     extends BuildlessAutoDisposeNotifier<ScanModel> {
   late final NavigationService navigationService;
+  late final ImageService imageService;
 
   ScanModel build({
     required NavigationService navigationService,
+    required ImageService imageService,
   });
 }
 
@@ -51,9 +53,11 @@ class ScanControllerImplFamily extends Family<ScanModel> {
   /// See also [ScanControllerImpl].
   ScanControllerImplProvider call({
     required NavigationService navigationService,
+    required ImageService imageService,
   }) {
     return ScanControllerImplProvider(
       navigationService: navigationService,
+      imageService: imageService,
     );
   }
 
@@ -63,6 +67,7 @@ class ScanControllerImplFamily extends Family<ScanModel> {
   ) {
     return call(
       navigationService: provider.navigationService,
+      imageService: provider.imageService,
     );
   }
 
@@ -87,8 +92,11 @@ class ScanControllerImplProvider
   /// See also [ScanControllerImpl].
   ScanControllerImplProvider({
     required NavigationService navigationService,
+    required ImageService imageService,
   }) : this._internal(
-          () => ScanControllerImpl()..navigationService = navigationService,
+          () => ScanControllerImpl()
+            ..navigationService = navigationService
+            ..imageService = imageService,
           from: scanControllerImplProvider,
           name: r'scanControllerImplProvider',
           debugGetCreateSourceHash:
@@ -99,6 +107,7 @@ class ScanControllerImplProvider
           allTransitiveDependencies:
               ScanControllerImplFamily._allTransitiveDependencies,
           navigationService: navigationService,
+          imageService: imageService,
         );
 
   ScanControllerImplProvider._internal(
@@ -109,9 +118,11 @@ class ScanControllerImplProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.navigationService,
+    required this.imageService,
   }) : super.internal();
 
   final NavigationService navigationService;
+  final ImageService imageService;
 
   @override
   ScanModel runNotifierBuild(
@@ -119,6 +130,7 @@ class ScanControllerImplProvider
   ) {
     return notifier.build(
       navigationService: navigationService,
+      imageService: imageService,
     );
   }
 
@@ -127,13 +139,16 @@ class ScanControllerImplProvider
     return ProviderOverride(
       origin: this,
       override: ScanControllerImplProvider._internal(
-        () => create()..navigationService = navigationService,
+        () => create()
+          ..navigationService = navigationService
+          ..imageService = imageService,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         navigationService: navigationService,
+        imageService: imageService,
       ),
     );
   }
@@ -147,13 +162,15 @@ class ScanControllerImplProvider
   @override
   bool operator ==(Object other) {
     return other is ScanControllerImplProvider &&
-        other.navigationService == navigationService;
+        other.navigationService == navigationService &&
+        other.imageService == imageService;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
+    hash = _SystemHash.combine(hash, imageService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -162,6 +179,9 @@ class ScanControllerImplProvider
 mixin ScanControllerImplRef on AutoDisposeNotifierProviderRef<ScanModel> {
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
+
+  /// The parameter `imageService` of this provider.
+  ImageService get imageService;
 }
 
 class _ScanControllerImplProviderElement
@@ -172,6 +192,9 @@ class _ScanControllerImplProviderElement
   @override
   NavigationService get navigationService =>
       (origin as ScanControllerImplProvider).navigationService;
+  @override
+  ImageService get imageService =>
+      (origin as ScanControllerImplProvider).imageService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

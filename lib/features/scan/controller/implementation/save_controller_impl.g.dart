@@ -7,7 +7,7 @@ part of 'save_controller_impl.dart';
 // **************************************************************************
 
 String _$saveControllerImplHash() =>
-    r'55080950ac6731f8aa9013962d8d0d5bd677033d';
+    r'cd90891ca7122b6dcc409c671e6e1b814056fc7b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,15 +32,21 @@ class _SystemHash {
 
 abstract class _$SaveControllerImpl
     extends BuildlessAutoDisposeNotifier<SaveModel> {
-  late final FileSystemServiceImpl fileSystemService;
+  late final FileSystemService fileSystemService;
   late final NavigationService navigationService;
   late final OcrService ocrService;
+  late final CropService cropService;
+  late final ImageService imageService;
+  late final CarouselService carouselService;
   late final PersistenceService persistenceService;
 
   SaveModel build({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required OcrService ocrService,
+    required CropService cropService,
+    required ImageService imageService,
+    required CarouselService carouselService,
     required PersistenceService persistenceService,
   });
 }
@@ -56,15 +62,21 @@ class SaveControllerImplFamily extends Family<SaveModel> {
 
   /// See also [SaveControllerImpl].
   SaveControllerImplProvider call({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required OcrService ocrService,
+    required CropService cropService,
+    required ImageService imageService,
+    required CarouselService carouselService,
     required PersistenceService persistenceService,
   }) {
     return SaveControllerImplProvider(
       fileSystemService: fileSystemService,
       navigationService: navigationService,
       ocrService: ocrService,
+      cropService: cropService,
+      imageService: imageService,
+      carouselService: carouselService,
       persistenceService: persistenceService,
     );
   }
@@ -77,6 +89,9 @@ class SaveControllerImplFamily extends Family<SaveModel> {
       fileSystemService: provider.fileSystemService,
       navigationService: provider.navigationService,
       ocrService: provider.ocrService,
+      cropService: provider.cropService,
+      imageService: provider.imageService,
+      carouselService: provider.carouselService,
       persistenceService: provider.persistenceService,
     );
   }
@@ -101,15 +116,21 @@ class SaveControllerImplProvider
     extends AutoDisposeNotifierProviderImpl<SaveControllerImpl, SaveModel> {
   /// See also [SaveControllerImpl].
   SaveControllerImplProvider({
-    required FileSystemServiceImpl fileSystemService,
+    required FileSystemService fileSystemService,
     required NavigationService navigationService,
     required OcrService ocrService,
+    required CropService cropService,
+    required ImageService imageService,
+    required CarouselService carouselService,
     required PersistenceService persistenceService,
   }) : this._internal(
           () => SaveControllerImpl()
             ..fileSystemService = fileSystemService
             ..navigationService = navigationService
             ..ocrService = ocrService
+            ..cropService = cropService
+            ..imageService = imageService
+            ..carouselService = carouselService
             ..persistenceService = persistenceService,
           from: saveControllerImplProvider,
           name: r'saveControllerImplProvider',
@@ -123,6 +144,9 @@ class SaveControllerImplProvider
           fileSystemService: fileSystemService,
           navigationService: navigationService,
           ocrService: ocrService,
+          cropService: cropService,
+          imageService: imageService,
+          carouselService: carouselService,
           persistenceService: persistenceService,
         );
 
@@ -136,12 +160,18 @@ class SaveControllerImplProvider
     required this.fileSystemService,
     required this.navigationService,
     required this.ocrService,
+    required this.cropService,
+    required this.imageService,
+    required this.carouselService,
     required this.persistenceService,
   }) : super.internal();
 
-  final FileSystemServiceImpl fileSystemService;
+  final FileSystemService fileSystemService;
   final NavigationService navigationService;
   final OcrService ocrService;
+  final CropService cropService;
+  final ImageService imageService;
+  final CarouselService carouselService;
   final PersistenceService persistenceService;
 
   @override
@@ -152,6 +182,9 @@ class SaveControllerImplProvider
       fileSystemService: fileSystemService,
       navigationService: navigationService,
       ocrService: ocrService,
+      cropService: cropService,
+      imageService: imageService,
+      carouselService: carouselService,
       persistenceService: persistenceService,
     );
   }
@@ -165,6 +198,9 @@ class SaveControllerImplProvider
           ..fileSystemService = fileSystemService
           ..navigationService = navigationService
           ..ocrService = ocrService
+          ..cropService = cropService
+          ..imageService = imageService
+          ..carouselService = carouselService
           ..persistenceService = persistenceService,
         from: from,
         name: null,
@@ -174,6 +210,9 @@ class SaveControllerImplProvider
         fileSystemService: fileSystemService,
         navigationService: navigationService,
         ocrService: ocrService,
+        cropService: cropService,
+        imageService: imageService,
+        carouselService: carouselService,
         persistenceService: persistenceService,
       ),
     );
@@ -191,6 +230,9 @@ class SaveControllerImplProvider
         other.fileSystemService == fileSystemService &&
         other.navigationService == navigationService &&
         other.ocrService == ocrService &&
+        other.cropService == cropService &&
+        other.imageService == imageService &&
+        other.carouselService == carouselService &&
         other.persistenceService == persistenceService;
   }
 
@@ -200,6 +242,9 @@ class SaveControllerImplProvider
     hash = _SystemHash.combine(hash, fileSystemService.hashCode);
     hash = _SystemHash.combine(hash, navigationService.hashCode);
     hash = _SystemHash.combine(hash, ocrService.hashCode);
+    hash = _SystemHash.combine(hash, cropService.hashCode);
+    hash = _SystemHash.combine(hash, imageService.hashCode);
+    hash = _SystemHash.combine(hash, carouselService.hashCode);
     hash = _SystemHash.combine(hash, persistenceService.hashCode);
 
     return _SystemHash.finish(hash);
@@ -208,13 +253,22 @@ class SaveControllerImplProvider
 
 mixin SaveControllerImplRef on AutoDisposeNotifierProviderRef<SaveModel> {
   /// The parameter `fileSystemService` of this provider.
-  FileSystemServiceImpl get fileSystemService;
+  FileSystemService get fileSystemService;
 
   /// The parameter `navigationService` of this provider.
   NavigationService get navigationService;
 
   /// The parameter `ocrService` of this provider.
   OcrService get ocrService;
+
+  /// The parameter `cropService` of this provider.
+  CropService get cropService;
+
+  /// The parameter `imageService` of this provider.
+  ImageService get imageService;
+
+  /// The parameter `carouselService` of this provider.
+  CarouselService get carouselService;
 
   /// The parameter `persistenceService` of this provider.
   PersistenceService get persistenceService;
@@ -226,7 +280,7 @@ class _SaveControllerImplProviderElement
   _SaveControllerImplProviderElement(super.provider);
 
   @override
-  FileSystemServiceImpl get fileSystemService =>
+  FileSystemService get fileSystemService =>
       (origin as SaveControllerImplProvider).fileSystemService;
   @override
   NavigationService get navigationService =>
@@ -234,6 +288,15 @@ class _SaveControllerImplProviderElement
   @override
   OcrService get ocrService =>
       (origin as SaveControllerImplProvider).ocrService;
+  @override
+  CropService get cropService =>
+      (origin as SaveControllerImplProvider).cropService;
+  @override
+  ImageService get imageService =>
+      (origin as SaveControllerImplProvider).imageService;
+  @override
+  CarouselService get carouselService =>
+      (origin as SaveControllerImplProvider).carouselService;
   @override
   PersistenceService get persistenceService =>
       (origin as SaveControllerImplProvider).persistenceService;

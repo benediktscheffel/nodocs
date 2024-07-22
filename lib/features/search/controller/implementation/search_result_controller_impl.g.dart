@@ -7,7 +7,7 @@ part of 'search_result_controller_impl.dart';
 // **************************************************************************
 
 String _$searchResultControllerImplHash() =>
-    r'c4325cf5b8ab98b637f2eed04a1215256953eb34';
+    r'efb20eb987078c753c3105d7ba1c5cf5cd2f9993';
 
 /// Copied from Dart SDK
 class _SystemHash {

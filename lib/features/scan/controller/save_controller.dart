@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -17,6 +19,7 @@ abstract class SaveController {
   Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context);
   void toggleCamera();
   bool getCameraState();
+  String getLatestImagePath();
 
   // Tags
   List<String> getTags();
@@ -24,7 +27,7 @@ abstract class SaveController {
 
   // Document/OCR
   Future<void> checkInternetConnection();
-  Future<void> savePDF(final pdf);
+  Future<void> savePDF(final Future<Uint8List> pdf);
   Future<pw.Document> createPDF();
   Future<void> handleDocumentOCR();
 

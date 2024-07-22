@@ -63,22 +63,28 @@ class HomePage extends ConsumerWidget {
       ),
       bottomNavigationBar: NavigationBox(
         buttons: <Widget>[
-          NavigationButton(
-            buttonText: LocaleKeys.home_new_collection.tr(),
-            buttonIcon: Icons.add_outlined,
-            onPressed: () => _showCreateCollectionModal(
-                context, controller.createCollection(), controller.goBack),
+          Semantics(
+            identifier: 'new_collection',
+            child: NavigationButton(
+              buttonText: LocaleKeys.home_new_collection.tr(),
+              buttonIcon: Icons.add_outlined,
+              onPressed: () => _showCreateCollectionModal(
+                  context, controller.createCollection(), controller.goBack),
+            ),
           ),
-          NavigationButton(
-              buttonText: LocaleKeys.home_scan_document.tr(),
-              buttonIcon: Icons.camera_alt_outlined,
-              onPressed: () {
-                controller.goToPage(Uri(
-                    path: NavigationServiceRoutes.scan,
-                    queryParameters: <String, List<String>>{
-                      'path': <String>[],
-                    }));
-              }),
+          Semantics(
+            identifier: 'scan_document',
+            child: NavigationButton(
+                buttonText: LocaleKeys.home_scan_document.tr(),
+                buttonIcon: Icons.camera_alt_outlined,
+                onPressed: () {
+                  controller.goToPage(Uri(
+                      path: NavigationServiceRoutes.scan,
+                      queryParameters: <String, List<String>>{
+                        'path': <String>[],
+                      }));
+                }),
+          ),
           NavigationButton(
               buttonText: LocaleKeys.home_settings.tr(),
               buttonIcon: Icons.settings_outlined,
@@ -114,8 +120,10 @@ class HomePage extends ConsumerWidget {
                   controller.goBackTwice();
                 },
                 onCancel: () => controller.goBackTwice(),
-                header: LocaleKeys.home_collection_tile_delete_dialog_header.tr(),
-                notificationText: '${LocaleKeys.home_collection_tile_delete_dialog_header.tr()} \'${node.displayName}\'?',
+                header:
+                    LocaleKeys.home_collection_tile_delete_dialog_header.tr(),
+                notificationText:
+                    '${LocaleKeys.home_collection_tile_delete_dialog_header.tr()} \'${node.displayName}\'?',
               ),
               renameDialog: CollectionRenameDialog(
                 onSave: controller.renameCollectionOrFile(node.path),
