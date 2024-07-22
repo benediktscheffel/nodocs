@@ -15,6 +15,7 @@ import 'package:nodocs/widgets/title_with_button.dart';
 
 class CropPage extends ConsumerWidget {
   final List<String> imagePaths;
+
   const CropPage({super.key, required this.imagePaths});
 
   @override
@@ -30,17 +31,15 @@ class CropPage extends ConsumerWidget {
           icon: Icons.home_outlined,
           onButtonClick: () => showDialog<String>(
             context: context,
-            builder: (final BuildContext context) =>
-              ConfirmationDialog(
-                onConfirm: (){
+            builder: (final BuildContext context) => ConfirmationDialog(
+                onConfirm: () {
                   GoRouter.of(context).go(NavigationServiceRoutes.home);
                 },
-                onCancel: (){
+                onCancel: () {
                   Navigator.pop(context);
                 },
                 header: LocaleKeys.crop_discard_dialog_header.tr(),
-                notificationText: LocaleKeys.crop_discard_dialog_body.tr()
-              ),
+                notificationText: LocaleKeys.crop_discard_dialog_body.tr()),
           ),
         ),
       ),
@@ -50,56 +49,60 @@ class CropPage extends ConsumerWidget {
           ScanCrop(imagePaths: imagePaths),
         ],
       ),
-      bottomNavigationBar: NavigationBox(buttons: <Widget>[
-        NavigationButton(
-          buttonText: LocaleKeys.crop_navigation_retake_photo.tr(),
-          buttonIcon: Icons.flip_camera_ios_outlined,
-          onPressed: () => showDialog<String>(
-            context: context,
-            builder: (final BuildContext context) =>
-              ConfirmationDialog(
-                onConfirm: (){
+      bottomNavigationBar: NavigationBox(
+        buttons: <Widget>[
+          NavigationButton(
+            buttonText: LocaleKeys.crop_navigation_retake_photo.tr(),
+            buttonIcon: Icons.flip_camera_ios_outlined,
+            onPressed: () => showDialog<String>(
+              context: context,
+              builder: (final BuildContext context) => ConfirmationDialog(
+                onConfirm: () {
                   controller.removeLastImageFromImagePaths();
                   controller.goToPage(Uri(
-                    path: NavigationServiceRoutes.scan,
-                    queryParameters: <String, List<String>>{
-                      'path': controller.getImagePaths(),
-                    }));
+                      path: NavigationServiceRoutes.scan,
+                      queryParameters: <String, List<String>>{
+                        'path': controller.getImagePaths(),
+                      }));
                   controller.clear();
                 },
-                onCancel: (){
+                onCancel: () {
                   controller.goBack();
                 },
                 header: LocaleKeys.crop_retake_dialog_header.tr(),
                 notificationText: LocaleKeys.crop_retake_dialog_body.tr(),
               ),
+            ),
           ),
-        ),
-        NavigationButton(
-          buttonText: LocaleKeys.crop_navigation_keep_scanning.tr(),
-          buttonIcon: Icons.arrow_forward_outlined,
-          onPressed: () {
-            controller.goToPage(Uri(
-                path: NavigationServiceRoutes.scan,
-                queryParameters: <String, List<String>>{
-                  'path': controller.getImagePaths(),
-                }));
-            controller.clear();
-          },
-        ),
-        NavigationButton(
-          buttonText: LocaleKeys.crop_navigation_save_document.tr(),
-          buttonIcon: Icons.save_outlined,
-          onPressed: () {
-            controller.goToPage(Uri(
-                path: NavigationServiceRoutes.save,
-                queryParameters: <String, List<String>>{
-                  'path': controller.getImagePaths(),
-                }));
-            controller.clear();
-          },
-        ),
-      ]),
+          NavigationButton(
+            buttonText: LocaleKeys.crop_navigation_keep_scanning.tr(),
+            buttonIcon: Icons.arrow_forward_outlined,
+            onPressed: () {
+              controller.goToPage(Uri(
+                  path: NavigationServiceRoutes.scan,
+                  queryParameters: <String, List<String>>{
+                    'path': controller.getImagePaths(),
+                  }));
+              controller.clear();
+            },
+          ),
+          Semantics(
+            identifier: 'save_document_button',
+            child: NavigationButton(
+              buttonText: LocaleKeys.crop_navigation_save_document.tr(),
+              buttonIcon: Icons.save_outlined,
+              onPressed: () {
+                controller.goToPage(Uri(
+                    path: NavigationServiceRoutes.save,
+                    queryParameters: <String, List<String>>{
+                      'path': controller.getImagePaths(),
+                    }));
+                controller.clear();
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

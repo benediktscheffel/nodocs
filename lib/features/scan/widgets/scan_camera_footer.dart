@@ -57,10 +57,13 @@ class ScanCameraFooter extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            ScanCameraButton(
-              onAnimationEnd: () {
-                onTakePhoto.call();
-              },
+            Semantics(
+              identifier: 'scan_camera_button',
+              child: ScanCameraButton(
+                onAnimationEnd: () {
+                  onTakePhoto.call();
+                },
+              ),
             ),
           ],
         ),

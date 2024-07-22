@@ -26,6 +26,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 class SavePage extends ConsumerStatefulWidget {
   final List<String> imagePaths;
+
   const SavePage({super.key, required this.imagePaths});
 
   @override
@@ -52,83 +53,95 @@ class _SavePageState extends ConsumerState<SavePage> {
     final SaveController controller = ref.watch(saveControllerProvider);
     return FutureBuilder<void>(
         future: _initializeControllerFuture,
-        builder: (final BuildContext context, final AsyncSnapshot<void> snapshot)
-      {
-      if (!controller.getCameraState()) {
-        return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: theme.colorScheme.primary,
-            title: ScanTitleInput(
-              initialTitle: controller.getTitle(),
-              onTitleChanged: (final String title) {
-                controller.setTitle(title);
-              },
-            ),
-            centerTitle: true,
-          ),
-          body: ListView(
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                      ),
-                      child: DropdownWithLabel(
-                        dropdown: TagDropdown(
-                          tags: controller.getTags(),
-                          onSelectionChange: (final String tag) {
-                            controller.toggleTag(tag);
-                          },
+        builder:
+            (final BuildContext context, final AsyncSnapshot<void> snapshot) {
+          if (!controller.getCameraState()) {
+            return Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: theme.colorScheme.primary,
+                title: Semantics(
+                  identifier: 'save_title_input',
+                  child: ScanTitleInput(
+                    initialTitle: controller.getTitle(),
+                    onTitleChanged: (final String title) {
+                      controller.setTitle(title);
+                    },
+                  ),
+                ),
+                centerTitle: true,
+              ),
+              body: ListView(
+                scrollDirection: Axis.vertical,
+                children: <Widget>[
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                          ),
+                          child: DropdownWithLabel(
+                            dropdown: TagDropdown(
+                              tags: controller.getTags(),
+                              onSelectionChange: (final String tag) {
+                                controller.toggleTag(tag);
+                              },
+                            ),
+                            label: LocaleKeys.save_tag_dropdown_label.tr(),
+                          ),
                         ),
-                        label: LocaleKeys.save_tag_dropdown_label.tr(),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                      ),
-                      child: DropdownWithLabel(
-                        dropdown: CollectionDropdown(
-                          initialDirectory: controller.getDirectory(),
-                          onPathChanged: (final String dir) {
-                            controller.setDirectory(dir);
-                          },
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                          ),
+                          child: DropdownWithLabel(
+                            dropdown: CollectionDropdown(
+                              initialDirectory: controller.getDirectory(),
+                              onPathChanged: (final String dir) {
+                                controller.setDirectory(dir);
+                              },
+                            ),
+                            label:
+                                LocaleKeys.save_collection_dropdown_label.tr(),
+                          ),
                         ),
-                        label: LocaleKeys.save_collection_dropdown_label.tr(),
-                      ),
-                    ),
-                    const SizedBox(height: 5,),
-                    ScanCarousel(
-                      imagePaths: controller.getImagePaths(),
-                    ),
-                    const SizedBox(height: 5,),
-                    ScanActionButtonContainer(
-                      buttons: <Widget>[
-                        ScanActionButton(
-                          buttonIcon: Icons.crop_free_outlined,
-                          buttonText: LocaleKeys.save_action_buttons_crop_again.tr(),
-                          onPressed: () async {
-                            if (!mounted) return;
-                            final XFile pickedImage = controller.getSelectedImageFile();
-                            CroppedFile? croppedFile = await controller.cropImage(theme, pickedImage, context);
-                            if (croppedFile != null) {
-                              controller.setEditedImage(croppedFile.path);
-                              setState(() {});
-                            }
-                          },
+                        const SizedBox(
+                          height: 5,
                         ),
-                        ScanActionButton(
-                          buttonIcon: Icons.flip_camera_ios_outlined,
-                          buttonText: LocaleKeys.save_action_buttons_retake.tr(),
-                          onPressed: () =>
-                              showDialog<String>(
+                        ScanCarousel(
+                          imagePaths: controller.getImagePaths(),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        ScanActionButtonContainer(
+                          buttons: <Widget>[
+                            ScanActionButton(
+                              buttonIcon: Icons.crop_free_outlined,
+                              buttonText: LocaleKeys
+                                  .save_action_buttons_crop_again
+                                  .tr(),
+                              onPressed: () async {
+                                if (!mounted) return;
+                                final XFile pickedImage =
+                                    controller.getSelectedImageFile();
+                                CroppedFile? croppedFile = await controller
+                                    .cropImage(theme, pickedImage, context);
+                                if (croppedFile != null) {
+                                  controller.setEditedImage(croppedFile.path);
+                                  setState(() {});
+                                }
+                              },
+                            ),
+                            ScanActionButton(
+                              buttonIcon: Icons.flip_camera_ios_outlined,
+                              buttonText:
+                                  LocaleKeys.save_action_buttons_retake.tr(),
+                              onPressed: () => showDialog<String>(
                                 context: context,
                                 builder: (final BuildContext context) =>
                                     ConfirmationDialog(
@@ -140,25 +153,27 @@ class _SavePageState extends ConsumerState<SavePage> {
                                         onCancel: () {
                                           controller.goBack();
                                         },
-                                        header: LocaleKeys.save_retake_dialog_header.tr(),
-                                        notificationText: LocaleKeys.save_retake_dialog_body.tr()
-                                    ),
+                                        header: LocaleKeys
+                                            .save_retake_dialog_header
+                                            .tr(),
+                                        notificationText: LocaleKeys
+                                            .save_retake_dialog_body
+                                            .tr()),
                               ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          bottomNavigationBar: NavigationBox(
-            buttons: <Widget>[
-              NavigationButton(
-                buttonText: LocaleKeys.save_navigation_cancel.tr(),
-                buttonIcon: Icons.cancel_outlined,
-                onPressed: () =>
-                    showDialog<String>(
+              bottomNavigationBar: NavigationBox(
+                buttons: <Widget>[
+                  NavigationButton(
+                    buttonText: LocaleKeys.save_navigation_cancel.tr(),
+                    buttonIcon: Icons.cancel_outlined,
+                    onPressed: () => showDialog<String>(
                       context: context,
                       builder: (final BuildContext context) =>
                           ConfirmationDialog(
@@ -170,115 +185,118 @@ class _SavePageState extends ConsumerState<SavePage> {
                                 controller.goBack();
                               },
                               header: LocaleKeys.save_cancel_dialog_header.tr(),
-                              notificationText: LocaleKeys.save_cancel_dialog_body.tr()
-                          ),
+                              notificationText:
+                                  LocaleKeys.save_cancel_dialog_body.tr()),
                     ),
+                  ),
+                  Semantics(
+                    identifier: 'save_document_button',
+                    child: NavigationButton(
+                        buttonText: LocaleKeys.save_navigation_save.tr(),
+                        buttonIcon: Icons.save_outlined,
+                        onPressed: () {
+                          controller.createPDF().then((final pw.Document pdf) {
+                            controller.savePDF(pdf.save()).then((final _) {
+                              controller.goToPage(
+                                  Uri(path: NavigationServiceRoutes.home));
+                            }).catchError((final _) {
+                              showErrorDuringPdfSaveDialog(controller);
+                            });
+                          }).catchError((final _) {
+                            showErrorDuringPdfSaveDialog(controller);
+                          });
+                          showDialog<String>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (final BuildContext context) {
+                              return const ScanOcrLoadingDialog();
+                            },
+                          );
+                        }),
+                  ),
+                  Semantics(
+                    identifier: 'save_ocr_button',
+                    child: NavigationButton(
+                        buttonText: LocaleKeys.save_navigation_ocr_save.tr(),
+                        buttonIcon: Icons.document_scanner_outlined,
+                        onPressed: () {
+                          controller.checkInternetConnection().then((final _) {
+                            controller.handleDocumentOCR().then((final _) {
+                              controller.goToPage(
+                                  Uri(path: NavigationServiceRoutes.home));
+                            }).catchError((final _) {
+                              showErrorDuringOcrDialog(controller);
+                            });
+                          }).catchError((final _) {
+                            showErrorInternetDialog(controller);
+                          });
+                          showDialog<String>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (final BuildContext context) {
+                              return const ScanOcrLoadingDialog();
+                            },
+                          );
+                        }),
+                  ),
+                ],
               ),
-              NavigationButton(
-                  buttonText: LocaleKeys.save_navigation_save.tr(),
-                  buttonIcon: Icons.save_outlined,
-                  onPressed: () {
-                    controller.createPDF().then((final pw.Document pdf) {
-                      controller.savePDF(pdf.save()).then((final _) {
-                        controller.goToPage(
-                            Uri(path: NavigationServiceRoutes.home));
-                      }).catchError((final _) {
-                        showErrorDuringPdfSaveDialog(controller);
-                      });
-                    }).catchError((final _) {
-                      showErrorDuringPdfSaveDialog(controller);
+            );
+          } else {
+            final AsyncValue<List<CameraDescription>> cameraListAsyncValue =
+                ref.watch(cameraProvider);
+            return Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: theme.colorScheme.primary,
+                title: TitleWithButton(
+                  title: 'Retake Photo',
+                  icon: Icons.arrow_back_ios_new_outlined,
+                  onButtonClick: () {
+                    setState(() {
+                      controller.toggleCamera();
+                      SystemChrome.setPreferredOrientations(
+                          <DeviceOrientation>[]);
                     });
-                    showDialog<String>(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (final BuildContext context) {
-                        return const ScanOcrLoadingDialog();
-                      },
-                    );
-                  }
+                  },
+                ),
+                centerTitle: true,
               ),
-              NavigationButton(
-                  buttonText: LocaleKeys.save_navigation_ocr_save.tr(),
-                  buttonIcon: Icons.document_scanner_outlined,
-                  onPressed: () {
-                    controller.checkInternetConnection().then((final _) {
-                      controller.handleDocumentOCR().then((final _) {
-                        controller.goToPage(
-                            Uri(path: NavigationServiceRoutes.home));
-                      }).catchError((final _) {
-                        showErrorDuringOcrDialog(controller);
-                      });
-                    }).catchError((final _) {
-                      showErrorInternetDialog(controller);
-                    });
-                    showDialog<String>(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (final BuildContext context) {
-                        return const ScanOcrLoadingDialog();
-                      },
-                    );
+              body: cameraListAsyncValue.when(
+                data: (final List<CameraDescription> cameras) {
+                  if (cameras.isEmpty) {
+                    return const Center(child: Text('No camera found'));
                   }
-              ),
-            ],
-          ),
-        );
-      } else {
-        final AsyncValue<List<CameraDescription>> cameraListAsyncValue = ref.watch(cameraProvider);
-        return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: theme.colorScheme.primary,
-            title: TitleWithButton(
-              title: 'Retake Photo',
-              icon: Icons.arrow_back_ios_new_outlined,
-              onButtonClick: () {
-                setState(() {
-                  controller.toggleCamera();
                   SystemChrome.setPreferredOrientations(
-                      <DeviceOrientation>[]
+                      <DeviceOrientation>[DeviceOrientation.portraitUp]);
+                  return ScanCamera(
+                    imagePaths: const <String>[],
+                    cameraList: cameras,
+                    onPhoto: (final XFile image) {
+                      controller.setEditedImage(image.path);
+                      controller.toggleCamera();
+                      setState(() {});
+                    },
+                    onImageSelected: (final String path) {
+                      controller.setEditedImage(path);
+                      controller.toggleCamera();
+                      setState(() {});
+                    },
+                    onLastImageTapped: () {},
+                    onOrientationAngleChanged: (final double value) {},
+                    latestImagePath: controller.getLatestImagePath(),
                   );
-                });
-              },
-            ),
-            centerTitle: true,
-          ),
-          body: cameraListAsyncValue.when(
-            data: (final List<CameraDescription> cameras) {
-              if (cameras.isEmpty) {
-                return const Center(child: Text('No camera found'));
-              }
-              SystemChrome.setPreferredOrientations(
-                  <DeviceOrientation>[DeviceOrientation.portraitUp]
-              );
-              return ScanCamera(
-                imagePaths: const <String>[],
-                cameraList: cameras,
-                onPhoto: (final XFile image) {
-                  controller.setEditedImage(image.path);
-                  controller.toggleCamera();
-                  setState(() {});
                 },
-                onImageSelected: (final String path) {
-                  controller.setEditedImage(path);
-                  controller.toggleCamera();
-                  setState(() {});
-                },
-                onLastImageTapped: () {},
-                onOrientationAngleChanged: (final double value) {  },
-                latestImagePath: controller.getLatestImagePath(),
-              );
-            },
-            loading: () => Center(
-                child: CircularProgressIndicator(
+                loading: () => Center(
+                    child: CircularProgressIndicator(
                   color: Theme.of(context).colorScheme.onPrimary,
-                )
-            ),
-            error: (final Object err, final StackTrace stack) => Center(child: Text('Error: $err')),
-          ),
-        );
-      }
-    });
+                )),
+                error: (final Object err, final StackTrace stack) =>
+                    Center(child: Text('Error: $err')),
+              ),
+            );
+          }
+        });
   }
 
   void showErrorDuringPdfSaveDialog(final SaveController controller) {
@@ -292,7 +310,8 @@ class _SavePageState extends ConsumerState<SavePage> {
           },
           onCancel: () {},
           header: LocaleKeys.save_error_dialogs_save_header.tr(),
-          notificationText: LocaleKeys.save_error_dialogs_save_notification_text.tr(),
+          notificationText:
+              LocaleKeys.save_error_dialogs_save_notification_text.tr(),
           cancelText: "",
           confirmText: LocaleKeys.save_error_dialogs_save_confirm.tr(),
         );
@@ -309,9 +328,10 @@ class _SavePageState extends ConsumerState<SavePage> {
             controller.goBack();
             controller.goBack();
           },
-          onCancel: (){},
+          onCancel: () {},
           header: LocaleKeys.save_error_dialogs_ocr_header.tr(),
-          notificationText: LocaleKeys.save_error_dialogs_ocr_notification_text.tr(),
+          notificationText:
+              LocaleKeys.save_error_dialogs_ocr_notification_text.tr(),
           cancelText: "",
           confirmText: LocaleKeys.save_error_dialogs_ocr_confirm.tr(),
         );
@@ -328,9 +348,10 @@ class _SavePageState extends ConsumerState<SavePage> {
             controller.goBack();
             controller.goBack();
           },
-          onCancel: (){},
+          onCancel: () {},
           header: LocaleKeys.save_error_dialogs_internet_header.tr(),
-          notificationText: LocaleKeys.save_error_dialogs_internet_notification_text.tr(),
+          notificationText:
+              LocaleKeys.save_error_dialogs_internet_notification_text.tr(),
           cancelText: "",
           confirmText: LocaleKeys.save_error_dialogs_internet_confirm.tr(),
         );
