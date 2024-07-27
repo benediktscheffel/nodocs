@@ -33,7 +33,7 @@ class CropControllerImpl extends _$CropControllerImpl implements CropController 
   @override
   void goToPage(final Uri uri) {
     _log.i("Navigating to: ${uri.toString()}");
-    navigationService.push(uri.toString());
+    navigationService.replaceWith(uri);
   }
 
   @override

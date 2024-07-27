@@ -48,7 +48,7 @@ class ScanControllerImpl extends _$ScanControllerImpl
   @override
   void goToPage(final Uri uri) {
     _log.i("Navigating to: ${uri.toString()}");
-    navigationService.push(uri.toString());
+    navigationService.replaceWith(uri);
   }
 
   @override
