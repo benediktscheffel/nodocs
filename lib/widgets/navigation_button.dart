@@ -42,7 +42,6 @@ class NavigationButton extends StatelessWidget {
           TextStyle(
             color: theme.colorScheme.onSecondary,
             fontSize: theme.textTheme.labelSmall!.fontSize,
-            height: 0,
           ),
         ),
       ])

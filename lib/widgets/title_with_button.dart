@@ -16,10 +16,13 @@ class TitleWithButton extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
+    final bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Stack(
       children: <Widget>[
         SizedBox(
-          height: 42,
+          height: landscape ? size.width * 0.048 : size.height * 0.048,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/tags/widgets/tag_chip_dropdown.dart';
 
@@ -86,7 +88,9 @@ class TagDropdownState extends State<TagDropdown> {
               elevation: 4.0,
               borderRadius: BorderRadius.circular(16.0),
               child: Container(
-                height: 200,
+                height: widget.tags.isEmpty ?
+                        50 :
+                        50 * (min(widget.tags.length/3, 4)),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.tertiaryContainer,
                   borderRadius: BorderRadius.circular(16.0),

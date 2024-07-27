@@ -13,6 +13,10 @@ class ScanCarousel extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     SaveController saveController = ref.watch(saveControllerProvider);
     final CarouselController carouselController = CarouselController();
+
+    final Size size = MediaQuery.of(context).size;
+    final bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Column(
       children: <Widget>[
         if (saveController.getImageWidgets().isNotEmpty)
@@ -20,8 +24,8 @@ class ScanCarousel extends ConsumerWidget {
             items: saveController.getImageWidgets(),
             carouselController: carouselController,
             options: CarouselOptions(
-              height: 300,
-              autoPlay: false,
+              height: landscape ? size.width* 0.33 : size.height * 0.33,
+                autoPlay: false,
               aspectRatio: 3/4,
               scrollDirection: Axis.horizontal,
               enlargeCenterPage: true,

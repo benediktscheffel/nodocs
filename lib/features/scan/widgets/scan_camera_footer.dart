@@ -85,7 +85,7 @@ class ScanCameraFooter extends StatelessWidget {
     ];
 
     return Container(
-      height: 150,
+      height: size.height * 0.165,
       decoration: const BoxDecoration(
         color: Color(0x77000000),
       ),
