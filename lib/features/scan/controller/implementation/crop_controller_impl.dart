@@ -33,7 +33,7 @@ class CropControllerImpl extends _$CropControllerImpl implements CropController 
   @override
   void goToPage(final Uri uri) {
     _log.i("Navigating to: ${uri.toString()}");
-    navigationService.push(uri.toString());
+    navigationService.replaceWith(uri);
   }
 
   @override
@@ -88,5 +88,10 @@ class CropControllerImpl extends _$CropControllerImpl implements CropController 
   void replaceImagePath(final String newPath) {
     _log.i("replace ${state.imagePaths.last}");
     state = state.copyWith(imagePaths: imageService.replaceImagePath(state.imagePaths.last, newPath, state.imagePaths));
+  }
+
+  @override
+  void goBackHome() {
+    navigationService.clearStack();
   }
 }

@@ -58,156 +58,168 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Row(
-      children: <Widget>[
-        Material(
-          color: Colors.transparent,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: theme.colorScheme.onPrimary,
-              size: 24,
-            ),
-            onPressed: () {
-              widget.onTap?.call('Cancel Search');
-              clearSearch();
-              _pdfTextSearchResult.clear();
-            },
-          ),
-        ),
-        Flexible(
-          child: TextFormField(
-            style: TextStyle(color: theme.colorScheme.onPrimary, fontSize: 16),
-            enableInteractiveSelection: false,
-            focusNode: focusNode,
-            keyboardType: TextInputType.text,
-            textInputAction: TextInputAction.search,
-            controller: _editingController,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: LocaleKeys.pdf_viewer_search_toolbar_hint_text.tr(),
-              hintStyle: TextStyle(
-                  color: theme.colorScheme.onPrimary.withOpacity(0.34)),
-            ),
-            onChanged: (final _) async {
-              setState(() {});
-            },
-            onFieldSubmitted: (final String text) {
-              _isSearchInitiated = true;
-              if (text.isNotEmpty) {
-                _pdfTextSearchResult = widget.controller!.searchText(text);
-                _pdfTextSearchResult.addListener(() {
-                  if (super.mounted) {
-                    setState(() {});
-                  }
-                  if (!_pdfTextSearchResult.hasResult &&
-                      _pdfTextSearchResult.isSearchCompleted) {
-                    widget.onTap?.call('noResultFound');
-                  }
-                });
-              } else {
-                clearSearch();
-                widget.controller!.clearSelection();
-                setState(() {});
-              }
-            },
-          ),
-        ),
-        Visibility(
-          visible: _editingController.text.isNotEmpty,
-          child: Material(
+    return LayoutBuilder(builder: (final BuildContext context, final BoxConstraints constraints) {
+      double commonSize = constraints.maxHeight * 0.429;
+      return Row(
+        children: <Widget>[
+          Material(
             color: Colors.transparent,
             child: IconButton(
               icon: Icon(
-                Icons.clear,
+                Icons.arrow_back,
                 color: theme.colorScheme.onPrimary,
-                size: 24,
+                size: commonSize,
               ),
               onPressed: () {
-                setState(() {
-                  _editingController.clear();
-                  widget.controller!.clearSelection();
-                  clearSearch();
-                  focusNode!.requestFocus();
-                });
-                widget.onTap!.call('Clear Text');
+                widget.onTap?.call('Cancel Search');
+                clearSearch();
+                _pdfTextSearchResult.clear();
               },
-              tooltip: widget.showTooltip ? 'Clear Text' : null,
             ),
           ),
-        ),
-        Visibility(
-          visible:
-              !_pdfTextSearchResult.isSearchCompleted && _isSearchInitiated,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: SizedBox(
-              width: 24,
-              height: 24,
-              child: CircularProgressIndicator(
-                color: theme.primaryColor,
+          Flexible(
+            child: TextFormField(
+              style: TextStyle(
+                  color: theme.colorScheme.onPrimary,
+                fontSize: theme.textTheme.bodyMedium!.fontSize,
+              ),
+              enableInteractiveSelection: false,
+              focusNode: focusNode,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.search,
+              controller: _editingController,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: LocaleKeys.pdf_viewer_search_toolbar_hint_text.tr(),
+                hintStyle: TextStyle(
+                    color: theme.colorScheme.onPrimary.withOpacity(0.34)),
+              ),
+              onChanged: (final _) async {
+                setState(() {});
+              },
+              onFieldSubmitted: (final String text) {
+                _isSearchInitiated = true;
+                if (text.isNotEmpty) {
+                  _pdfTextSearchResult = widget.controller!.searchText(text);
+                  _pdfTextSearchResult.addListener(() {
+                    if (super.mounted) {
+                      setState(() {});
+                    }
+                    if (!_pdfTextSearchResult.hasResult &&
+                        _pdfTextSearchResult.isSearchCompleted) {
+                      widget.onTap?.call('noResultFound');
+                    }
+                  });
+                } else {
+                  clearSearch();
+                  widget.controller!.clearSelection();
+                  setState(() {});
+                }
+              },
+            ),
+          ),
+          Visibility(
+            visible: _editingController.text.isNotEmpty,
+            child: Material(
+              color: Colors.transparent,
+              child: IconButton(
+                icon: Icon(
+                  Icons.clear,
+                  color: theme.colorScheme.onPrimary,
+                  size: commonSize,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _editingController.clear();
+                    widget.controller!.clearSelection();
+                    clearSearch();
+                    focusNode!.requestFocus();
+                  });
+                  widget.onTap!.call('Clear Text');
+                },
+                tooltip: widget.showTooltip ? 'Clear Text' : null,
               ),
             ),
           ),
-        ),
-        Visibility(
-          visible: _pdfTextSearchResult.hasResult,
-          child: Row(
-            children: <Widget>[
-              Text(
-                '${_pdfTextSearchResult.currentInstanceIndex}',
-                style:
-                    TextStyle(color: theme.colorScheme.onPrimary, fontSize: 16),
-              ),
-              Text(
-                LocaleKeys.pdf_viewer_search_toolbar_of.tr(),
-                style:
-                    TextStyle(color: theme.colorScheme.onPrimary, fontSize: 16),
-              ),
-              Text(
-                '${_pdfTextSearchResult.totalInstanceCount}',
-                style:
-                    TextStyle(color: theme.colorScheme.onPrimary, fontSize: 16),
-              ),
-              Material(
-                color: Colors.transparent,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.navigate_before,
-                    color: theme.colorScheme.onPrimary,
-                    size: 24,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _pdfTextSearchResult.previousInstance();
-                    });
-                    widget.onTap!.call('Previous Instance');
-                  },
-                  tooltip: widget.showTooltip ? 'Previous' : null,
+          Visibility(
+            visible:
+            !_pdfTextSearchResult.isSearchCompleted && _isSearchInitiated,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: SizedBox(
+                width: commonSize,
+                height: commonSize,
+                child: CircularProgressIndicator(
+                  color: theme.primaryColor,
                 ),
               ),
-              Material(
-                color: Colors.transparent,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.navigate_next,
-                    color: theme.colorScheme.onPrimary,
-                    size: 24,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      widget.controller!.clearSelection();
-                      _pdfTextSearchResult.nextInstance();
-                    });
-                    widget.onTap!.call('Next Instance');
-                  },
-                  tooltip: widget.showTooltip ? 'Next' : null,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ],
-    );
+          Visibility(
+            visible: _pdfTextSearchResult.hasResult,
+            child: Row(
+              children: <Widget>[
+                Text(
+                  '${_pdfTextSearchResult.currentInstanceIndex}',
+                  style: TextStyle(
+                      color: theme.colorScheme.onPrimary,
+                      fontSize: theme.textTheme.bodyMedium!.fontSize,
+                  ),
+                ),
+                Text(
+                  LocaleKeys.pdf_viewer_search_toolbar_of.tr(),
+                  style: TextStyle(
+                      color: theme.colorScheme.onPrimary,
+                      fontSize: theme.textTheme.bodyMedium!.fontSize,
+                  ),
+                ),
+                Text(
+                  '${_pdfTextSearchResult.totalInstanceCount}',
+                  style: TextStyle(
+                      color: theme.colorScheme.onPrimary,
+                      fontSize: theme.textTheme.bodyMedium!.fontSize,
+                  ),
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.navigate_before,
+                      color: theme.colorScheme.onPrimary,
+                      size: commonSize,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _pdfTextSearchResult.previousInstance();
+                      });
+                      widget.onTap!.call('Previous Instance');
+                    },
+                    tooltip: widget.showTooltip ? 'Previous' : null,
+                  ),
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.navigate_next,
+                      color: theme.colorScheme.onPrimary,
+                      size: commonSize,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        widget.controller!.clearSelection();
+                        _pdfTextSearchResult.nextInstance();
+                      });
+                      widget.onTap!.call('Next Instance');
+                    },
+                    tooltip: widget.showTooltip ? 'Next' : null,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

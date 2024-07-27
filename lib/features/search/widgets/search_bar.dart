@@ -17,16 +17,19 @@ class SearchBox extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final SearchResultController searchResultController = ref.watch(searchResultControllerProvider);
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
+    final bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Theme(
       data: theme,
       child: Padding(
-        padding: const EdgeInsets.only(
-          left: 20.0,
-          right: 20.0,
+        padding:  EdgeInsets.only(
+          left: landscape ? 60.0: 20.0,
+          right: landscape ? 60.0 : 20.0,
           bottom: 20.0,
         ),
         child: Container(
-          height: 56,
+          height: landscape ? size.width * 0.07 : size.height * 0.07,
           decoration: BoxDecoration(
             border: Border.all(
               color: theme.colorScheme.secondary,

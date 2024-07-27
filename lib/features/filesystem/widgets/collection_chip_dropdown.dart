@@ -8,30 +8,32 @@ class CollectionChipDropdown extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return SizedBox(
-      height: 38,
-      child: InputChip(
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          side: const BorderSide(style: BorderStyle.none),
-        ),
-        label: IntrinsicWidth(
-          child: Row(
-            children: <Widget>[
-              Text(
-                pathName,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: theme.colorScheme.onTertiaryContainer,
-                ),
-              ),
-            ],
+    return LayoutBuilder(builder: (final BuildContext context, final BoxConstraints constraints) {
+      return SizedBox(
+        height: constraints.maxHeight * 0.76,
+        child: InputChip(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+            side: const BorderSide(style: BorderStyle.none),
           ),
+          label: IntrinsicWidth(
+            child: Row(
+              children: <Widget>[
+                Text(
+                  pathName,
+                  style: TextStyle(
+                    fontSize: theme.textTheme.bodySmall!.fontSize,
+                    color: theme.colorScheme.onTertiaryContainer,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          color: WidgetStateProperty.all<Color>(theme.colorScheme.tertiaryContainer),
+          onPressed: () {},
         ),
-        color: WidgetStateProperty.all<Color>(theme.colorScheme.tertiaryContainer),
-        onPressed: () {},
-      ),
-    );
+      );
+    });
   }
 }

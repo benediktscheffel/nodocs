@@ -8,6 +8,7 @@ class ScanActionButtonContainer extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List<Widget>.generate(buttons.length * 2 - 1, (final int index) {
@@ -15,11 +16,11 @@ class ScanActionButtonContainer extends StatelessWidget {
           return buttons[index ~/ 2];
         } else {
           return SizedBox(
-            height: 70,
+            height: size.height * 0.075,
             child: VerticalDivider(
               color: theme.colorScheme.secondary,
               thickness: 1.0,
-              width: 30,
+              width: size.width * 0.0695,
               indent: 0,
               endIndent: 22,
             ),

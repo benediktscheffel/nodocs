@@ -8,6 +8,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:logger/logger.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
+import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/save_controller.dart';
 import 'package:nodocs/features/scan/model/save_model.dart';
 import 'package:nodocs/features/scan/services/carousel_service.dart';
@@ -120,6 +121,12 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   void goBack() {
     _log.i("Going back");
     navigationService.pop();
+  }
+
+  @override
+  void goBackHome() {
+    navigationService.clearStack();
+    navigationService.replaceWith(Uri(path: NavigationServiceRoutes.home));
   }
 
   String _getImagePathById(final int id) {

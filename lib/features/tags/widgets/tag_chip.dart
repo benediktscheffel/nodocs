@@ -4,12 +4,14 @@ class TagChip extends StatefulWidget {
   final bool tagState;
   final String tagName;
   final ValueChanged<bool> onSelected;
+  final double heightOfParent;
 
   const TagChip({
     super.key,
     required this.tagState,
     required this.tagName,
     required this.onSelected,
+    required this.heightOfParent,
   });
 
   @override
@@ -29,7 +31,7 @@ class TagChipState extends State<TagChip> {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return SizedBox(
-      height: 40,
+      height: 0.476 * widget.heightOfParent,
       child: InputChip(
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: RoundedRectangleBorder(
@@ -40,24 +42,25 @@ class TagChipState extends State<TagChip> {
         label: _tagState
             ? IntrinsicWidth(
                 child: Row(children: <Widget>[
-                const Text(
+                Text(
                   "# ",
-                  style: TextStyle(fontSize: 14),
+                  style:
+                      TextStyle(fontSize: theme.textTheme.bodySmall!.fontSize),
                 ),
                 Text(
                   widget.tagName,
-                  style: const TextStyle(fontSize: 14),
+                  style:  TextStyle(fontSize: theme.textTheme.bodySmall!.fontSize),
                 )
               ]))
             : IntrinsicWidth(
                 child: Row(children: <Widget>[
-                const Icon(
+                Icon(
                   Icons.add_outlined,
-                  size: 23,
+                  size: 0.274 * widget.heightOfParent,
                 ),
                 Text(
                   widget.tagName,
-                  style: const TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: theme.textTheme.bodySmall!.fontSize),
                 )
               ])),
         onSelected: (final bool _) {
@@ -71,9 +74,9 @@ class TagChipState extends State<TagChip> {
             ? WidgetStateProperty.all<Color>(theme.colorScheme.secondary)
             : WidgetStateProperty.all<Color>(theme.colorScheme.tertiary),
         deleteIcon: _tagState
-            ? const Icon(
+            ? Icon(
                 Icons.close,
-                size: 20,
+                size: 0.238 * widget.heightOfParent,
               )
             : null,
         onDeleted: _tagState ? () {} : null,

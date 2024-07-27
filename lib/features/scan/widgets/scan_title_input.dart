@@ -46,6 +46,9 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
+    final bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Theme(
       data: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
@@ -57,7 +60,7 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
       child: Stack(
         children: <Widget>[
           SizedBox(
-            height: 42,
+            height: landscape ? size.width * 0.048 : size.height * 0.048,
             child: CustomPaint(
               painter: DottedUnderlinePainter(
                 color: theme.colorScheme.onPrimary,
@@ -68,7 +71,7 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
                 focusNode: _focusNode,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 17,
+                  fontSize: theme.textTheme.bodyMedium!.fontSize,
                   fontWeight: FontWeight.bold,
                   color: theme.colorScheme.onPrimary,
                 ),

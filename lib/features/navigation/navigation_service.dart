@@ -4,4 +4,5 @@ abstract class NavigationService {
   void push(final String uri);
   void replaceWith(final Uri uri);
   void replaceWithNamed(final Uri uri);
+  void clearStack();
 }

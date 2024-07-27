@@ -24,8 +24,14 @@ class DialogBox extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(headerText, style: const TextStyle(fontSize: 24))),
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                headerText,
+                style: TextStyle(
+                  fontSize: theme.textTheme.headlineMedium!.fontSize,
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

@@ -6,28 +6,35 @@ class ScanBoxLastImage extends StatelessWidget {
   final String imgPath;
   final int scanCounter;
   final VoidCallback onTap;
-  const ScanBoxLastImage({super.key, required this.imgPath, required this.scanCounter, required this.onTap});
+
+  const ScanBoxLastImage(
+      {super.key,
+      required this.imgPath,
+      required this.scanCounter,
+      required this.onTap});
 
   @override
   Widget build(final BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final ThemeData theme = Theme.of(context);
     if (imgPath != '') {
       return Image(
         image: FileImage(File(imgPath)),
-        frameBuilder: (final BuildContext context, final Widget child, final int? frame, final bool? wasSynchronouslyLoaded) {
-          const TextStyle textStyle = TextStyle(
+        frameBuilder: (final BuildContext context, final Widget child,
+            final int? frame, final bool? wasSynchronouslyLoaded) {
+          TextStyle textStyle = TextStyle(
             color: Colors.white,
-            fontSize: 13
+            fontSize: theme.textTheme.bodySmall!.fontSize,
           );
           return Center(
             child: InkWell(
-              onTap: (){
+              onTap: () {
                 onTap.call();
               },
               child: Container(
-                height: 50.0,
-                width: 50.0,
-                decoration:
-                BoxDecoration(
+                height: size.height * 0.056,
+                width: size.height * 0.056,
+                decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(3.0),
                   border: Border.all(
@@ -45,34 +52,37 @@ class ScanBoxLastImage extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
-                      child: scanCounter.toString().length > 1 ? Container(
-                        width: 22,
-                        height: 22,
-                        decoration: const BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.all(Radius.circular(22)),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            '9+',
-                            style: textStyle,
-                          ),
-                        ),
-                      ) :
-                      Container(
-                        width: 20,
-                        height: 20,
-                        decoration: const BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: Center(
-                          child: Text(
-                            scanCounter.toString(),
-                            style: textStyle,
-                          ),
-                        ),
-                      ),
+                      child: scanCounter.toString().length > 1
+                          ? Container(
+                              width: 22,
+                              height: 22,
+                              decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(22)),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '9+',
+                                  style: textStyle,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              width: 20,
+                              height: 20,
+                              decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  scanCounter.toString(),
+                                  style: textStyle,
+                                ),
+                              ),
+                            ),
                     ),
                   ],
                 ),
@@ -86,11 +96,10 @@ class ScanBoxLastImage extends StatelessWidget {
       child: Container(
         height: 50.0,
         width: 50.0,
-        decoration:
-          BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(3.0),
-          ),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(3.0),
+        ),
       ),
     );
   }

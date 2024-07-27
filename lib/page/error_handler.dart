@@ -92,7 +92,7 @@ class _ErrorHandlerWidgetState extends ConsumerState<ErrorHandler> {
                       Text(
                         LocaleKeys.general_error_handler_apology.tr(),
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: theme.textTheme.bodyMedium!.fontSize,
                           color: theme.colorScheme.onSecondary
                         ),
                       ),

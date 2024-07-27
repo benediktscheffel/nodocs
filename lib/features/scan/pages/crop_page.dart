@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/crop_controller.dart';
 import 'package:nodocs/features/scan/controller/implementation/crop_provider.dart';
@@ -33,10 +32,11 @@ class CropPage extends ConsumerWidget {
             context: context,
             builder: (final BuildContext context) => ConfirmationDialog(
                 onConfirm: () {
-                  GoRouter.of(context).go(NavigationServiceRoutes.home);
+                  controller.clear();
+                  controller.goBackHome();
                 },
                 onCancel: () {
-                  Navigator.pop(context);
+                  controller.goBack();
                 },
                 header: LocaleKeys.crop_discard_dialog_header.tr(),
                 notificationText: LocaleKeys.crop_discard_dialog_body.tr()),

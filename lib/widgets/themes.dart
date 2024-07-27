@@ -29,6 +29,26 @@ class Themes {
       height: 32,
       minWidth: 64,
     ),
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(
+        fontSize: 20,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 17,
+      ),
+      bodySmall: TextStyle(
+        fontSize: 14,
+      ),
+      labelSmall: TextStyle(
+        fontSize: 12,
+      ),
+      labelMedium: TextStyle(
+        fontSize: 13,
+      ),
+      headlineMedium: TextStyle(
+        fontSize: 24,
+      ),
+    ),
     useMaterial3: true,
   );
 
@@ -59,6 +79,26 @@ class Themes {
     buttonTheme: const ButtonThemeData(
       height: 32,
       minWidth: 64,
+    ),
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(
+        fontSize: 20,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 17,
+      ),
+      bodySmall: TextStyle(
+        fontSize: 14,
+      ),
+      labelSmall: TextStyle(
+        fontSize: 12,
+      ),
+      labelMedium: TextStyle(
+        fontSize: 13,
+      ),
+      headlineMedium: TextStyle(
+        fontSize: 24,
+      ),
     ),
     useMaterial3: true,
   );

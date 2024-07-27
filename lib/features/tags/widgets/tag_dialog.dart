@@ -37,7 +37,7 @@ class TagDialog extends StatelessWidget {
                 textAlign: TextAlign.right,
                 style: TextStyle(
                     color: theme.colorScheme.onPrimaryContainer,
-                    fontSize: 14,
+                    fontSize: theme.textTheme.bodySmall!.fontSize,
                     fontWeight: FontWeight.bold),
               ),
             ),

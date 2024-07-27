@@ -23,7 +23,7 @@ class ConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    ThemeData theme = Theme.of(context);
     return DialogBox(
       headerText: header,
       body: <Widget>[
@@ -32,8 +32,8 @@ class ConfirmationDialog extends StatelessWidget {
           child: Text(
             notificationText,
             style: TextStyle(
-              fontSize: 16,
-              color: colorScheme.onPrimary
+              fontSize: theme.textTheme.bodyMedium!.fontSize,
+              color: theme.colorScheme.onPrimary
             ),
           ),
         ),
@@ -47,8 +47,8 @@ class ConfirmationDialog extends StatelessWidget {
               cancelText == null ? LocaleKeys.general_confirmation_dialog_cancel.tr() : cancelText!,
               textAlign: TextAlign.right,
               style: TextStyle(
-                color: colorScheme.onPrimaryContainer,
-                fontSize: 14,
+                color: theme.colorScheme.onPrimaryContainer,
+                fontSize: theme.textTheme.bodySmall!.fontSize,
               ),
             ),
           ),
@@ -58,8 +58,8 @@ class ConfirmationDialog extends StatelessWidget {
               confirmText == null ? LocaleKeys.general_confirmation_dialog_confirm.tr() : confirmText!,
               textAlign: TextAlign.right,
               style: TextStyle(
-                color: colorScheme.onPrimaryContainer,
-                fontSize: 14,
+                color: theme.colorScheme.onPrimaryContainer,
+                fontSize: theme.textTheme.bodySmall!.fontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:nodocs/features/tags/widgets/tag_chip_dropdown.dart';
 
@@ -86,7 +88,9 @@ class TagDropdownState extends State<TagDropdown> {
               elevation: 4.0,
               borderRadius: BorderRadius.circular(16.0),
               child: Container(
-                height: 200,
+                height: widget.tags.isEmpty ?
+                        50 :
+                        50 * (min(widget.tags.length/3, 4)),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.tertiaryContainer,
                   borderRadius: BorderRadius.circular(16.0),
@@ -123,7 +127,7 @@ class TagDropdownState extends State<TagDropdown> {
                                   child: Text(
                                     tag,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: theme.textTheme.bodySmall!.fontSize,
                                       color: theme.colorScheme.onTertiaryContainer,
                                     ),
                                   ),
@@ -152,6 +156,8 @@ class TagDropdownState extends State<TagDropdown> {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final bool landscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final Size size = MediaQuery.of(context).size;
     return CompositedTransformTarget(
       link: _layerLink,
       child: Row(
@@ -175,7 +181,8 @@ class TagDropdownState extends State<TagDropdown> {
                         const SizedBox(width: 10),
                         Expanded(
                           child: SizedBox(
-                            height: 50,
+                            height: landscape ? size.height* 0.135
+                                :size.height * 0.051,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: _selectedTags.toList().map((final String tag) => Row(

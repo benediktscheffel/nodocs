@@ -4,7 +4,8 @@ class DropdownWithLabel extends StatelessWidget {
   final Widget dropdown;
   final String label;
 
-  const DropdownWithLabel({super.key, required this.dropdown, required this.label});
+  const DropdownWithLabel(
+      {super.key, required this.dropdown, required this.label});
 
   @override
   Widget build(final BuildContext context) {
@@ -16,10 +17,12 @@ class DropdownWithLabel extends StatelessWidget {
           label,
           style: TextStyle(
             color: theme.colorScheme.onPrimary,
-            fontSize: 14,
+            fontSize: theme.textTheme.bodySmall!.fontSize,
           ),
         ),
-        const SizedBox(height: 8,),
+        const SizedBox(
+          height: 8,
+        ),
         dropdown,
       ],
     );

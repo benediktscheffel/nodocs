@@ -9,7 +9,12 @@ import 'package:nodocs/gen/locale_keys.g.dart';
 class CollectionDropdown extends StatefulWidget {
   final String initialDirectory;
   final ValueChanged<String> onPathChanged;
-  const CollectionDropdown({super.key, required this.initialDirectory, required this.onPathChanged});
+
+  const CollectionDropdown({
+    super.key,
+    required this.initialDirectory,
+    required this.onPathChanged,
+  });
 
   @override
   State<StatefulWidget> createState() => CollectionDropdownState();
@@ -112,7 +117,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
             elevation: 4.0,
             borderRadius: BorderRadius.circular(16.0),
             child: Container(
-              height: 200,
+              height: size.height * 3.7,
               decoration: BoxDecoration(
                 color: theme.colorScheme.tertiaryContainer,
                 borderRadius: BorderRadius.circular(16.0),
@@ -128,14 +133,16 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                     padding: EdgeInsets.zero,
                     itemCount: _directories.isEmpty ? 1 : _directories.length,
                     itemBuilder: (final BuildContext context, final int index) {
-                      const double rowHeight = 40;
+                      double rowHeight = size.height * 0.74;
                       final Directory backDir = Directory(_currentAbsolutePath).parent;
                       final Directory? entryDir = _directories.isNotEmpty ? _directories.elementAt(index) : null;
                       InkWell createDropdownDirectoryEntry() {
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              _currentAbsolutePath = entryDir.path;
+                              if (entryDir != null) {
+                                _currentAbsolutePath = entryDir.path;
+                              }
                               widget.onPathChanged.call(_currentAbsolutePath);
                               _currentRelativePath = '/${_currentAbsolutePath.split(_projectRootAbsolutePath).last}';
                               _listDirectories();
@@ -146,14 +153,15 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                             padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
                             margin: const EdgeInsets.symmetric(vertical: 5.0),
                             color: theme.colorScheme.tertiaryContainer,
-                            height: 40,
+                            height: rowHeight,
                             child: Row(
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    entryDir!.path.split('/').last,
+                                    entryDir == null ? "":
+                                    entryDir.path.split('/').last,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: theme.textTheme.bodySmall!.fontSize,
                                       color: theme.colorScheme.onTertiaryContainer,
                                     ),
                                   ),
@@ -161,7 +169,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                                 Icon(
                                   Icons.arrow_right_outlined,
                                   color: theme.colorScheme.onTertiaryContainer,
-                                  size: 20,
+                                  size: size.height * 0.37,
                                 ),
                               ],
                             ),
@@ -190,14 +198,14 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                                   color: theme.colorScheme.onTertiaryContainer,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 5,
+                              SizedBox(
+                                width: 0.012 * size.width,
                                 height: rowHeight,
                               ),
                               Text(
                                 'Back',
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: theme.textTheme.bodySmall!.fontSize,
                                   color: theme.colorScheme.onTertiaryContainer,
                                 ),
                               ),
@@ -235,6 +243,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
   Widget build(final BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((final _) => _scrollToRight());
     final ThemeData theme = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
+    final bool landscape = MediaQuery.of(context).orientation == Orientation.landscape;
     return CompositedTransformTarget(
       link: _layerLink,
       child: Row(
@@ -255,10 +265,11 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                     onTap: _toggleDropdown,
                     child: Row(
                       children: <Widget>[
-                        const SizedBox(width: 10),
+                        SizedBox(width: size.width * 0.0223),
                         Expanded(
                           child: SizedBox(
-                            height: 50,
+                            height: landscape ? size.height* 0.13
+                                :size.height * 0.051,
                             child: ListView(
                               controller: _horizontalScrollController,
                               scrollDirection: Axis.horizontal,
@@ -271,12 +282,12 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        SizedBox(width: size.width * 0.0223),
                         Icon(
                           Icons.arrow_drop_down_outlined,
                           color: theme.colorScheme.onPrimary,
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(width: size.width * 0.0112),
                       ],
                     ),
                   ),

@@ -15,4 +15,5 @@ abstract class CropController {
 
   void goToPage(final Uri uri);
   void goBack();
+  void goBackHome();
 }

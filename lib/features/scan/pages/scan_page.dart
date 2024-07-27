@@ -51,8 +51,7 @@ class _ScanPageState extends ConsumerState<ScanPage> {
             context: context,
             builder: (final BuildContext context) => ConfirmationDialog(
                 onConfirm: () {
-                  scanController
-                      .goToPage(Uri(path: NavigationServiceRoutes.home));
+                  scanController.goBackHome();
                   clear();
                 },
                 onCancel: () {

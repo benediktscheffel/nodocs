@@ -11,4 +11,6 @@ abstract class ScanController {
   void goToPage(final Uri uri);
 
   void goBack();
+
+  void goBackHome();
 }
