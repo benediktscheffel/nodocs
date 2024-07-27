@@ -11,13 +11,16 @@ class NavigationBox extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return Container(
-      color: theme.colorScheme.secondary,
-      height: 80,
-      child: Flex(
-        direction: Axis.horizontal,
-        children: buttons.map((final Widget button) => Expanded(child: button)).toList(),
-      )
-    );
+        color: theme.colorScheme.secondary,
+        height: landscape ? 70 : 80,
+        child: Flex(
+          direction: Axis.horizontal,
+          children: buttons
+              .map((final Widget button) => Expanded(child: button))
+              .toList(),
+        ));
   }
 }
