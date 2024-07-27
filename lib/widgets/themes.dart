@@ -42,6 +42,12 @@ class Themes {
       labelSmall: TextStyle(
         fontSize: 12,
       ),
+      labelMedium: TextStyle(
+        fontSize: 13,
+      ),
+      headlineMedium: TextStyle(
+        fontSize: 24,
+      ),
     ),
     useMaterial3: true,
   );
