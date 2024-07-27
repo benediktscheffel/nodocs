@@ -244,6 +244,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
     WidgetsBinding.instance.addPostFrameCallback((final _) => _scrollToRight());
     final ThemeData theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
+    final bool landscape = MediaQuery.of(context).orientation == Orientation.landscape;
     return CompositedTransformTarget(
       link: _layerLink,
       child: Row(
@@ -267,7 +268,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                         SizedBox(width: size.width * 0.0223),
                         Expanded(
                           child: SizedBox(
-                            height: size.height * 0.051,
+                            height: landscape ? size.height* 0.13
+                                :size.height * 0.051,
                             child: ListView(
                               controller: _horizontalScrollController,
                               scrollDirection: Axis.horizontal,

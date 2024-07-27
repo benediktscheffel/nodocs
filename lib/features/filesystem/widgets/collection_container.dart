@@ -8,10 +8,14 @@ class CollectionContainer extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
+    bool landscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final Size size = MediaQuery.of(context).size;
     final ThemeData theme = Theme.of(context);
     return ConstrainedBox(
         constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.6,
+          maxHeight:  size.height * 0.6,
+          // if orientation is landscape, the width is 96% of the screen width
+          maxWidth: landscape? size.width * 0.96: size.width,
         ),
         child: Container(
             padding: const EdgeInsets.all(2),

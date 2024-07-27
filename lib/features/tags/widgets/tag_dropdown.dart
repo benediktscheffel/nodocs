@@ -152,6 +152,8 @@ class TagDropdownState extends State<TagDropdown> {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final bool landscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final Size size = MediaQuery.of(context).size;
     return CompositedTransformTarget(
       link: _layerLink,
       child: Row(
@@ -175,7 +177,8 @@ class TagDropdownState extends State<TagDropdown> {
                         const SizedBox(width: 10),
                         Expanded(
                           child: SizedBox(
-                            height: 50,
+                            height: landscape ? size.height* 0.135
+                                :size.height * 0.051,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               children: _selectedTags.toList().map((final String tag) => Row(

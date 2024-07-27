@@ -50,8 +50,8 @@ class _SavePageState extends ConsumerState<SavePage> {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final SaveController controller = ref.watch(saveControllerProvider);
-    final Size size = MediaQuery.of(context).size;
-
+    final bool landscape = MediaQuery.of(context).orientation ==
+        Orientation.landscape;
     return FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder:
@@ -80,9 +80,9 @@ class _SavePageState extends ConsumerState<SavePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(
-                            left: 16,
-                            right: 16,
+                          padding: EdgeInsets.only(
+                            left: landscape ? 50 : 16,
+                            right: landscape ? 50 : 16,
                           ),
                           child: DropdownWithLabel(
                             dropdown: TagDropdown(
@@ -95,9 +95,9 @@ class _SavePageState extends ConsumerState<SavePage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                            left: 16,
-                            right: 16,
+                          padding: EdgeInsets.only(
+                            left: landscape ? 50 : 16,
+                            right: landscape ? 50 : 16,
                           ),
                           child: DropdownWithLabel(
                             dropdown: CollectionDropdown(
@@ -110,14 +110,14 @@ class _SavePageState extends ConsumerState<SavePage> {
                                 LocaleKeys.save_collection_dropdown_label.tr(),
                           ),
                         ),
-                        SizedBox(
-                          height: size.height * 0.008,
+                        const SizedBox(
+                          height: 5,
                         ),
                         ScanCarousel(
                           imagePaths: controller.getImagePaths(),
                         ),
-                        SizedBox(
-                          height: size.height * 0.008,
+                        const SizedBox(
+                          height: 5,
                         ),
                         ScanActionButtonContainer(
                           buttons: <Widget>[

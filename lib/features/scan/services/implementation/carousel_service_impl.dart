@@ -7,6 +7,7 @@ import 'package:nodocs/gen/locale_keys.g.dart';
 class CarouselServiceImpl implements CarouselService {
    @override
   List<Widget> buildImageWidgets(final List<String> imagePaths) {
+
     return imagePaths
         .map((final String path) => Container(
       height: 100,
