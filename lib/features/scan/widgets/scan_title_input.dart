@@ -68,7 +68,7 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
                 focusNode: _focusNode,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 17,
+                  fontSize: theme.textTheme.bodyMedium!.fontSize,
                   fontWeight: FontWeight.bold,
                   color: theme.colorScheme.onPrimary,
                 ),

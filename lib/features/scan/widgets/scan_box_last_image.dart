@@ -16,6 +16,7 @@ class ScanBoxLastImage extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final ThemeData theme = Theme.of(context);
     if (imgPath != '') {
       return Image(
         image: FileImage(File(imgPath)),
@@ -23,7 +24,7 @@ class ScanBoxLastImage extends StatelessWidget {
             final int? frame, final bool? wasSynchronouslyLoaded) {
           TextStyle textStyle = TextStyle(
             color: Colors.white,
-            fontSize: size.height * 0.014,
+            fontSize: theme.textTheme.bodySmall!.fontSize,
           );
           return Center(
             child: InkWell(

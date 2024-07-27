@@ -24,14 +24,14 @@ class TagChipDropdown extends StatelessWidget {
               child: Row(children: <Widget>[
                 Text("# ",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: theme.textTheme.bodySmall!.fontSize,
                     color: theme.colorScheme.onTertiaryContainer,
                   ),
                 ),
                 Text(
                   tagName,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: theme.textTheme.bodySmall!.fontSize,
                     color: theme.colorScheme.onTertiaryContainer,
                   ),
                 ),

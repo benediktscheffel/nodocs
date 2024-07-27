@@ -33,6 +33,7 @@ class ScanCameraFooter extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    ThemeData theme = Theme.of(context);
     final List<Widget> row = <Widget>[
       Transform.rotate(
         angle: orientationAngle,
@@ -52,7 +53,7 @@ class ScanCameraFooter extends StatelessWidget {
               LocaleKeys.scan_footer_scan_document.tr(),
               style:  TextStyle(
                 color: Colors.white,
-                fontSize: size.height * 0.0153,
+                fontSize: theme.textTheme.bodySmall!.fontSize,
               ),
             ),
             SizedBox(

@@ -53,7 +53,7 @@ class ScanActionButton extends StatelessWidget {
               buttonText,
               style: TextStyle(
                 color: theme.colorScheme.onPrimary,
-                fontSize: size.height * 0.0135,
+                fontSize: theme.textTheme.labelSmall!.fontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),

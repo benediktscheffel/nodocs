@@ -80,7 +80,9 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
           Flexible(
             child: TextFormField(
               style: TextStyle(
-                  color: theme.colorScheme.onPrimary, fontSize: 16),
+                  color: theme.colorScheme.onPrimary,
+                fontSize: theme.textTheme.bodyMedium!.fontSize,
+              ),
               enableInteractiveSelection: false,
               focusNode: focusNode,
               keyboardType: TextInputType.text,
@@ -161,19 +163,22 @@ class PdfSearchToolbarState extends State<PdfSearchToolbar> {
                   '${_pdfTextSearchResult.currentInstanceIndex}',
                   style: TextStyle(
                       color: theme.colorScheme.onPrimary,
-                      fontSize: 16),
+                      fontSize: theme.textTheme.bodyMedium!.fontSize,
+                  ),
                 ),
                 Text(
                   LocaleKeys.pdf_viewer_search_toolbar_of.tr(),
                   style: TextStyle(
                       color: theme.colorScheme.onPrimary,
-                      fontSize: 16),
+                      fontSize: theme.textTheme.bodyMedium!.fontSize,
+                  ),
                 ),
                 Text(
                   '${_pdfTextSearchResult.totalInstanceCount}',
                   style: TextStyle(
                       color: theme.colorScheme.onPrimary,
-                      fontSize: 16),
+                      fontSize: theme.textTheme.bodyMedium!.fontSize,
+                  ),
                 ),
                 Material(
                   color: Colors.transparent,

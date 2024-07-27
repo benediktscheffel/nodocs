@@ -89,9 +89,9 @@ class PdfViewerPage extends ConsumerWidget {
                     child: Text(
                       LocaleKeys.pdf_viewer_no_result.tr(),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'Roboto',
-                          fontSize: 16,
+                          fontSize: theme.textTheme.bodyMedium!.fontSize,
                           color: Colors.white),
                     ),
                   ),

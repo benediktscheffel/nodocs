@@ -42,13 +42,14 @@ class TagChipState extends State<TagChip> {
         label: _tagState
             ? IntrinsicWidth(
                 child: Row(children: <Widget>[
-                const Text(
+                Text(
                   "# ",
-                  style: TextStyle(fontSize: 14),
+                  style:
+                      TextStyle(fontSize: theme.textTheme.bodySmall!.fontSize),
                 ),
                 Text(
                   widget.tagName,
-                  style: const TextStyle(fontSize: 14),
+                  style:  TextStyle(fontSize: theme.textTheme.bodySmall!.fontSize),
                 )
               ]))
             : IntrinsicWidth(
@@ -59,7 +60,7 @@ class TagChipState extends State<TagChip> {
                 ),
                 Text(
                   widget.tagName,
-                  style: const TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: theme.textTheme.bodySmall!.fontSize),
                 )
               ])),
         onSelected: (final bool _) {

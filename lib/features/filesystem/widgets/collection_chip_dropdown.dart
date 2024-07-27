@@ -23,7 +23,7 @@ class CollectionChipDropdown extends StatelessWidget {
                 Text(
                   pathName,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: theme.textTheme.bodySmall!.fontSize,
                     color: theme.colorScheme.onTertiaryContainer,
                   ),
                 ),

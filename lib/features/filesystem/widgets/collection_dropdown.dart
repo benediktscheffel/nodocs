@@ -161,7 +161,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                                     entryDir == null ? "":
                                     entryDir.path.split('/').last,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: theme.textTheme.bodySmall!.fontSize,
                                       color: theme.colorScheme.onTertiaryContainer,
                                     ),
                                   ),
@@ -205,7 +205,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                               Text(
                                 'Back',
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: theme.textTheme.bodySmall!.fontSize,
                                   color: theme.colorScheme.onTertiaryContainer,
                                 ),
                               ),

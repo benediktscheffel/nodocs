@@ -30,7 +30,7 @@ class TitleWithButton extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: theme.colorScheme.onPrimary,
-                  fontSize: 17,
+                  fontSize: theme.textTheme.bodyMedium!.fontSize,
                 ),
               ),
             ],

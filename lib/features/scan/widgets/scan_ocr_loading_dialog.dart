@@ -18,7 +18,7 @@ class ScanOcrLoadingDialog extends StatelessWidget  {
               LocaleKeys.save_ocr_loading_dialog_header.tr(),
               style: TextStyle(
                 color: theme.colorScheme.onPrimary,
-                fontSize: 24,
+                fontSize: theme.textTheme.headlineMedium!.fontSize,
               ),
             ),
             CircularProgressIndicator(
@@ -28,7 +28,7 @@ class ScanOcrLoadingDialog extends StatelessWidget  {
               LocaleKeys.save_ocr_loading_dialog_stay_connected.tr(),
               style: TextStyle(
                 color: theme.colorScheme.onPrimary,
-                fontSize: 16,
+                fontSize: theme.textTheme.bodyMedium!.fontSize,
               ),
             ),
           ],

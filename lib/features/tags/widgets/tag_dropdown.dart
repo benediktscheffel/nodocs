@@ -123,7 +123,7 @@ class TagDropdownState extends State<TagDropdown> {
                                   child: Text(
                                     tag,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: theme.textTheme.bodySmall!.fontSize,
                                       color: theme.colorScheme.onTertiaryContainer,
                                     ),
                                   ),

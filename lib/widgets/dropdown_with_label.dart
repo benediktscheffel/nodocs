@@ -17,7 +17,7 @@ class DropdownWithLabel extends StatelessWidget {
           label,
           style: TextStyle(
             color: theme.colorScheme.onPrimary,
-            fontSize: 14,
+            fontSize: theme.textTheme.bodySmall!.fontSize,
           ),
         ),
         const SizedBox(
