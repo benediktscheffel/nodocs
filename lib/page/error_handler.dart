@@ -25,7 +25,7 @@ class _ErrorHandlerWidgetState extends ConsumerState<ErrorHandler> {
   bool errorOccurred = false;
   String errorMessage = '';
   void onError(final FlutterErrorDetails errorDetails) {
-    _log.e('Caught error: ${errorDetails.exception}');
+    _log.e('Caught error: $errorDetails');
     Future<void>.microtask(() {
       if (mounted) {
         setState(() {

@@ -47,15 +47,15 @@ class CollectionDropdownState extends State<CollectionDropdown> {
 
   void _toggleDropdown() {
     if (_dropdownOverlay == null) {
-      _showDropdown();
+      _showDropdown(widget.directories);
     } else {
       _removeDropdown();
     }
   }
 
-  void _showDropdown() {
+  void _showDropdown(final List<String> directories) {
     final OverlayState overlay = Overlay.of(context);
-    _dropdownOverlay = _createDropdownOverlay();
+    _dropdownOverlay = _createDropdownOverlay(directories);
     overlay.insert(_dropdownOverlay!);
   }
 
@@ -64,12 +64,12 @@ class CollectionDropdownState extends State<CollectionDropdown> {
     _dropdownOverlay = null;
   }
 
-  void _updateDropdown() {
+  void _updateDropdown(final List<String> directories) {
     if (_dropdownOverlay != null) {
       _dropdownOverlay?.remove();
       _dropdownOverlay = null;
     }
-    _showDropdown();
+    _showDropdown(directories);
   }
 
   _scrollToRight() {
@@ -77,7 +77,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
         .jumpTo(_horizontalScrollController.position.maxScrollExtent);
   }
 
-  OverlayEntry _createDropdownOverlay() {
+  OverlayEntry _createDropdownOverlay(final List<String> directories) {
     final RenderBox renderBox = context.findRenderObject() as RenderBox;
     final Size size = renderBox.size;
     final ThemeData theme = Theme.of(context);
@@ -108,18 +108,15 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                     controller: _dropdownScrollController,
                     scrollDirection: Axis.vertical,
                     padding: EdgeInsets.zero,
-                    itemCount: widget.directories.isEmpty
-                        ? 1
-                        : widget.directories.length,
+                    itemCount: directories.isEmpty ? 1 : directories.length,
                     itemBuilder: (final BuildContext context, final int index) {
                       double rowHeight = size.height * 0.74;
                       InkWell createDropdownDirectoryEntry() {
                         return InkWell(
                           onTap: () {
-                            widget.openDirectory(
-                                widget.directories.elementAt(index));
                             setState(() {
-                              _updateDropdown();
+                              _updateDropdown(widget
+                                  .openDirectory(directories.elementAt(index)));
                             });
                           },
                           child: Container(
@@ -133,7 +130,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                                 Expanded(
                                   child: Text(
                                     _setDisplayName(
-                                        widget.directories.elementAt(index)),
+                                        directories.elementAt(index)),
                                     style: TextStyle(
                                       fontSize:
                                           theme.textTheme.bodySmall!.fontSize,
@@ -156,8 +153,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                       InkWell createBackDropdownDirectoryEntry() {
                         return InkWell(
                           onTap: () {
-                            widget.leaveDirectory(widget.currentDirectory);
-                            _updateDropdown();
+                            _updateDropdown(
+                                widget.leaveDirectory(widget.currentDirectory));
                           },
                           child: Row(children: <Widget>[
                             Transform.rotate(
@@ -182,7 +179,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                         );
                       }
 
-                      if (widget.directories.isEmpty) {
+                      if (directories.isEmpty &&
+                          !_isBaseDirectory(widget.currentDirectory)) {
                         return createBackDropdownDirectoryEntry();
                       }
                       return Column(

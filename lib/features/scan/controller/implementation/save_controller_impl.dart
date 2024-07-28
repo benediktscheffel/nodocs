@@ -243,6 +243,7 @@ class SaveControllerImpl extends _$SaveControllerImpl
       state = state.copyWith(
           collectionDropdownModel: updatedModel,
           savePath: updatedModel.currentPath);
+      return state.collectionDropdownModel.paths;
     };
   }
 
@@ -254,6 +255,7 @@ class SaveControllerImpl extends _$SaveControllerImpl
       state = state.copyWith(
           collectionDropdownModel: updatedModel,
           savePath: updatedModel.currentPath);
+      return state.collectionDropdownModel.paths;
     };
   }
 
