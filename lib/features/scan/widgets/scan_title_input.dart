@@ -38,6 +38,8 @@ class _ScanTitleInputState extends State<ScanTitleInput> {
 
   @override
   void dispose() {
+    _focusNode.removeListener(() {});
+    _controller.removeListener(() {});
     _controller.dispose();
     _focusNode.dispose();
     super.dispose();
