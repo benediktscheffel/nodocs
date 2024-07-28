@@ -90,7 +90,7 @@ class TagDropdownState extends State<TagDropdown> {
               child: Container(
                 height: widget.tags.isEmpty ?
                         50 :
-                        50 * (min(widget.tags.length/3, 4)),
+                        50 * (min(widget.tags.length.roundToDouble(), 4)),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.tertiaryContainer,
                   borderRadius: BorderRadius.circular(16.0),
