@@ -7,6 +7,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_dropdown.dart';
 import 'package:nodocs/features/scan/controller/implementation/save_provider.dart';
 import 'package:nodocs/features/scan/controller/save_controller.dart';
+import 'package:nodocs/features/scan/model/save_model.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button.dart';
 import 'package:nodocs/features/scan/widgets/scan_action_button_container.dart';
 import 'package:nodocs/features/scan/widgets/scan_camera.dart';
@@ -50,8 +51,9 @@ class _SavePageState extends ConsumerState<SavePage> {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final SaveController controller = ref.watch(saveControllerProvider);
-    final bool landscape = MediaQuery.of(context).orientation ==
-        Orientation.landscape;
+    final SaveModel model = ref.watch(saveModelProvider);
+    final bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder:
@@ -101,10 +103,11 @@ class _SavePageState extends ConsumerState<SavePage> {
                           ),
                           child: DropdownWithLabel(
                             dropdown: CollectionDropdown(
-                              initialDirectory: controller.getDirectory(),
-                              onPathChanged: (final String dir) {
-                                controller.setDirectory(dir);
-                              },
+                              openDirectory: controller.openCollection(),
+                              leaveDirectory: controller.closeCollection(),
+                              directories: model.collectionDropdownModel.paths,
+                              currentDirectory:
+                                  model.collectionDropdownModel.currentPath,
                             ),
                             label:
                                 LocaleKeys.save_collection_dropdown_label.tr(),

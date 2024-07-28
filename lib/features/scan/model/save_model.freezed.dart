@@ -22,6 +22,8 @@ mixin _$SaveModel {
   bool get toggleCamera => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get savePath => throw _privateConstructorUsedError;
+  CollectionDropdownModel get collectionDropdownModel =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SaveModelCopyWith<SaveModel> get copyWith =>
@@ -39,7 +41,8 @@ abstract class $SaveModelCopyWith<$Res> {
       List<String> imagePaths,
       bool toggleCamera,
       String title,
-      String savePath});
+      String savePath,
+      CollectionDropdownModel collectionDropdownModel});
 }
 
 /// @nodoc
@@ -61,6 +64,7 @@ class _$SaveModelCopyWithImpl<$Res, $Val extends SaveModel>
     Object? toggleCamera = null,
     Object? title = null,
     Object? savePath = null,
+    Object? collectionDropdownModel = null,
   }) {
     return _then(_value.copyWith(
       tags: null == tags
@@ -87,6 +91,10 @@ class _$SaveModelCopyWithImpl<$Res, $Val extends SaveModel>
           ? _value.savePath
           : savePath // ignore: cast_nullable_to_non_nullable
               as String,
+      collectionDropdownModel: null == collectionDropdownModel
+          ? _value.collectionDropdownModel
+          : collectionDropdownModel // ignore: cast_nullable_to_non_nullable
+              as CollectionDropdownModel,
     ) as $Val);
   }
 }
@@ -105,7 +113,8 @@ abstract class _$$SaveModelImplCopyWith<$Res>
       List<String> imagePaths,
       bool toggleCamera,
       String title,
-      String savePath});
+      String savePath,
+      CollectionDropdownModel collectionDropdownModel});
 }
 
 /// @nodoc
@@ -125,6 +134,7 @@ class __$$SaveModelImplCopyWithImpl<$Res>
     Object? toggleCamera = null,
     Object? title = null,
     Object? savePath = null,
+    Object? collectionDropdownModel = null,
   }) {
     return _then(_$SaveModelImpl(
       tags: null == tags
@@ -151,6 +161,10 @@ class __$$SaveModelImplCopyWithImpl<$Res>
           ? _value.savePath
           : savePath // ignore: cast_nullable_to_non_nullable
               as String,
+      collectionDropdownModel: null == collectionDropdownModel
+          ? _value.collectionDropdownModel
+          : collectionDropdownModel // ignore: cast_nullable_to_non_nullable
+              as CollectionDropdownModel,
     ));
   }
 }
@@ -164,7 +178,8 @@ class _$SaveModelImpl implements _SaveModel {
       required final List<String> imagePaths,
       required this.toggleCamera,
       required this.title,
-      required this.savePath})
+      required this.savePath,
+      required this.collectionDropdownModel})
       : _tags = tags,
         _imagePaths = imagePaths;
 
@@ -192,10 +207,12 @@ class _$SaveModelImpl implements _SaveModel {
   final String title;
   @override
   final String savePath;
+  @override
+  final CollectionDropdownModel collectionDropdownModel;
 
   @override
   String toString() {
-    return 'SaveModel(tags: $tags, currentSliderIndex: $currentSliderIndex, imagePaths: $imagePaths, toggleCamera: $toggleCamera, title: $title, savePath: $savePath)';
+    return 'SaveModel(tags: $tags, currentSliderIndex: $currentSliderIndex, imagePaths: $imagePaths, toggleCamera: $toggleCamera, title: $title, savePath: $savePath, collectionDropdownModel: $collectionDropdownModel)';
   }
 
   @override
@@ -212,7 +229,10 @@ class _$SaveModelImpl implements _SaveModel {
                 other.toggleCamera == toggleCamera) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.savePath, savePath) ||
-                other.savePath == savePath));
+                other.savePath == savePath) &&
+            (identical(
+                    other.collectionDropdownModel, collectionDropdownModel) ||
+                other.collectionDropdownModel == collectionDropdownModel));
   }
 
   @override
@@ -223,7 +243,8 @@ class _$SaveModelImpl implements _SaveModel {
       const DeepCollectionEquality().hash(_imagePaths),
       toggleCamera,
       title,
-      savePath);
+      savePath,
+      collectionDropdownModel);
 
   @JsonKey(ignore: true)
   @override
@@ -234,12 +255,14 @@ class _$SaveModelImpl implements _SaveModel {
 
 abstract class _SaveModel implements SaveModel {
   const factory _SaveModel(
-      {required final Map<String, bool> tags,
-      required final int currentSliderIndex,
-      required final List<String> imagePaths,
-      required final bool toggleCamera,
-      required final String title,
-      required final String savePath}) = _$SaveModelImpl;
+          {required final Map<String, bool> tags,
+          required final int currentSliderIndex,
+          required final List<String> imagePaths,
+          required final bool toggleCamera,
+          required final String title,
+          required final String savePath,
+          required final CollectionDropdownModel collectionDropdownModel}) =
+      _$SaveModelImpl;
 
   @override
   Map<String, bool> get tags;
@@ -253,6 +276,8 @@ abstract class _SaveModel implements SaveModel {
   String get title;
   @override
   String get savePath;
+  @override
+  CollectionDropdownModel get collectionDropdownModel;
   @override
   @JsonKey(ignore: true)
   _$$SaveModelImplCopyWith<_$SaveModelImpl> get copyWith =>

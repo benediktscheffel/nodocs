@@ -10,8 +10,10 @@ import 'package:nodocs/features/filesystem/services/file_system_access/file_syst
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/navigation/navigation_service_routes.dart';
 import 'package:nodocs/features/scan/controller/save_controller.dart';
+import 'package:nodocs/features/scan/model/collection_dropdown_model.dart';
 import 'package:nodocs/features/scan/model/save_model.dart';
 import 'package:nodocs/features/scan/services/carousel_service.dart';
+import 'package:nodocs/features/scan/services/collection_dropdown_service.dart';
 import 'package:nodocs/features/scan/services/crop_service.dart';
 import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/services/ocr_service.dart';
@@ -25,7 +27,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'save_controller_impl.g.dart';
 
 @riverpod
-class SaveControllerImpl extends _$SaveControllerImpl implements SaveController {
+class SaveControllerImpl extends _$SaveControllerImpl
+    implements SaveController {
   final Logger _log = getLogger();
 
   @override
@@ -37,14 +40,17 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     required final ImageService imageService,
     required final CarouselService carouselService,
     required final PersistenceService persistenceService,
+    required final CollectionDropdownService collectionDropdownService,
   }) {
-    return const SaveModel(
+    return SaveModel(
       tags: <String, bool>{},
       currentSliderIndex: 0,
       imagePaths: <String>[],
       toggleCamera: false,
       savePath: '',
       title: '',
+      collectionDropdownModel:
+          collectionDropdownService.getCollectionDropdown(),
     );
   }
 
@@ -54,7 +60,7 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     tags.sort();
     final String rootDirectory = fileSystemService.getRootDirectory();
     state = state.copyWith(
-      tags: <String, bool>{ for (final String tag in tags) tag : false },
+      tags: <String, bool>{for (final String tag in tags) tag: false},
       currentSliderIndex: 0,
       imagePaths: imagePaths,
       toggleCamera: false,
@@ -66,12 +72,15 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   @override
   Future<void> checkInternetConnection() async {
     try {
-      final List<InternetAddress> result = await InternetAddress.lookup('example.com');
+      final List<InternetAddress> result =
+          await InternetAddress.lookup('example.com');
       if (!(result.isNotEmpty && result[0].rawAddress.isNotEmpty)) {
-        throw Exception('Unable to OCR document! Check your internet connection!');
+        throw Exception(
+            'Unable to OCR document! Check your internet connection!');
       }
-    } on SocketException catch(e) {
-      throw Exception("$e: Unable to OCR document! Check your internet connection!");
+    } on SocketException catch (e) {
+      throw Exception(
+          "$e: Unable to OCR document! Check your internet connection!");
     }
   }
 
@@ -130,7 +139,9 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   }
 
   String _getImagePathById(final int id) {
-    return (id >= 0 && state.imagePaths.length > id) ? state.imagePaths.elementAt(id) : '';
+    return (id >= 0 && state.imagePaths.length > id)
+        ? state.imagePaths.elementAt(id)
+        : '';
   }
 
   @override
@@ -173,7 +184,8 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   }
 
   @override
-  Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile, final BuildContext context) {
+  Future<CroppedFile?> cropImage(final ThemeData theme, final XFile pickedFile,
+      final BuildContext context) {
     return cropService.cropImage(theme, pickedFile, context);
   }
 
@@ -202,11 +214,6 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
     return state.savePath;
   }
 
-  @override
-  void setDirectory(final String dir) {
-    state = state.copyWith(savePath: dir);
-  }
-
   List<String> _getSelectedTags() {
     return state.tags.entries
         .where((final MapEntry<String, bool> entry) => entry.value)
@@ -226,5 +233,32 @@ class SaveControllerImpl extends _$SaveControllerImpl implements SaveController 
   @override
   String getLatestImagePath() {
     return imageService.getLatestImagePath(state.imagePaths);
+  }
+
+  @override
+  Function(String) closeCollection() {
+    return (final String path) {
+      final CollectionDropdownModel updatedModel =
+          collectionDropdownService.closeCollection(path);
+      state = state.copyWith(
+          collectionDropdownModel: updatedModel,
+          savePath: updatedModel.currentPath);
+    };
+  }
+
+  @override
+  Function(String) openCollection() {
+    return (final String path) {
+      final CollectionDropdownModel updatedModel =
+          collectionDropdownService.openCollection(path);
+      state = state.copyWith(
+          collectionDropdownModel: updatedModel,
+          savePath: updatedModel.currentPath);
+    };
+  }
+
+  @override
+  CollectionDropdownModel getCollectionDropdownModel() {
+    return state.collectionDropdownModel;
   }
 }

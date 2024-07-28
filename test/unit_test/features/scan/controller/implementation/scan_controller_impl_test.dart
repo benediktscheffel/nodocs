@@ -92,7 +92,7 @@ void main() {
     controller.goToPage(uri);
 
     // Verify
-    verify(navigationService.push(uri.toString()));
+    verify(navigationService.replaceWith(uri));
   });
 
   test('should go back', () {

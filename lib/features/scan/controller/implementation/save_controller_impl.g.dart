@@ -7,7 +7,7 @@ part of 'save_controller_impl.dart';
 // **************************************************************************
 
 String _$saveControllerImplHash() =>
-    r'9d99cb94eb2057e4b50a5799f3d5c7e4187b8ab5';
+    r'47b561ba5072a9e7e90c884793484fcbfbc0e853';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -39,6 +39,7 @@ abstract class _$SaveControllerImpl
   late final ImageService imageService;
   late final CarouselService carouselService;
   late final PersistenceService persistenceService;
+  late final CollectionDropdownService collectionDropdownService;
 
   SaveModel build({
     required FileSystemService fileSystemService,
@@ -48,6 +49,7 @@ abstract class _$SaveControllerImpl
     required ImageService imageService,
     required CarouselService carouselService,
     required PersistenceService persistenceService,
+    required CollectionDropdownService collectionDropdownService,
   });
 }
 
@@ -69,6 +71,7 @@ class SaveControllerImplFamily extends Family<SaveModel> {
     required ImageService imageService,
     required CarouselService carouselService,
     required PersistenceService persistenceService,
+    required CollectionDropdownService collectionDropdownService,
   }) {
     return SaveControllerImplProvider(
       fileSystemService: fileSystemService,
@@ -78,6 +81,7 @@ class SaveControllerImplFamily extends Family<SaveModel> {
       imageService: imageService,
       carouselService: carouselService,
       persistenceService: persistenceService,
+      collectionDropdownService: collectionDropdownService,
     );
   }
 
@@ -93,6 +97,7 @@ class SaveControllerImplFamily extends Family<SaveModel> {
       imageService: provider.imageService,
       carouselService: provider.carouselService,
       persistenceService: provider.persistenceService,
+      collectionDropdownService: provider.collectionDropdownService,
     );
   }
 
@@ -123,6 +128,7 @@ class SaveControllerImplProvider
     required ImageService imageService,
     required CarouselService carouselService,
     required PersistenceService persistenceService,
+    required CollectionDropdownService collectionDropdownService,
   }) : this._internal(
           () => SaveControllerImpl()
             ..fileSystemService = fileSystemService
@@ -131,7 +137,8 @@ class SaveControllerImplProvider
             ..cropService = cropService
             ..imageService = imageService
             ..carouselService = carouselService
-            ..persistenceService = persistenceService,
+            ..persistenceService = persistenceService
+            ..collectionDropdownService = collectionDropdownService,
           from: saveControllerImplProvider,
           name: r'saveControllerImplProvider',
           debugGetCreateSourceHash:
@@ -148,6 +155,7 @@ class SaveControllerImplProvider
           imageService: imageService,
           carouselService: carouselService,
           persistenceService: persistenceService,
+          collectionDropdownService: collectionDropdownService,
         );
 
   SaveControllerImplProvider._internal(
@@ -164,6 +172,7 @@ class SaveControllerImplProvider
     required this.imageService,
     required this.carouselService,
     required this.persistenceService,
+    required this.collectionDropdownService,
   }) : super.internal();
 
   final FileSystemService fileSystemService;
@@ -173,6 +182,7 @@ class SaveControllerImplProvider
   final ImageService imageService;
   final CarouselService carouselService;
   final PersistenceService persistenceService;
+  final CollectionDropdownService collectionDropdownService;
 
   @override
   SaveModel runNotifierBuild(
@@ -186,6 +196,7 @@ class SaveControllerImplProvider
       imageService: imageService,
       carouselService: carouselService,
       persistenceService: persistenceService,
+      collectionDropdownService: collectionDropdownService,
     );
   }
 
@@ -201,7 +212,8 @@ class SaveControllerImplProvider
           ..cropService = cropService
           ..imageService = imageService
           ..carouselService = carouselService
-          ..persistenceService = persistenceService,
+          ..persistenceService = persistenceService
+          ..collectionDropdownService = collectionDropdownService,
         from: from,
         name: null,
         dependencies: null,
@@ -214,6 +226,7 @@ class SaveControllerImplProvider
         imageService: imageService,
         carouselService: carouselService,
         persistenceService: persistenceService,
+        collectionDropdownService: collectionDropdownService,
       ),
     );
   }
@@ -233,7 +246,8 @@ class SaveControllerImplProvider
         other.cropService == cropService &&
         other.imageService == imageService &&
         other.carouselService == carouselService &&
-        other.persistenceService == persistenceService;
+        other.persistenceService == persistenceService &&
+        other.collectionDropdownService == collectionDropdownService;
   }
 
   @override
@@ -246,6 +260,7 @@ class SaveControllerImplProvider
     hash = _SystemHash.combine(hash, imageService.hashCode);
     hash = _SystemHash.combine(hash, carouselService.hashCode);
     hash = _SystemHash.combine(hash, persistenceService.hashCode);
+    hash = _SystemHash.combine(hash, collectionDropdownService.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -272,6 +287,9 @@ mixin SaveControllerImplRef on AutoDisposeNotifierProviderRef<SaveModel> {
 
   /// The parameter `persistenceService` of this provider.
   PersistenceService get persistenceService;
+
+  /// The parameter `collectionDropdownService` of this provider.
+  CollectionDropdownService get collectionDropdownService;
 }
 
 class _SaveControllerImplProviderElement
@@ -300,6 +318,9 @@ class _SaveControllerImplProviderElement
   @override
   PersistenceService get persistenceService =>
       (origin as SaveControllerImplProvider).persistenceService;
+  @override
+  CollectionDropdownService get collectionDropdownService =>
+      (origin as SaveControllerImplProvider).collectionDropdownService;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

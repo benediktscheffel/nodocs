@@ -1,19 +1,21 @@
-import 'dart:io';
 import 'dart:math' as math;
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:nodocs/config/config_parameters.dart';
 import 'package:nodocs/features/filesystem/widgets/collection_chip_dropdown.dart';
-import 'package:nodocs/gen/locale_keys.g.dart';
 
 class CollectionDropdown extends StatefulWidget {
-  final String initialDirectory;
-  final ValueChanged<String> onPathChanged;
+  final Function(String) openDirectory;
+  final Function(String) leaveDirectory;
+  final String currentDirectory;
+  final List<String> directories;
 
   const CollectionDropdown({
     super.key,
-    required this.initialDirectory,
-    required this.onPathChanged,
+    required this.openDirectory,
+    required this.leaveDirectory,
+    required this.currentDirectory,
+    required this.directories,
   });
 
   @override
@@ -22,13 +24,6 @@ class CollectionDropdown extends StatefulWidget {
 
 class CollectionDropdownState extends State<CollectionDropdown> {
   OverlayEntry? _dropdownOverlay;
-
-
-  List<Directory> _directories = <Directory>[];
-  late final String _projectRootAbsolutePath = widget.initialDirectory;
-  late String _currentAbsolutePath;
-  String _currentRelativePath = '/';
-
 
   final LayerLink _layerLink = LayerLink();
   final ScrollController _dropdownScrollController = ScrollController(
@@ -40,29 +35,6 @@ class CollectionDropdownState extends State<CollectionDropdown> {
   @override
   void initState() {
     super.initState();
-    _currentAbsolutePath = widget.initialDirectory;
-    _currentRelativePath = '/';
-    _listDirectories();
-  }
-
-  Future<void> _listDirectories() async {
-    final Directory directory = Directory(_currentAbsolutePath);
-    final List<Directory> dirs = <Directory>[];
-
-    try {
-      final List<FileSystemEntity> entities = directory.listSync();
-      for (FileSystemEntity entity in entities) {
-        if (entity is Directory) {
-          dirs.add(entity);
-        }
-      }
-    } catch (e) {
-       throw Exception(LocaleKeys.save_error_screens_listing_directories_exception_message.tr() + e.toString());
-    }
-
-    setState(() {
-      _directories = dirs;
-    });
   }
 
   @override
@@ -93,11 +65,16 @@ class CollectionDropdownState extends State<CollectionDropdown> {
   }
 
   void _updateDropdown() {
-    _dropdownOverlay?.markNeedsBuild();
+    if (_dropdownOverlay != null) {
+      _dropdownOverlay?.remove();
+      _dropdownOverlay = null;
+    }
+    _showDropdown();
   }
 
   _scrollToRight() {
-    _horizontalScrollController.jumpTo(_horizontalScrollController.position.maxScrollExtent);
+    _horizontalScrollController
+        .jumpTo(_horizontalScrollController.position.maxScrollExtent);
   }
 
   OverlayEntry _createDropdownOverlay() {
@@ -131,26 +108,23 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                     controller: _dropdownScrollController,
                     scrollDirection: Axis.vertical,
                     padding: EdgeInsets.zero,
-                    itemCount: _directories.isEmpty ? 1 : _directories.length,
+                    itemCount: widget.directories.isEmpty
+                        ? 1
+                        : widget.directories.length,
                     itemBuilder: (final BuildContext context, final int index) {
                       double rowHeight = size.height * 0.74;
-                      final Directory backDir = Directory(_currentAbsolutePath).parent;
-                      final Directory? entryDir = _directories.isNotEmpty ? _directories.elementAt(index) : null;
                       InkWell createDropdownDirectoryEntry() {
                         return InkWell(
                           onTap: () {
+                            widget.openDirectory(
+                                widget.directories.elementAt(index));
                             setState(() {
-                              if (entryDir != null) {
-                                _currentAbsolutePath = entryDir.path;
-                              }
-                              widget.onPathChanged.call(_currentAbsolutePath);
-                              _currentRelativePath = '/${_currentAbsolutePath.split(_projectRootAbsolutePath).last}';
-                              _listDirectories();
                               _updateDropdown();
                             });
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5.0, horizontal: 5.0),
                             margin: const EdgeInsets.symmetric(vertical: 5.0),
                             color: theme.colorScheme.tertiaryContainer,
                             height: rowHeight,
@@ -158,11 +132,13 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    entryDir == null ? "":
-                                    entryDir.path.split('/').last,
+                                    _setDisplayName(
+                                        widget.directories.elementAt(index)),
                                     style: TextStyle(
-                                      fontSize: theme.textTheme.bodySmall!.fontSize,
-                                      color: theme.colorScheme.onTertiaryContainer,
+                                      fontSize:
+                                          theme.textTheme.bodySmall!.fontSize,
+                                      color:
+                                          theme.colorScheme.onTertiaryContainer,
                                     ),
                                   ),
                                 ),
@@ -176,55 +152,56 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                           ),
                         );
                       }
+
                       InkWell createBackDropdownDirectoryEntry() {
                         return InkWell(
-                          onTap: (){
-                            setState(() {
-                              _currentAbsolutePath = backDir.path;
-                              widget.onPathChanged.call(_currentAbsolutePath);
-                              _currentRelativePath = '$_currentAbsolutePath/' == _projectRootAbsolutePath
-                                  ? '/'
-                                  : '/${_currentAbsolutePath.split(_projectRootAbsolutePath).last}';
-                              _listDirectories();
-                              _updateDropdown();
-                            });
+                          onTap: () {
+                            widget.leaveDirectory(widget.currentDirectory);
+                            _updateDropdown();
                           },
-                          child: Row(
-                            children: <Widget>[
-                              Transform.rotate(
-                                angle: 90 * math.pi / 180,
-                                child: Icon(
-                                  Icons.subdirectory_arrow_left_outlined,
-                                  color: theme.colorScheme.onTertiaryContainer,
-                                ),
+                          child: Row(children: <Widget>[
+                            Transform.rotate(
+                              angle: 90 * math.pi / 180,
+                              child: Icon(
+                                Icons.subdirectory_arrow_left_outlined,
+                                color: theme.colorScheme.onTertiaryContainer,
                               ),
-                              SizedBox(
-                                width: 0.012 * size.width,
-                                height: rowHeight,
+                            ),
+                            SizedBox(
+                              width: 0.012 * size.width,
+                              height: rowHeight,
+                            ),
+                            Text(
+                              'Back',
+                              style: TextStyle(
+                                fontSize: theme.textTheme.bodySmall!.fontSize,
+                                color: theme.colorScheme.onTertiaryContainer,
                               ),
-                              Text(
-                                'Back',
-                                style: TextStyle(
-                                  fontSize: theme.textTheme.bodySmall!.fontSize,
-                                  color: theme.colorScheme.onTertiaryContainer,
-                                ),
-                              ),
-                            ]
-                          ),
+                            ),
+                          ]),
                         );
                       }
-                      if (_directories.isEmpty && _currentRelativePath != '/') {
+
+                      if (widget.directories.isEmpty) {
                         return createBackDropdownDirectoryEntry();
                       }
                       return Column(
                         children: <Widget>[
-                          if (index == 0 && _currentRelativePath != '/')
+                          if (index == 0 &&
+                              !_isBaseDirectory(widget.currentDirectory))
                             // show BackButton only on top of the first directory
                             createBackDropdownDirectoryEntry(),
-                          if (index == 0 && _currentRelativePath != '/')
-                            const Divider(thickness: 1.0, height: 0,),
+                          if (index == 0 &&
+                              !_isBaseDirectory(widget.currentDirectory))
+                            const Divider(
+                              thickness: 1.0,
+                              height: 0,
+                            ),
                           if (index != 0)
-                            const Divider(thickness: 1.0, height: 0,),
+                            const Divider(
+                              thickness: 1.0,
+                              height: 0,
+                            ),
                           createDropdownDirectoryEntry(),
                         ],
                       );
@@ -244,7 +221,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
     WidgetsBinding.instance.addPostFrameCallback((final _) => _scrollToRight());
     final ThemeData theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
-    final bool landscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final bool landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     return CompositedTransformTarget(
       link: _layerLink,
       child: Row(
@@ -268,15 +246,17 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                         SizedBox(width: size.width * 0.0223),
                         Expanded(
                           child: SizedBox(
-                            height: landscape ? size.height* 0.13
-                                :size.height * 0.051,
+                            height: landscape
+                                ? size.height * 0.13
+                                : size.height * 0.051,
                             child: ListView(
                               controller: _horizontalScrollController,
                               scrollDirection: Axis.horizontal,
                               children: <Widget>[
                                 Row(children: <Widget>[
                                   CollectionChipDropdown(
-                                      pathName: _currentRelativePath),
+                                      pathName: _setDisplayName(
+                                          widget.currentDirectory)),
                                 ])
                               ],
                             ),
@@ -298,5 +278,17 @@ class CollectionDropdownState extends State<CollectionDropdown> {
         ],
       ),
     );
+  }
+
+  String _setDisplayName(final String path) {
+    if (_isBaseDirectory(path)) {
+      return "/";
+    }
+    return path.split("/").last;
+  }
+
+  bool _isBaseDirectory(final String path) {
+    return path == ConfigParameters.fileSystemPath ||
+        "$path/" == ConfigParameters.fileSystemPath;
   }
 }
