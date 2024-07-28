@@ -94,7 +94,9 @@ class CollectionDropdownState extends State<CollectionDropdown> {
             elevation: 4.0,
             borderRadius: BorderRadius.circular(16.0),
             child: Container(
-              height: size.height * 3.7,
+              height: directories.isEmpty
+                  ? size.height * 0.74
+                  : size.height* 1.1 * math.min(directories.length, 5),
               decoration: BoxDecoration(
                 color: theme.colorScheme.tertiaryContainer,
                 borderRadius: BorderRadius.circular(16.0),
@@ -108,7 +110,7 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                     controller: _dropdownScrollController,
                     scrollDirection: Axis.vertical,
                     padding: EdgeInsets.zero,
-                    itemCount: directories.isEmpty ? 1 : directories.length,
+                    itemCount: directories.isEmpty ? 0 : directories.length,
                     itemBuilder: (final BuildContext context, final int index) {
                       double rowHeight = size.height * 0.74;
                       InkWell createDropdownDirectoryEntry() {
