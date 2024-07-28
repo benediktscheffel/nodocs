@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SettingsTile extends StatelessWidget {
-
   final String title;
   final VoidCallback onPressed;
   final IconData leading;
@@ -21,8 +20,13 @@ class SettingsTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 2),
       child: ListTile(
-        title:
-        Text(title, style: TextStyle(color: theme.colorScheme.onSecondary)),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: theme.colorScheme.onSecondary,
+            fontSize: theme.textTheme.bodyMedium!.fontSize,
+          ),
+        ),
         leading: Icon(leading, color: theme.colorScheme.onSecondary),
         onTap: onPressed,
         trailing: trailing,

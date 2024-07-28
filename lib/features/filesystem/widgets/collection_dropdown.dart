@@ -82,11 +82,6 @@ class CollectionDropdownState extends State<CollectionDropdown> {
     final Size size = renderBox.size;
     final ThemeData theme = Theme.of(context);
 
-    final int itemCount =
-        directories.isEmpty && _isBaseDirectory(widget.currentDirectory)
-            ? 0
-            : directories.length + 1;
-
     return OverlayEntry(
       builder: (final BuildContext context) => Positioned(
         width: size.width,
