@@ -6,7 +6,9 @@ import 'package:mockito/mockito.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/navigation/navigation_service.dart';
 import 'package:nodocs/features/scan/controller/implementation/save_controller_impl.dart';
+import 'package:nodocs/features/scan/model/collection_dropdown_model.dart';
 import 'package:nodocs/features/scan/services/carousel_service.dart';
+import 'package:nodocs/features/scan/services/collection_dropdown_service.dart';
 import 'package:nodocs/features/scan/services/crop_service.dart';
 import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/services/ocr_service.dart';
@@ -22,6 +24,7 @@ import 'save_controller_impl_test.mocks.dart';
   ImageService,
   CarouselService,
   PersistenceService,
+  CollectionDropdownService,
 ])
 class GeneratedMocks {}
 
@@ -33,6 +36,7 @@ void main() {
   late ImageService imageService;
   late CarouselService carouselService;
   late PersistenceService persistenceService;
+  late CollectionDropdownService collectionDropdownService;
 
   setUp(() {
     fileSystemService = MockFileSystemService();
@@ -42,6 +46,10 @@ void main() {
     imageService = MockImageService();
     carouselService = MockCarouselService();
     persistenceService = MockPersistenceService();
+    collectionDropdownService = MockCollectionDropdownService();
+
+    when(collectionDropdownService.getCollectionDropdown()).thenReturn(
+        CollectionDropdownModel(currentPath: '/', paths: <String>[]));
   });
 
   SaveControllerImpl createSaveController() {
@@ -53,6 +61,7 @@ void main() {
       fileSystemService: fileSystemService,
       carouselService: carouselService,
       persistenceService: persistenceService,
+      collectionDropdownService: collectionDropdownService,
     ).notifier);
   }
 
@@ -232,18 +241,6 @@ void main() {
     expect(controller.state.title, title);
   });
 
-  test('should set Directory', () {
-    // Setup
-    final SaveControllerImpl controller = createSaveController();
-    const String path = 'path';
-
-    // Execute
-    controller.setDirectory(path);
-
-    // Verify
-    expect(controller.state.savePath, path);
-  });
-
   test('should get Directory', () {
     // Setup
     final SaveControllerImpl controller = createSaveController();
@@ -284,5 +281,35 @@ void main() {
 
     // Verify
     expect(result, 'path3');
+  });
+
+  test('should open a collection', () {
+    // Setup
+    final SaveControllerImpl controller = createSaveController();
+    final CollectionDropdownModel model = CollectionDropdownModel(
+        currentPath: '/path', paths: <String>['path1', 'path2', 'path3']);
+    when(collectionDropdownService.openCollection('/path')).thenReturn(model);
+
+    // Execute
+    controller.openCollection()('/path');
+
+    // Verify
+    expect(controller.state.collectionDropdownModel, model);
+    expect(controller.state.savePath, '/path');
+  });
+
+  test('should close a collection', () {
+    // Setup
+    final SaveControllerImpl controller = createSaveController();
+    final CollectionDropdownModel model = CollectionDropdownModel(
+        currentPath: '/path', paths: <String>['path1', 'path2', 'path3']);
+    when(collectionDropdownService.closeCollection('/path')).thenReturn(model);
+
+    // Execute
+    controller.closeCollection()('/path');
+
+    // Verify
+    expect(controller.state.collectionDropdownModel, model);
+    expect(controller.state.savePath, '/path');
   });
 }

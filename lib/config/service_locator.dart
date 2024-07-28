@@ -10,11 +10,15 @@ import 'package:nodocs/features/filesystem/services/file_share/implementation/fi
 import 'package:nodocs/features/filesystem/services/file_system_access/file_system_service.dart';
 import 'package:nodocs/features/filesystem/services/file_system_access/implementation/file_system_service_impl.dart';
 import 'package:nodocs/features/scan/services/carousel_service.dart';
+import 'package:nodocs/features/scan/services/collection_dropdown_service.dart';
 import 'package:nodocs/features/scan/services/crop_service.dart';
 import 'package:nodocs/features/scan/services/image_service.dart';
 import 'package:nodocs/features/scan/services/implementation/carousel_service_impl.dart';
+import 'package:nodocs/features/scan/services/implementation/collection_dropdown_service_impl.dart';
 import 'package:nodocs/features/scan/services/implementation/crop_service_impl.dart';
 import 'package:nodocs/features/scan/services/implementation/image_service_impl.dart';
+import 'package:nodocs/features/scan/services/implementation/ocr_service_impl.dart';
+import 'package:nodocs/features/scan/services/ocr_service.dart';
 import 'package:nodocs/features/settings/services/language/implementation/language_evaluation_service_impl.dart';
 import 'package:nodocs/features/settings/services/language/language_evaluation_service.dart';
 import 'package:nodocs/features/tags/services/persistence/isar/isar_persistence_service.dart';
@@ -35,4 +39,7 @@ void setupServiceLocator() {
   getIt.registerSingleton<CropService>(CropServiceImpl());
   getIt.registerSingleton<ImageService>(ImageServiceImpl());
   getIt.registerSingleton<CarouselService>(CarouselServiceImpl());
+  getIt.registerSingleton<CollectionDropdownService>(
+      CollectionDropdownServiceImpl());
+  getIt.registerSingleton<OcrService>(OcrServiceImpl());
 }

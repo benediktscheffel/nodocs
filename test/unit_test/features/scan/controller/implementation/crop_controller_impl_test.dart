@@ -68,14 +68,14 @@ void main() {
   test('should go to page', () {
     // Setup
     final CropControllerImpl controller = createCropController();
-    final Uri uri = Uri.parse('https://www.google.com');
-    when(navigationService.push(uri.toString())).thenReturn(null);
+    final Uri uri = Uri.parse('test');
+    when(navigationService.replaceWith(uri)).thenReturn(null);
 
     // Execute
     controller.goToPage(uri);
 
     // Verify
-    verify(navigationService.push(uri.toString()));
+    verify(navigationService.replaceWith(uri));
   });
 
   test('should go back', () {

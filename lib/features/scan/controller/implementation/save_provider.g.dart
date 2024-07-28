@@ -39,11 +39,11 @@ final fileSystemServiceProvider =
 );
 
 typedef FileSystemServiceRef = AutoDisposeProviderRef<FileSystemServiceImpl>;
-String _$ocrServiceHash() => r'43094f67dc25876042616f453a1f5193fc09368c';
+String _$ocrServiceHash() => r'7e122ec1ca1511a90392994069c0479698d00689';
 
 /// See also [ocrService].
 @ProviderFor(ocrService)
-final ocrServiceProvider = AutoDisposeProvider<OcrServiceImpl>.internal(
+final ocrServiceProvider = AutoDisposeProvider<OcrService>.internal(
   ocrService,
   name: r'ocrServiceProvider',
   debugGetCreateSourceHash:
@@ -52,7 +52,7 @@ final ocrServiceProvider = AutoDisposeProvider<OcrServiceImpl>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef OcrServiceRef = AutoDisposeProviderRef<OcrServiceImpl>;
+typedef OcrServiceRef = AutoDisposeProviderRef<OcrService>;
 String _$cropServiceHash() => r'cdc9f927b673e4b21ee022219ad07f4efa691ff9';
 
 /// See also [cropService].
@@ -96,7 +96,25 @@ final imageServiceProvider = AutoDisposeProvider<ImageService>.internal(
 );
 
 typedef ImageServiceRef = AutoDisposeProviderRef<ImageService>;
-String _$saveControllerHash() => r'eda75c95302fd22ffc08da16ee3534ee6a696cca';
+String _$collectionDropdownServiceHash() =>
+    r'a6dc619d929878645b363ed4ee0c506a86714c02';
+
+/// See also [collectionDropdownService].
+@ProviderFor(collectionDropdownService)
+final collectionDropdownServiceProvider =
+    AutoDisposeProvider<CollectionDropdownService>.internal(
+  collectionDropdownService,
+  name: r'collectionDropdownServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$collectionDropdownServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CollectionDropdownServiceRef
+    = AutoDisposeProviderRef<CollectionDropdownService>;
+String _$saveControllerHash() => r'e3e81436cba5e666f8a35d6751807679dec0e0f5';
 
 /// See also [saveController].
 @ProviderFor(saveController)
@@ -111,7 +129,7 @@ final saveControllerProvider = AutoDisposeProvider<SaveController>.internal(
 );
 
 typedef SaveControllerRef = AutoDisposeProviderRef<SaveController>;
-String _$saveModelHash() => r'98312310edfc5eb2b7f6837087626c0decfc9381';
+String _$saveModelHash() => r'b4b4a511bfdcbdccc77e41a0042a72233848660c';
 
 /// See also [saveModel].
 @ProviderFor(saveModel)

@@ -23,6 +23,13 @@ class CollectionInputState extends State<CollectionInput> {
     widget.controller.addListener(updateTextState);
   }
 
+  @override
+  void dispose() {
+    widget.controller.removeListener(updateTextState);
+    widget.controller.dispose();
+    super.dispose();
+  }
+
   void updateTextState() {
     setState(() {
       isTextEmpty = widget.controller.text.isEmpty;

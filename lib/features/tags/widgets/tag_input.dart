@@ -15,18 +15,26 @@ class TagInput extends StatefulWidget {
 }
 
 class TagInputState extends State<TagInput> {
-  final TextEditingController controller = TextEditingController();
+  late final TextEditingController _controller;
   bool isTextEmpty = true;
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(updateTextState);
+    _controller = TextEditingController();
+    _controller.addListener(updateTextState);
+  }
+  
+  @override
+  void dispose() {
+    _controller.removeListener(updateTextState);
+    _controller.dispose();
+    super.dispose();
   }
 
   void updateTextState() {
     setState(() {
-      isTextEmpty = controller.text.isEmpty;
+      isTextEmpty = _controller.text.isEmpty;
     });
   }
 
@@ -34,7 +42,7 @@ class TagInputState extends State<TagInput> {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return TextField(
-      controller: controller,
+      controller: _controller,
       decoration: InputDecoration(
         prefix: const Text('# '),
         hintText: LocaleKeys.pdf_viewer_tags_dialog_input_hint_text.tr(),
@@ -42,8 +50,8 @@ class TagInputState extends State<TagInput> {
             ? null
             : IconButton(
                 onPressed: () {
-                  widget.addTag(controller.text);
-                  controller.text = '';
+                  widget.addTag(_controller.text);
+                  _controller.text = '';
                 },
                 icon: Icon(
                   Icons.add_circle_outlined,

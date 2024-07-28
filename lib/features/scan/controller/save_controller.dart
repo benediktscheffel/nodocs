@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:nodocs/features/scan/model/collection_dropdown_model.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 abstract class SaveController {
@@ -40,6 +41,10 @@ abstract class SaveController {
   String getTitle();
   void setTitle(final String title);
   String getDirectory();
-  void setDirectory(final String dir);
+
+  // CollectionDropdown
+  Function(String) openCollection();
+  Function(String) closeCollection();
+  CollectionDropdownModel getCollectionDropdownModel();
 
 }
