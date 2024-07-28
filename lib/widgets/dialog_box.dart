@@ -16,30 +16,32 @@ class DialogBox extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Dialog(
       backgroundColor: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                headerText,
-                style: TextStyle(
-                  fontSize: theme.textTheme.headlineMedium!.fontSize,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  headerText,
+                  style: TextStyle(
+                    fontSize: theme.textTheme.headlineMedium!.fontSize,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: body,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: body,
+                ),
               ),
-            ),
-            footer,
-          ],
+              footer,
+            ],
+          ),
         ),
       ),
     );
