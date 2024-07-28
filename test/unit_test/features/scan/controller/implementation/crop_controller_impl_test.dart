@@ -68,7 +68,7 @@ void main() {
   test('should go to page', () {
     // Setup
     final CropControllerImpl controller = createCropController();
-    final Uri uri = Uri.parse('https://www.google.com');
+    final Uri uri = Uri.parse('test');
     when(navigationService.replaceWith(uri)).thenReturn(null);
 
     // Execute
