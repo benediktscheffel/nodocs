@@ -82,6 +82,11 @@ class CollectionDropdownState extends State<CollectionDropdown> {
     final Size size = renderBox.size;
     final ThemeData theme = Theme.of(context);
 
+    final int itemCount =
+        directories.isEmpty && _isBaseDirectory(widget.currentDirectory)
+            ? 0
+            : directories.length + 1;
+
     return OverlayEntry(
       builder: (final BuildContext context) => Positioned(
         width: size.width,
@@ -95,8 +100,8 @@ class CollectionDropdownState extends State<CollectionDropdown> {
             borderRadius: BorderRadius.circular(16.0),
             child: Container(
               height: directories.isEmpty
-                  ? size.height * 0.74
-                  : size.height* 1.1 * math.min(directories.length, 5),
+                  ? size.height * 1.1
+                  : size.height * 1.1 * math.min(directories.length, 5),
               decoration: BoxDecoration(
                 color: theme.colorScheme.tertiaryContainer,
                 borderRadius: BorderRadius.circular(16.0),
@@ -110,15 +115,17 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                     controller: _dropdownScrollController,
                     scrollDirection: Axis.vertical,
                     padding: EdgeInsets.zero,
-                    itemCount: directories.isEmpty ? 0 : directories.length,
+                    itemCount: directories.isEmpty ? 1 : directories.length,
                     itemBuilder: (final BuildContext context, final int index) {
                       double rowHeight = size.height * 0.74;
                       InkWell createDropdownDirectoryEntry() {
                         return InkWell(
                           onTap: () {
                             setState(() {
-                              _updateDropdown(widget
-                                  .openDirectory(directories.elementAt(index)));
+                              if (directories.isNotEmpty) {
+                                _updateDropdown(widget.openDirectory(
+                                    directories.elementAt(index)));
+                              }
                             });
                           },
                           child: Container(
@@ -131,8 +138,10 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    _setDisplayName(
-                                        directories.elementAt(index)),
+                                    directories.isEmpty
+                                        ? ""
+                                        : _setDisplayName(
+                                            directories.elementAt(index)),
                                     style: TextStyle(
                                       fontSize:
                                           theme.textTheme.bodySmall!.fontSize,
@@ -142,7 +151,9 @@ class CollectionDropdownState extends State<CollectionDropdown> {
                                   ),
                                 ),
                                 Icon(
-                                  Icons.arrow_right_outlined,
+                                  directories.isNotEmpty
+                                      ? Icons.arrow_right_outlined
+                                      : null,
                                   color: theme.colorScheme.onTertiaryContainer,
                                   size: size.height * 0.37,
                                 ),
